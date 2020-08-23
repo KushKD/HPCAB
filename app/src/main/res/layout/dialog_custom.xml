@@ -1,0 +1,50 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/pink_bordor">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:id="@+id/a"
+        android:src="@drawable/warning"
+        android:gravity="center"
+        android:background="@drawable/gradient_login_top"
+        android:padding="15dp"
+        android:scaleType="fitCenter" />
+
+    <!--android:src="@drawable/dialog_cross"-->
+    <!-- android:src="@drawable/mx_error_pressed"-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TEXT"
+        android:id="@+id/dialog_result"
+        android:layout_below="@+id/a"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="20dp"
+        android:textSize="18sp"
+        android:padding="5dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:textColor="@color/colcr_blue"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal" />
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:text="OK"
+        android:id="@+id/dialog_ok"
+        android:gravity="center_vertical|center_horizontal"
+        android:layout_below="@+id/dialog_result"
+        android:layout_marginBottom="20dp"
+        android:background="@color/color_red_maroon"
+        android:layout_centerHorizontal="true"
+        android:textColor="#ffffffff" />
+
+    <!--android:background="@drawable/btn_flat_red_selector"-->
+
+</RelativeLayout>

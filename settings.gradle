@@ -1,0 +1,3 @@
+include ':spinnersearchable'
+include ':app'
+rootProject.name = "eCabinet"
