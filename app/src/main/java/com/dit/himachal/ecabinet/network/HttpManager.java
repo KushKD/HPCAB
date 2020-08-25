@@ -53,7 +53,7 @@ public class HttpManager {
                     sb.append(line + "\n");
                 }
                 con.disconnect();
-                //sb.tostring
+                Log.e("DAta", sb.toString());
                 response = Econstants.getResponseObject(Econstants.success, sb.toString(), con.getResponseCode());
                 return response;
             }

@@ -18,20 +18,38 @@
         tools:replace="android:allowBackup">
         <activity
             android:name=".activities.Login"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:focusableInTouchMode="true"
             android:alwaysRetainTaskState="true"
+            android:focusableInTouchMode="true"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden"></activity>
-        <activity android:name=".activities.MainActivity" />
-        <activity android:name=".activities.SplashScreen">
+        <activity
+            android:name=".activities.MainActivity"
+            android:alwaysRetainTaskState="true"
+            android:focusableInTouchMode="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".activities.SplashScreen"
+            android:alwaysRetainTaskState="true"
+            android:focusableInTouchMode="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
