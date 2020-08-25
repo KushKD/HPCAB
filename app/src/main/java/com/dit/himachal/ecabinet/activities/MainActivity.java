@@ -1,10 +1,14 @@
 package com.dit.himachal.ecabinet.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.GridView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.dit.himachal.ecabinet.R;
 import com.dit.himachal.ecabinet.adapter.DepartmentsAdapter;
@@ -17,6 +21,7 @@ import com.dit.himachal.ecabinet.modal.GetDataPojo;
 import com.dit.himachal.ecabinet.modal.ModulesPojo;
 import com.dit.himachal.ecabinet.modal.ResponsObject;
 import com.dit.himachal.ecabinet.presentation.CustomDialog;
+import com.dit.himachal.ecabinet.presentation.MeetingStatus;
 import com.dit.himachal.ecabinet.utilities.AppStatus;
 import com.dit.himachal.ecabinet.utilities.CommonUtils;
 import com.dit.himachal.ecabinet.utilities.Econstants;
@@ -42,8 +47,11 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
     CustomDialog CD = new CustomDialog();
     SearchableSpinner department;
     List<ModulesPojo> modules = null;
+    LinearLayout layout_user_dashboard;
 
+    TextView username,designation,mobile,is_cabinet;
 
+    MeetingStatus meetingStatus;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +59,20 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
 
         home_gv = findViewById(R.id.gv);
         department = findViewById(R.id.department);
+        LinearLayout layout_user_dashboard = findViewById(R.id.user_dashboard);
+        username = (TextView) layout_user_dashboard.findViewById(R.id.username);
+        designation = (TextView) layout_user_dashboard.findViewById(R.id.designation);
+        meetingStatus =(MeetingStatus) layout_user_dashboard.findViewById(R.id.meeting_status);
+        meetingStatus.setSelected(true);
+       // mobile = (TextView) layout_user_dashboard.findViewById(R.id.mobile);
+      //  is_cabinet = (TextView) layout_user_dashboard.findViewById(R.id.is_cabinet);
 
+        username.setText(Preferences.getInstance().user_name);
+        designation.setText(Preferences.getInstance().role_name);
+
+        //mobile.setText(Preferences.getInstance().phone_number);
+       // is_cabinet.setVisibility(View.GONE);
+        //is_cabinet.setText(Preferences.getInstance().is_cabinet_minister);
 
 
 
@@ -76,24 +97,7 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
             CD.showDialog(MainActivity.this, "Please connect to Internet and try again.");
         }
 
-        if (AppStatus.getInstance(MainActivity.this).isOnline()) {
-            GetDataPojo object = new GetDataPojo();
-            object.setUrl(Econstants.url);
-            object.setMethord(Econstants.methordGetOnlineCabinetIDMeetingStatus);
-            object.setMethordHash(Econstants.encodeBase64(Econstants.methordGetOnlineCabinetIDMeetingToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
-            object.setTaskType(TaskType.CABINET_MEETING_STATUS);
-            object.setTimeStamp(CommonUtils.getTimeStamp());
 
-
-            new Generic_Async_Get(
-                    MainActivity.this,
-                    MainActivity.this,
-                    TaskType.CABINET_MEETING_STATUS).
-                    execute(object);
-
-        } else {
-            CD.showDialog(MainActivity.this, "Please connect to Internet and try again.");
-        }
 
 
         if (AppStatus.getInstance(MainActivity.this).isOnline()) {
@@ -117,6 +121,14 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
         } else {
             CD.showDialog(MainActivity.this, "Please connect to Internet and try again.");
         }
+
+
+        meetingStatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CD.showDialog(MainActivity.this,meetingStatus.getText().toString());
+            }
+        });
 
     }
 
@@ -221,9 +233,6 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
 
             }
 
-        }else  if (taskType == TaskType.CABINET_MEETING_STATUS) {
-
-            Log.e("Token fd == ", result.respnse);
         }
     }
 }

@@ -17,7 +17,7 @@
         <TextView
             android:id="@+id/nameTxt"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:fontFamily="@font/poppins_semibold"
             android:gravity="center_vertical|center_horizontal|left"
             android:padding="5dp"

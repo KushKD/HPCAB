@@ -87,6 +87,9 @@
                 android:layout_height="fill_parent"
                 card_view:cardCornerRadius="4dp">
 
+                <include
+                    android:id="@+id/user_dashboard"
+                    layout="@layout/user_dashboard" />
 
 
 
@@ -110,8 +113,8 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/poppins_semibold"
                 android:gravity="center|center_horizontal|center_vertical"
-                android:text="Select Department*"
-                android:textColor="@color/colcr_blue"
+                android:text="Select Department"
+                android:textColor="@color/color_dark_rd"
                 android:textSize="16sp" />
 
 
@@ -143,7 +146,7 @@
             <!-- no of columns 3 auto_fit -->
             <GridView
                 android:id="@+id/gv"
-                android:background="@drawable/pink_bordor_rect"
+                android:background="@drawable/pink_bordor_rect_grid"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:columnWidth="90dp"
