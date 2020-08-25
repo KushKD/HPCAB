@@ -47,6 +47,9 @@ public class Econstants {
     public static final String methordMenuList ="GetMenuList";
     public static final String methordMenuListToken ="KKdd33444444444frrrr1081a0";
 
+    public static final String methordGetOnlineCabinetIDMeetingStatus ="GetOnlineCabinetIDMeetingStatus";
+    public static final String methordGetOnlineCabinetIDMeetingToken ="KJJkkjjj00hvjhj68888dhdjjjjjjjjjdddd";
+
 
 
 

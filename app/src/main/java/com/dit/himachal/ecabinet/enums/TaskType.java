@@ -12,7 +12,8 @@ public enum TaskType {
     GET_USERS(4),
     GET_OTP_VIA_MOBILE(5),
     LOGIN(5),
-    GET_MENU_LIST(6);
+    GET_MENU_LIST(6),
+    CABINET_MEETING_STATUS(7);
 
     int value; private TaskType(int value) { this.value = value; }
 }

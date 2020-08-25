@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
 
     CustomDialog CD = new CustomDialog();
     SearchableSpinner department;
+    List<ModulesPojo> modules = null;
 
 
     @Override
@@ -50,7 +51,6 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
 
         home_gv = findViewById(R.id.gv);
         department = findViewById(R.id.department);
-
 
 
 
@@ -70,6 +70,25 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
                     MainActivity.this,
                     MainActivity.this,
                     TaskType.GET_MENU_LIST).
+                    execute(object);
+
+        } else {
+            CD.showDialog(MainActivity.this, "Please connect to Internet and try again.");
+        }
+
+        if (AppStatus.getInstance(MainActivity.this).isOnline()) {
+            GetDataPojo object = new GetDataPojo();
+            object.setUrl(Econstants.url);
+            object.setMethord(Econstants.methordGetOnlineCabinetIDMeetingStatus);
+            object.setMethordHash(Econstants.encodeBase64(Econstants.methordGetOnlineCabinetIDMeetingToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
+            object.setTaskType(TaskType.CABINET_MEETING_STATUS);
+            object.setTimeStamp(CommonUtils.getTimeStamp());
+
+
+            new Generic_Async_Get(
+                    MainActivity.this,
+                    MainActivity.this,
+                    TaskType.CABINET_MEETING_STATUS).
                     execute(object);
 
         } else {
@@ -157,53 +176,54 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
         }else  if (taskType == TaskType.GET_MENU_LIST) {
 
             Log.e("Result fd == ", result.respnse);
-//            if (result.getSuccessFailure().equalsIgnoreCase("SUCCESS")) {
-//                Log.e("Result == ", result.respnse);
-//                Object json = new JSONTokener(result.respnse).nextValue();
-//                if (json instanceof JSONObject) {
-//                    Log.e("Json Object", "Object");
-//                } else if (json instanceof JSONArray) {
-//                    Log.e("Json Object", "Object");
-//                    JSONArray arrayReports = new JSONArray(result.respnse);
-//                    Log.e("arrayReports", arrayReports.toString());
-//
-//                    if (arrayReports.length() > 0) {
-//                        departments = new ArrayList<>();
-//                        //ReportsModelPojo
-//
-//                        DepartmentsPojo all = new DepartmentsPojo();
-//                        all.setDeptName("All");
-//                        all.setDeptId("0");
-//
-//
-//                        for (int i = 0; i < arrayReports.length(); i++) {
-//                            DepartmentsPojo departmentsPojo = new DepartmentsPojo();
-//                            JSONObject object = arrayReports.getJSONObject(i);
-//
-//                            departmentsPojo.setDeptId(Econstants.decodeBase64(object.getString("DeptId")));
-//                            departmentsPojo.setDeptName(Econstants.decodeBase64(object.getString("DeptName")));
-//
-//
-//                            departments.add(departmentsPojo);
-//                        }
-//                        departments.add(0,all);
-//                        Log.e("Departments Data", departments.toString());
-//                          adapter_modules = new HomeGridViewAdapter(this, (ArrayList<ModulesPojo>) modules);
-//                           home_gv.setAdapter(adapter_modules);
-//
-//
-//                    } else {
-//                        CD.showDialog(MainActivity.this, "No Departments Found");
-//
-//                    }
-//                }
-//
-//
-//            } else {
-//                CD.showDialog(MainActivity.this, result.getRespnse());
-//
-//            }
+            if (result.getSuccessFailure().equalsIgnoreCase("SUCCESS")) {
+                Log.e("Result == ", result.respnse);
+                Object json = new JSONTokener(result.respnse).nextValue();
+                if (json instanceof JSONObject) {
+                    Log.e("Json Object", "Object");
+                } else if (json instanceof JSONArray) {
+                    Log.e("Json Object", "Object");
+                    JSONArray arrayReports = new JSONArray(result.respnse);
+                    Log.e("arrayReports", arrayReports.toString());
 
+                    if (arrayReports.length() > 0) {
+                        modules = new ArrayList<>();
+                        //ReportsModelPojo
+
+
+
+
+                        for (int i = 0; i < arrayReports.length(); i++) {
+                            ModulesPojo modulesPojo = new ModulesPojo();
+                            JSONObject object = arrayReports.getJSONObject(i);
+
+                            modulesPojo.setId(Econstants.decodeBase64(object.getString("Menuid")));
+                            modulesPojo.setName(Econstants.decodeBase64(object.getString("MenuName")));
+
+
+                            modules.add(modulesPojo);
+                        }
+
+                        Log.e("Departments Data", departments.toString());
+                          adapter_modules = new HomeGridViewAdapter(this, (ArrayList<ModulesPojo>) modules);
+                           home_gv.setAdapter(adapter_modules);
+
+
+                    } else {
+                        CD.showDialog(MainActivity.this, "No Departments Found");
+
+                    }
+                }
+
+
+            } else {
+                CD.showDialog(MainActivity.this, result.getRespnse());
+
+            }
+
+        }else  if (taskType == TaskType.CABINET_MEETING_STATUS) {
+
+            Log.e("Token fd == ", result.respnse);
         }
     }
 }

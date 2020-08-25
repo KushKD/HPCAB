@@ -73,22 +73,22 @@ public class HomeGridViewAdapter extends BaseAdapter {
         nameTxt.setText(s.getName());
 
 
-        if (s.getLogo().equalsIgnoreCase("null")) {
-            //show uk icon
-            String fnm = "uttarakhand";
-            String PACKAGE_NAME = c.getApplicationContext().getPackageName();
-            int imgId = this.c.getApplicationContext().getResources().getIdentifier(PACKAGE_NAME + ":drawable/" + fnm, null, null);
-            System.out.println("IMG ID :: " + imgId);
-            System.out.println("PACKAGE_NAME :: " + PACKAGE_NAME);
-            img.setImageBitmap(BitmapFactory.decodeResource(c.getApplicationContext().getResources(), imgId));
-        } else {
-            String fnm = s.getLogo();
-            String PACKAGE_NAME = c.getApplicationContext().getPackageName();
-            int imgId = this.c.getApplicationContext().getResources().getIdentifier(PACKAGE_NAME + ":drawable/" + fnm, null, null);
-            System.out.println("IMG ID :: " + imgId);
-            System.out.println("PACKAGE_NAME :: " + PACKAGE_NAME);
-            img.setImageBitmap(BitmapFactory.decodeResource(c.getApplicationContext().getResources(), imgId));
-        }
+//        if (s.getLogo().equalsIgnoreCase("null")) {
+//            //show uk icon
+//            String fnm = "uttarakhand";
+//            String PACKAGE_NAME = c.getApplicationContext().getPackageName();
+//            int imgId = this.c.getApplicationContext().getResources().getIdentifier(PACKAGE_NAME + ":drawable/" + fnm, null, null);
+//            System.out.println("IMG ID :: " + imgId);
+//            System.out.println("PACKAGE_NAME :: " + PACKAGE_NAME);
+//            img.setImageBitmap(BitmapFactory.decodeResource(c.getApplicationContext().getResources(), imgId));
+//        } else {
+//            String fnm = s.getLogo();
+//            String PACKAGE_NAME = c.getApplicationContext().getPackageName();
+//            int imgId = this.c.getApplicationContext().getResources().getIdentifier(PACKAGE_NAME + ":drawable/" + fnm, null, null);
+//            System.out.println("IMG ID :: " + imgId);
+//            System.out.println("PACKAGE_NAME :: " + PACKAGE_NAME);
+//            img.setImageBitmap(BitmapFactory.decodeResource(c.getApplicationContext().getResources(), imgId));
+//        }
 
 
         view.setOnClickListener(new View.OnClickListener() {
