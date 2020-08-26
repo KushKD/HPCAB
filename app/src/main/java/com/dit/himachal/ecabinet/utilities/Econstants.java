@@ -47,8 +47,17 @@ public class Econstants {
     public static final String methordMenuList ="GetMenuList";
     public static final String methordMenuListToken ="KKdd33444444444frrrr1081a0";
 
-    public static final String methordGetOnlineCabinetIDMeetingStatus ="GetOnlineCabinetIDMeetingStatus";
-    public static final String methordGetOnlineCabinetIDMeetingToken ="KJJkkjjj00hvjhj68888dhdjjjjjjjjjdddd";
+    public static final String methordGetOnlineCabinetIDMeetingStatus ="ActiveCabinetMemoDuringMeeting";
+    public static final String methordGetOnlineCabinetIDMeetingToken ="ddddaccssaa314e7421e7e12f5cf7171081arrr";
+
+
+
+    public static final String methordPublishedMeetingDatesListByRole ="PublishedMeetingDatesListByRole";
+    public static final String methordPublishedMeetingDatesListByRoleToken ="da314e7421e7e12f5cf7171081a0ddd";
+
+    public static final String methordCabinetMemoListByRole = "CabinetMemoListByRole";
+    public static final String methordCabinetMemoListByToken = "dsssaccaa314e7421e7e12f5cf7171081a0ss";
+
 
 
 
@@ -70,11 +79,12 @@ public class Econstants {
     public String respnse;
 
 
-    public static ResponsObject getResponseObject(String successFailure, String respnse, Integer responseCode){
+    public static ResponsObject getResponseObject(String successFailure, String respnse, Integer responseCode, String dept_id){
         ResponsObject responsObject = new ResponsObject();
         responsObject.setRespnse(respnse);
         responsObject.setResponseCode(responseCode);
         responsObject.setSuccessFailure(successFailure);
+        responsObject.setDept_id(dept_id);
         return responsObject;
     }
 

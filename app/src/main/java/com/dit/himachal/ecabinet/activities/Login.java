@@ -650,6 +650,8 @@ public class Login extends AppCompatActivity implements AsyncTaskListenerObjectG
                             dataPojo.setMobileNumber(Econstants.decodeBase64(object.getString("MobileNumber")));
                             dataPojo.setName(Econstants.decodeBase64(object.getString("Name")));
                             dataPojo.setUserID(Econstants.decodeBase64(object.getString("UserID")));
+                            dataPojo.setPhoto(Econstants.decodeBase64(object.optString("Photo")));
+
                             dataPojo.setRoleId(Global_roleId);
 
                             Log.e("User Final Data", dataPojo.toString());
@@ -681,7 +683,7 @@ public class Login extends AppCompatActivity implements AsyncTaskListenerObjectG
     }
 
     private boolean saveDataSharedPrefrences(UserDataPojo dataPojo) {
-
+                StringBuilder SB =new StringBuilder();
         try {
 
             Preferences.getInstance().loadPreferences(Login.this);
@@ -698,6 +700,15 @@ public class Login extends AppCompatActivity implements AsyncTaskListenerObjectG
 
             Preferences.getInstance().phone_number = dataPojo.getMobileNumber();
             Preferences.getInstance().isLoggedIn = true;
+            Preferences.getInstance().branched_mapped = dataPojo.getBranchmapped();
+
+            for(int i=0 ; i<dataPojo.getDepartmentsUser().size(); i++){
+                SB.append(dataPojo.getDepartmentsUser().get(i).getDepartmentID());
+                SB.append(",");
+            }
+            Log.e("Mapped Departments", SB.toString());
+            Preferences.getInstance().mapped_departments = SB.toString();
+
             Preferences.getInstance().savePreferences(Login.this);
             finish();
             return true;

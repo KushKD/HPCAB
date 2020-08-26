@@ -1,12 +1,13 @@
 package com.dit.himachal.ecabinet.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -16,6 +17,7 @@ import com.dit.himachal.ecabinet.adapter.HomeGridViewAdapter;
 import com.dit.himachal.ecabinet.enums.TaskType;
 import com.dit.himachal.ecabinet.generic.Generic_Async_Get;
 import com.dit.himachal.ecabinet.interfaces.AsyncTaskListenerObjectGet;
+import com.dit.himachal.ecabinet.lazyloader.ImageLoader;
 import com.dit.himachal.ecabinet.modal.DepartmentsPojo;
 import com.dit.himachal.ecabinet.modal.GetDataPojo;
 import com.dit.himachal.ecabinet.modal.ModulesPojo;
@@ -49,9 +51,14 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
     List<ModulesPojo> modules = null;
     LinearLayout layout_user_dashboard;
 
-    TextView username,designation,mobile,is_cabinet;
+    TextView username, designation, mobile, is_cabinet;
+    ImageView imageuser;
+
+    ImageLoader imageLoader = new ImageLoader(MainActivity.this);
 
     MeetingStatus meetingStatus;
+    public String Global_deptId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,40 +69,69 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
         LinearLayout layout_user_dashboard = findViewById(R.id.user_dashboard);
         username = (TextView) layout_user_dashboard.findViewById(R.id.username);
         designation = (TextView) layout_user_dashboard.findViewById(R.id.designation);
-        meetingStatus =(MeetingStatus) layout_user_dashboard.findViewById(R.id.meeting_status);
+        meetingStatus = (MeetingStatus) layout_user_dashboard.findViewById(R.id.meeting_status);
         meetingStatus.setSelected(true);
-       // mobile = (TextView) layout_user_dashboard.findViewById(R.id.mobile);
-      //  is_cabinet = (TextView) layout_user_dashboard.findViewById(R.id.is_cabinet);
+        imageuser = (ImageView) layout_user_dashboard.findViewById(R.id.imageuser);
+        // mobile = (TextView) layout_user_dashboard.findViewById(R.id.mobile);
+        //  is_cabinet = (TextView) layout_user_dashboard.findViewById(R.id.is_cabinet);
 
         username.setText(Preferences.getInstance().user_name);
         designation.setText(Preferences.getInstance().role_name);
 
-        //mobile.setText(Preferences.getInstance().phone_number);
-       // is_cabinet.setVisibility(View.GONE);
-        //is_cabinet.setText(Preferences.getInstance().is_cabinet_minister);
+//        if(!Preferences.getInstance().photo.equalsIgnoreCase("")   ){
+//            imageLoader.DisplayCircleImage(Preferences.getInstance().photo, imageuser, null,null, false);
+//        }
+
+
+        department.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+
+
+                try {
+                    DepartmentsPojo roles = departmentsAdapter.getItem(position);
+
+                    Log.e("Dept Name", roles.getDeptName());
+                    Global_deptId = roles.getDeptId();
+
+                    if (AppStatus.getInstance(MainActivity.this).isOnline()) {
+                        GetDataPojo object = new GetDataPojo();
+                        object.setUrl(Econstants.url);
+                        object.setMethord(Econstants.methordMenuList);
+                        object.setMethordHash(Econstants.encodeBase64(Econstants.methordMenuListToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
+                        object.setTaskType(TaskType.GET_MENU_LIST);
+                        object.setDepartmentId(Global_deptId);
+                        object.setTimeStamp(CommonUtils.getTimeStamp());
+                        List<String> parameters = new ArrayList<>();
+                        parameters.add(Preferences.getInstance().role_id);
+                        object.setParameters(parameters);
+
+                        new Generic_Async_Get(
+                                MainActivity.this,
+                                MainActivity.this,
+                                TaskType.GET_MENU_LIST).
+                                execute(object);
+
+                    } else {
+                        CD.showDialog(MainActivity.this, "Please connect to Internet and try again.");
+                    }
 
 
 
-        if (AppStatus.getInstance(MainActivity.this).isOnline()) {
-            GetDataPojo object = new GetDataPojo();
-            object.setUrl(Econstants.url);
-            object.setMethord(Econstants.methordMenuList);
-            object.setMethordHash(Econstants.encodeBase64(Econstants.methordMenuListToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
-            object.setTaskType(TaskType.GET_MENU_LIST);
-            object.setTimeStamp(CommonUtils.getTimeStamp());
-            List<String> parameters = new ArrayList<>();
-            parameters.add(Preferences.getInstance().role_id);
-            object.setParameters(parameters);
 
-            new Generic_Async_Get(
-                    MainActivity.this,
-                    MainActivity.this,
-                    TaskType.GET_MENU_LIST).
-                    execute(object);
+                } catch (Exception ex) {
+                    CD.showDialog(MainActivity.this, ex.getLocalizedMessage());
+                }
 
-        } else {
-            CD.showDialog(MainActivity.this, "Please connect to Internet and try again.");
-        }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapter) {
+            }
+
+        });
+
 
 
 
@@ -126,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
         meetingStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CD.showDialog(MainActivity.this,meetingStatus.getText().toString());
+                CD.showDialog(MainActivity.this, meetingStatus.getText().toString());
             }
         });
 
@@ -167,7 +203,7 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
 
                             departments.add(departmentsPojo);
                         }
-                        departments.add(0,all);
+                        departments.add(0, all);
                         Log.e("Departments Data", departments.toString());
                         departmentsAdapter = new DepartmentsAdapter(MainActivity.this, android.R.layout.simple_spinner_item, departments);
                         department.setAdapter(departmentsAdapter);
@@ -185,7 +221,7 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
 
             }
 
-        }else  if (taskType == TaskType.GET_MENU_LIST) {
+        } else if (taskType == TaskType.GET_MENU_LIST) {
 
             Log.e("Result fd == ", result.respnse);
             if (result.getSuccessFailure().equalsIgnoreCase("SUCCESS")) {
@@ -203,22 +239,21 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
                         //ReportsModelPojo
 
 
-
-
                         for (int i = 0; i < arrayReports.length(); i++) {
                             ModulesPojo modulesPojo = new ModulesPojo();
                             JSONObject object = arrayReports.getJSONObject(i);
 
-                            modulesPojo.setId(Econstants.decodeBase64(object.getString("Menuid")));
-                            modulesPojo.setName(Econstants.decodeBase64(object.getString("MenuName")));
+                            modulesPojo.setId(Econstants.decodeBase64(object.optString("Menuid")));
+                            modulesPojo.setName(Econstants.decodeBase64(object.optString("MenuName")));
+                            modulesPojo.setLogo(Econstants.decodeBase64(object.optString("MenuIcon")));
 
 
                             modules.add(modulesPojo);
                         }
 
-                        Log.e("Departments Data", departments.toString());
-                          adapter_modules = new HomeGridViewAdapter(this, (ArrayList<ModulesPojo>) modules);
-                           home_gv.setAdapter(adapter_modules);
+                      //  Log.e("Departments Data", departments.toString());;
+                        adapter_modules = new HomeGridViewAdapter(this, (ArrayList<ModulesPojo>) modules, result.getDept_id());
+                        home_gv.setAdapter(adapter_modules);
 
 
                     } else {

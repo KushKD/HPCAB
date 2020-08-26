@@ -13,7 +13,16 @@ public class UserDataPojo implements Serializable {
     private String UserID;
     private String RoleId;
     private List<DepartmentsUserPojo> departmentsUser;
+    private String Photo;
 
+
+    public String getPhoto() {
+        return Photo;
+    }
+
+    public void setPhoto(String photo) {
+        Photo = photo;
+    }
 
     public String getRoleId() {
         return RoleId;
@@ -90,6 +99,7 @@ public class UserDataPojo implements Serializable {
                 ", UserID='" + UserID + '\'' +
                 ", RoleId='" + RoleId + '\'' +
                 ", departmentsUser=" + departmentsUser +
+                ", Photo='" + Photo + '\'' +
                 '}';
     }
 }

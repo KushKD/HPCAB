@@ -24,10 +24,13 @@ public class Preferences {
     private String KEY_USERNAME = "user_name";
     private String KEY_MOBILENUMBER = "phone_number";
     private String KEY_IsCabinetMinister = "is_cabinet_minister";
+    private String BRACHED_MAPPED = "branched_mapped";
+    private String KEY_PHOTO = "photo";
+    private String KEY_DEPARTMENTS = "mapped_departments";
 
 
-    public String role_name, role_id, user_id, user_name, phone_number;
-    public boolean isLoggedIn,is_cabinet_minister;
+    public String role_name, role_id, user_id, user_name, phone_number, branched_mapped, photo, mapped_departments;
+    public boolean isLoggedIn, is_cabinet_minister;
 
 
     private Preferences() {
@@ -45,15 +48,13 @@ public class Preferences {
         role_name = preferences.getString(KEY_ROLE_NAME, "");
         role_id = preferences.getString(KEY_ROLE_ID, "");
         user_id = preferences.getString(KEY_USER_ID, "");
-
         isLoggedIn = preferences.getBoolean(KEY_IS_LOGED_IN, isLoggedIn);
-
         phone_number = preferences.getString(KEY_MOBILENUMBER, "");
         user_name = preferences.getString(KEY_USERNAME, "");
-
+        branched_mapped = preferences.getString(BRACHED_MAPPED, "");
         is_cabinet_minister = preferences.getBoolean(KEY_IsCabinetMinister, is_cabinet_minister);
-
-
+        photo = preferences.getString(KEY_PHOTO, photo);
+        mapped_departments = preferences.getString(KEY_DEPARTMENTS,mapped_departments);
     }
 
     public void savePreferences(Context c) {
@@ -66,6 +67,9 @@ public class Preferences {
         editor.putString(KEY_MOBILENUMBER, phone_number);
         editor.putBoolean(KEY_IS_LOGED_IN, isLoggedIn);
         editor.putBoolean(KEY_IsCabinetMinister, is_cabinet_minister);
+        editor.putString(BRACHED_MAPPED, branched_mapped);
+        editor.putString(KEY_PHOTO, photo);
+        editor.putString(KEY_DEPARTMENTS,mapped_departments);
         //editor.clear();
         editor.commit();
     }

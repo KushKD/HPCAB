@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
 import android.os.Build;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 
 
 import com.dit.himachal.ecabinet.R;
+import com.dit.himachal.ecabinet.activities.CabinetMemoListByRoleActivity;
 import com.dit.himachal.ecabinet.lazyloader.ImageLoader;
 import com.dit.himachal.ecabinet.modal.ModulesPojo;
 import com.dit.himachal.ecabinet.presentation.CustomDialog;
@@ -36,11 +38,13 @@ public class HomeGridViewAdapter extends BaseAdapter {
 
     ImageLoader il = new ImageLoader(c);
     CustomDialog CD = new CustomDialog();
+    String dept_id_ = null;
 
 
-    public HomeGridViewAdapter(Context c, ArrayList<ModulesPojo> spacecrafts) {
+    public HomeGridViewAdapter(Context c, ArrayList<ModulesPojo> spacecrafts, String dept_id) {
         this.c = c;
         this.gridHome = spacecrafts;
+        this.dept_id_ = dept_id;
     }
 
     @Override
@@ -73,33 +77,33 @@ public class HomeGridViewAdapter extends BaseAdapter {
         nameTxt.setText(s.getName());
 
 
-//        if (s.getLogo().equalsIgnoreCase("null")) {
-//            //show uk icon
-//            String fnm = "uttarakhand";
-//            String PACKAGE_NAME = c.getApplicationContext().getPackageName();
-//            int imgId = this.c.getApplicationContext().getResources().getIdentifier(PACKAGE_NAME + ":drawable/" + fnm, null, null);
-//            System.out.println("IMG ID :: " + imgId);
-//            System.out.println("PACKAGE_NAME :: " + PACKAGE_NAME);
-//            img.setImageBitmap(BitmapFactory.decodeResource(c.getApplicationContext().getResources(), imgId));
-//        } else {
-//            String fnm = s.getLogo();
-//            String PACKAGE_NAME = c.getApplicationContext().getPackageName();
-//            int imgId = this.c.getApplicationContext().getResources().getIdentifier(PACKAGE_NAME + ":drawable/" + fnm, null, null);
-//            System.out.println("IMG ID :: " + imgId);
-//            System.out.println("PACKAGE_NAME :: " + PACKAGE_NAME);
-//            img.setImageBitmap(BitmapFactory.decodeResource(c.getApplicationContext().getResources(), imgId));
-//        }
+        if (s.getLogo().equalsIgnoreCase("")||s.getLogo() == null) {
+            //show uk icon
+            String fnm = "hp_n";
+            String PACKAGE_NAME = c.getApplicationContext().getPackageName();
+            int imgId = this.c.getApplicationContext().getResources().getIdentifier(PACKAGE_NAME + ":drawable/" + fnm, null, null);
+            System.out.println("IMG ID :: " + imgId);
+            System.out.println("PACKAGE_NAME :: " + PACKAGE_NAME);
+            img.setImageBitmap(BitmapFactory.decodeResource(c.getApplicationContext().getResources(), imgId));
+        } else {
+            String fnm = s.getLogo();
+            il.DisplaySquareImage(fnm, img, null,null, false);
+        }
 
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.e("ID",s.getId());
 
-//                if (s.getName().equalsIgnoreCase("Scan ePass")) {
-//                    Intent i = new Intent(c.getApplicationContext(), QrCodeActivity.class);
-//                    ((Activity) c).startActivityForResult(i, 101);
-//
-//                }
+
+                if (s.getId().equalsIgnoreCase("1")) {
+                    Log.e("DIT",dept_id_);
+                    Intent i = new Intent(c.getApplicationContext(), CabinetMemoListByRoleActivity.class);
+                    i.putExtra("department_id", dept_id_);
+                    (c).startActivity(i);
+
+                }
 //                if (s.getName().equalsIgnoreCase("Total Scanned Passes")) {
 //
 //                    DatabaseHandler DB = new DatabaseHandler(c);

@@ -82,7 +82,7 @@ public class ImageLoader {
             imageView.setImageBitmap(bitmap);
             imageView.setVisibility(View.VISIBLE);
         } else {
-            pb.setVisibility(View.VISIBLE);
+           //pb.setVisibility(View.VISIBLE);
             queuePhoto(url, imageView, pb, updateTv, null);
             imageView.setVisibility(View.VISIBLE);
         }

@@ -18,6 +18,15 @@ public class GetDataPojo implements Serializable {
     private List<String> parameters;
     private String timeStamp;
     private TaskType taskType;
+    private String DepartmentId ;
+
+    public String getDepartmentId() {
+        return DepartmentId;
+    }
+
+    public void setDepartmentId(String departmentId) {
+        DepartmentId = departmentId;
+    }
 
     public String getUrl() {
         return url;
@@ -76,6 +85,7 @@ public class GetDataPojo implements Serializable {
                 ", parameters=" + parameters +
                 ", timeStamp='" + timeStamp + '\'' +
                 ", taskType=" + taskType +
+                ", DepartmentId='" + DepartmentId + '\'' +
                 '}';
     }
 }

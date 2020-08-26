@@ -12,6 +12,15 @@ public class ResponsObject implements Serializable {
     public String successFailure;
     public Integer responseCode;
     public String respnse;
+    public String dept_id;
+
+    public String getDept_id() {
+        return dept_id;
+    }
+
+    public void setDept_id(String dept_id) {
+        this.dept_id = dept_id;
+    }
 
     public String getSuccessFailure() {
         return successFailure;
@@ -43,6 +52,7 @@ public class ResponsObject implements Serializable {
                 "successFailure='" + successFailure + '\'' +
                 ", responseCode=" + responseCode +
                 ", respnse='" + respnse + '\'' +
+                ", dept_id='" + dept_id + '\'' +
                 '}';
     }
 }
