@@ -691,6 +691,7 @@ public class Login extends AppCompatActivity implements AsyncTaskListenerObjectG
             Preferences.getInstance().role_id = dataPojo.getRoleId();
             Preferences.getInstance().user_name = dataPojo.getName();
             Preferences.getInstance().user_id = dataPojo.getUserID();
+            Preferences.getInstance().photo = dataPojo.getPhoto();
             if (dataPojo.getIsCabinetMinister().equalsIgnoreCase("Y")) {
                 Preferences.getInstance().is_cabinet_minister = true;
             } else {

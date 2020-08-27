@@ -294,7 +294,7 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
 
                         }
 
-                        cabinetMemosAdapter = new CabinetMemosAdapter(CabinetMemoListByRoleActivity.this, cabinetMemoPojoList);
+                        cabinetMemosAdapter = new CabinetMemosAdapter(CabinetMemoListByRoleActivity.this, cabinetMemoPojoList,param);
                         list.setAdapter(cabinetMemosAdapter);
                         list.setTextFilterEnabled(true);
                         edit_text_search.setVisibility(View.VISIBLE);

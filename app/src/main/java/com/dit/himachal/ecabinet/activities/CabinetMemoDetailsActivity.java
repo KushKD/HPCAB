@@ -464,7 +464,7 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
             //Check Weather the String is Json array or Json Object
             if (result.getSuccessFailure().equalsIgnoreCase("SUCCESS")) {
                 Log.e("Result == ", result.getRespnse());
-                CD.showDialog(CabinetMemoDetailsActivity.this, Econstants.decodeBase64(result.getRespnse()));
+                CD.showDialogCloseActivity(CabinetMemoDetailsActivity.this, Econstants.decodeBase64(result.getRespnse()));
 
 
             } else {
@@ -474,7 +474,7 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
             //Check Weather the String is Json array or Json Object
             if (result.getSuccessFailure().equalsIgnoreCase("SUCCESS")) {
                 Log.e("Result == ", result.getRespnse());
-                CD.showDialog(CabinetMemoDetailsActivity.this, Econstants.decodeBase64(result.getRespnse()));
+                CD.showDialogCloseActivity(CabinetMemoDetailsActivity.this, Econstants.decodeBase64(result.getRespnse()));
 
 
             } else {

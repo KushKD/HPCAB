@@ -3,6 +3,10 @@ package com.dit.himachal.ecabinet.activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,6 +24,7 @@ import com.dit.himachal.ecabinet.enums.TaskType;
 import com.dit.himachal.ecabinet.generic.Generic_Async_Get;
 import com.dit.himachal.ecabinet.interfaces.AsyncTaskListenerObjectGet;
 import com.dit.himachal.ecabinet.lazyloader.ImageLoader;
+import com.dit.himachal.ecabinet.modal.AgendaPojo;
 import com.dit.himachal.ecabinet.modal.DepartmentsPojo;
 import com.dit.himachal.ecabinet.modal.GetDataPojo;
 import com.dit.himachal.ecabinet.modal.ModulesPojo;
@@ -62,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
 
     MeetingStatus meetingStatus;
     public String Global_deptId;
+    private BroadcastReceiver mReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,9 +88,11 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
         username.setText(Preferences.getInstance().user_name);
         designation.setText(Preferences.getInstance().role_name);
 
-//        if(!Preferences.getInstance().photo.equalsIgnoreCase("")   ){
-//            imageLoader.DisplayCircleImage(Preferences.getInstance().photo, imageuser, null,null, false);
-//        }
+        Log.e("Poto==", Preferences.getInstance().photo);
+
+        if (!Preferences.getInstance().photo.isEmpty()) {
+            imageLoader.DisplayCircleImage(Preferences.getInstance().photo, imageuser, null, null, false);
+        }
 
 
         department.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -122,8 +130,6 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
                     }
 
 
-
-
                 } catch (Exception ex) {
                     CD.showDialog(MainActivity.this, ex.getLocalizedMessage());
                 }
@@ -135,9 +141,6 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
             }
 
         });
-
-
-
 
 
         if (AppStatus.getInstance(MainActivity.this).isOnline()) {
@@ -170,17 +173,14 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
             }
         });
 
-        home_gv.setOnScrollListener(new AbsListView.OnScrollListener()
-        {
+        home_gv.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState)
-            {
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
 
             }
 
             @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount)
-            {
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
                 int topRowVerticalPosition = (home_gv == null || home_gv.getChildCount() == 0) ? 0 : home_gv.getChildAt(0).getTop();
                 pullToRefresh.setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0);
             }
@@ -213,12 +213,55 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
                 }
 
 
-
-
                 pullToRefresh.setRefreshing(false);
             }
         });
+        mReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                Log.e("We are Here", intent.getAction());
+                if (intent.getAction() == "getAgenda") {
 
+                    //SCAN_DATA
+                    Log.e("We are Here 2sd ", intent.getAction());
+
+                    if (AppStatus.getInstance(MainActivity.this).isOnline()) {
+                        GetDataPojo object = new GetDataPojo();
+                        object.setUrl(Econstants.url);
+                        object.setMethord(Econstants.methordGetOnlineCabinetIDMeetingStatus);
+                        object.setMethordHash(Econstants.encodeBase64(Econstants.methordGetOnlineCabinetIDMeetingToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
+                        object.setTaskType(TaskType.CABINET_MEETING_STATUS);
+                        object.setTimeStamp(CommonUtils.getTimeStamp());
+
+                        new Generic_Async_Get(
+                                MainActivity.this,
+                                MainActivity.this,
+                                TaskType.CABINET_MEETING_STATUS).
+                                execute(object);
+
+                    } else {
+                        CD.showDialog(MainActivity.this, "Please Connect to Internet and try again.");
+                    }
+
+
+                }
+
+
+            }
+        };
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(mReceiver, new IntentFilter("getAgenda"));
+
+    }
+
+    @Override
+    protected void onPause() {
+        unregisterReceiver(mReceiver);
+        super.onPause();
 
     }
 
@@ -305,7 +348,7 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
                             modules.add(modulesPojo);
                         }
 
-                      //  Log.e("Departments Data", departments.toString());;
+                        //  Log.e("Departments Data", departments.toString());;
                         adapter_modules = new HomeGridViewAdapter(this, (ArrayList<ModulesPojo>) modules, result.getDept_id());
                         home_gv.setAdapter(adapter_modules);
 
@@ -319,6 +362,48 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
 
             } else {
                 CD.showDialog(MainActivity.this, result.getRespnse());
+
+            }
+
+        } else if (taskType == TaskType.CABINET_MEETING_STATUS) {
+
+            AgendaPojo agendaPojo = null;
+            if (result.getSuccessFailure().equalsIgnoreCase("SUCCESS")) {
+                Log.e("Result == ", result.respnse);
+                Object json = null;
+                try {
+                    json = new JSONTokener(result.respnse).nextValue();
+                } catch (JSONException e) {
+                    Log.e("==Error", e.getLocalizedMessage().toString());
+                }
+                if (json instanceof JSONObject) {
+                    try {
+                        Log.e("Json Object", "Object");
+                        JSONObject object = new JSONObject(result.respnse);
+                        agendaPojo = new AgendaPojo();
+                        agendaPojo.setAgendaItemNo(Econstants.decodeBase64(object.optString("AgendaItemNo")));
+                        agendaPojo.setAgendaItemType(Econstants.decodeBase64(object.optString("AgendaItemType")));
+                        agendaPojo.setDeptName(Econstants.decodeBase64(object.optString("DeptName")));
+                        agendaPojo.setFileNo(Econstants.decodeBase64(object.optString("FileNo")));
+                        agendaPojo.setSubject(Econstants.decodeBase64(object.optString("Subject")));
+
+
+                        if (agendaPojo.getAgendaItemType().length() > 0) {
+                                Log.e("Agenda",agendaPojo.toString());
+                        } else {
+                            Log.e("Agenda",agendaPojo.toString());
+                            CD.showDialog(MainActivity.this, "No Active Agenda Item Available.");
+                        }
+
+                    } catch (Exception ex) {
+                        Log.e("arrayReports", ex.toString());
+                    }
+
+
+                } else {
+
+                }
+
 
             }
 

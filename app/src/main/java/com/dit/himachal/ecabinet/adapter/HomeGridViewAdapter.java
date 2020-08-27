@@ -1,12 +1,11 @@
 package com.dit.himachal.ecabinet.adapter;
 
-import android.Manifest;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
-import android.os.Build;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,13 +13,16 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.dit.himachal.ecabinet.R;
 import com.dit.himachal.ecabinet.activities.CabinetMemoListByRoleActivity;
+import com.dit.himachal.ecabinet.activities.Login;
 import com.dit.himachal.ecabinet.lazyloader.ImageLoader;
 import com.dit.himachal.ecabinet.modal.ModulesPojo;
 import com.dit.himachal.ecabinet.presentation.CustomDialog;
+import com.dit.himachal.ecabinet.utilities.Preferences;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -33,7 +35,6 @@ import java.util.ArrayList;
 public class HomeGridViewAdapter extends BaseAdapter {
     Context c;
     ArrayList<ModulesPojo> gridHome;
-
 
 
     ImageLoader il = new ImageLoader(c);
@@ -77,7 +78,7 @@ public class HomeGridViewAdapter extends BaseAdapter {
         nameTxt.setText(s.getName());
 
 
-        if (s.getLogo().equalsIgnoreCase("")||s.getLogo() == null) {
+        if (s.getLogo().equalsIgnoreCase("") || s.getLogo() == null) {
             //show uk icon
             String fnm = "hp_n";
             String PACKAGE_NAME = c.getApplicationContext().getPackageName();
@@ -87,18 +88,18 @@ public class HomeGridViewAdapter extends BaseAdapter {
             img.setImageBitmap(BitmapFactory.decodeResource(c.getApplicationContext().getResources(), imgId));
         } else {
             String fnm = s.getLogo();
-            il.DisplaySquareImage(fnm, img, null,null, false);
+            il.DisplaySquareImage(fnm, img, null, null, false);
         }
 
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("ID",s.getId());
+                Log.e("ID", s.getId());
 
 
                 if (s.getId().equalsIgnoreCase("1")) {
-                    Log.e("DIT",dept_id_);
+                    Log.e("DIT", dept_id_);
                     Intent i = new Intent(c.getApplicationContext(), CabinetMemoListByRoleActivity.class);
                     i.putExtra("department_id", dept_id_);
                     i.putExtra("param", "Current");
@@ -106,7 +107,7 @@ public class HomeGridViewAdapter extends BaseAdapter {
 
                 }
                 if (s.getId().equalsIgnoreCase("2")) {
-                    Log.e("DIT",dept_id_);
+                    Log.e("DIT", dept_id_);
                     Intent i = new Intent(c.getApplicationContext(), CabinetMemoListByRoleActivity.class);
                     i.putExtra("department_id", dept_id_);
                     i.putExtra("param", "Forwarded");
@@ -114,19 +115,47 @@ public class HomeGridViewAdapter extends BaseAdapter {
 
                 }
                 if (s.getId().equalsIgnoreCase("3")) {
-                    Log.e("DIT",dept_id_);
+                    Log.e("DIT", dept_id_);
                     Intent i = new Intent(c.getApplicationContext(), CabinetMemoListByRoleActivity.class);
                     i.putExtra("department_id", dept_id_);
                     i.putExtra("param", "Backwarded");
                     (c).startActivity(i);
 
                 }
-//                if (s.getName().equalsIgnoreCase("Total Scanned Passes")) {
-//
-//                    DatabaseHandler DB = new DatabaseHandler(c);
-//                    CD.showDialog((Activity) c, Integer.toString(DB.getNoOfRowsCount()));
-//
-//                }
+                if (s.getId().equalsIgnoreCase("5")) {
+                    CustomDialog CD = new CustomDialog();
+                    CD.showDialog((Activity) c, "Under Process.");
+
+                }
+                if (s.getId().equalsIgnoreCase("4")) {
+                    Intent intent = new Intent("getAgenda");
+                    intent.setPackage(c.getPackageName());
+                    (c).sendBroadcast(intent);
+                }
+
+                if (s.getId().equalsIgnoreCase("21")) {
+                    Preferences.getInstance().loadPreferences(c.getApplicationContext());
+
+
+                    Preferences.getInstance().role_id = "";
+                    Preferences.getInstance().user_id = "";
+                    Preferences.getInstance().user_name = "";
+                    Preferences.getInstance().role_name = "";
+                    Preferences.getInstance().mapped_departments = "";
+                    Preferences.getInstance().branched_mapped = "";
+                    Preferences.getInstance().photo = "";
+                    Preferences.getInstance().is_cabinet_minister = false;
+                    Preferences.getInstance().isLoggedIn = false;
+
+
+                    Preferences.getInstance().savePreferences(c.getApplicationContext());
+                    Toast.makeText(c.getApplicationContext(), "Logout Successful", Toast.LENGTH_LONG).show();
+
+                    Intent mainIntent = new Intent(c.getApplicationContext(), Login.class);
+                    (c).startActivity(mainIntent);
+                    ((Activity) c).finish();
+
+                }
 //                if (s.getName().equalsIgnoreCase("Search Pass")) {
 //                    try {
 //                        CD.showDialogSearchByPassId((Activity) c);
@@ -148,9 +177,6 @@ public class HomeGridViewAdapter extends BaseAdapter {
 
         return view;
     }
-
-
-
 
 
 }

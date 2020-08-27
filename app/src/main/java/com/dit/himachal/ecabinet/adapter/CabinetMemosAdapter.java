@@ -27,17 +27,19 @@ public class CabinetMemosAdapter extends BaseAdapter implements Filterable {
     private List<CabinetMemoPojo> origUserList;
 
     ImageLoader il = new ImageLoader(context);
+    String param_ = null;
 
 
     /**
      * @param context
      * @param objects
      */
-    public CabinetMemosAdapter(Context context, List<CabinetMemoPojo> objects) {
+    public CabinetMemosAdapter(Context context, List<CabinetMemoPojo> objects, String param) {
 
         this.context = context;
         this.news = objects;
         this.origUserList = objects;
+        this.param_ =param;
     }
 
 
@@ -84,6 +86,14 @@ public class CabinetMemosAdapter extends BaseAdapter implements Filterable {
         TextView state_dept = (TextView) view.findViewById(R.id.state_dept);
         TextView central_dept = (TextView) view.findViewById(R.id.central_dept);
         ImageView imageView1 = (ImageView)view.findViewById(R.id.imageView1);
+
+        if(param_.equalsIgnoreCase("Forwarded")){
+            imageView1.setImageDrawable(context.getResources().getDrawable(R.drawable.forward_memos));
+        }else if(param_.equalsIgnoreCase("Backwarded")){
+            imageView1.setImageDrawable(context.getResources().getDrawable(R.drawable.sent_back_memos));
+        }else{
+            imageView1.setImageDrawable(context.getResources().getDrawable(R.drawable.cabinet_memos));
+        }
 
 
 
