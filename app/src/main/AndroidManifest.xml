@@ -19,13 +19,20 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
         <activity
+            android:name=".activities.CabinetMemoDetailsActivity"
+            android:alwaysRetainTaskState="true"
+            android:focusableInTouchMode="true"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden"></activity>
+        <activity
             android:name=".activities.CabinetMemoListByRoleActivity"
             android:alwaysRetainTaskState="true"
             android:focusableInTouchMode="true"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden"></activity>
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activities.Login"
             android:alwaysRetainTaskState="true"

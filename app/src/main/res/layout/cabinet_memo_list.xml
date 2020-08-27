@@ -20,6 +20,7 @@
         <ImageView
             android:id="@+id/imageView1"
             android:contentDescription="@string/app_name"
+            android:src="@drawable/cabinet_memos"
             android:layout_width="60dip"
             android:layout_height="60dip" />
     </LinearLayout>
@@ -50,10 +51,10 @@
         android:textSize="14sp"
         android:text="323232"
         android:fontFamily="@font/poppins_semibold"
-        android:textColor="@color/colcr_blue"
+        android:textColor="@color/color_red_maroon"
         android:textAppearance="?android:attr/textAppearanceLarge"/>
 
-    central_dept
+
 
     <TextView
         android:id="@+id/central_dept"
@@ -65,7 +66,7 @@
         android:textSize="14sp"
         android:text="323232"
         android:fontFamily="@font/poppins_semibold"
-        android:textColor="@color/colcr_blue"
+        android:textColor="@color/color_red_maroon"
         android:textAppearance="?android:attr/textAppearanceLarge"/>
 
 

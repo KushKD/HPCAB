@@ -101,6 +101,23 @@ public class HomeGridViewAdapter extends BaseAdapter {
                     Log.e("DIT",dept_id_);
                     Intent i = new Intent(c.getApplicationContext(), CabinetMemoListByRoleActivity.class);
                     i.putExtra("department_id", dept_id_);
+                    i.putExtra("param", "Current");
+                    (c).startActivity(i);
+
+                }
+                if (s.getId().equalsIgnoreCase("2")) {
+                    Log.e("DIT",dept_id_);
+                    Intent i = new Intent(c.getApplicationContext(), CabinetMemoListByRoleActivity.class);
+                    i.putExtra("department_id", dept_id_);
+                    i.putExtra("param", "Forwarded");
+                    (c).startActivity(i);
+
+                }
+                if (s.getId().equalsIgnoreCase("3")) {
+                    Log.e("DIT",dept_id_);
+                    Intent i = new Intent(c.getApplicationContext(), CabinetMemoListByRoleActivity.class);
+                    i.putExtra("department_id", dept_id_);
+                    i.putExtra("param", "Backwarded");
                     (c).startActivity(i);
 
                 }

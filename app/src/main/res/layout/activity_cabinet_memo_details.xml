@@ -1,0 +1,680 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_margin="10dp"
+            android:gravity="center_vertical|center_horizontal|center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/hp_n" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:padding="5dp"
+                    android:singleLine="true"
+                    android:text="eCabinet"
+                    android:textColor="@color/color_dark_rd"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="-10dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:paddingLeft="5dp"
+                    android:singleLine="true"
+                    android:text="Government of Himachal Pradesh"
+                    android:textColor="#3D3D3D"
+                    android:textSize="13sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/solid_line" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:layout_weight="4"
+            >
+
+            <LinearLayout
+                android:id="@+id/ll2"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="3.7"
+                android:orientation="vertical">
+
+                <!-- no of columns 3 auto_fit -->
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:gravity="center|center_horizontal|center_vertical"
+                    android:text="Cabinet Memo Details"
+                    android:textColor="@color/color_dark_rd"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.3"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:id="@+id/dept_lay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="#F2F2F2"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+
+
+
+
+                    <TextView
+                        android:id="@+id/departmentname"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_centerVertical="true"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|center_horizontal|center"
+                        android:background="@drawable/bordor_rect"
+                        android:fontFamily="@font/poppins_semibold"
+                        
+                        android:textColor="@color/colcr_blue"
+                        android:textColorHint="@color/color_red_maroon"
+                        android:textSize="18dip" />
+
+<!-- Approval Channel -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+
+                        android:background="@drawable/bordor_rect"
+                        android:padding="2dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:gravity="center|center_horizontal|center_vertical"
+                            android:text="Approval Channel"
+                            android:textColor="@color/color_maroon_top"
+                            android:textSize="16sp" />
+
+
+                        <TextView
+                            android:id="@+id/approvalchannel"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_weight="1"
+                            
+                            android:fontFamily="@font/poppins_semibold"
+                            
+                            android:textColor="@color/colcr_blue"
+                            android:textColorHint="@color/colcr_blue"
+                            android:textSize="14dip" />
+
+
+                    </LinearLayout>
+
+                    <!-- File Number -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:background="@drawable/bordor_rect"
+
+                        android:padding="2dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:gravity="center|center_horizontal|center_vertical"
+                            android:text="File Number"
+                            android:textColor="@color/color_maroon_top"
+                            android:textSize="16sp" />
+
+
+                        <TextView
+                            android:id="@+id/filenumber"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_weight="1"
+                            
+                            android:fontFamily="@font/poppins_semibold"
+                            
+                            android:textColor="@color/colcr_blue"
+                            android:textColorHint="@color/colcr_blue"
+                            android:textSize="16dip" />
+
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/top_head"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_weight="1"
+                        android:layout_margin="5dp"
+                        android:padding="5dp"
+                        android:gravity="center_vertical|center_horizontal|center"
+                        android:background="@drawable/bordor_rect"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:hint="MEMORANDUM FOR THE CONSIDERATION OF THE COUNCIL OF MINISTERS"
+
+                        android:textColorHint="@color/color_red_maroon"
+                        android:textSize="18dip" />
+
+
+                    <!-- Minister Incharge -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@drawable/bordor_rect"
+
+                        android:padding="2dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:gravity="left|center_horizontal|center_vertical"
+                            android:text="Minister-in-charge"
+                            android:textColor="@color/color_maroon_top"
+                            android:textSize="16sp" />
+
+
+                        <TextView
+                            android:id="@+id/ministerincharge"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_weight="1"
+                            
+                            android:fontFamily="@font/poppins_semibold"
+                            
+                            android:textColor="@color/colcr_blue"
+                            android:textColorHint="@color/colcr_blue"
+                            android:textSize="14dip" />
+
+
+                    </LinearLayout>
+
+
+                    <!-- Secretary Incharge -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@drawable/bordor_rect"
+                        android:padding="2dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:gravity="left|center_horizontal|center_vertical"
+                            android:text="Secretary-in-charge"
+                            android:textColor="@color/color_maroon_top"
+                            android:textSize="16sp" />
+
+
+                        <TextView
+                            android:id="@+id/secretaryincharge"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_weight="1"
+                            
+                            android:fontFamily="@font/poppins_semibold"
+                            
+                            android:textColor="@color/colcr_blue"
+                            android:textColorHint="@color/colcr_blue"
+                            android:textSize="14dip" />
+
+
+                    </LinearLayout>
+
+                    <!-- Secretary Incharge -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@drawable/bordor_rect"
+
+                        android:padding="2dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:gravity="left|center_horizontal|center_vertical"
+                            android:text="Subject"
+                            android:textColor="@color/color_maroon_top"
+                            android:textSize="16sp" />
+
+
+                        <TextView
+                            android:id="@+id/subjet"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_weight="1"
+                            
+                            android:fontFamily="@font/poppins_semibold"
+                            
+                            android:textColor="@color/colcr_blue"
+                            android:textColorHint="@color/colcr_blue"
+                            android:textSize="14dip" />
+
+
+                    </LinearLayout>
+
+
+                    <!-- Proposal Details -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_margin="2dp"
+                        android:background="@drawable/bordor_rect"
+
+                        android:padding="2dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:gravity="left|center_horizontal|center_vertical"
+                            android:text="Proposal Details"
+                            android:textColor="@color/color_maroon_top"
+                            android:textSize="16sp" />
+
+
+                        <TextView
+                            android:id="@+id/proposal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_weight="1"
+                            
+                            android:fontFamily="@font/poppins_semibold"
+                            
+                            android:textColor="@color/colcr_blue"
+                            android:textColorHint="@color/colcr_blue"
+                            android:textSize="14dip" />
+
+
+                    </LinearLayout>
+
+                    <!-- Advisory Department's Approval -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_margin="2dp"
+                        android:background="@drawable/bordor_rect"
+
+                        android:padding="2dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:gravity="left|center_horizontal|center_vertical"
+                            android:text="Advisory Department's Approval"
+                            android:textColor="@color/color_maroon_top"
+                            android:textSize="16sp" />
+
+
+                        <TextView
+                            android:id="@+id/advisory_department_approval"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_weight="1"
+                            
+                            android:fontFamily="@font/poppins_semibold"
+                            
+                            android:textColor="@color/colcr_blue"
+                            android:textColorHint="@color/colcr_blue"
+                            android:textSize="14dip" />
+
+
+                    </LinearLayout>
+
+                    <!-- Advisory Department's Approval -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_margin="2dp"
+                        android:background="@drawable/bordor_rect"
+                        android:padding="2dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:gravity="left|center_horizontal|center_vertical"
+                            android:text="Additional Information (if any):"
+                            android:textColor="@color/color_maroon_top"
+                            android:textSize="16sp" />
+
+
+                        <TextView
+                            android:id="@+id/additional_information"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_weight="1"
+                            
+                            android:fontFamily="@font/poppins_semibold"
+                            
+                            android:textColor="@color/colcr_blue"
+                            android:textColorHint="@color/colcr_blue"
+                            android:textSize="14dip" />
+
+
+                    </LinearLayout>
+
+
+                    <!-- Points for Consideration -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@drawable/bordor_rect"
+                        android:layout_margin="2dp"
+                        android:padding="2dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:gravity="left|center_horizontal|center_vertical"
+                            android:text="Points for Consideration:"
+                            android:textColor="@color/color_maroon_top"
+                            android:textSize="16sp" />
+
+
+                        <TextView
+                            android:id="@+id/pointsconsideration"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/poppins_semibold"
+                            
+                            android:textColor="@color/colcr_blue"
+                            android:textColorHint="@color/colcr_blue"
+                            android:textSize="14dip" />
+
+
+                    </LinearLayout>
+
+
+                    <!-- Remarks for Consideration -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@drawable/bordor_rect"
+                        android:layout_margin="2dp"
+                        android:padding="2dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:gravity="left|center_horizontal|center_vertical"
+                            android:text="Remarks:"
+                            android:textColor="@color/color_maroon_top"
+                            android:textSize="16sp" />
+
+
+                        <EditText
+                            android:id="@+id/remarks"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_centerVertical="true"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:inputType="textMultiLine"
+                            android:textColor="@color/colcr_blue"
+                            android:textColorHint="@color/colcr_blue"
+                            android:textSize="14dip" />
+
+
+                    </LinearLayout>
+
+                    <!-- Points for Consideration -->
+                    <LinearLayout
+                        android:id="@+id/buttons"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:background="@drawable/bordor_rect"
+                        android:layout_margin="1dp"
+                        android:padding="2dp">
+
+                        <Button
+                            android:id="@+id/back"
+                            android:layout_width="match_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:gravity="center|center_horizontal|center_vertical"
+                            android:text="Send Back"
+                            android:textColor="#FFFFFF"
+                            android:background="@color/color_red_maroon"
+                            android:textSize="14sp" />
+
+
+                        <Button
+                            android:id="@+id/allow"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:text="Approve"
+                            android:textColor="#FFFFFF"
+                            android:background="@color/colcr_blue"
+                            android:textSize="14sp" />
+
+                        <Button
+                            android:id="@+id/approve"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:text="Forward"
+                            android:background="#006400"
+                            android:textColor="#FFFFFF"
+                            android:textSize="14dip" />
+
+
+                    </LinearLayout>
+
+
+                    <!-- OTP Proceed -->
+                    <!-- Remarks for Consideration -->
+                    <LinearLayout
+                        android:id="@+id/otp_proceed"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone"
+                        android:background="@drawable/bordor_rect"
+                        android:layout_margin="2dp"
+                        android:padding="2dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:background="@drawable/bordor_rect"
+                            android:layout_margin="2dp"
+                            android:padding="2dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:gravity="left|center_horizontal|center_vertical"
+                            android:text="OTP will be sent to the number below:-"
+                            android:textColor="@color/color_maroon_top"
+                            android:textSize="16sp" />
+
+
+                        <TextView
+                            android:id="@+id/phone"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_centerVertical="true"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:inputType="textMultiLine"
+                            android:textColor="@color/colcr_blue"
+                            android:textColorHint="@color/colcr_blue"
+                            android:textSize="14dip" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:background="@drawable/bordor_rect"
+                            android:layout_margin="2dp"
+                            android:padding="2dp">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/poppins_semibold"
+                                android:gravity="left|center_horizontal|center_vertical"
+                                android:text="Enter OTP"
+                                android:textColor="@color/color_maroon_top"
+                                android:textSize="16sp" />
+
+
+                            <EditText
+                                android:id="@+id/otp"
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp"
+                                android:layout_centerVertical="true"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/poppins_semibold"
+                                android:inputType="textMultiLine"
+                                android:textColor="@color/colcr_blue"
+                                android:textColorHint="@color/colcr_blue"
+                                android:textSize="14dip" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+<!-- Proceed and Cancel -->
+                    <LinearLayout
+                        android:id="@+id/proceed_cancel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:visibility="gone"
+                        android:background="@drawable/bordor_rect"
+                        android:layout_margin="2dp"
+                        android:padding="2dp">
+
+                        <Button
+                            android:id="@+id/cancel"
+                            android:layout_width="match_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:gravity="center|center_horizontal|center_vertical"
+                            android:text="Cancel"
+                            android:textColor="@color/color_maroon_top"
+                            android:textSize="16sp" />
+
+
+                        <Button
+                            android:id="@+id/proceed"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:text="Proceed"
+                            android:layout_centerVertical="true"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:textColor="#228B22" />                            android:textSize="14dip" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+    </ScrollView>
+    </LinearLayout>

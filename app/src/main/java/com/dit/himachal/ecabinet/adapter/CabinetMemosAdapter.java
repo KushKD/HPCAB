@@ -86,6 +86,7 @@ public class CabinetMemosAdapter extends BaseAdapter implements Filterable {
         ImageView imageView1 = (ImageView)view.findViewById(R.id.imageView1);
 
 
+
 //
 //        if(u.getLogo().isEmpty()||u.getLogo()==null){
 //
@@ -115,6 +116,7 @@ public class CabinetMemosAdapter extends BaseAdapter implements Filterable {
 
         name.setText(u.getSubject());
         state_dept.setText(u.getAgendaItemType());
+        central_dept.setText(u.getDeptName());
 //        if(u.getStateDept().isEmpty() || u.getStateDept().equalsIgnoreCase("null")){
 //            state_dept.setVisibility(View.GONE);
 //        }else{
@@ -167,7 +169,7 @@ public class CabinetMemosAdapter extends BaseAdapter implements Filterable {
                 List<CabinetMemoPojo> nPlanetList = new ArrayList<>();
 
                 for (CabinetMemoPojo p : news) {
-                    if (p.getFileNo().toUpperCase().contains(constraint.toString().toUpperCase())){
+                    if (p.getSubject().toUpperCase().contains(constraint.toString().toUpperCase())){
                         nPlanetList.add(p);
                     }//else{
 //                        nPlanetList.remove(p);

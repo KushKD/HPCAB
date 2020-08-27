@@ -14,7 +14,10 @@ public enum TaskType {
     LOGIN(5),
     GET_MENU_LIST(6),
     CABINET_MEETING_STATUS(7),
-    GET_PENDING_MEMO_LIST_CABINET(8);
+    GET_PENDING_MEMO_LIST_CABINET(8),
+    CABINET_MEMOS_DETAILS(9),
+    SEND_BACK(10),
+    FORWARD(11);
 
     int value; private TaskType(int value) { this.value = value; }
 }

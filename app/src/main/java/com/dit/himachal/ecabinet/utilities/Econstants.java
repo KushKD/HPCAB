@@ -58,6 +58,25 @@ public class Econstants {
     public static final String methordCabinetMemoListByRole = "CabinetMemoListByRole";
     public static final String methordCabinetMemoListByToken = "dsssaccaa314e7421e7e12f5cf7171081a0ss";
 
+    public static final String methordCabinetMemoDetails = "CabinetMemoDetails";
+    public static final String methordCabinetMemoDetailsToken = "wwwdaccaa314e7421e7e12f5cf7171081a0ss";
+
+
+    public static final String methordsendBackCabinetMemoLists = "SentBackCabinetMemo";
+    public static final String methordsendBackCabinetMemoListsToken = "ttttdaccaa314e7421e7e12f5cf7171081a0fff";
+
+    public static final String methordForwardCabinetMemo = "ForwardCabinetMemo";
+    public static final String methordForwardCabinetMemoToken = "hhhdaccaa314e7421e7e12f5cf7171081a0fff";
+
+    public static final String methordForwardedCabinetMemoListByRole = "ForwardedCabinetMemoListByRole";
+    public static final String methordForwardedCabinetMemoListByRoleToken = "ssdaccaa314e7421e7e12f5cf7171081a0ss";
+
+
+    public static final String methordSentBackCabinetMemoListByRole = "SentBackCabinetMemoListByRole";
+    public static final String methordSentBackCabinetMemoListByRoleToken = "daddccaa314e7421e7e12f5cf7171081a0ss";
+
+
+
 
 
 

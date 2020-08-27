@@ -1,10 +1,12 @@
 package com.dit.himachal.ecabinet.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -53,6 +55,8 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
 
     TextView username, designation, mobile, is_cabinet;
     ImageView imageuser;
+     SwipeRefreshLayout pullToRefresh;
+
 
     ImageLoader imageLoader = new ImageLoader(MainActivity.this);
 
@@ -63,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        pullToRefresh = findViewById(R.id.pullToRefresh);
         home_gv = findViewById(R.id.gv);
         department = findViewById(R.id.department);
         LinearLayout layout_user_dashboard = findViewById(R.id.user_dashboard);
@@ -165,6 +169,56 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
                 CD.showDialog(MainActivity.this, meetingStatus.getText().toString());
             }
         });
+
+        home_gv.setOnScrollListener(new AbsListView.OnScrollListener()
+        {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState)
+            {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount)
+            {
+                int topRowVerticalPosition = (home_gv == null || home_gv.getChildCount() == 0) ? 0 : home_gv.getChildAt(0).getTop();
+                pullToRefresh.setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0);
+            }
+        });
+
+        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                if (AppStatus.getInstance(MainActivity.this).isOnline()) {
+                    GetDataPojo object2 = new GetDataPojo();
+                    object2.setUrl(Econstants.url);
+                    object2.setMethord(Econstants.getDepartmentsViaRoles);
+                    object2.setMethordHash(Econstants.encodeBase64(Econstants.getDepartmentsViaRolesToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
+                    object2.setTaskType(TaskType.GET_DEPARTMENTS_VIA_ROLES);
+                    object2.setTimeStamp(CommonUtils.getTimeStamp());
+                    List<String> parameters = new ArrayList<>();
+                    parameters.add(Preferences.getInstance().user_id);
+                    parameters.add(Preferences.getInstance().role_id);
+                    object2.setParameters(parameters);
+
+                    new Generic_Async_Get(
+                            MainActivity.this,
+                            MainActivity.this,
+                            TaskType.GET_DEPARTMENTS_VIA_ROLES).
+                            execute(object2);
+
+                } else {
+                    CD.showDialog(MainActivity.this, "Please connect to Internet and try again.");
+                }
+
+
+
+
+                pullToRefresh.setRefreshing(false);
+            }
+        });
+
 
     }
 

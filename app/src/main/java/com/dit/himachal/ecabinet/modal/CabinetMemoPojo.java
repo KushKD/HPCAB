@@ -1,6 +1,7 @@
 package com.dit.himachal.ecabinet.modal;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class CabinetMemoPojo implements Serializable {
 
@@ -15,14 +16,23 @@ public class CabinetMemoPojo implements Serializable {
     private String FileNo;
     private String ListAdvisoryDepartments;
     private String ListAnnexures;
-    private String ListCabinetMemoTrackingHistoryLists;
-    private String ListConsiderationPoints;
+    private List<ListCabinetMemoTrackingHistoryListsPojo> ListCabinetMemoTrackingHistoryLists;
+    private List<ListConsiderationPoints> ListConsiderationPoints;
     private String Meetingdate;
     private String MemoStatus;
     private String MinisterIncharge;
     private String ProposalDetails;
     private String SecIncharge;
     private String Subject;
+    private String Date;
+
+    public String getDate() {
+        return Date;
+    }
+
+    public void setDate(String date) {
+        Date = date;
+    }
 
     public String getAdditionalInformation() {
         return AdditionalInformation;
@@ -104,19 +114,19 @@ public class CabinetMemoPojo implements Serializable {
         ListAnnexures = listAnnexures;
     }
 
-    public String getListCabinetMemoTrackingHistoryLists() {
+    public List<ListCabinetMemoTrackingHistoryListsPojo> getListCabinetMemoTrackingHistoryLists() {
         return ListCabinetMemoTrackingHistoryLists;
     }
 
-    public void setListCabinetMemoTrackingHistoryLists(String listCabinetMemoTrackingHistoryLists) {
+    public void setListCabinetMemoTrackingHistoryLists(List<ListCabinetMemoTrackingHistoryListsPojo> listCabinetMemoTrackingHistoryLists) {
         ListCabinetMemoTrackingHistoryLists = listCabinetMemoTrackingHistoryLists;
     }
 
-    public String getListConsiderationPoints() {
+    public List<com.dit.himachal.ecabinet.modal.ListConsiderationPoints> getListConsiderationPoints() {
         return ListConsiderationPoints;
     }
 
-    public void setListConsiderationPoints(String listConsiderationPoints) {
+    public void setListConsiderationPoints(List<com.dit.himachal.ecabinet.modal.ListConsiderationPoints> listConsiderationPoints) {
         ListConsiderationPoints = listConsiderationPoints;
     }
 
@@ -168,6 +178,7 @@ public class CabinetMemoPojo implements Serializable {
         Subject = subject;
     }
 
+
     @Override
     public String toString() {
         return "CabinetMemoPojo{" +
@@ -181,14 +192,15 @@ public class CabinetMemoPojo implements Serializable {
                 ", FileNo='" + FileNo + '\'' +
                 ", ListAdvisoryDepartments='" + ListAdvisoryDepartments + '\'' +
                 ", ListAnnexures='" + ListAnnexures + '\'' +
-                ", ListCabinetMemoTrackingHistoryLists='" + ListCabinetMemoTrackingHistoryLists + '\'' +
-                ", ListConsiderationPoints='" + ListConsiderationPoints + '\'' +
+                ", ListCabinetMemoTrackingHistoryLists=" + ListCabinetMemoTrackingHistoryLists +
+                ", ListConsiderationPoints=" + ListConsiderationPoints +
                 ", Meetingdate='" + Meetingdate + '\'' +
                 ", MemoStatus='" + MemoStatus + '\'' +
                 ", MinisterIncharge='" + MinisterIncharge + '\'' +
                 ", ProposalDetails='" + ProposalDetails + '\'' +
                 ", SecIncharge='" + SecIncharge + '\'' +
                 ", Subject='" + Subject + '\'' +
+                ", Date='" + Date + '\'' +
                 '}';
     }
 }
