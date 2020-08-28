@@ -8,6 +8,15 @@ public class UserPojo implements Serializable {
    private String designation;
    private String mobileNumber;
    private String Userid;
+   private String Photo;
+
+    public String getPhoto() {
+        return Photo;
+    }
+
+    public void setPhoto(String photo) {
+        Photo = photo;
+    }
 
     public String getUserid() {
         return Userid;

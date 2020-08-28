@@ -76,11 +76,39 @@ public class CustomDialog {
 
     }
 
+    public void showDialogSuccess(final Activity activity, String msg) {
+        final Dialog dialog = new Dialog(activity);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(true);
+        dialog.setContentView(R.layout.dialog_custom_success);
+
+        int width = (int) (activity.getResources().getDisplayMetrics().widthPixels * 0.95);
+        int height = (int) (activity.getResources().getDisplayMetrics().heightPixels * 0.50);
+        dialog.getWindow().setLayout(width, height);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        TextView text = (TextView) dialog.findViewById(R.id.dialog_result);
+        text.setText(msg);
+
+        Button dialog_ok = (Button) dialog.findViewById(R.id.dialog_ok);
+
+        dialog_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // activity.finish();
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+
+    }
+
     public void showDialogCloseActivity(final Activity activity, String msg) {
         final Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
-        dialog.setContentView(R.layout.dialog_custom);
+        dialog.setContentView(R.layout.dialog_custom_success);
 
         int width = (int) (activity.getResources().getDisplayMetrics().widthPixels * 0.95);
         int height = (int) (activity.getResources().getDisplayMetrics().heightPixels * 0.50);

@@ -75,6 +75,9 @@ public class Econstants {
     public static final String methordSentBackCabinetMemoListByRole = "SentBackCabinetMemoListByRole";
     public static final String methordSentBackCabinetMemoListByRoleToken = "daddccaa314e7421e7e12f5cf7171081a0ss";
 
+    public static final String methordCabinetMemoDetailsOther = "CabinetFSMemoDetails";
+    public static final String methordCabinetMemoDetailsTokenOther = "YYjj098979YTHKKDRGGGGHHHH";
+
 
 
 

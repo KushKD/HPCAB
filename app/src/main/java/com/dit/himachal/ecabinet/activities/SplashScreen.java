@@ -9,25 +9,39 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.dit.himachal.ecabinet.R;
 import com.dit.himachal.ecabinet.utilities.Preferences;
 
 public class SplashScreen extends AppCompatActivity {
 
+    TextView textView;
+    ImageView imageView;
+    Animation animationUptoDown , animationDownToUp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
+        textView = findViewById(R.id.splash_text);
+        imageView = findViewById(R.id.splash_image);
+        animationUptoDown = AnimationUtils.loadAnimation(SplashScreen.this,R.anim.uptodownanim);
+        animationDownToUp = AnimationUtils.loadAnimation(SplashScreen.this,R.anim.downtotopanim);
 
+        imageView.setAnimation(animationUptoDown);
+        textView.setAnimation(animationDownToUp);
         Preferences.getInstance().loadPreferences(SplashScreen.this);
         requestPermissions();
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-
+                overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
                 if(Preferences.getInstance().isLoggedIn){
                     Intent mainIntent = new Intent(SplashScreen.this, MainActivity.class);
                     SplashScreen.this.startActivity(mainIntent);
@@ -41,7 +55,7 @@ public class SplashScreen extends AppCompatActivity {
 
 
             }
-        }, 3000);
+        }, 4000);
     }
 
     private void requestPermissions() {

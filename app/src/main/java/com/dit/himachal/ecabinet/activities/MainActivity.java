@@ -88,11 +88,11 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
         username.setText(Preferences.getInstance().user_name);
         designation.setText(Preferences.getInstance().role_name);
 
-        Log.e("Poto==", Preferences.getInstance().photo);
+        Log.e("Photo==", Preferences.getInstance().photo);
 
-        if (!Preferences.getInstance().photo.isEmpty()) {
-            imageLoader.DisplayCircleImage(Preferences.getInstance().photo, imageuser, null, null, false);
-        }
+        //if (!Preferences.getInstance().photo.isEmpty()) {
+          //  imageLoader.DisplayCircleImage(Preferences.getInstance().photo, imageuser, null, null, false);
+        //}
 
 
         department.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -390,9 +390,10 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
 
                         if (agendaPojo.getAgendaItemType().length() > 0) {
                                 Log.e("Agenda",agendaPojo.toString());
+                                //TODO Agenda Pop Up
                         } else {
                             Log.e("Agenda",agendaPojo.toString());
-                            CD.showDialog(MainActivity.this, "No Active Agenda Item Available.");
+                            CD.showDialogSuccess(MainActivity.this, "No Active Agenda Item Available.");
                         }
 
                     } catch (Exception ex) {

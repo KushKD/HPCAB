@@ -1,9 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rightLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.SplashScreen">
+    android:orientation="vertical"
+    android:background="#F2F2F2"
+    android:weightSum="3">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- ImageView -->
+
+    <LinearLayout
+        android:id="@+id/lay1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.4"
+        android:background="@drawable/pink_bordor_rect_grid"
+        android:gravity="right|center_vertical|center_horizontal"
+        android:orientation="horizontal">
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp">
+            <ImageView
+                android:id="@+id/image_english"
+                android:layout_width="80dp"
+                android:background="@drawable/pink_bordor_rect"
+                android:src="@drawable/hp_n"
+                android:padding="5dp"
+                android:layout_margin="5dp"
+                android:layout_height="60dp" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/laydetails"
+        android:layout_width="fill_parent"
+        android:background="#F2F2F2"
+        android:layout_height="0dip"
+        android:gravity="center_vertical|center_horizontal|center"
+        android:orientation="vertical"
+        android:layout_weight="2.4" >
+  <!-- Logo -->
+        <ImageView
+            android:id="@+id/splash_image"
+            android:gravity="center"
+            android:src="@drawable/hp_n"
+            android:layout_width="150dp"
+            android:layout_height="150dp">
+
+        </ImageView>
+
+        <TextView
+            android:id="@+id/splash_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="bottom"
+            android:textStyle="bold"
+            android:text="eCabinet"
+            android:textColor="@color/color_dark_rd"
+            android:fontFamily="@font/poppins_semibold"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:text="Government of Himachal Pradesh"
+            android:textColor="@color/colcr_blue"
+            android:textSize="19sp" />
+
+
+    </LinearLayout>
+
+
+    <!-- Button -->
+    <LinearLayout
+        android:id="@+id/lay3"
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.2"
+        android:background="@drawable/solid_line"
+        android:gravity="right|center_horizontal|center_vertical"
+        >
+
+        <TextView
+            android:id="@+id/splash_footer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:fontFamily="@font/poppins_semibold"
+            android:textColor="@color/colcr_blue"
+            android:text="Department of Information Technology"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -89,10 +89,13 @@ public class CabinetMemosAdapter extends BaseAdapter implements Filterable {
 
         if(param_.equalsIgnoreCase("Forwarded")){
             imageView1.setImageDrawable(context.getResources().getDrawable(R.drawable.forward_memos));
+            state_dept.setVisibility(View.VISIBLE);
         }else if(param_.equalsIgnoreCase("Backwarded")){
             imageView1.setImageDrawable(context.getResources().getDrawable(R.drawable.sent_back_memos));
+            state_dept.setVisibility(View.GONE);
         }else{
             imageView1.setImageDrawable(context.getResources().getDrawable(R.drawable.cabinet_memos));
+            state_dept.setVisibility(View.VISIBLE);
         }
 
 
@@ -125,7 +128,7 @@ public class CabinetMemosAdapter extends BaseAdapter implements Filterable {
 
 
         name.setText(u.getSubject());
-        state_dept.setText(u.getAgendaItemType());
+        state_dept.setText("Agenda Item No:- "+u.getAgendaItemType());
         central_dept.setText(u.getDeptName());
 //        if(u.getStateDept().isEmpty() || u.getStateDept().equalsIgnoreCase("null")){
 //            state_dept.setVisibility(View.GONE);

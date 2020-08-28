@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.dit.himachal.ecabinet.R;
 import com.dit.himachal.ecabinet.adapter.BranchAdapter;
@@ -72,7 +73,7 @@ public class Login extends AppCompatActivity implements AsyncTaskListenerObjectG
 
     UsersAdapter usersAdapter = null;
 
-    private String Global_deptId, Global_roleId, Global_Branch_id, Global_user_id = null;
+    private String Global_deptId, Global_roleId, Global_Branch_id, Global_user_id, Global_Photo = null;
 
 
     @Override
@@ -394,29 +395,38 @@ public class Login extends AppCompatActivity implements AsyncTaskListenerObjectG
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.e("Mobile",mobile.getText().toString());
+                if (mobile.getText().toString().length() == 10 && !mobile.getText().toString().isEmpty()) {
+                    if (!otp.getText().toString().isEmpty()) {
+                        if (AppStatus.getInstance(Login.this).isOnline()) {
+                            GetDataPojo object = new GetDataPojo();
+                            object.setUrl(Econstants.url);
+                            object.setMethord(Econstants.methordLogin);
+                            object.setMethordHash(Econstants.encodeBase64(Econstants.methordLoginToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
+                            object.setTaskType(TaskType.LOGIN);
+                            object.setTimeStamp(CommonUtils.getTimeStamp());
+                            List<String> parameters = new ArrayList<>();
+                            parameters.add(mobile.getText().toString());
+                            parameters.add(otp.getText().toString());
+                            parameters.add(Global_user_id);
+                            parameters.add(Global_roleId);
+                            object.setParameters(parameters);
+                            new Generic_Async_Get(
+                                    Login.this,
+                                    Login.this,
+                                    TaskType.LOGIN).
+                                    execute(object);
 
-                if (AppStatus.getInstance(Login.this).isOnline()) {
-                    GetDataPojo object = new GetDataPojo();
-                    object.setUrl(Econstants.url);
-                    object.setMethord(Econstants.methordLogin);
-                    object.setMethordHash(Econstants.encodeBase64(Econstants.methordLoginToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
-                    object.setTaskType(TaskType.LOGIN);
-                    object.setTimeStamp(CommonUtils.getTimeStamp());
-                    List<String> parameters = new ArrayList<>();
-                    parameters.add(mobile.getText().toString());
-                    parameters.add(otp.getText().toString());
-                    parameters.add(Global_user_id);
-                    parameters.add(Global_roleId);
-                    object.setParameters(parameters);
-                    new Generic_Async_Get(
-                            Login.this,
-                            Login.this,
-                            TaskType.LOGIN).
-                            execute(object);
 
+                        } else {
+                            CD.showDialog(Login.this, "Please connect to Internet and try again.");
+                        }
+                    } else {
 
+                        CD.showDialog(Login.this, "Please Enter OTP.");
+                    }
                 } else {
-                    CD.showDialog(Login.this, "Please connect to Internet and try again.");
+                    CD.showDialog(Login.this, "Please Enter a valid 10 digit Mobile Number.");
                 }
 
             }
@@ -580,11 +590,13 @@ public class Login extends AppCompatActivity implements AsyncTaskListenerObjectG
                             rolesPojo.setDesignation(Econstants.decodeBase64(object.getString("Designation")));
                             rolesPojo.setMobileNumber(Econstants.decodeBase64(object.getString("MobileNO")));
                             rolesPojo.setUserid(Econstants.decodeBase64(object.getString("Userid")));
+                            rolesPojo.setPhoto(Econstants.decodeBase64(object.getString("Photo")));
 
 
                             users.add(rolesPojo);
                         }
                         Log.e("Roles Data", users.toString());
+                        Global_Photo = users.get(0).getPhoto();
                         usersAdapter = new UsersAdapter(Login.this, android.R.layout.simple_spinner_item, users);
                         user.setAdapter(usersAdapter);
 
@@ -607,9 +619,12 @@ public class Login extends AppCompatActivity implements AsyncTaskListenerObjectG
                     JSONObject object = new JSONObject(result.respnse);
                     Log.e("arrayReports", object.toString());
 
-                    CD.showDialog(Login.this, Econstants.decodeBase64(object.getString("StatusMessage")));
+                    CD.showDialogSuccess(Login.this, Econstants.decodeBase64(object.getString("StatusMessage")));
 
 
+                }else{
+                    JSONObject json2 = new JSONObject(result.respnse);
+                    CD.showDialog(Login.this,Econstants.decodeBase64(json2.getString("StatusMessage")));
                 }
 
 
@@ -631,7 +646,8 @@ public class Login extends AppCompatActivity implements AsyncTaskListenerObjectG
                     if (arrayReports.length() >= 0) {
                         //ReportsModelPojo
                         JSONObject object = arrayReports.getJSONObject(0);
-                        if (!Econstants.decodeBase64(object.getString("StatusMessage")).equalsIgnoreCase("Incorrect OTP, please enter correct OTP!!.")) {
+                        if (!Econstants.decodeBase64(object.getString("StatusMessage")).equalsIgnoreCase("Incorrect OTP, please enter correct OTP!!.")
+                                || !Econstants.decodeBase64(object.getString("StatusMessage")).equalsIgnoreCase("No Record Found")) {
                             departmentsUserPojos = new ArrayList<>();
                             UserDataPojo dataPojo = new UserDataPojo();
                             for (int i = 0; i < arrayReports.length(); i++) {
@@ -650,7 +666,7 @@ public class Login extends AppCompatActivity implements AsyncTaskListenerObjectG
                             dataPojo.setMobileNumber(Econstants.decodeBase64(object.getString("MobileNumber")));
                             dataPojo.setName(Econstants.decodeBase64(object.getString("Name")));
                             dataPojo.setUserID(Econstants.decodeBase64(object.getString("UserID")));
-                            dataPojo.setPhoto(Econstants.decodeBase64(object.optString("Photo")));
+                            dataPojo.setPhoto(Global_Photo);
 
                             dataPojo.setRoleId(Global_roleId);
 
@@ -658,6 +674,7 @@ public class Login extends AppCompatActivity implements AsyncTaskListenerObjectG
                             //Save Data to shared Prefrences
                             boolean goToMain = saveDataSharedPrefrences(dataPojo);
                             if (goToMain) {
+                                Toast.makeText(Login.this,"Login Successful",Toast.LENGTH_LONG);
                                 Intent mainIntent = new Intent(Login.this, MainActivity.class);
                                 Login.this.startActivity(mainIntent);
                                 Login.this.finish();
@@ -683,7 +700,7 @@ public class Login extends AppCompatActivity implements AsyncTaskListenerObjectG
     }
 
     private boolean saveDataSharedPrefrences(UserDataPojo dataPojo) {
-                StringBuilder SB =new StringBuilder();
+        StringBuilder SB = new StringBuilder();
         try {
 
             Preferences.getInstance().loadPreferences(Login.this);
@@ -692,6 +709,8 @@ public class Login extends AppCompatActivity implements AsyncTaskListenerObjectG
             Preferences.getInstance().user_name = dataPojo.getName();
             Preferences.getInstance().user_id = dataPojo.getUserID();
             Preferences.getInstance().photo = dataPojo.getPhoto();
+            Log.e("Mapped Departments", Preferences.getInstance().photo);
+
             if (dataPojo.getIsCabinetMinister().equalsIgnoreCase("Y")) {
                 Preferences.getInstance().is_cabinet_minister = true;
             } else {
@@ -703,7 +722,7 @@ public class Login extends AppCompatActivity implements AsyncTaskListenerObjectG
             Preferences.getInstance().isLoggedIn = true;
             Preferences.getInstance().branched_mapped = dataPojo.getBranchmapped();
 
-            for(int i=0 ; i<dataPojo.getDepartmentsUser().size(); i++){
+            for (int i = 0; i < dataPojo.getDepartmentsUser().size(); i++) {
                 SB.append(dataPojo.getDepartmentsUser().get(i).getDepartmentID());
                 SB.append(",");
             }

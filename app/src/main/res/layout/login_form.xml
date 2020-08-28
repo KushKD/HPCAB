@@ -361,7 +361,7 @@
                     android:fontFamily="@font/poppins_semibold"
                     android:gravity="left|center_horizontal|center_vertical"
 
-                    android:text="Enter Mobile (Last 4 digit Only)*"
+                    android:text="Enter Mobile *"
                     android:textColor="@color/colcr_blue"
                     android:textSize="12sp" />
 

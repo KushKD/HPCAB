@@ -58,8 +58,9 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
     EditText otp, remarks;
 
     Button approve, back, allow, proceed, cancel;
-    LinearLayout otp_proceed, proceed_cancel, buttons;
+    LinearLayout otp_proceed, proceed_cancel, buttons, remarkslay;
     private String buttonName = null;
+    private String param = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,8 +69,21 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
 
         Intent cabinetData = getIntent();
         cabinetMemoPojo = (CabinetMemoPojo) cabinetData.getSerializableExtra("EVENTS_DETAILS");
+        param = cabinetData.getStringExtra("param");
         Log.e("EVENTS_DETAILS", cabinetMemoPojo.toString());
         init();
+
+//TODO
+        if(param.equalsIgnoreCase("Forwarded")){
+          buttons.setVisibility(View.GONE);
+            remarkslay.setVisibility(View.GONE);
+        }else if(param.equalsIgnoreCase("Backwarded")){
+           buttons.setVisibility(View.GONE);
+            remarkslay.setVisibility(View.GONE);
+        }else{
+            buttons.setVisibility(View.VISIBLE);
+            remarkslay.setVisibility(View.VISIBLE);
+        }
 
         if (Preferences.getInstance().role_id.equalsIgnoreCase("5")) {
             allow.setVisibility(View.VISIBLE);
@@ -90,6 +104,7 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
                 proceed_cancel.setVisibility(View.GONE);
                 otp_proceed.setVisibility(View.GONE);
                 otp.setText("");
+
             }
         });
 //TODO OTP CHECK USER BASE
@@ -344,30 +359,57 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
         });
 
 
-        if (AppStatus.getInstance(CabinetMemoDetailsActivity.this).isOnline()) {
-            GetDataPojo object = new GetDataPojo();
-            object.setUrl(Econstants.url);
-            object.setMethord(Econstants.methordCabinetMemoDetails);
-            object.setMethordHash(Econstants.encodeBase64(Econstants.methordCabinetMemoDetailsToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
-            object.setTaskType(TaskType.CABINET_MEMOS_DETAILS);
-            object.setTimeStamp(CommonUtils.getTimeStamp());
-            List<String> parameters = new ArrayList<>();
-            parameters.add(cabinetMemoPojo.getCabinetMemoID());
-            parameters.add(cabinetMemoPojo.getDeptid());
-            parameters.add(Preferences.getInstance().user_id);
-            parameters.add(Preferences.getInstance().role_id);
-            object.setParameters(parameters);
+       if(param.equalsIgnoreCase("Current")){
+           if (AppStatus.getInstance(CabinetMemoDetailsActivity.this).isOnline()) {
+               GetDataPojo object = new GetDataPojo();
+               object.setUrl(Econstants.url);
+               object.setMethord(Econstants.methordCabinetMemoDetails);
+               object.setMethordHash(Econstants.encodeBase64(Econstants.methordCabinetMemoDetailsToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
+               object.setTaskType(TaskType.CABINET_MEMOS_DETAILS);
+               object.setTimeStamp(CommonUtils.getTimeStamp());
+               List<String> parameters = new ArrayList<>();
+               parameters.add(cabinetMemoPojo.getCabinetMemoID());
+               parameters.add(cabinetMemoPojo.getDeptid());
+               parameters.add(Preferences.getInstance().user_id);
+               parameters.add(Preferences.getInstance().role_id);
+               object.setParameters(parameters);
 
-            Log.e("Departments", Preferences.getInstance().mapped_departments);
+               Log.e("Departments", Preferences.getInstance().mapped_departments);
 
-            new Generic_Async_Get(
-                    CabinetMemoDetailsActivity.this,
-                    CabinetMemoDetailsActivity.this,
-                    TaskType.CABINET_MEMOS_DETAILS).
-                    execute(object);
-        } else {
-            CD.showDialog(CabinetMemoDetailsActivity.this, "Please connect to Internet and tr again.");
-        }
+               new Generic_Async_Get(
+                       CabinetMemoDetailsActivity.this,
+                       CabinetMemoDetailsActivity.this,
+                       TaskType.CABINET_MEMOS_DETAILS).
+                       execute(object);
+           } else {
+               CD.showDialog(CabinetMemoDetailsActivity.this, "Please connect to Internet and tr again.");
+           }
+       }else{
+           if (AppStatus.getInstance(CabinetMemoDetailsActivity.this).isOnline()) {
+               GetDataPojo object = new GetDataPojo();
+               object.setUrl(Econstants.url);
+               object.setMethord(Econstants.methordCabinetMemoDetailsOther);
+               object.setMethordHash(Econstants.encodeBase64(Econstants.methordCabinetMemoDetailsTokenOther + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
+               object.setTaskType(TaskType.CABINET_MEMOS_DETAILS);
+               object.setTimeStamp(CommonUtils.getTimeStamp());
+               List<String> parameters = new ArrayList<>();
+               parameters.add(cabinetMemoPojo.getCabinetMemoID());
+               parameters.add(cabinetMemoPojo.getDeptid());
+               parameters.add(Preferences.getInstance().user_id);
+               parameters.add(Preferences.getInstance().role_id);
+               object.setParameters(parameters);
+
+               Log.e("Departments", Preferences.getInstance().mapped_departments);
+
+               new Generic_Async_Get(
+                       CabinetMemoDetailsActivity.this,
+                       CabinetMemoDetailsActivity.this,
+                       TaskType.CABINET_MEMOS_DETAILS).
+                       execute(object);
+           } else {
+               CD.showDialog(CabinetMemoDetailsActivity.this, "Please connect to Internet and tr again.");
+           }
+       }
     }
 
     private void init() {
@@ -393,6 +435,7 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
         cancel = findViewById(R.id.cancel);
         buttons = findViewById(R.id.buttons);
         remarks = findViewById(R.id.remarks);
+        remarkslay = findViewById(R.id.remarkslay);
     }
 
 

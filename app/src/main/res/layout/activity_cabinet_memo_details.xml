@@ -472,6 +472,7 @@
 
                     <!-- Remarks for Consideration -->
                     <LinearLayout
+                        android:id="@+id/remarkslay"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
@@ -653,7 +654,8 @@
                             android:fontFamily="@font/poppins_semibold"
                             android:gravity="center|center_horizontal|center_vertical"
                             android:text="Cancel"
-                            android:textColor="@color/color_maroon_top"
+                            android:textColor="#FFFFFF"
+                            android:background="@color/color_maroon_top"
                             android:textSize="16sp" />
 
 
@@ -665,7 +667,8 @@
                             android:layout_centerVertical="true"
                             android:layout_weight="1"
                             android:fontFamily="@font/poppins_semibold"
-                            android:textColor="#228B22" />                            android:textSize="14dip" />
+                            android:background="#228B22"
+                            android:textColor="#FFFFFF"/>                            android:textSize="14dip" />
 
                     </LinearLayout>
                 </LinearLayout>

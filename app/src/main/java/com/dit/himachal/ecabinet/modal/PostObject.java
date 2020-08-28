@@ -120,7 +120,7 @@ public class PostObject implements Serializable {
             jsonObject.put("CabinetMemoID", getCabinetMemoId());
             jsonObject.put("DeptId", getDeptId());
             jsonObject.put("RoleID", getRoleid());
-            jsonObject.put("Tokens", getToken());
+            jsonObject.put("Token", getToken());
             jsonObject.put("remarks", getRemarks());
             jsonObject.put("OTP", getOtp());
             jsonObject.put("MobileNO", getPhone());
