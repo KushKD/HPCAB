@@ -29,12 +29,10 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'com.github.smarteist:autoimageslider:1.3.2-appcompat'
-    implementation 'com.github.bumptech.glide:glide:4.10.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
     implementation group: 'commons-codec', name: 'commons-codec', version: '1.9'
 
     implementation project(path: ':spinnersearchable')
+    implementation project(path: ':prdownloader')
 
 }
