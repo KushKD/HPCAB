@@ -15,7 +15,7 @@ public class CabinetMemoPojo implements Serializable {
     private String Deptid;
     private String FileNo;
     private String ListAdvisoryDepartments;
-    private String ListAnnexures;
+    private List<ListAnnexures> ListAnnexures_;
     private List<ListCabinetMemoTrackingHistoryListsPojo> ListCabinetMemoTrackingHistoryLists;
     private List<ListConsiderationPoints> ListConsiderationPoints;
     private String Meetingdate;
@@ -25,6 +25,15 @@ public class CabinetMemoPojo implements Serializable {
     private String SecIncharge;
     private String Subject;
     private String Date;
+    private String StatusMessage;
+
+    public String getStatusMessage() {
+        return StatusMessage;
+    }
+
+    public void setStatusMessage(String statusMessage) {
+        StatusMessage = statusMessage;
+    }
 
     public String getDate() {
         return Date;
@@ -106,13 +115,7 @@ public class CabinetMemoPojo implements Serializable {
         ListAdvisoryDepartments = listAdvisoryDepartments;
     }
 
-    public String getListAnnexures() {
-        return ListAnnexures;
-    }
 
-    public void setListAnnexures(String listAnnexures) {
-        ListAnnexures = listAnnexures;
-    }
 
     public List<ListCabinetMemoTrackingHistoryListsPojo> getListCabinetMemoTrackingHistoryLists() {
         return ListCabinetMemoTrackingHistoryLists;
@@ -179,6 +182,14 @@ public class CabinetMemoPojo implements Serializable {
     }
 
 
+    public List<ListAnnexures> getListAnnexures_() {
+        return ListAnnexures_;
+    }
+
+    public void setListAnnexures_(List<ListAnnexures> listAnnexures_) {
+        ListAnnexures_ = listAnnexures_;
+    }
+
     @Override
     public String toString() {
         return "CabinetMemoPojo{" +
@@ -191,7 +202,7 @@ public class CabinetMemoPojo implements Serializable {
                 ", Deptid='" + Deptid + '\'' +
                 ", FileNo='" + FileNo + '\'' +
                 ", ListAdvisoryDepartments='" + ListAdvisoryDepartments + '\'' +
-                ", ListAnnexures='" + ListAnnexures + '\'' +
+                ", ListAnnexures_=" + ListAnnexures_ +
                 ", ListCabinetMemoTrackingHistoryLists=" + ListCabinetMemoTrackingHistoryLists +
                 ", ListConsiderationPoints=" + ListConsiderationPoints +
                 ", Meetingdate='" + Meetingdate + '\'' +
@@ -201,6 +212,7 @@ public class CabinetMemoPojo implements Serializable {
                 ", SecIncharge='" + SecIncharge + '\'' +
                 ", Subject='" + Subject + '\'' +
                 ", Date='" + Date + '\'' +
+                ", StatusMessage='" + StatusMessage + '\'' +
                 '}';
     }
 }

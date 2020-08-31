@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
         username.setText(Preferences.getInstance().user_name);
         designation.setText(Preferences.getInstance().role_name);
 
-        Log.e("Photo==", Preferences.getInstance().photo);
+//        Log.e("Photo==", Preferences.getInstance().photo);
 
         //if (!Preferences.getInstance().photo.isEmpty()) {
           //  imageLoader.DisplayCircleImage(Preferences.getInstance().photo, imageuser, null, null, false);

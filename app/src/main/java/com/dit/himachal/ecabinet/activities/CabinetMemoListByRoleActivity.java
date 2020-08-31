@@ -83,6 +83,7 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
                 parameters.add(deptId);
                 parameters.add(Preferences.getInstance().user_id);
                 parameters.add(Preferences.getInstance().role_id);
+                parameters.add(Preferences.getInstance().mapped_departments);
 
                 object.setParameters(parameters);
 
@@ -108,6 +109,7 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
                 parameters.add(deptId);
                 parameters.add(Preferences.getInstance().user_id);
                 parameters.add(Preferences.getInstance().role_id);
+                parameters.add(Preferences.getInstance().mapped_departments);
 
                 object.setParameters(parameters);
 
@@ -183,6 +185,8 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
             }
         });
 
+
+
         pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -199,7 +203,7 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
                         parameters.add(deptId);
                         parameters.add(Preferences.getInstance().user_id);
                         parameters.add(Preferences.getInstance().role_id);
-
+                        parameters.add(Preferences.getInstance().mapped_departments);
                         object.setParameters(parameters);
 
                         Log.e("Departments", Preferences.getInstance().mapped_departments);
@@ -224,7 +228,7 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
                         parameters.add(deptId);
                         parameters.add(Preferences.getInstance().user_id);
                         parameters.add(Preferences.getInstance().role_id);
-
+                        parameters.add(Preferences.getInstance().mapped_departments);
                         object.setParameters(parameters);
 
                         Log.e("Departments", Preferences.getInstance().mapped_departments);
@@ -308,6 +312,89 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        if (param.equalsIgnoreCase("Forwarded")) {
+            if (AppStatus.getInstance(CabinetMemoListByRoleActivity.this).isOnline()) {
+                GetDataPojo object = new GetDataPojo();
+                object.setUrl(Econstants.url);
+                object.setMethord(Econstants.methordForwardedCabinetMemoListByRole);
+                object.setMethordHash(Econstants.encodeBase64(Econstants.methordForwardedCabinetMemoListByRoleToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
+                object.setTaskType(TaskType.GET_PENDING_MEMO_LIST_CABINET);
+                object.setTimeStamp(CommonUtils.getTimeStamp());
+                List<String> parameters = new ArrayList<>();
+                parameters.add(deptId);
+                parameters.add(Preferences.getInstance().user_id);
+                parameters.add(Preferences.getInstance().role_id);
+                parameters.add(Preferences.getInstance().mapped_departments);
+                object.setParameters(parameters);
+
+                Log.e("Departments", Preferences.getInstance().mapped_departments);
+
+                new Generic_Async_Get(
+                        CabinetMemoListByRoleActivity.this,
+                        CabinetMemoListByRoleActivity.this,
+                        TaskType.GET_PENDING_MEMO_LIST_CABINET).
+                        execute(object);
+            } else {
+                CD.showDialog(CabinetMemoListByRoleActivity.this, "Please connect to Internet and tr again.");
+            }
+        } else if (param.equalsIgnoreCase("Backwarded")) {
+            if (AppStatus.getInstance(CabinetMemoListByRoleActivity.this).isOnline()) {
+                GetDataPojo object = new GetDataPojo();
+                object.setUrl(Econstants.url);
+                object.setMethord(Econstants.methordSentBackCabinetMemoListByRole);
+                object.setMethordHash(Econstants.encodeBase64(Econstants.methordSentBackCabinetMemoListByRoleToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
+                object.setTaskType(TaskType.GET_PENDING_MEMO_LIST_CABINET);
+                object.setTimeStamp(CommonUtils.getTimeStamp());
+                List<String> parameters = new ArrayList<>();
+                parameters.add(deptId);
+                parameters.add(Preferences.getInstance().user_id);
+                parameters.add(Preferences.getInstance().role_id);
+                parameters.add(Preferences.getInstance().mapped_departments);
+                object.setParameters(parameters);
+
+                Log.e("Departments", Preferences.getInstance().mapped_departments);
+
+                new Generic_Async_Get(
+                        CabinetMemoListByRoleActivity.this,
+                        CabinetMemoListByRoleActivity.this,
+                        TaskType.GET_PENDING_MEMO_LIST_CABINET).
+                        execute(object);
+            } else {
+                CD.showDialog(CabinetMemoListByRoleActivity.this, "Please connect to Internet and try again.");
+            }
+
+        } else {
+            if (AppStatus.getInstance(CabinetMemoListByRoleActivity.this).isOnline()) {
+                GetDataPojo object = new GetDataPojo();
+                object.setUrl(Econstants.url);
+                object.setMethord(Econstants.methordCabinetMemoListByRole);
+                object.setMethordHash(Econstants.encodeBase64(Econstants.methordCabinetMemoListByToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
+                object.setTaskType(TaskType.GET_PENDING_MEMO_LIST_CABINET);
+                object.setTimeStamp(CommonUtils.getTimeStamp());
+                List<String> parameters = new ArrayList<>();
+                parameters.add(deptId);
+                parameters.add(Preferences.getInstance().user_id);
+                parameters.add(Preferences.getInstance().role_id);
+                parameters.add(Preferences.getInstance().mapped_departments);
+                parameters.add(Preferences.getInstance().branched_mapped);
+                object.setParameters(parameters);
+
+                Log.e("Departments", Preferences.getInstance().mapped_departments);
+
+                new Generic_Async_Get(
+                        CabinetMemoListByRoleActivity.this,
+                        CabinetMemoListByRoleActivity.this,
+                        TaskType.GET_PENDING_MEMO_LIST_CABINET).
+                        execute(object);
+            } else {
+                CD.showDialog(CabinetMemoListByRoleActivity.this, "Please connect to Internet and try again.");
+            }
+        }
+    }
+
+    @Override
     public void onTaskCompleted(ResponsObject result, TaskType taskType) throws JSONException {
 
 
@@ -321,8 +408,8 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
                 Log.e("Json Object", "Object");
                 JSONArray arrayReports = new JSONArray(result.respnse);
                 Log.e("arrayReports", arrayReports.toString());
-
-                if (arrayReports.length() >= 0) {
+//No Record Found  StatusMessage
+                if (arrayReports.length() > 0) {
                     //ReportsModelPojo
                     JSONObject object = arrayReports.getJSONObject(0);
                   //  if (!Econstants.decodeBase64(object.optString("StatusMessage")).equalsIgnoreCase("Incorrect OTP, please enter correct OTP!!.")) {
@@ -342,25 +429,35 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
                             memoPojo.setDeptid(Econstants.decodeBase64(objectx.optString("Deptid")));
                             memoPojo.setFileNo(Econstants.decodeBase64(objectx.optString("FileNo")));
                             memoPojo.setListAdvisoryDepartments(Econstants.decodeBase64(objectx.optString("ListAdvisoryDepartments")));
-                            memoPojo.setListAnnexures(Econstants.decodeBase64(objectx.optString("ListAnnexures")));
+                            //memoPojo.setListAnnexures(Econstants.decodeBase64(objectx.optString("ListAnnexures")));
                             memoPojo.setMeetingdate(Econstants.decodeBase64(objectx.optString("Meetingdate")));
                             memoPojo.setMemoStatus(Econstants.decodeBase64(objectx.optString("MemoStatus")));
                             memoPojo.setMinisterIncharge(Econstants.decodeBase64(objectx.optString("MinisterIncharge")));
                             memoPojo.setProposalDetails(Econstants.decodeBase64(objectx.optString("ProposalDetails")));
                             memoPojo.setSecIncharge(Econstants.decodeBase64(objectx.optString("SecIncharge")));
                             memoPojo.setSubject(Econstants.decodeBase64(objectx.optString("Subject")));
+                            memoPojo.setStatusMessage(Econstants.decodeBase64(objectx.optString("StatusMessage")));
+
+                            if(!memoPojo.getStatusMessage().equalsIgnoreCase("No Record Found")){
+                                cabinetMemoPojoList.add(memoPojo);
+                            }
 
 
-                            cabinetMemoPojoList.add(memoPojo);
 
                         }
 
-                        cabinetMemosAdapter = new CabinetMemosAdapter(CabinetMemoListByRoleActivity.this, cabinetMemoPojoList,param);
-                        list.setAdapter(cabinetMemosAdapter);
-                        list.setTextFilterEnabled(true);
-                        edit_text_search.setVisibility(View.VISIBLE);
+                        if(cabinetMemoPojoList.size()>0){
+                            cabinetMemosAdapter = new CabinetMemosAdapter(CabinetMemoListByRoleActivity.this, cabinetMemoPojoList,param);
+                            list.setAdapter(cabinetMemosAdapter);
+                            list.setTextFilterEnabled(true);
+                            edit_text_search.setVisibility(View.VISIBLE);
 
-                        Log.e("DAta", cabinetMemoPojoList.toString());
+                            Log.e("DAta", cabinetMemoPojoList.toString());
+                        }else{
+                            CD.showDialogCloseActivity(CabinetMemoListByRoleActivity.this, "The Request was Successful. No Records Found.");
+                        }
+
+
 
 
 //                    } else {

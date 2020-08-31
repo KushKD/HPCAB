@@ -78,6 +78,10 @@ public class Econstants {
     public static final String methordCabinetMemoDetailsOther = "CabinetFSMemoDetails";
     public static final String methordCabinetMemoDetailsTokenOther = "YYjj098979YTHKKDRGGGGHHHH";
 
+    public static final String methordAllowedCabinetMemo = "AllowedCabinetMemo";
+    public static final String methordAllowedCabinetMemoToken = "ghsssaccaa314e7421e7e12f5cf0sseeddd";
+
+
 
 
 

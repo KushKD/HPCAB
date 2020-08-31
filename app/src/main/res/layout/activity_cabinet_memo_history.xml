@@ -65,69 +65,69 @@
 
         </LinearLayout>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical"
-        android:layout_weight="4"
-        >
-
-        <LinearLayout
-            android:id="@+id/ll2"
-            android:layout_width="match_parent"
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_weight="3.7"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_weight="4"
+            >
 
-            <!-- no of columns 3 auto_fit -->
-
-
-            <TextView
+            <LinearLayout
+                android:id="@+id/ll2"
                 android:layout_width="match_parent"
                 android:layout_height="fill_parent"
-                android:fontFamily="@font/poppins_semibold"
-                android:gravity="center|center_horizontal|center_vertical"
-                android:text="Cabinet Memos"
-                android:textColor="@color/color_dark_rd"
-                android:textSize="16sp" />
+                android:layout_weight="3.7"
+                android:orientation="vertical">
 
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/ll1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.3"
-            android:orientation="vertical">
+                <!-- no of columns 3 auto_fit -->
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:gravity="center|center_horizontal|center_vertical"
+                    android:text="Cabinet Memo Tracking History"
+                    android:textColor="@color/color_dark_rd"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
             <LinearLayout
-                android:id="@+id/search"
+                android:id="@+id/ll1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="#fff"
-                android:elevation="4dp"
-                android:orientation="vertical"
-                android:visibility="visible"
-                android:weightSum="1">
-
-                <EditText
-                    android:id="@+id/edit_text_search"
+                android:layout_height="match_parent"
+                android:layout_weight="0.3"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:id="@+id/search"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:hint="Search"
-                    android:visibility="gone"
-                    android:textColor="@color/colcr_blue"
-                    android:textColorHint="@color/colcr_blue" />
+                    android:layout_margin="5dp"
+                    android:background="#fff"
+                    android:elevation="4dp"
+                    android:orientation="vertical"
+                    android:visibility="visible"
+                    android:weightSum="1">
 
-                <ListView
-                    android:id="@+id/list"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"></ListView>
+                    <EditText
+                        android:id="@+id/edit_text_search"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:hint="Search"
+                        android:visibility="gone"
+                        android:textColor="@color/colcr_blue"
+                        android:textColorHint="@color/colcr_blue" />
+
+                    <ListView
+                        android:id="@+id/list"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"></ListView>
+                </LinearLayout>
+
+
             </LinearLayout>
-
-
-        </LinearLayout>
 
 
 

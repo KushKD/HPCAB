@@ -15,6 +15,15 @@ public class UserDataPojo implements Serializable {
     private List<DepartmentsUserPojo> departmentsUser;
     private String Photo;
 
+    private String StatusMessage;
+
+    public String getStatusMessage() {
+        return StatusMessage;
+    }
+
+    public void setStatusMessage(String statusMessage) {
+        StatusMessage = statusMessage;
+    }
 
     public String getPhoto() {
         return Photo;
@@ -100,6 +109,7 @@ public class UserDataPojo implements Serializable {
                 ", RoleId='" + RoleId + '\'' +
                 ", departmentsUser=" + departmentsUser +
                 ", Photo='" + Photo + '\'' +
+                ", StatusMessage='" + StatusMessage + '\'' +
                 '}';
     }
 }

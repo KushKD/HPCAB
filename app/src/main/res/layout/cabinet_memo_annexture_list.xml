@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="#fff"
+    android:elevation="4dp"
+    android:orientation="horizontal"
+    android:padding="5dip" >
+
+
+    <LinearLayout
+        android:id="@+id/thumbnail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/customborder_n"
+        android:layout_alignParentLeft="true"
+        android:layout_marginRight="5dip"
+        android:padding="3dip" >
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/attachments"
+            android:layout_width="50dip"
+            android:padding="10dp"
+            android:layout_height="50dip" />
+    </LinearLayout>
+
+
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/thumbnail"
+        android:layout_marginLeft="10dip"
+        android:textColor="@color/colcr_blue"
+        android:fontFamily="@font/poppins_semibold"
+        android:textSize="18sp"
+        android:text="rer"
+        android:textStyle="bold"
+        android:typeface="sans"/>
+
+
+    <TextView
+        android:id="@+id/state_dept"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/thumbnail"
+        android:layout_marginLeft="10dip"
+        android:layout_below="@+id/name"
+        android:textSize="14sp"
+        android:text="323232"
+        android:fontFamily="@font/poppins_semibold"
+        android:textColor="@color/color_red_maroon"
+        android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+
+
+    <TextView
+        android:id="@+id/central_dept"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/thumbnail"
+        android:layout_marginLeft="10dip"
+        android:layout_below="@+id/state_dept"
+        android:textSize="14sp"
+        android:text="323232"
+        android:fontFamily="@font/poppins_semibold"
+        android:textColor="@color/color_red_maroon"
+        android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+
+</RelativeLayout>
