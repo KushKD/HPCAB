@@ -17,7 +17,9 @@ import android.widget.Toast;
 
 
 import com.dit.himachal.ecabinet.R;
+import com.dit.himachal.ecabinet.activities.ApprovedMemo;
 import com.dit.himachal.ecabinet.activities.CabinetMemoListByRoleActivity;
+import com.dit.himachal.ecabinet.activities.FinalAgendaList;
 import com.dit.himachal.ecabinet.activities.Login;
 import com.dit.himachal.ecabinet.lazyloader.ImageLoader;
 import com.dit.himachal.ecabinet.modal.ModulesPojo;
@@ -131,6 +133,17 @@ public class HomeGridViewAdapter extends BaseAdapter {
                     Intent intent = new Intent("getAgenda");
                     intent.setPackage(c.getPackageName());
                     (c).sendBroadcast(intent);
+                }
+                if (s.getId().equalsIgnoreCase("6")) {
+                    Intent i = new Intent(c.getApplicationContext(), ApprovedMemo.class);
+                    i.putExtra("department_id", dept_id_);
+                    i.putExtra("param", "allowedCabinetMemos");
+                    (c).startActivity(i);
+                }
+                if (s.getId().equalsIgnoreCase("7")) {
+                    Intent i = new Intent(c.getApplicationContext(), FinalAgendaList.class);
+                    i.putExtra("department_id", dept_id_);
+                    (c).startActivity(i);
                 }
 
                 if (s.getId().equalsIgnoreCase("21")) {

@@ -87,6 +87,9 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
         }else if(param.equalsIgnoreCase("Backwarded")){
            buttons.setVisibility(View.GONE);
             remarkslay.setVisibility(View.GONE);
+        }else if(param.equalsIgnoreCase("allowedCabinetMemos") || param.equalsIgnoreCase("final")){
+            buttons.setVisibility(View.GONE);
+            remarkslay.setVisibility(View.GONE);
         }else{
             buttons.setVisibility(View.VISIBLE);
             remarkslay.setVisibility(View.VISIBLE);
@@ -436,7 +439,7 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
         });
 
 
-       if(param.equalsIgnoreCase("Current")){
+       if(param.equalsIgnoreCase("Current") ){
            if (AppStatus.getInstance(CabinetMemoDetailsActivity.this).isOnline()) {
                GetDataPojo object = new GetDataPojo();
                object.setUrl(Econstants.url);

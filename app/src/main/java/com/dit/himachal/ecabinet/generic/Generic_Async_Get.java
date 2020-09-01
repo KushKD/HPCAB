@@ -90,8 +90,20 @@ public class Generic_Async_Get extends AsyncTask<GetDataPojo,Void , ResponsObjec
                 Log.e("We Here", getDataPojo[0].getMethord());
                 Data_From_Server = http_manager.GetData(getDataPojo[0]);
                 return Data_From_Server;
+            }else  if(getDataPojo[0].getTaskType().toString().equalsIgnoreCase(TaskType.GET_ALLOWED_MEMO_LIST_CABINET.toString())){
+                Log.e("We Here", getDataPojo[0].getMethord());
+                Data_From_Server = http_manager.GetData(getDataPojo[0]);
+                return Data_From_Server;
+            }else  if(getDataPojo[0].getTaskType().toString().equalsIgnoreCase(TaskType.GET_PUBLISHED_MEETING_ID_BY_ROLE.toString())){
+                Log.e("We Here", getDataPojo[0].getMethord());
+                Data_From_Server = http_manager.GetData(getDataPojo[0]);
+                return Data_From_Server;
+            }else  if(getDataPojo[0].getTaskType().toString().equalsIgnoreCase(TaskType.FINAL_MEETING_AGENDA_LIST.toString())){
+                Log.e("We Here", getDataPojo[0].getMethord());
+                Data_From_Server = http_manager.GetData(getDataPojo[0]);
+                return Data_From_Server;
             }
-            //ALLOW
+
 
 
 

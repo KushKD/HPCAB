@@ -26,6 +26,9 @@ public class Econstants {
     public static final String methordDepartmentsViaRoles = "GetMappedDepartmentsListByUserRole";
     public static final String methordDepartmentsToken = "klhkhughiknbv12f5cf7171081a0dddss";
 
+   // public static final String methordGetDepartments="DepartmentsList";
+   // public static final String methordGetDepartmentsToken="aaccaa314e7421e7e12f5cf7171081rr";
+
 
     public static final String methordBranchesViaDept = "GetBranchDetails";
     public static final String methordBranchesToken = "ckhijjkkjjhjdddii990001e7e12f5cf71710";
@@ -55,6 +58,11 @@ public class Econstants {
     public static final String methordPublishedMeetingDatesListByRole ="PublishedMeetingDatesListByRole";
     public static final String methordPublishedMeetingDatesListByRoleToken ="da314e7421e7e12f5cf7171081a0ddd";
 
+    public static final String methordFinalMeetingAgendaList ="FinalMeetingAgendalist";
+    public static final String methordFinalMeetingAgendaListToken ="khjlhifutrdfgf2344hhyi666issdfddd345";
+
+
+
     public static final String methordCabinetMemoListByRole = "CabinetMemoListByRole";
     public static final String methordCabinetMemoListByToken = "dsssaccaa314e7421e7e12f5cf7171081a0ss";
 
@@ -80,6 +88,9 @@ public class Econstants {
 
     public static final String methordAllowedCabinetMemo = "AllowedCabinetMemo";
     public static final String methordAllowedCabinetMemoToken = "ghsssaccaa314e7421e7e12f5cf0sseeddd";
+
+
+
 
 
 

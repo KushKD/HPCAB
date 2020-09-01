@@ -52,7 +52,7 @@ public class CabinetAnnexures extends AppCompatActivity {
                     CD.showDialog(CabinetAnnexures.this,"Attachment Not added.");
                 }else{
                     CD.showDialogDownloadPDFWithoutAsOnDate(CabinetAnnexures.this,cabinet_memo_pojo.getAttachment(),"Attachment");
-                    CD.showDialog(CabinetAnnexures.this,cabinet_memo_pojo.getAttachment());
+                   // CD.showDialog(CabinetAnnexures.this,cabinet_memo_pojo.getAttachment());
 
                 }
 

@@ -18,7 +18,10 @@ public enum TaskType {
     CABINET_MEMOS_DETAILS(9),
     SEND_BACK(10),
     FORWARD(11),
-    ALLOW(12);
+    ALLOW(12),
+    GET_ALLOWED_MEMO_LIST_CABINET(13),
+    GET_PUBLISHED_MEETING_ID_BY_ROLE(14),
+    FINAL_MEETING_AGENDA_LIST(15);
 
     int value; private TaskType(int value) { this.value = value; }
 }
