@@ -284,22 +284,34 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
             public void onClick(View v) {
 
                 if (AppStatus.getInstance(CabinetMemoDetailsActivity.this).isOnline()) {
-                    GetDataPojo object = new GetDataPojo();
-                    object.setUrl(Econstants.url);
-                    object.setMethord(Econstants.methordAllowedCabinetMemo);
-                    object.setMethordHash(Econstants.encodeBase64(Econstants.methordAllowedCabinetMemoToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
-                    object.setTaskType(TaskType.ALLOW);
-                    object.setTimeStamp(CommonUtils.getTimeStamp());
-                    List<String> parameters = new ArrayList<>();
-                    parameters.add(cabinetMemoPojoDetails.getDeptid());
-                    parameters.add(Preferences.getInstance().user_id);
-                    parameters.add(Preferences.getInstance().role_id);
-                    object.setParameters(parameters);
-                    new Generic_Async_Get(
+                    PostObject postObject = new PostObject();
+                    postObject.setUserid(Preferences.getInstance().user_id);
+                    postObject.setCabinetMemoId(cabinetMemoPojoDetails.getCabinetMemoID());
+                    postObject.setRoleid(Preferences.getInstance().role_id);
+                    postObject.setDeptId(cabinetMemoPojoDetails.getDeptid());
+                    postObject.setRemarks(remarks.getText().toString());
+                    postObject.setToken(Econstants.encodeBase64(Econstants.methordForwardCabinetMemoToken + Econstants.seperator + CommonUtils.getTimeStamp()));
+                    postObject.setPhone("");
+                    postObject.setOtp("");
+
+                    PostDataPojo postDataPojo = new PostDataPojo();
+                    postDataPojo.setParameters(postObject);
+                    postDataPojo.setTaskType(TaskType.ALLOW);
+                    postDataPojo.setMethord(Econstants.methordForwardCabinetMemo);
+                    postDataPojo.setUrl(Econstants.url);
+
+                    //Send Object
+                    Log.e("Object", postObject.toString());
+
+                    new GenericAsyncPostObject(
                             CabinetMemoDetailsActivity.this,
                             CabinetMemoDetailsActivity.this,
                             TaskType.ALLOW).
-                            execute(object);
+                            execute(postDataPojo);
+
+                    //Send Object
+                    Log.e("Object", postObject.toString());
+
 
 
                 } else {

@@ -51,7 +51,7 @@
         android:layout_below="@+id/name"
         android:textSize="14sp"
         android:text="323232"
-        android:visibility="gone"
+        android:visibility="visible"
         android:fontFamily="@font/poppins_semibold"
         android:textColor="@color/color_red_maroon"
         android:textAppearance="?android:attr/textAppearanceLarge"/>

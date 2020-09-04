@@ -648,8 +648,7 @@ public class Login extends AppCompatActivity implements AsyncTaskListenerObjectG
                         JSONObject object = arrayReports.getJSONObject(0);
                         //"StatusMessage":"Incorrect OTP, please enter correct OTP!!."  Incorrect OTP, please enter correct OTP!!.
                         Log.e("RERERERE",Econstants.decodeBase64(object.getString("StatusMessage")));
-                        if (!Econstants.decodeBase64(object.getString("StatusMessage")).contains("Incorrect OTP, please enter correct OTP!!.")
-                                || !Econstants.decodeBase64(object.getString("StatusMessage")).equalsIgnoreCase("No Record Found")) {
+                        if (Integer.parseInt(object.getString("StatusCode")) == 200) {
                             departmentsUserPojos = new ArrayList<>();
                             UserDataPojo dataPojo = new UserDataPojo();
                             for (int i = 0; i < arrayReports.length(); i++) {
