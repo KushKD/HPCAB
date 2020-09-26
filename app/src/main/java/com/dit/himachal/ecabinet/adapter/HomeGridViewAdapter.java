@@ -144,6 +144,12 @@ public class HomeGridViewAdapter extends BaseAdapter {
                     Intent i = new Intent(c.getApplicationContext(), FinalAgendaList.class);
                     i.putExtra("department_id", dept_id_);
                     (c).startActivity(i);
+                }  //PlacedInCabinet
+                if (s.getId().equalsIgnoreCase("8")) {
+                    Intent i = new Intent(c.getApplicationContext(), CabinetMemoListByRoleActivity.class);
+                    i.putExtra("department_id", dept_id_);
+                    i.putExtra("param", "PlacedInCabinet");
+                    (c).startActivity(i);
                 }
 
                 if (s.getId().equalsIgnoreCase("21")) {

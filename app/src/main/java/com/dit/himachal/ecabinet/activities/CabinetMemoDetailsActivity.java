@@ -87,7 +87,7 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
         }else if(param.equalsIgnoreCase("Backwarded")){
            buttons.setVisibility(View.GONE);
             remarkslay.setVisibility(View.GONE);
-        }else if(param.equalsIgnoreCase("allowedCabinetMemos") || param.equalsIgnoreCase("final")){
+        }else if(param.equalsIgnoreCase("allowedCabinetMemos") || param.equalsIgnoreCase("PlacedInCabinet") || param.equalsIgnoreCase("final")){
             buttons.setVisibility(View.GONE);
             remarkslay.setVisibility(View.GONE);
         }else{

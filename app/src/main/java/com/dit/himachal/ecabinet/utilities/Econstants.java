@@ -93,7 +93,8 @@ public class Econstants {
 
 
 
-
+    public static final String PlaceinCabinetagendalists = "PlaceinCabinetagendalists";
+    public static final String PlaceinCabinetagendalistsToken = "ssdaccaa314e7421e7e12f5cf7171081a0ss";
 
 
 
