@@ -166,12 +166,12 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
         }
 
 
-        meetingStatus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CD.showDialog(MainActivity.this, meetingStatus.getText().toString());
-            }
-        });
+//        meetingStatus.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                CD.showDialog(MainActivity.this, meetingStatus.getText().toString());
+//            }
+//        });
 
         home_gv.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
@@ -390,6 +390,7 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
 
                         if (agendaPojo.getAgendaItemType().length() > 0) {
                                 Log.e("Agenda",agendaPojo.toString());
+                            CD.showDialogActiveAjenda(MainActivity.this, agendaPojo);
                                 //TODO Agenda Pop Up
                         } else {
                             Log.e("Agenda",agendaPojo.toString());

@@ -106,7 +106,7 @@ public class CabinetDecisions extends AppCompatActivity implements AsyncTaskList
                 Dates cabinet_memo_pojo = (Dates) parent.getItemAtPosition(position);
                 Intent i = new Intent(CabinetDecisions.this, CabinetMemoListByRoleActivity.class);
 
-                    i.putExtra("department_id", deptId);
+                    i.putExtra("department_id", cabinet_memo_pojo.getDepartmentID());
                 i.putExtra("param", param);
                 Log.e("Param", param);
                 i.putExtra("meetingid",cabinet_memo_pojo.getMeetingID());

@@ -14,7 +14,12 @@ import org.apache.commons.codec.binary.Base64;
  * @Time 21, 08 , 2020
  */
 public class Econstants {
-    public static final String url = "http://164.100.138.114/eCabinetService.svc";
+    //URL Staging
+   // public static final String url = "http://164.100.138.114/eCabinetService.svc";
+
+    //URL Production
+    public static final String url = "http://ecabinetwcf.hp.gov.in/eCabinetService.svc";
+
 
     public static String delemeter = "/";
     public static String seperator = "#";

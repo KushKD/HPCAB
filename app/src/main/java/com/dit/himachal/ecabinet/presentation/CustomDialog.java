@@ -33,6 +33,7 @@ import android.widget.Toast;
 
 
 import com.dit.himachal.ecabinet.R;
+import com.dit.himachal.ecabinet.modal.AgendaPojo;
 import com.dit.himachal.ecabinet.utilities.HardwareDetails;
 import com.downloader.Error;
 import com.downloader.OnCancelListener;
@@ -100,6 +101,49 @@ public class CustomDialog {
 
         TextView text = (TextView) dialog.findViewById(R.id.dialog_result);
         text.setText(msg);
+
+        Button dialog_ok = (Button) dialog.findViewById(R.id.dialog_ok);
+
+        dialog_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // activity.finish();
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+
+    }
+
+    public void showDialogActiveAjenda(final Activity activity, AgendaPojo object) {
+        final Dialog dialog = new Dialog(activity);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(true);
+        dialog.setContentView(R.layout.agenda_description);
+
+        int width = (int) (activity.getResources().getDisplayMetrics().widthPixels * 0.95);
+        int height = (int) (activity.getResources().getDisplayMetrics().heightPixels * 0.50);
+        dialog.getWindow().setLayout(width, height);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        TextView department_name = (TextView) dialog.findViewById(R.id.department_name);
+        TextView file_number = (TextView) dialog.findViewById(R.id.file_number);
+        TextView title = (TextView) dialog.findViewById(R.id.title);
+        TextView agenda_number = (TextView) dialog.findViewById(R.id.agenda_number);
+        TextView agenda_type = (TextView) dialog.findViewById(R.id.agenda_type);
+        TextView subject = (TextView) dialog.findViewById(R.id.subject);
+
+        department_name.setText(object.getDeptName());
+        file_number.setText(object.getFileNo());
+        title.setText(object.getFileNo());
+        agenda_number.setText(object.getAgendaItemNo());
+        agenda_type.setText(object.getAgendaItemType());
+        subject.setText(object.getSubject());
+
+
+
+
 
         Button dialog_ok = (Button) dialog.findViewById(R.id.dialog_ok);
 

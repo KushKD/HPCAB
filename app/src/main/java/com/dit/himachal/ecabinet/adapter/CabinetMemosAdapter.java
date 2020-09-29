@@ -89,57 +89,27 @@ public class CabinetMemosAdapter extends BaseAdapter implements Filterable {
 
         if(param_.equalsIgnoreCase("Forwarded")){
             imageView1.setImageDrawable(context.getResources().getDrawable(R.drawable.forward_memos));
-            state_dept.setVisibility(View.VISIBLE);
+            state_dept.setVisibility(View.GONE);
+            name.setText(u.getSubject());
+            state_dept.setText("Agenda Item No:- "+u.getAgendaItemType());
+            central_dept.setText(u.getDeptName());
         }else if(param_.equalsIgnoreCase("Backwarded")){
             imageView1.setImageDrawable(context.getResources().getDrawable(R.drawable.sent_back_memos));
             state_dept.setVisibility(View.GONE);
+            name.setText(u.getSubject());
+            state_dept.setText("Agenda Item No:- "+u.getAgendaItemType());
+            central_dept.setText(u.getDeptName());
         }else{
             imageView1.setImageDrawable(context.getResources().getDrawable(R.drawable.cabinet_memos));
             state_dept.setVisibility(View.VISIBLE);
+            name.setText(u.getSubject());
+            state_dept.setText("Agenda Item No:- "+u.getAgendaItemType());
+            central_dept.setText(u.getDeptName());
         }
 
 
 
-//
-//        if(u.getLogo().isEmpty()||u.getLogo()==null){
-//
-//
-//            String fnm = "uttarakhand";
-//            String PACKAGE_NAME = context.getApplicationContext().getPackageName();
-//            int imgId = this.context.getApplicationContext().getResources().getIdentifier(PACKAGE_NAME+":drawable/"+fnm , null, null);
-//            System.out.println("IMG ID :: "+imgId);
-//            System.out.println("PACKAGE_NAME :: "+PACKAGE_NAME);
-//
-//            imageView1.setImageBitmap(BitmapFactory.decodeResource(context.getApplicationContext().getResources(),imgId));
-//        }else{
-//            //load icon from url
-//            Log.e("Icon Server",u.getLogo());
-//            il.DisplayImage(u.getLogo(), imageView1, null,null, false);
-//        }
 
-
-
-
-
-
-
-
-
-
-
-        name.setText(u.getSubject());
-        state_dept.setText("Agenda Item No:- "+u.getAgendaItemType());
-        central_dept.setText(u.getDeptName());
-//        if(u.getStateDept().isEmpty() || u.getStateDept().equalsIgnoreCase("null")){
-//            state_dept.setVisibility(View.GONE);
-//        }else{
-//            state_dept.setText(u.getStateDept());
-//        }
-//        if(u.getCentralDept().isEmpty() || u.getCentralDept().equalsIgnoreCase("null")){
-//            central_dept.setVisibility(View.GONE);
-//        }else{
-//            central_dept.setText(u.getCentralDept());
-//        }
 
 
 
