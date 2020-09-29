@@ -349,7 +349,7 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
                         }
 
                         //  Log.e("Departments Data", departments.toString());;
-                        adapter_modules = new HomeGridViewAdapter(this, (ArrayList<ModulesPojo>) modules, result.getDept_id());
+                        adapter_modules = new HomeGridViewAdapter(this, (ArrayList<ModulesPojo>) modules, Global_deptId);
                         home_gv.setAdapter(adapter_modules);
 
 

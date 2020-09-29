@@ -21,7 +21,8 @@ public enum TaskType {
     ALLOW(12),
     GET_ALLOWED_MEMO_LIST_CABINET(13),
     GET_PUBLISHED_MEETING_ID_BY_ROLE(14),
-    FINAL_MEETING_AGENDA_LIST(15);
+    FINAL_MEETING_AGENDA_LIST(15),
+    GET_CABINET_DECISIONS_COUNT(16);
 
     int value; private TaskType(int value) { this.value = value; }
 }

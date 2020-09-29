@@ -102,6 +102,10 @@ public class Generic_Async_Get extends AsyncTask<GetDataPojo,Void , ResponsObjec
                 Log.e("We Here", getDataPojo[0].getMethord());
                 Data_From_Server = http_manager.GetData(getDataPojo[0]);
                 return Data_From_Server;
+            }else  if(getDataPojo[0].getTaskType().toString().equalsIgnoreCase(TaskType.GET_CABINET_DECISIONS_COUNT.toString())){
+                Log.e("We Here", getDataPojo[0].getMethord());
+                Data_From_Server = http_manager.GetData(getDataPojo[0]);
+                return Data_From_Server;
             }
 
 

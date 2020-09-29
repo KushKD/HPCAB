@@ -96,8 +96,13 @@ public class Econstants {
     public static final String PlaceinCabinetagendalists = "PlaceinCabinetagendalists";
     public static final String PlaceinCabinetagendalistsToken = "ssdaccaa314e7421e7e12f5cf7171081a0ss";
 
+    //CabinetDecisionlists/{Token}/{DeptID}/{UserID}/{RoleID}/{LoginDeptID}/{Meetingid}
+    public static final String CabinetDecisionlists = "CabinetDecisionlists";
+    public static final String  CabinetDecisionlistsToken = "69FBBF62A31CBC7C761B0AB96696C9EB";
 
-
+    //GetCabinetDecisionbyMeetingDates
+    public static final String GetCabinetDecisionbyMeetingDates = "GetCabinetDecisionbyMeetingDates";
+    public static final String GetCabinetDecisionbyMeetingDatesToken= "da314e7421e7e12f5cf7171081a0ddd";
 
 
 

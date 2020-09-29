@@ -44,8 +44,8 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
     private EditText edit_text_search;
     private ListView list;
     CustomDialog CD = new CustomDialog();
-    String deptId, param = null;
-    List<CabinetMemoPojo> cabinetMemoPojoList = null;
+    String deptId, param, meetingId = null;
+   List<CabinetMemoPojo> cabinetMemoPojoList = null ;
     CabinetMemosAdapter cabinetMemosAdapter = null;
     SwipeRefreshLayout pullToRefresh;
 
@@ -97,7 +97,40 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
             } else {
                 CD.showDialog(CabinetMemoListByRoleActivity.this, "Please connect to Internet and tr again.");
             }
-        } else if (param.equalsIgnoreCase("Backwarded")) {
+        } else  if (param.equalsIgnoreCase("Cabinet_Decisions")) {
+            Intent intent = getIntent();
+            meetingId = intent.getStringExtra("meetingid");
+            if (AppStatus.getInstance(CabinetMemoListByRoleActivity.this).isOnline()) {
+                GetDataPojo object = new GetDataPojo();
+                object.setUrl(Econstants.url);
+                object.setMethord(Econstants.CabinetDecisionlists);
+                object.setMethordHash(Econstants.encodeBase64(Econstants.CabinetDecisionlistsToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
+                object.setTaskType(TaskType.GET_PENDING_MEMO_LIST_CABINET);
+                object.setTimeStamp(CommonUtils.getTimeStamp());
+                List<String> parameters = new ArrayList<>();
+                parameters.add(deptId);
+                parameters.add(Preferences.getInstance().user_id);
+                parameters.add(Preferences.getInstance().role_id);
+                parameters.add(Preferences.getInstance().mapped_departments);
+                parameters.add(meetingId);
+
+                object.setParameters(parameters);
+
+                Log.e("Departments", Preferences.getInstance().mapped_departments);
+
+                new Generic_Async_Get(
+                        CabinetMemoListByRoleActivity.this,
+                        CabinetMemoListByRoleActivity.this,
+                        TaskType.GET_PENDING_MEMO_LIST_CABINET).
+                        execute(object);
+            } else {
+                CD.showDialog(CabinetMemoListByRoleActivity.this, "Please connect to Internet and tr again.");
+            }
+        }
+
+
+
+        else if (param.equalsIgnoreCase("Backwarded")) {
             if (AppStatus.getInstance(CabinetMemoListByRoleActivity.this).isOnline()) {
                 GetDataPojo object = new GetDataPojo();
                 object.setUrl(Econstants.url);
@@ -273,7 +306,39 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
                     } else {
                         CD.showDialog(CabinetMemoListByRoleActivity.this, "Please connect to Internet and tr again.");
                     }
-                } else if (param.equalsIgnoreCase("Backwarded")) {
+                }
+                else  if (param.equalsIgnoreCase("Cabinet_Decisions")) {
+                    Intent intent = getIntent();
+                    meetingId = intent.getStringExtra("meetingid");
+                    if (AppStatus.getInstance(CabinetMemoListByRoleActivity.this).isOnline()) {
+                        GetDataPojo object = new GetDataPojo();
+                        object.setUrl(Econstants.url);
+                        object.setMethord(Econstants.CabinetDecisionlists);
+                        object.setMethordHash(Econstants.encodeBase64(Econstants.CabinetDecisionlistsToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
+                        object.setTaskType(TaskType.GET_PENDING_MEMO_LIST_CABINET);
+                        object.setTimeStamp(CommonUtils.getTimeStamp());
+                        List<String> parameters = new ArrayList<>();
+                        parameters.add(deptId);
+                        parameters.add(Preferences.getInstance().user_id);
+                        parameters.add(Preferences.getInstance().role_id);
+                        parameters.add(Preferences.getInstance().mapped_departments);
+                        parameters.add(meetingId);
+
+                        object.setParameters(parameters);
+
+                        Log.e("Departments", Preferences.getInstance().mapped_departments);
+
+                        new Generic_Async_Get(
+                                CabinetMemoListByRoleActivity.this,
+                                CabinetMemoListByRoleActivity.this,
+                                TaskType.GET_PENDING_MEMO_LIST_CABINET).
+                                execute(object);
+                    } else {
+                        CD.showDialog(CabinetMemoListByRoleActivity.this, "Please connect to Internet and tr again.");
+                    }
+                }
+
+                else if (param.equalsIgnoreCase("Backwarded")) {
                     if (AppStatus.getInstance(CabinetMemoListByRoleActivity.this).isOnline()) {
                         GetDataPojo object = new GetDataPojo();
                         object.setUrl(Econstants.url);
@@ -414,6 +479,8 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
                     i.putExtra("param", param);
                 }else if (param.equalsIgnoreCase("PlacedInCabinet")) {
                     i.putExtra("param", param);
+                } else if (param.equalsIgnoreCase("Cabinet_Decisions")) {
+                    i.putExtra("param", param);
                 } else {
                     i.putExtra("param", param);
                 }
@@ -451,7 +518,39 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
             } else {
                 CD.showDialog(CabinetMemoListByRoleActivity.this, "Please connect to Internet and tr again.");
             }
-        } else if (param.equalsIgnoreCase("Backwarded")) {
+        }
+
+        else  if (param.equalsIgnoreCase("Cabinet_Decisions")) {
+            Intent intent = getIntent();
+            meetingId = intent.getStringExtra("meetingid");
+            if (AppStatus.getInstance(CabinetMemoListByRoleActivity.this).isOnline()) {
+                GetDataPojo object = new GetDataPojo();
+                object.setUrl(Econstants.url);
+                object.setMethord(Econstants.CabinetDecisionlists);
+                object.setMethordHash(Econstants.encodeBase64(Econstants.CabinetDecisionlistsToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
+                object.setTaskType(TaskType.GET_PENDING_MEMO_LIST_CABINET);
+                object.setTimeStamp(CommonUtils.getTimeStamp());
+                List<String> parameters = new ArrayList<>();
+                parameters.add(deptId);
+                parameters.add(Preferences.getInstance().user_id);
+                parameters.add(Preferences.getInstance().role_id);
+                parameters.add(Preferences.getInstance().mapped_departments);
+                parameters.add(meetingId);
+
+                object.setParameters(parameters);
+
+                Log.e("Departments", Preferences.getInstance().mapped_departments);
+
+                new Generic_Async_Get(
+                        CabinetMemoListByRoleActivity.this,
+                        CabinetMemoListByRoleActivity.this,
+                        TaskType.GET_PENDING_MEMO_LIST_CABINET).
+                        execute(object);
+            } else {
+                CD.showDialog(CabinetMemoListByRoleActivity.this, "Please connect to Internet and tr again.");
+            }
+        }
+        else if (param.equalsIgnoreCase("Backwarded")) {
             if (AppStatus.getInstance(CabinetMemoListByRoleActivity.this).isOnline()) {
                 GetDataPojo object = new GetDataPojo();
                 object.setUrl(Econstants.url);

@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.dit.himachal.ecabinet.R;
 import com.dit.himachal.ecabinet.activities.ApprovedMemo;
+import com.dit.himachal.ecabinet.activities.CabinetDecisions;
 import com.dit.himachal.ecabinet.activities.CabinetMemoListByRoleActivity;
 import com.dit.himachal.ecabinet.activities.FinalAgendaList;
 import com.dit.himachal.ecabinet.activities.Login;
@@ -98,6 +99,7 @@ public class HomeGridViewAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 Log.e("ID", s.getId());
+                Log.e("DeptID", dept_id_);
 
 
                 if (s.getId().equalsIgnoreCase("1")) {
@@ -129,6 +131,11 @@ public class HomeGridViewAdapter extends BaseAdapter {
                     CD.showDialog((Activity) c, "Under Process.");
 
                 }
+                if (s.getId().equalsIgnoreCase("10")) {
+                    CustomDialog CD = new CustomDialog();
+                    CD.showDialog((Activity) c, "Under Process.");
+
+                }
                 if (s.getId().equalsIgnoreCase("4")) {
                     Intent intent = new Intent("getAgenda");
                     intent.setPackage(c.getPackageName());
@@ -149,6 +156,12 @@ public class HomeGridViewAdapter extends BaseAdapter {
                     Intent i = new Intent(c.getApplicationContext(), CabinetMemoListByRoleActivity.class);
                     i.putExtra("department_id", dept_id_);
                     i.putExtra("param", "PlacedInCabinet");
+                    (c).startActivity(i);
+                }
+                if(s.getId().equalsIgnoreCase("9")){  //Cabinet_Decisions
+                    Intent i = new Intent(c.getApplicationContext(), CabinetDecisions.class);
+                    i.putExtra("department_id", dept_id_);
+                    i.putExtra("param","Cabinet_Decisions");
                     (c).startActivity(i);
                 }
 
