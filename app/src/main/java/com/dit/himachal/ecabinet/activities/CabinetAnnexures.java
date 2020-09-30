@@ -48,6 +48,7 @@ public class CabinetAnnexures extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 ListAnnexures cabinet_memo_pojo = (ListAnnexures) parent.getItemAtPosition(position);
+                Log.e("PDF URL", cabinet_memo_pojo.getAttachment());
                 if(cabinet_memo_pojo.getAttachment().isEmpty()){
                     CD.showDialog(CabinetAnnexures.this,"Attachment Not added.");
                 }else{

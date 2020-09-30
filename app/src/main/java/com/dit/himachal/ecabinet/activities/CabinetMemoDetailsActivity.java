@@ -713,6 +713,7 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
 
 
             } else {
+                Log.e("Result == ", result.getRespnse());
                 CD.showDialog(CabinetMemoDetailsActivity.this, result.getRespnse());
             }
         }
