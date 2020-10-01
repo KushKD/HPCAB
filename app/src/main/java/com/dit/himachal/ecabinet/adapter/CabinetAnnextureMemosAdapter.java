@@ -89,23 +89,13 @@ public class CabinetAnnextureMemosAdapter extends BaseAdapter implements Filtera
 
 
 
-
+        central_dept.setVisibility(View.GONE);
+        state_dept.setVisibility(View.GONE);
 
 
 
 
         name.setText(u.getAnnexureID());
-      //  state_dept.setText(u.get());
-//        if(u.getStateDept().isEmpty() || u.getStateDept().equalsIgnoreCase("null")){
-//            state_dept.setVisibility(View.GONE);
-//        }else{
-//            state_dept.setText(u.getStateDept());
-//        }
-//        if(u.getCentralDept().isEmpty() || u.getCentralDept().equalsIgnoreCase("null")){
-//            central_dept.setVisibility(View.GONE);
-//        }else{
-//            central_dept.setText(u.getCentralDept());
-//        }
 
 
 
