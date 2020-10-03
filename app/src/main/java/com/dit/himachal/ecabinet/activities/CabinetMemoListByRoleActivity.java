@@ -576,7 +576,39 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
                 CD.showDialog(CabinetMemoListByRoleActivity.this, "Please connect to Internet and try again.");
             }
 
-        } else if (param.equalsIgnoreCase("allowedCabinetMemos")) {
+        }
+
+        else if (param.equalsIgnoreCase("PlacedInCabinet")) {
+            if (AppStatus.getInstance(CabinetMemoListByRoleActivity.this).isOnline()) {
+                GetDataPojo object = new GetDataPojo();
+                object.setUrl(Econstants.url);
+                object.setMethord(Econstants.PlaceinCabinetagendalists);
+                object.setMethordHash(Econstants.encodeBase64(Econstants.PlaceinCabinetagendalistsToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
+                object.setTaskType(TaskType.GET_PENDING_MEMO_LIST_CABINET);
+                object.setTimeStamp(CommonUtils.getTimeStamp());
+                List<String> parameters = new ArrayList<>();
+                parameters.add(deptId);
+                parameters.add(Preferences.getInstance().user_id);
+                parameters.add(Preferences.getInstance().role_id);
+                parameters.add(Preferences.getInstance().mapped_departments);
+
+                object.setParameters(parameters);
+
+                Log.e("Departments", Preferences.getInstance().mapped_departments);
+
+                new Generic_Async_Get(
+                        CabinetMemoListByRoleActivity.this,
+                        CabinetMemoListByRoleActivity.this,
+                        TaskType.GET_PENDING_MEMO_LIST_CABINET).
+                        execute(object);
+            } else {
+                CD.showDialog(CabinetMemoListByRoleActivity.this, "Please connect to Internet and tr again.");
+            }
+
+        }
+
+
+        else if (param.equalsIgnoreCase("allowedCabinetMemos")) {
             if (AppStatus.getInstance(CabinetMemoListByRoleActivity.this).isOnline()) {
                 GetDataPojo object = new GetDataPojo();
                 object.setUrl(Econstants.url);

@@ -99,14 +99,24 @@ public class CabinetMemosAdapter extends BaseAdapter implements Filterable {
             name.setText(u.getSubject());
             state_dept.setText("Agenda Item No:- "+u.getAgendaItemType());
             central_dept.setText(u.getDeptName());
-        }else{
+        }else if(param_.equalsIgnoreCase("PlacedInCabinet")){
+            imageView1.setImageDrawable(context.getResources().getDrawable(R.drawable.sent_back_memos));
+            state_dept.setVisibility(View.VISIBLE);
+            name.setText(u.getSubject());
+            state_dept.setText("Date:- " +u.getMeetingdate() +", Item No:- "+u.getAgendaItemType());
+          //  state_dept.setText("Item No:- "+u.getAgendaItemType());
+            central_dept.setText(u.getDeptName());
+        }
+        else{
             imageView1.setImageDrawable(context.getResources().getDrawable(R.drawable.cabinet_memos));
             state_dept.setVisibility(View.VISIBLE);
             name.setText(u.getSubject());
-            state_dept.setText("Agenda Item No:- "+u.getAgendaItemType());
+            state_dept.setText("Item No:- "+u.getAgendaItemType());
             central_dept.setText(u.getDeptName());
-        }
+       }
 
+
+          //  PlacedInCabinet
 
 
 
