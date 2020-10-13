@@ -1,5 +1,6 @@
 package com.dit.himachal.ecabinet.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -9,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.PersistableBundle;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -16,6 +18,7 @@ import android.widget.TextView;
 
 import com.dit.himachal.ecabinet.R;
 import com.dit.himachal.ecabinet.utilities.Preferences;
+import com.dit.himachal.ecabinet.utilities.PreventScreenshot;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -28,6 +31,8 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
+        PreventScreenshot.on(SplashScreen.this);
+
         textView = findViewById(R.id.splash_text);
         imageView = findViewById(R.id.splash_image);
         animationUptoDown = AnimationUtils.loadAnimation(SplashScreen.this,R.anim.uptodownanim);
@@ -37,6 +42,8 @@ public class SplashScreen extends AppCompatActivity {
         textView.setAnimation(animationDownToUp);
         Preferences.getInstance().loadPreferences(SplashScreen.this);
         requestPermissions();
+
+
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -56,6 +63,35 @@ public class SplashScreen extends AppCompatActivity {
 
             }
         }, 4000);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        PreventScreenshot.on(SplashScreen.this);
+
+    }
+
+
+
+
+    @Override
+    protected void onStop() {
+        PreventScreenshot.on(SplashScreen.this);
+        super.onStop();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState, @NonNull PersistableBundle outPersistentState) {
+        PreventScreenshot.on(SplashScreen.this);
+        super.onSaveInstanceState(outState, outPersistentState);
+    }
+
+    @Override
+    protected void onPause() {
+        PreventScreenshot.on(SplashScreen.this);
+        super.onPause();
+
     }
 
     private void requestPermissions() {

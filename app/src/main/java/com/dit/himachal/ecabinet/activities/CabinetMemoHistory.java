@@ -1,9 +1,11 @@
 package com.dit.himachal.ecabinet.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,6 +17,7 @@ import com.dit.himachal.ecabinet.adapter.CabinetMemosAdapter;
 import com.dit.himachal.ecabinet.modal.CabinetMemoPojo;
 import com.dit.himachal.ecabinet.modal.ListCabinetMemoTrackingHistoryListsPojo;
 import com.dit.himachal.ecabinet.presentation.CustomDialog;
+import com.dit.himachal.ecabinet.utilities.PreventScreenshot;
 
 public class CabinetMemoHistory extends AppCompatActivity {
 
@@ -27,6 +30,7 @@ public class CabinetMemoHistory extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cabinet_memo_history);
+        PreventScreenshot.on(CabinetMemoHistory.this);
 
         data = (CabinetMemoPojo) getIntent().getSerializableExtra("data");
 
@@ -57,5 +61,30 @@ public class CabinetMemoHistory extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onStop() {
+        PreventScreenshot.on(CabinetMemoHistory.this);
+        super.onStop();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState, @NonNull PersistableBundle outPersistentState) {
+        PreventScreenshot.on(CabinetMemoHistory.this);
+        super.onSaveInstanceState(outState, outPersistentState);
+    }
+
+    @Override
+    protected void onPause() {
+        PreventScreenshot.on(CabinetMemoHistory.this);
+        super.onPause();
+
+    }
+
+    @Override
+    protected void onResume() {
+        PreventScreenshot.on(CabinetMemoHistory.this);
+        super.onResume();
     }
 }

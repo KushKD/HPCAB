@@ -1,10 +1,12 @@
 package com.dit.himachal.ecabinet.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -28,6 +30,7 @@ import com.dit.himachal.ecabinet.utilities.AppStatus;
 import com.dit.himachal.ecabinet.utilities.CommonUtils;
 import com.dit.himachal.ecabinet.utilities.Econstants;
 import com.dit.himachal.ecabinet.utilities.Preferences;
+import com.dit.himachal.ecabinet.utilities.PreventScreenshot;
 import com.doi.spinnersearchable.SearchableSpinner;
 
 import org.json.JSONArray;
@@ -54,6 +57,8 @@ public class CabinetDecisions extends AppCompatActivity implements AsyncTaskList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cabinet_decisions);
+
+        PreventScreenshot.on(CabinetDecisions.this);
 
         list = findViewById(R.id.list);
         edit_text_search = findViewById(R.id.edit_text_search);
@@ -119,6 +124,31 @@ public class CabinetDecisions extends AppCompatActivity implements AsyncTaskList
 
 
 
+    }
+
+    @Override
+    protected void onStop() {
+        PreventScreenshot.on(CabinetDecisions.this);
+        super.onStop();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState, @NonNull PersistableBundle outPersistentState) {
+        PreventScreenshot.on(CabinetDecisions.this);
+        super.onSaveInstanceState(outState, outPersistentState);
+    }
+
+    @Override
+    protected void onPause() {
+        PreventScreenshot.on(CabinetDecisions.this);
+        super.onPause();
+
+    }
+
+    @Override
+    protected void onResume() {
+        PreventScreenshot.on(CabinetDecisions.this);
+        super.onResume();
     }
 
     @Override

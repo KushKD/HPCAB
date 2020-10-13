@@ -1,10 +1,13 @@
 package com.dit.himachal.ecabinet.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.PersistableBundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -37,6 +40,7 @@ import com.dit.himachal.ecabinet.presentation.CustomDialog;
 import com.dit.himachal.ecabinet.utilities.AppStatus;
 import com.dit.himachal.ecabinet.utilities.CommonUtils;
 import com.dit.himachal.ecabinet.utilities.Econstants;
+import com.dit.himachal.ecabinet.utilities.PreventScreenshot;
 import com.doi.spinnersearchable.SearchableSpinner;
 
 import org.json.JSONArray;
@@ -95,6 +99,8 @@ public class Login extends AppCompatActivity implements AsyncTaskListenerObjectG
         department = (SearchableSpinner) login_form.findViewById(R.id.department);
         role = (SearchableSpinner) login_form.findViewById(R.id.role);
         login = (Button) login_form.findViewById(R.id.login);
+
+        PreventScreenshot.on(Login.this);
 
 
         if (AppStatus.getInstance(Login.this).isOnline()) {
@@ -435,6 +441,34 @@ public class Login extends AppCompatActivity implements AsyncTaskListenerObjectG
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        PreventScreenshot.on(Login.this);
+
+    }
+
+
+
+
+    @Override
+    protected void onStop() {
+        PreventScreenshot.on(Login.this);
+        super.onStop();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState, @NonNull PersistableBundle outPersistentState) {
+        PreventScreenshot.on(Login.this);
+        super.onSaveInstanceState(outState, outPersistentState);
+    }
+
+    @Override
+    protected void onPause() {
+        PreventScreenshot.on(Login.this);
+        super.onPause();
+
+    }
 
     @Override
     public void onTaskCompleted(ResponsObject result, TaskType taskType) throws JSONException {

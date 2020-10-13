@@ -1,10 +1,12 @@
 package com.dit.himachal.ecabinet.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
@@ -33,6 +35,7 @@ import com.dit.himachal.ecabinet.utilities.AppStatus;
 import com.dit.himachal.ecabinet.utilities.CommonUtils;
 import com.dit.himachal.ecabinet.utilities.Econstants;
 import com.dit.himachal.ecabinet.utilities.Preferences;
+import com.dit.himachal.ecabinet.utilities.PreventScreenshot;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -73,6 +76,8 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cabinet_memo_details);
+
+        PreventScreenshot.on(CabinetMemoDetailsActivity.this);
 
         Intent cabinetData = getIntent();
         cabinetMemoPojo = (CabinetMemoPojo) cabinetData.getSerializableExtra("EVENTS_DETAILS");
@@ -531,6 +536,31 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
         remarkslay = findViewById(R.id.remarkslay);
         attachments = findViewById(R.id.attachments);
         history = findViewById(R.id.history);
+    }
+
+    @Override
+    protected void onStop() {
+        PreventScreenshot.on(CabinetMemoDetailsActivity.this);
+        super.onStop();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState, @NonNull PersistableBundle outPersistentState) {
+        PreventScreenshot.on(CabinetMemoDetailsActivity.this);
+        super.onSaveInstanceState(outState, outPersistentState);
+    }
+
+    @Override
+    protected void onPause() {
+        PreventScreenshot.on(CabinetMemoDetailsActivity.this);
+        super.onPause();
+
+    }
+
+    @Override
+    protected void onResume() {
+        PreventScreenshot.on(CabinetMemoDetailsActivity.this);
+        super.onResume();
     }
 
 

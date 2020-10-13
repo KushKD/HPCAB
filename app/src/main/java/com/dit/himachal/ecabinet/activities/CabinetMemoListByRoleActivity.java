@@ -1,10 +1,12 @@
 package com.dit.himachal.ecabinet.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -30,6 +32,7 @@ import com.dit.himachal.ecabinet.utilities.AppStatus;
 import com.dit.himachal.ecabinet.utilities.CommonUtils;
 import com.dit.himachal.ecabinet.utilities.Econstants;
 import com.dit.himachal.ecabinet.utilities.Preferences;
+import com.dit.himachal.ecabinet.utilities.PreventScreenshot;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,6 +56,8 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cabinet_memo_list_by_role);
+
+        PreventScreenshot.on(CabinetMemoListByRoleActivity.this);
 
         list = findViewById(R.id.list);
         edit_text_search = findViewById(R.id.edit_text_search);
@@ -492,6 +497,7 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
 
     @Override
     protected void onResume() {
+        PreventScreenshot.on(CabinetMemoListByRoleActivity.this);
         super.onResume();
         if (param.equalsIgnoreCase("Forwarded")) {
             if (AppStatus.getInstance(CabinetMemoListByRoleActivity.this).isOnline()) {
@@ -659,6 +665,29 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
                 CD.showDialog(CabinetMemoListByRoleActivity.this, "Please connect to Internet and try again.");
             }
         }
+    }
+
+
+
+
+
+    @Override
+    protected void onStop() {
+        PreventScreenshot.on(CabinetMemoListByRoleActivity.this);
+        super.onStop();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState, @NonNull PersistableBundle outPersistentState) {
+        PreventScreenshot.on(CabinetMemoListByRoleActivity.this);
+        super.onSaveInstanceState(outState, outPersistentState);
+    }
+
+    @Override
+    protected void onPause() {
+        PreventScreenshot.on(CabinetMemoListByRoleActivity.this);
+        super.onPause();
+
     }
 
     @Override
