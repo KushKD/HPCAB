@@ -89,7 +89,7 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
                 parameters.add(Preferences.getInstance().user_id);
                 parameters.add(Preferences.getInstance().role_id);
                 parameters.add(Preferences.getInstance().mapped_departments);
-
+                parameters.add(Preferences.getInstance().branched_mapped);
                 object.setParameters(parameters);
 
                 Log.e("Departments", Preferences.getInstance().mapped_departments);
@@ -148,6 +148,7 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
                 parameters.add(Preferences.getInstance().user_id);
                 parameters.add(Preferences.getInstance().role_id);
                 parameters.add(Preferences.getInstance().mapped_departments);
+                parameters.add(Preferences.getInstance().branched_mapped);
 
                 object.setParameters(parameters);
 
@@ -176,7 +177,7 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
                 parameters.add(Preferences.getInstance().user_id);
                 parameters.add(Preferences.getInstance().role_id);
                 parameters.add(Preferences.getInstance().mapped_departments);
-
+                parameters.add(Preferences.getInstance().branched_mapped);
                 object.setParameters(parameters);
 
                 Log.e("Departments", Preferences.getInstance().mapped_departments);
@@ -299,6 +300,7 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
                         parameters.add(Preferences.getInstance().user_id);
                         parameters.add(Preferences.getInstance().role_id);
                         parameters.add(Preferences.getInstance().mapped_departments);
+                        parameters.add(Preferences.getInstance().branched_mapped);
                         object.setParameters(parameters);
 
                         Log.e("Departments", Preferences.getInstance().mapped_departments);
@@ -356,6 +358,7 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
                         parameters.add(Preferences.getInstance().user_id);
                         parameters.add(Preferences.getInstance().role_id);
                         parameters.add(Preferences.getInstance().mapped_departments);
+                        parameters.add(Preferences.getInstance().branched_mapped);
                         object.setParameters(parameters);
 
                         Log.e("Departments", Preferences.getInstance().mapped_departments);
@@ -382,6 +385,7 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
                         parameters.add(Preferences.getInstance().user_id);
                         parameters.add(Preferences.getInstance().role_id);
                         parameters.add(Preferences.getInstance().mapped_departments);
+                        parameters.add(Preferences.getInstance().branched_mapped);
 
                         object.setParameters(parameters);
 
@@ -512,6 +516,7 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
                 parameters.add(Preferences.getInstance().user_id);
                 parameters.add(Preferences.getInstance().role_id);
                 parameters.add(Preferences.getInstance().mapped_departments);
+                parameters.add(Preferences.getInstance().branched_mapped);
                 object.setParameters(parameters);
 
                 Log.e("Departments", Preferences.getInstance().mapped_departments);
@@ -569,6 +574,7 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
                 parameters.add(Preferences.getInstance().user_id);
                 parameters.add(Preferences.getInstance().role_id);
                 parameters.add(Preferences.getInstance().mapped_departments);
+                parameters.add(Preferences.getInstance().branched_mapped);
                 object.setParameters(parameters);
 
                 Log.e("Departments", Preferences.getInstance().mapped_departments);
@@ -597,7 +603,7 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
                 parameters.add(Preferences.getInstance().user_id);
                 parameters.add(Preferences.getInstance().role_id);
                 parameters.add(Preferences.getInstance().mapped_departments);
-
+                parameters.add(Preferences.getInstance().branched_mapped);
                 object.setParameters(parameters);
 
                 Log.e("Departments", Preferences.getInstance().mapped_departments);
