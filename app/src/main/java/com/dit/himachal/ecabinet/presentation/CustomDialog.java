@@ -122,8 +122,8 @@ public class CustomDialog {
         dialog.setCancelable(true);
         dialog.setContentView(R.layout.agenda_description);
 
-        int width = (int) (activity.getResources().getDisplayMetrics().widthPixels * 0.95);
-        int height = (int) (activity.getResources().getDisplayMetrics().heightPixels * 0.50);
+        int width = (int) (activity.getResources().getDisplayMetrics().widthPixels );
+        int height = (int) (activity.getResources().getDisplayMetrics().heightPixels );
         dialog.getWindow().setLayout(width, height);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 

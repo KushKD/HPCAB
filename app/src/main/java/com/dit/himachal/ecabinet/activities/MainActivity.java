@@ -88,6 +88,9 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
         meetingStatus = (MeetingStatus) layout_user_dashboard.findViewById(R.id.meeting_status);
         meetingStatus.setSelected(true);
         imageuser = (ImageView) layout_user_dashboard.findViewById(R.id.imageuser);
+
+        department.setTitle(" Select Department");
+        department.setPrompt(" Select Department");
         // mobile = (TextView) layout_user_dashboard.findViewById(R.id.mobile);
         //  is_cabinet = (TextView) layout_user_dashboard.findViewById(R.id.is_cabinet);
 

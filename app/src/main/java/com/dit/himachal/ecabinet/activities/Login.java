@@ -95,9 +95,17 @@ public class Login extends AppCompatActivity implements AsyncTaskListenerObjectG
         otp = (EditText) login_form.findViewById(R.id.otp);
         mobile = (EditText) login_form.findViewById(R.id.mobile);
         user = (SearchableSpinner) login_form.findViewById(R.id.user);
+        user.setTitle("Please Select User");
+        user.setPrompt("Please Select User");
         branch = (SearchableSpinner) login_form.findViewById(R.id.branch);
+        branch.setTitle("Please Select Branch");
+        branch.setPrompt("Please Select Branch");
         department = (SearchableSpinner) login_form.findViewById(R.id.department);
+        department.setTitle("Please Select Department");
+        department.setPrompt("Please Select Department");
         role = (SearchableSpinner) login_form.findViewById(R.id.role);
+        role.setTitle("Please Select Role");
+        role.setPrompt("Please Select Role");
         login = (Button) login_form.findViewById(R.id.login);
 
         PreventScreenshot.on(Login.this);

@@ -87,7 +87,7 @@ public class CabinetDecisions extends AppCompatActivity implements AsyncTaskList
                 parameters.add(Preferences.getInstance().user_id);
                 parameters.add(Preferences.getInstance().mapped_departments);
                 parameters.add(Preferences.getInstance().role_id);
-                parameters.add(Preferences.getInstance().branched_mapped);
+              //  parameters.add(Preferences.getInstance().branched_mapped);
 
 
                 object.setParameters(parameters);

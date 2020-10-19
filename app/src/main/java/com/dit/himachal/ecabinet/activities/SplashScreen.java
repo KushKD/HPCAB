@@ -35,11 +35,11 @@ public class SplashScreen extends AppCompatActivity {
 
         textView = findViewById(R.id.splash_text);
         imageView = findViewById(R.id.splash_image);
-        animationUptoDown = AnimationUtils.loadAnimation(SplashScreen.this,R.anim.uptodownanim);
-        animationDownToUp = AnimationUtils.loadAnimation(SplashScreen.this,R.anim.downtotopanim);
+       // animationUptoDown = AnimationUtils.loadAnimation(SplashScreen.this,R.anim.uptodownanim);
+       // animationDownToUp = AnimationUtils.loadAnimation(SplashScreen.this,R.anim.downtotopanim);
 
-        imageView.setAnimation(animationUptoDown);
-        textView.setAnimation(animationDownToUp);
+        //imageView.setAnimation(animationUptoDown);
+        //textView.setAnimation(animationDownToUp);
         Preferences.getInstance().loadPreferences(SplashScreen.this);
         requestPermissions();
 

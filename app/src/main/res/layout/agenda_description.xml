@@ -1,19 +1,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/pink_bordor_rect">
+    android:background="@drawable/pink_bordor_rect"
+    android:orientation="vertical">
 
     <ImageView
+        android:id="@+id/a"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:id="@+id/a"
-        android:src="@drawable/success"
-        android:gravity="center"
         android:background="@drawable/gradient_login_top"
+        android:gravity="center"
         android:padding="15dp"
-        android:scaleType="fitCenter" />
-
+        android:scaleType="fitCenter"
+        android:src="@drawable/success" />
 
 
     <ScrollView
@@ -25,227 +24,265 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-
-<!-- Subject -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginBottom="10dp"
-        android:weightSum="2">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/a"
-
-        android:textSize="15sp"
-        android:layout_weight="1"
-        android:text="Subject"
-        android:textColor="@color/colcr_blue"
-        android:layout_centerHorizontal="true"
-        android:gravity="center_horizontal|center_vertical|left" />
-
-        <TextView
-            android:id="@+id/subject"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_below="@+id/a"
-            android:textSize="15sp"
-            android:textColor="@color/colcr_blue"
-            android:layout_centerHorizontal="true"
-            android:gravity="center_horizontal|center_vertical|left" />
-
-    </LinearLayout>
-
-    <!-- Agenda Type -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginBottom="10dp"
-        android:weightSum="2">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/a"
-            android:textSize="15sp"
-            android:layout_weight="1"
-            android:text="Agenda Type"
-            android:textColor="@color/colcr_blue"
-            android:layout_centerHorizontal="true"
-            android:gravity="center_horizontal|center_vertical|left" />
-
-        <TextView
-            android:id="@+id/agenda_type"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_below="@+id/a"
-            android:textSize="15sp"
-            android:textColor="@color/colcr_blue"
-            android:layout_centerHorizontal="true"
-            android:gravity="center_horizontal|center_vertical|left" />
-
-    </LinearLayout>
-
-    <!-- Agenda Number -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginBottom="10dp"
-        android:weightSum="2">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/a"
-            android:textSize="15sp"
-            android:layout_weight="1"
-            android:text="Agenda Number"
-            android:textColor="@color/colcr_blue"
-            android:layout_centerHorizontal="true"
-            android:gravity="center_horizontal|center_vertical|left" />
-
-        <TextView
-            android:id="@+id/agenda_number"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_below="@+id/a"
-            android:textSize="15sp"
-            android:textColor="@color/colcr_blue"
-            android:layout_centerHorizontal="true"
-            android:gravity="center_horizontal|center_vertical|left" />
-
-    </LinearLayout>
-
-    <!-- Title -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginBottom="10dp"
-        android:weightSum="2">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/a"
-            android:textSize="15sp"
-            android:layout_weight="1"
-            android:text="Title"
-            android:textColor="@color/colcr_blue"
-            android:layout_centerHorizontal="true"
-            android:gravity="center_horizontal|center_vertical|left" />
-
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_below="@+id/a"
-            android:textSize="15sp"
-            android:textColor="@color/colcr_blue"
-            android:layout_centerHorizontal="true"
-            android:gravity="center_horizontal|center_vertical|left" />
-
-    </LinearLayout>
-
-    <!-- File Number -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginBottom="10dp"
-        android:weightSum="2">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/a"
-            android:textSize="15sp"
-            android:layout_weight="1"
-            android:text="File Number"
-            android:textColor="@color/colcr_blue"
-            android:layout_centerHorizontal="true"
-            android:gravity="center_horizontal|center_vertical|left" />
-
-        <TextView
-            android:id="@+id/file_number"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_below="@+id/a"
-            android:textSize="15sp"
-            android:textColor="@color/colcr_blue"
-            android:layout_centerHorizontal="true"
-            android:gravity="center_horizontal|center_vertical|left" />
-
-    </LinearLayout>
-
-    <!-- Department Name -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginBottom="10dp"
-        android:weightSum="2">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/a"
-            android:textSize="15sp"
-            android:layout_weight="1"
-            android:text="Department Name"
-            android:textColor="@color/colcr_blue"
-            android:layout_centerHorizontal="true"
-            android:gravity="center_horizontal|center_vertical|left" />
-
-        <TextView
-            android:id="@+id/department_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_below="@+id/a"
-            android:textSize="15sp"
-            android:textColor="@color/colcr_blue"
-            android:layout_centerHorizontal="true"
-            android:gravity="center_horizontal|center_vertical|left" />
-
-    </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/a"
+                android:layout_centerHorizontal="true"
+                android:layout_weight="1"
+                android:gravity="center_horizontal|center_vertical|center"
+                android:padding="5dp"
+                android:text="Active Agenda"
+                android:textColor="@color/color_dark_rd"
+                android:textSize="17sp"
+                android:textStyle="bold" />
 
 
+            <!-- Agenda Type -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="4dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="OK"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:id="@+id/dialog_ok"
-        android:gravity="center_vertical|center_horizontal"
-        android:layout_below="@+id/dialog_result"
-        android:layout_marginBottom="20dp"
-        android:background="@color/color_red_maroon"
-        android:layout_centerHorizontal="true"
-        android:textColor="#ffffffff" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/a"
+                    android:layout_centerHorizontal="true"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal|center_vertical|left"
+                    android:padding="5dp"
+                    android:text="Agenda Type"
+                    android:textColor="@color/colcr_blue"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/agenda_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/a"
+                    android:layout_centerHorizontal="true"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal|center_vertical|left"
+                    android:padding="5dp"
+                    android:textColor="@color/color_red_maroon"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <!-- Agenda Number -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="4dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/a"
+                    android:layout_centerHorizontal="true"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal|center_vertical|left"
+                    android:padding="5dp"
+                    android:text="Agenda Number"
+                    android:textColor="@color/colcr_blue"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/agenda_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/a"
+                    android:layout_centerHorizontal="true"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal|center_vertical|left"
+                    android:padding="5dp"
+                    android:textColor="@color/color_red_maroon"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <!-- File Number -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="4dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/a"
+                    android:layout_centerHorizontal="true"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal|center_vertical|left"
+                    android:padding="5dp"
+                    android:text="File Number"
+                    android:textColor="@color/colcr_blue"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/file_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/a"
+                    android:layout_centerHorizontal="true"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal|center_vertical|left"
+                    android:padding="5dp"
+                    android:textColor="@color/color_red_maroon"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <!-- Department Name -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="4dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/a"
+                    android:layout_centerHorizontal="true"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal|center_vertical|left"
+                    android:padding="5dp"
+                    android:text="Department Name"
+                    android:textColor="@color/colcr_blue"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/department_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/a"
+                    android:layout_centerHorizontal="true"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal|center_vertical|left"
+                    android:padding="5dp"
+                    android:textColor="@color/color_red_maroon"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <!-- Title -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="4dp"
+                android:orientation="vertical"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/a"
+                    android:layout_centerHorizontal="true"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal|center_vertical|left"
+                    android:padding="5dp"
+                    android:text="Title"
+                    android:textColor="@color/colcr_blue"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/a"
+                    android:layout_centerHorizontal="true"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal|center_vertical|left"
+                    android:padding="5dp"
+                    android:textColor="@color/color_red_maroon"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <!-- Subject -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/bordor_rect"
+                android:orientation="vertical"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/a"
+                    android:layout_centerHorizontal="true"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal|center_vertical|left"
+                    android:padding="5dp"
+                    android:text="Subject"
+                    android:textColor="@color/colcr_blue"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/subject"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/a"
+                    android:layout_centerHorizontal="true"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal|center_vertical|left"
+                    android:padding="5dp"
+
+                    android:textColor="@color/color_red_maroon"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/dialog_ok"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@+id/dialog_result"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginBottom="20dp"
+                android:background="@color/color_red_maroon"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="OK"
+                android:textColor="#ffffffff" />
         </LinearLayout>
 
     </ScrollView>

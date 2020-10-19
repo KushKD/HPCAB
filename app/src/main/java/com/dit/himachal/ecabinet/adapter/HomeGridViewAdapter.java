@@ -188,20 +188,7 @@ public class HomeGridViewAdapter extends BaseAdapter {
                     ((Activity) c).finish();
 
                 }
-//                if (s.getName().equalsIgnoreCase("Search Pass")) {
-//                    try {
-//                        CD.showDialogSearchByPassId((Activity) c);
-//                    } catch (ParseException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//                if (s.getName().equalsIgnoreCase("Manual Entry")) {
-//
-//                    Intent i = new Intent(c.getApplicationContext(), ManualEntry.class);
-//
-//                    (c).startActivity(i);
-//
-//                }
+
 
 
             }

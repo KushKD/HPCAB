@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.dit.himachal.ecabinet.R;
 import com.dit.himachal.ecabinet.adapter.CabinetMemosAdapter;
@@ -51,6 +52,8 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
    List<CabinetMemoPojo> cabinetMemoPojoList = null ;
     CabinetMemosAdapter cabinetMemosAdapter = null;
     SwipeRefreshLayout pullToRefresh;
+    TextView  header;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +65,7 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
         list = findViewById(R.id.list);
         edit_text_search = findViewById(R.id.edit_text_search);
         pullToRefresh = findViewById(R.id.pullToRefresh);
+        header = findViewById(R.id.heading);
 
         //department_id
 
@@ -77,6 +81,7 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
         }
 
         if (param.equalsIgnoreCase("Forwarded")) {
+            header.setText("Forwarded Cabinet Memos");
             if (AppStatus.getInstance(CabinetMemoListByRoleActivity.this).isOnline()) {
                 GetDataPojo object = new GetDataPojo();
                 object.setUrl(Econstants.url);
@@ -103,6 +108,7 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
                 CD.showDialog(CabinetMemoListByRoleActivity.this, "Please connect to Internet and tr again.");
             }
         } else  if (param.equalsIgnoreCase("Cabinet_Decisions")) {
+            header.setText("Cabinet Decisions");
             Intent intent = getIntent();
             meetingId = intent.getStringExtra("meetingid");
             if (AppStatus.getInstance(CabinetMemoListByRoleActivity.this).isOnline()) {
@@ -113,11 +119,13 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
                 object.setTaskType(TaskType.GET_PENDING_MEMO_LIST_CABINET);
                 object.setTimeStamp(CommonUtils.getTimeStamp());
                 List<String> parameters = new ArrayList<>();
-                parameters.add(deptId);
+               // parameters.add(deptId);
                 parameters.add(Preferences.getInstance().user_id);
                 parameters.add(Preferences.getInstance().role_id);
                 parameters.add(Preferences.getInstance().mapped_departments);
+
                 parameters.add(meetingId);
+                parameters.add(Preferences.getInstance().branched_mapped);
 
                 object.setParameters(parameters);
 
@@ -136,6 +144,7 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
 
 
         else if (param.equalsIgnoreCase("Backwarded")) {
+            header.setText("Sent Back Cabinet Memos");
             if (AppStatus.getInstance(CabinetMemoListByRoleActivity.this).isOnline()) {
                 GetDataPojo object = new GetDataPojo();
                 object.setUrl(Econstants.url);
@@ -165,6 +174,7 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
 
         }
         else if (param.equalsIgnoreCase("PlacedInCabinet")) {
+            header.setText("Cabinet Memos Placed in Cabinet");
             if (AppStatus.getInstance(CabinetMemoListByRoleActivity.this).isOnline()) {
                 GetDataPojo object = new GetDataPojo();
                 object.setUrl(Econstants.url);
@@ -196,6 +206,7 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
 
 
         else if (param.equalsIgnoreCase("allowedCabinetMemos")) {
+            header.setText("Cabinet Memos Allowed");
             if (AppStatus.getInstance(CabinetMemoListByRoleActivity.this).isOnline()) {
                 GetDataPojo object = new GetDataPojo();
                 object.setUrl(Econstants.url);
@@ -325,11 +336,12 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
                         object.setTaskType(TaskType.GET_PENDING_MEMO_LIST_CABINET);
                         object.setTimeStamp(CommonUtils.getTimeStamp());
                         List<String> parameters = new ArrayList<>();
-                        parameters.add(deptId);
+                       // parameters.add(deptId);
                         parameters.add(Preferences.getInstance().user_id);
                         parameters.add(Preferences.getInstance().role_id);
                         parameters.add(Preferences.getInstance().mapped_departments);
                         parameters.add(meetingId);
+                        parameters.add(Preferences.getInstance().branched_mapped);
 
                         object.setParameters(parameters);
 
@@ -542,11 +554,13 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
                 object.setTaskType(TaskType.GET_PENDING_MEMO_LIST_CABINET);
                 object.setTimeStamp(CommonUtils.getTimeStamp());
                 List<String> parameters = new ArrayList<>();
-                parameters.add(deptId);
+                //parameters.add(deptId);
                 parameters.add(Preferences.getInstance().user_id);
                 parameters.add(Preferences.getInstance().role_id);
                 parameters.add(Preferences.getInstance().mapped_departments);
+
                 parameters.add(meetingId);
+                parameters.add(Preferences.getInstance().branched_mapped);
 
                 object.setParameters(parameters);
 

@@ -67,7 +67,7 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
 
     EditText otp, remarks;
 
-    Button approve, back, allow, proceed, cancel,attachments, history;
+    Button approve, back, allow, proceed, cancel, attachments, history;
     LinearLayout otp_proceed, proceed_cancel, buttons, remarkslay;
     private String buttonName = null;
     private String param = null;
@@ -86,17 +86,17 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
         init();
 
 //TODO
-        if(param.equalsIgnoreCase("Forwarded")){
-          buttons.setVisibility(View.GONE);
-            remarkslay.setVisibility(View.GONE);
-        }else if(param.equalsIgnoreCase("Backwarded")){
-           buttons.setVisibility(View.GONE);
-            remarkslay.setVisibility(View.GONE);
-        }else if(param.equalsIgnoreCase("allowedCabinetMemos") || param.equalsIgnoreCase("PlacedInCabinet")
-                || param.equalsIgnoreCase("final") || param.equalsIgnoreCase("Cabinet_Decisions")){
+        if (param.equalsIgnoreCase("Forwarded")) {
             buttons.setVisibility(View.GONE);
             remarkslay.setVisibility(View.GONE);
-        }else{
+        } else if (param.equalsIgnoreCase("Backwarded")) {
+            buttons.setVisibility(View.GONE);
+            remarkslay.setVisibility(View.GONE);
+        } else if (param.equalsIgnoreCase("allowedCabinetMemos") || param.equalsIgnoreCase("PlacedInCabinet")
+                || param.equalsIgnoreCase("final") || param.equalsIgnoreCase("Cabinet_Decisions")) {
+            buttons.setVisibility(View.GONE);
+            remarkslay.setVisibility(View.GONE);
+        } else {
             buttons.setVisibility(View.VISIBLE);
             remarkslay.setVisibility(View.VISIBLE);
         }
@@ -244,41 +244,41 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
 
                     //}
                 } else {
-                 //   if (!remarks.getText().toString().isEmpty()) {
-                        try {
-                            PostObject postObject = new PostObject();
-                            postObject.setUserid(Preferences.getInstance().user_id);
-                            postObject.setCabinetMemoId(cabinetMemoPojoDetails.getCabinetMemoID());
-                            postObject.setRoleid(Preferences.getInstance().role_id);
-                            postObject.setDeptId(cabinetMemoPojoDetails.getDeptid());
-                            postObject.setRemarks(remarks.getText().toString());
-                            postObject.setToken(Econstants.encodeBase64(Econstants.methordForwardCabinetMemoToken + Econstants.seperator + CommonUtils.getTimeStamp()));
-                            postObject.setPhone("");
-                            postObject.setOtp("");
+                    //   if (!remarks.getText().toString().isEmpty()) {
+                    try {
+                        PostObject postObject = new PostObject();
+                        postObject.setUserid(Preferences.getInstance().user_id);
+                        postObject.setCabinetMemoId(cabinetMemoPojoDetails.getCabinetMemoID());
+                        postObject.setRoleid(Preferences.getInstance().role_id);
+                        postObject.setDeptId(cabinetMemoPojoDetails.getDeptid());
+                        postObject.setRemarks(remarks.getText().toString());
+                        postObject.setToken(Econstants.encodeBase64(Econstants.methordForwardCabinetMemoToken + Econstants.seperator + CommonUtils.getTimeStamp()));
+                        postObject.setPhone("");
+                        postObject.setOtp("");
 
-                            PostDataPojo postDataPojo = new PostDataPojo();
-                            postDataPojo.setParameters(postObject);
-                            postDataPojo.setTaskType(TaskType.FORWARD);
-                            postDataPojo.setMethord(Econstants.methordForwardCabinetMemo);
-                            postDataPojo.setUrl(Econstants.url);
+                        PostDataPojo postDataPojo = new PostDataPojo();
+                        postDataPojo.setParameters(postObject);
+                        postDataPojo.setTaskType(TaskType.FORWARD);
+                        postDataPojo.setMethord(Econstants.methordForwardCabinetMemo);
+                        postDataPojo.setUrl(Econstants.url);
 
-                            //Send Object
-                            Log.e("Object", postObject.toString());
+                        //Send Object
+                        Log.e("Object", postObject.toString());
 
-                            new GenericAsyncPostObject(
-                                    CabinetMemoDetailsActivity.this,
-                                    CabinetMemoDetailsActivity.this,
-                                    TaskType.FORWARD).
-                                    execute(postDataPojo);
+                        new GenericAsyncPostObject(
+                                CabinetMemoDetailsActivity.this,
+                                CabinetMemoDetailsActivity.this,
+                                TaskType.FORWARD).
+                                execute(postDataPojo);
 
-                            //Send Object
-                            Log.e("Object", postObject.toString());
-                        } catch (Exception ex) {
-                            Log.e("Error", ex.toString());
-                            CD.showDialog(CabinetMemoDetailsActivity.this, "Something Bad happened. Please restart your application.");
-                        }
-                    } //else
-                        {
+                        //Send Object
+                        Log.e("Object", postObject.toString());
+                    } catch (Exception ex) {
+                        Log.e("Error", ex.toString());
+                        CD.showDialog(CabinetMemoDetailsActivity.this, "Something Bad happened. Please restart your application.");
+                    }
+                } //else
+                {
 //                        CD.showDialog(CabinetMemoDetailsActivity.this, "Please enter Remarks.");
 //                    }
                 }
@@ -319,7 +319,6 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
                     Log.e("Object", postObject.toString());
 
 
-
                 } else {
                     CD.showDialog(CabinetMemoDetailsActivity.this, "Please connect to Internet and try again.");
                 }
@@ -331,19 +330,19 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
             @Override
             public void onClick(View v) {
                 try {
-                    if( cabinetMemoPojoDetails.getListAnnexures_()!=null){
+                    if (cabinetMemoPojoDetails.getListAnnexures_() != null) {
                         Log.e("Attachments", "Death");
                         Log.e("Attachments", cabinetMemoPojoDetails.getListAnnexures_().toString());
-                        Intent in = new Intent(CabinetMemoDetailsActivity.this,CabinetAnnexures.class);
+                        Intent in = new Intent(CabinetMemoDetailsActivity.this, CabinetAnnexures.class);
                         in.putExtra("data", cabinetMemoPojoDetails);
                         startActivity(in);
-                    }else{
-                      CD.showDialog(CabinetMemoDetailsActivity.this,"No Data Available.");
+                    } else {
+                        CD.showDialog(CabinetMemoDetailsActivity.this, "No Data Available.");
                     }
 
-                }catch(Exception ex){
-                Log.e(" Attachments", ex.getLocalizedMessage().toString());
-            }
+                } catch (Exception ex) {
+                    Log.e(" Attachments", ex.getLocalizedMessage().toString());
+                }
             }
         });
 
@@ -351,16 +350,16 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
             @Override
             public void onClick(View v) {
                 try {
-                    if(cabinetMemoPojoDetails.getListCabinetMemoTrackingHistoryLists()!=null){
-                    Log.e("Attachments", "Death history");
-                    Log.e("Memo History", cabinetMemoPojoDetails.getListCabinetMemoTrackingHistoryLists().toString());
-                        Intent in = new Intent(CabinetMemoDetailsActivity.this,CabinetMemoHistory.class);
+                    if (cabinetMemoPojoDetails.getListCabinetMemoTrackingHistoryLists() != null) {
+                        Log.e("Attachments", "Death history");
+                        Log.e("Memo History", cabinetMemoPojoDetails.getListCabinetMemoTrackingHistoryLists().toString());
+                        Intent in = new Intent(CabinetMemoDetailsActivity.this, CabinetMemoHistory.class);
                         in.putExtra("data", cabinetMemoPojoDetails);
                         startActivity(in);
-                    }else{
-                        CD.showDialog(CabinetMemoDetailsActivity.this,"No Data Available.");
+                    } else {
+                        CD.showDialog(CabinetMemoDetailsActivity.this, "No Data Available.");
                     }
-                }catch(Exception ex){
+                } catch (Exception ex) {
                     Log.e("Memo History", ex.getLocalizedMessage().toString());
                 }
             }
@@ -371,143 +370,143 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
             public void onClick(View v) {
                 //TODO Send Back
                 buttonName = "back";
-                if (Preferences.getInstance().role_id.equalsIgnoreCase("4") || Preferences.getInstance().role_id.equalsIgnoreCase("11")) {
-                    //check Remarks
-                    if (!remarks.getText().toString().isEmpty()) {
-                        ////OTP Functionality Enable
-                        buttons.setVisibility(View.GONE);
-                        proceed_cancel.setVisibility(View.VISIBLE);
-                        otp_proceed.setVisibility(View.VISIBLE);
-                        // if(addPersons.isEmpty()){
-                        if (phone.getText().toString().length() == 10) {
-                            if (AppStatus.getInstance(CabinetMemoDetailsActivity.this).isOnline()) {
-                                GetDataPojo object = new GetDataPojo();
-                                object.setUrl(Econstants.url);
-                                object.setMethord(Econstants.methordGetOTP);
-                                object.setMethordHash(Econstants.encodeBase64(Econstants.methordOTPToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
-                                object.setTaskType(TaskType.GET_OTP_VIA_MOBILE);
-                                object.setTimeStamp(CommonUtils.getTimeStamp());
-                                List<String> parameters = new ArrayList<>();
-                                parameters.add(phone.getText().toString());
-                                parameters.add(Preferences.getInstance().user_id);
-                                parameters.add(Preferences.getInstance().role_id);
-                                object.setParameters(parameters);
-                                new Generic_Async_Get(
-                                        CabinetMemoDetailsActivity.this,
-                                        CabinetMemoDetailsActivity.this,
-                                        TaskType.GET_OTP_VIA_MOBILE).
-                                        execute(object);
+//                if (Preferences.getInstance().role_id.equalsIgnoreCase("4") || Preferences.getInstance().role_id.equalsIgnoreCase("11")) {
+//                    //check Remarks
+//                    if (!remarks.getText().toString().isEmpty()) {
+//                        ////OTP Functionality Enable
+//                        buttons.setVisibility(View.GONE);
+//                        proceed_cancel.setVisibility(View.VISIBLE);
+//                        otp_proceed.setVisibility(View.VISIBLE);
+//                        // if(addPersons.isEmpty()){
+//                        if (phone.getText().toString().length() == 10) {
+//                            if (AppStatus.getInstance(CabinetMemoDetailsActivity.this).isOnline()) {
+//                                GetDataPojo object = new GetDataPojo();
+//                                object.setUrl(Econstants.url);
+//                                object.setMethord(Econstants.methordGetOTP);
+//                                object.setMethordHash(Econstants.encodeBase64(Econstants.methordOTPToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
+//                                object.setTaskType(TaskType.GET_OTP_VIA_MOBILE);
+//                                object.setTimeStamp(CommonUtils.getTimeStamp());
+//                                List<String> parameters = new ArrayList<>();
+//                                parameters.add(phone.getText().toString());
+//                                parameters.add(Preferences.getInstance().user_id);
+//                                parameters.add(Preferences.getInstance().role_id);
+//                                object.setParameters(parameters);
+//                                new Generic_Async_Get(
+//                                        CabinetMemoDetailsActivity.this,
+//                                        CabinetMemoDetailsActivity.this,
+//                                        TaskType.GET_OTP_VIA_MOBILE).
+//                                        execute(object);
+//
+//
+//                            } else {
+//                                CD.showDialog(CabinetMemoDetailsActivity.this, "Please connect to Internet and try again.");
+//                            }
+//                        } else {
+//                            CD.showDialog(CabinetMemoDetailsActivity.this, "Please contact the department regarding the Phone number.");
+//                        }
+//
+//                    } else {
+//                        CD.showDialog(CabinetMemoDetailsActivity.this, "Please enter Remarks.");
+//                        buttons.setVisibility(View.VISIBLE);
+//                        proceed_cancel.setVisibility(View.GONE);
+//                        otp_proceed.setVisibility(View.GONE);
+//                        otp.setText("");
+//
+//
+//                    }
+                //    } else {
+                if (!remarks.getText().toString().isEmpty()) {
+                    try {
+                        PostObject postObject = new PostObject();
+                        postObject.setUserid(Preferences.getInstance().user_id);
+                        postObject.setCabinetMemoId(cabinetMemoPojoDetails.getCabinetMemoID());
+                        postObject.setRoleid(Preferences.getInstance().role_id);
+                        postObject.setDeptId(cabinetMemoPojoDetails.getDeptid());
+                        postObject.setRemarks(remarks.getText().toString());
+                        postObject.setToken(Econstants.encodeBase64(Econstants.methordsendBackCabinetMemoListsToken + Econstants.seperator + CommonUtils.getTimeStamp()));
+                        postObject.setPhone("");
+                        postObject.setOtp("");
 
+                        PostDataPojo postDataPojo = new PostDataPojo();
+                        postDataPojo.setParameters(postObject);
+                        postDataPojo.setTaskType(TaskType.SEND_BACK);
+                        postDataPojo.setMethord(Econstants.methordsendBackCabinetMemoLists);
+                        postDataPojo.setUrl(Econstants.url);
 
-                            } else {
-                                CD.showDialog(CabinetMemoDetailsActivity.this, "Please connect to Internet and try again.");
-                            }
-                        } else {
-                            CD.showDialog(CabinetMemoDetailsActivity.this, "Please contact the department regarding the Phone number.");
-                        }
+                        //Send Object
+                        Log.e("Object", postObject.toString());
 
-                    } else {
-                        CD.showDialog(CabinetMemoDetailsActivity.this, "Please enter Remarks.");
-                        buttons.setVisibility(View.VISIBLE);
-                        proceed_cancel.setVisibility(View.GONE);
-                        otp_proceed.setVisibility(View.GONE);
-                        otp.setText("");
+                        new GenericAsyncPostObject(
+                                CabinetMemoDetailsActivity.this,
+                                CabinetMemoDetailsActivity.this,
+                                TaskType.SEND_BACK).
+                                execute(postDataPojo);
 
-
+                        //Send Object
+                        Log.e("Object", postObject.toString());
+                    } catch (Exception ex) {
+                        Log.e("Error", ex.toString());
+                        CD.showDialog(CabinetMemoDetailsActivity.this, "Something Bad happened. Please restart your application.");
                     }
                 } else {
-                    if (!remarks.getText().toString().isEmpty()) {
-                        try {
-                            PostObject postObject = new PostObject();
-                            postObject.setUserid(Preferences.getInstance().user_id);
-                            postObject.setCabinetMemoId(cabinetMemoPojoDetails.getCabinetMemoID());
-                            postObject.setRoleid(Preferences.getInstance().role_id);
-                            postObject.setDeptId(cabinetMemoPojoDetails.getDeptid());
-                            postObject.setRemarks(remarks.getText().toString());
-                            postObject.setToken(Econstants.encodeBase64(Econstants.methordsendBackCabinetMemoListsToken + Econstants.seperator + CommonUtils.getTimeStamp()));
-                            postObject.setPhone("");
-                            postObject.setOtp("");
-
-                            PostDataPojo postDataPojo = new PostDataPojo();
-                            postDataPojo.setParameters(postObject);
-                            postDataPojo.setTaskType(TaskType.SEND_BACK);
-                            postDataPojo.setMethord(Econstants.methordsendBackCabinetMemoLists);
-                            postDataPojo.setUrl(Econstants.url);
-
-                            //Send Object
-                            Log.e("Object", postObject.toString());
-
-                            new GenericAsyncPostObject(
-                                    CabinetMemoDetailsActivity.this,
-                                    CabinetMemoDetailsActivity.this,
-                                    TaskType.SEND_BACK).
-                                    execute(postDataPojo);
-
-                            //Send Object
-                            Log.e("Object", postObject.toString());
-                        } catch (Exception ex) {
-                            Log.e("Error", ex.toString());
-                            CD.showDialog(CabinetMemoDetailsActivity.this, "Something Bad happened. Please restart your application.");
-                        }
-                    } else {
-                        CD.showDialog(CabinetMemoDetailsActivity.this, "Please enter Remarks.");
-                    }
+                    CD.showDialog(CabinetMemoDetailsActivity.this, "Please enter Remarks.");
                 }
+                // }
             }
         });
 
 
-       if(param.equalsIgnoreCase("Current") ){
-           if (AppStatus.getInstance(CabinetMemoDetailsActivity.this).isOnline()) {
-               GetDataPojo object = new GetDataPojo();
-               object.setUrl(Econstants.url);
-               object.setMethord(Econstants.methordCabinetMemoDetails);
-               object.setMethordHash(Econstants.encodeBase64(Econstants.methordCabinetMemoDetailsToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
-               object.setTaskType(TaskType.CABINET_MEMOS_DETAILS);
-               object.setTimeStamp(CommonUtils.getTimeStamp());
-               List<String> parameters = new ArrayList<>();
-               parameters.add(cabinetMemoPojo.getCabinetMemoID());
-               parameters.add(cabinetMemoPojo.getDeptid());
-               parameters.add(Preferences.getInstance().user_id);
-               parameters.add(Preferences.getInstance().role_id);
-               object.setParameters(parameters);
+        if (param.equalsIgnoreCase("Current")) {
+            if (AppStatus.getInstance(CabinetMemoDetailsActivity.this).isOnline()) {
+                GetDataPojo object = new GetDataPojo();
+                object.setUrl(Econstants.url);
+                object.setMethord(Econstants.methordCabinetMemoDetails);
+                object.setMethordHash(Econstants.encodeBase64(Econstants.methordCabinetMemoDetailsToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
+                object.setTaskType(TaskType.CABINET_MEMOS_DETAILS);
+                object.setTimeStamp(CommonUtils.getTimeStamp());
+                List<String> parameters = new ArrayList<>();
+                parameters.add(cabinetMemoPojo.getCabinetMemoID());
+                parameters.add(cabinetMemoPojo.getDeptid());
+                parameters.add(Preferences.getInstance().user_id);
+                parameters.add(Preferences.getInstance().role_id);
+                object.setParameters(parameters);
 
-               Log.e("Departments", Preferences.getInstance().mapped_departments);
+                Log.e("Departments", Preferences.getInstance().mapped_departments);
 
-               new Generic_Async_Get(
-                       CabinetMemoDetailsActivity.this,
-                       CabinetMemoDetailsActivity.this,
-                       TaskType.CABINET_MEMOS_DETAILS).
-                       execute(object);
-           } else {
-               CD.showDialog(CabinetMemoDetailsActivity.this, "Please connect to Internet and tr again.");
-           }
-       }else{
-           if (AppStatus.getInstance(CabinetMemoDetailsActivity.this).isOnline()) {
-               GetDataPojo object = new GetDataPojo();
-               object.setUrl(Econstants.url);
-               object.setMethord(Econstants.methordCabinetMemoDetailsOther);
-               object.setMethordHash(Econstants.encodeBase64(Econstants.methordCabinetMemoDetailsTokenOther + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
-               object.setTaskType(TaskType.CABINET_MEMOS_DETAILS);
-               object.setTimeStamp(CommonUtils.getTimeStamp());
-               List<String> parameters = new ArrayList<>();
-               parameters.add(cabinetMemoPojo.getCabinetMemoID());
-               parameters.add(cabinetMemoPojo.getDeptid());
-               parameters.add(Preferences.getInstance().user_id);
-               parameters.add(Preferences.getInstance().role_id);
-               object.setParameters(parameters);
+                new Generic_Async_Get(
+                        CabinetMemoDetailsActivity.this,
+                        CabinetMemoDetailsActivity.this,
+                        TaskType.CABINET_MEMOS_DETAILS).
+                        execute(object);
+            } else {
+                CD.showDialog(CabinetMemoDetailsActivity.this, "Please connect to Internet and tr again.");
+            }
+        } else {
+            if (AppStatus.getInstance(CabinetMemoDetailsActivity.this).isOnline()) {
+                GetDataPojo object = new GetDataPojo();
+                object.setUrl(Econstants.url);
+                object.setMethord(Econstants.methordCabinetMemoDetailsOther);
+                object.setMethordHash(Econstants.encodeBase64(Econstants.methordCabinetMemoDetailsTokenOther + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
+                object.setTaskType(TaskType.CABINET_MEMOS_DETAILS);
+                object.setTimeStamp(CommonUtils.getTimeStamp());
+                List<String> parameters = new ArrayList<>();
+                parameters.add(cabinetMemoPojo.getCabinetMemoID());
+                parameters.add(cabinetMemoPojo.getDeptid());
+                parameters.add(Preferences.getInstance().user_id);
+                parameters.add(Preferences.getInstance().role_id);
+                object.setParameters(parameters);
 
-               Log.e("Departments", Preferences.getInstance().mapped_departments);
+                Log.e("Departments", Preferences.getInstance().mapped_departments);
 
-               new Generic_Async_Get(
-                       CabinetMemoDetailsActivity.this,
-                       CabinetMemoDetailsActivity.this,
-                       TaskType.CABINET_MEMOS_DETAILS).
-                       execute(object);
-           } else {
-               CD.showDialog(CabinetMemoDetailsActivity.this, "Please connect to Internet and tr again.");
-           }
-       }
+                new Generic_Async_Get(
+                        CabinetMemoDetailsActivity.this,
+                        CabinetMemoDetailsActivity.this,
+                        TaskType.CABINET_MEMOS_DETAILS).
+                        execute(object);
+            } else {
+                CD.showDialog(CabinetMemoDetailsActivity.this, "Please connect to Internet and tr again.");
+            }
+        }
     }
 
     private void init() {
@@ -578,7 +577,7 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
                 Log.e("arrayReports", object.toString());
                 cabinetMemoPojoDetails = new CabinetMemoPojo();
 
-                  cabinetMemoPojoDetails.setAdditionalInformation(object.optString("AdditionalInformation"));
+                cabinetMemoPojoDetails.setAdditionalInformation(object.optString("AdditionalInformation"));
                 // cabinetMemoPojoDetails.setAgendaItemNo(Econstants.decodeBase64(object.optString("AgendaItemNo")));
                 //abinetMemoPojoDetails.setAgendaItemType(Econstants.decodeBase64(object.optString("AgendaItemType")));
                 cabinetMemoPojoDetails.setApprovalStatus(Econstants.decodeBase64(object.optString("ApprovalStatus")));
@@ -598,11 +597,11 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
                 //TODO KD
                 JSONArray ja_data = object.getJSONArray("ListConsiderationPoints");
                 int length = ja_data.length();
-                if(length>=0){
+                if (length >= 0) {
                     listConsiderationPoints = new ArrayList<>();
                     for (int i = 0; i < ja_data.length(); i++) {
                         JSONObject objectListConsidration = ja_data.getJSONObject(i);
-                        ListConsiderationPoints  listConsiderationPoints_  = new ListConsiderationPoints();
+                        ListConsiderationPoints listConsiderationPoints_ = new ListConsiderationPoints();
                         listConsiderationPoints_.setCabinetMemoID(Econstants.decodeBase64(objectListConsidration.optString("CabinetMemoID")));
                         listConsiderationPoints_.setConsiderationPointID(Econstants.decodeBase64(objectListConsidration.optString("ConsiderationPointID")));
                         listConsiderationPoints_.setConsiderationPtFinalRemarks(Econstants.decodeBase64(objectListConsidration.optString("ConsiderationPtFinalRemarks")));
@@ -616,18 +615,18 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
                         listConsiderationPoints.add(listConsiderationPoints_);
                     }
                     cabinetMemoPojoDetails.setListConsiderationPoints(listConsiderationPoints);
-                    Log.e("Considration Points", cabinetMemoPojoDetails.getListConsiderationPoints().toString() );
+                    Log.e("Considration Points", cabinetMemoPojoDetails.getListConsiderationPoints().toString());
 
                 }
 
                 //ListAnnexures_  listAnnexures
                 JSONArray ListAnnexures_Object = object.getJSONArray("ListAnnexures");
                 int length_ListAnnexures_Object = ListAnnexures_Object.length();
-                if(length_ListAnnexures_Object>0){
+                if (length_ListAnnexures_Object > 0) {
                     listAnnexures = new ArrayList<>();
                     for (int i = 0; i < ListAnnexures_Object.length(); i++) {
                         JSONObject objectListConsidration = ListAnnexures_Object.getJSONObject(i);
-                        ListAnnexures  listAnnuxtiresPojo  = new ListAnnexures();
+                        ListAnnexures listAnnuxtiresPojo = new ListAnnexures();
                         listAnnuxtiresPojo.setCabinetMemoID(Econstants.decodeBase64(objectListConsidration.optString("CabinetMemoID")));
                         listAnnuxtiresPojo.setCabinetMemoID(Econstants.decodeBase64(objectListConsidration.optString("AnnexureID")));
                         listAnnuxtiresPojo.setAnnexureID(Econstants.decodeBase64(objectListConsidration.optString("AnnexureName")));
@@ -638,18 +637,18 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
                         listAnnexures.add(listAnnuxtiresPojo);
                     }
                     cabinetMemoPojoDetails.setListAnnexures_(listAnnexures);
-                    Log.e("List Annuxter", cabinetMemoPojoDetails.getListAnnexures_().toString() );
+                    Log.e("List Annuxter", cabinetMemoPojoDetails.getListAnnexures_().toString());
 
                 }
 
 
                 JSONArray ListCabinetMemoTrackingHistoryListsObject = object.getJSONArray("ListCabinetMemoTrackingHistoryLists");
                 int ListCabinetMemoTrackingHistoryListsObject_Length = ListCabinetMemoTrackingHistoryListsObject.length();
-                if(ListCabinetMemoTrackingHistoryListsObject_Length>0){
+                if (ListCabinetMemoTrackingHistoryListsObject_Length > 0) {
                     listCabinetMemoTrackingHistoryListsPojos = new ArrayList<>();
                     for (int i = 0; i < ListCabinetMemoTrackingHistoryListsObject.length(); i++) {
                         JSONObject ox = ListCabinetMemoTrackingHistoryListsObject.getJSONObject(i);
-                        ListCabinetMemoTrackingHistoryListsPojo  pojo  = new ListCabinetMemoTrackingHistoryListsPojo();
+                        ListCabinetMemoTrackingHistoryListsPojo pojo = new ListCabinetMemoTrackingHistoryListsPojo();
                         pojo.setAction(Econstants.decodeBase64(ox.optString("Action")));
                         pojo.setDate(Econstants.decodeBase64(ox.optString("Date")));
                         pojo.setRemarks(Econstants.decodeBase64(ox.optString("Remarks")));
@@ -660,10 +659,9 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
                         listCabinetMemoTrackingHistoryListsPojos.add(pojo);
                     }
                     cabinetMemoPojoDetails.setListCabinetMemoTrackingHistoryLists(listCabinetMemoTrackingHistoryListsPojos);
-                    Log.e("List Cabinet Tracking", cabinetMemoPojoDetails.getListCabinetMemoTrackingHistoryLists().toString() );
+                    Log.e("List Cabinet Tracking", cabinetMemoPojoDetails.getListCabinetMemoTrackingHistoryLists().toString());
 
                 }
-
 
 
                 Log.e("cabinetMemoPojoDetails", cabinetMemoPojoDetails.toString());
@@ -677,21 +675,21 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
                 subjet.setText(cabinetMemoPojoDetails.getSubject());
                 proposal.setText(Html.fromHtml(cabinetMemoPojoDetails.getProposalDetails()));
 
-                if(cabinetMemoPojoDetails.getListConsiderationPoints().size()>0){
+                if (cabinetMemoPojoDetails.getListConsiderationPoints().size() > 0) {
                     StringBuilder SB = new StringBuilder();
-                    for(int i=0; i<cabinetMemoPojoDetails.getListConsiderationPoints().size();i++){
-                        SB.append(cabinetMemoPojoDetails.getListConsiderationPoints().get(i).getPointNumber()+"). ");
+                    for (int i = 0; i < cabinetMemoPojoDetails.getListConsiderationPoints().size(); i++) {
+                        SB.append(cabinetMemoPojoDetails.getListConsiderationPoints().get(i).getPointNumber() + "). ");
                         SB.append(cabinetMemoPojoDetails.getListConsiderationPoints().get(i).getTitle());
                         SB.append("\n");
                     }
                     pointsconsideration.setText(SB.toString());
-                }else{
+                } else {
                     pointsconsideration.setText("NA");
                 }
 
 
                 //  advisory_department_approval.setText(cabinetMemoPojoDetails.getA);
-                 additional_information.setText(Html.fromHtml(cabinetMemoPojoDetails.getAdditionalInformation()));
+                additional_information.setText(Html.fromHtml(cabinetMemoPojoDetails.getAdditionalInformation()));
                 // pointsconsideration.setText("");
             } else if (json instanceof JSONArray) Log.e("Json Array", "Array");
 
@@ -735,7 +733,7 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
             } else {
                 CD.showDialog(CabinetMemoDetailsActivity.this, result.getRespnse());
             }
-        } else if(taskType == TaskType.ALLOW){
+        } else if (taskType == TaskType.ALLOW) {
             Log.e("Result", result.getRespnse());
             if (result.getSuccessFailure().equalsIgnoreCase("SUCCESS")) {
                 Log.e("Result == ", result.getRespnse());
