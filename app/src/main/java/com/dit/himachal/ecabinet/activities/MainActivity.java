@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.dit.himachal.ecabinet.R;
 import com.dit.himachal.ecabinet.adapter.DepartmentsAdapter;
 import com.dit.himachal.ecabinet.adapter.HomeGridViewAdapter;
+import com.dit.himachal.ecabinet.databases.DatabaseHandler;
 import com.dit.himachal.ecabinet.enums.TaskType;
 import com.dit.himachal.ecabinet.generic.Generic_Async_Get;
 import com.dit.himachal.ecabinet.interfaces.AsyncTaskListenerObjectGet;
@@ -30,6 +31,7 @@ import com.dit.himachal.ecabinet.modal.AgendaPojo;
 import com.dit.himachal.ecabinet.modal.DepartmentsPojo;
 import com.dit.himachal.ecabinet.modal.GetDataPojo;
 import com.dit.himachal.ecabinet.modal.ModulesPojo;
+import com.dit.himachal.ecabinet.modal.OfflineDataModel;
 import com.dit.himachal.ecabinet.modal.ResponsObject;
 import com.dit.himachal.ecabinet.presentation.CustomDialog;
 import com.dit.himachal.ecabinet.presentation.MeetingStatus;
@@ -135,6 +137,21 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
                                 execute(object);
 
                     } else {
+                        DatabaseHandler DB = new DatabaseHandler(MainActivity.this);
+                        Log.e("GET_MENU_LIST Start", Integer.toString(DB.GetAllOfflineDataViaFunction(TaskType.GET_MENU_LIST.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,"Menu").size()));
+                        if(DB.GetAllOfflineDataViaFunction(TaskType.GET_MENU_LIST.toString(),Preferences.getInstance().user_id, Preferences.getInstance().role_id,"Menu").size()>0){
+                            //Show Events
+                            try {
+
+                                showMenu(DB.GetAllOfflineDataViaFunction(TaskType.GET_MENU_LIST.toString(),Preferences.getInstance().user_id, Preferences.getInstance().role_id,"Menu").get(0));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        }else{
+                            // Toast.makeText(PolicyHomeScreen.this,"No Data Available.",Toast.LENGTH_LONG).show();
+                            CD.showDialogCloseActivity(MainActivity.this, Econstants.NO_DATA);
+                        }
                         CD.showDialog(MainActivity.this, "Please connect to Internet and try again.");
                     }
 
@@ -259,6 +276,45 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
             }
         };
     }
+
+    private void showMenu(OfflineDataModel menu) throws JSONException {
+        Object json = new JSONTokener(menu.getResponse()).nextValue();
+        if (json instanceof JSONObject) {
+            Log.e("Json Object", "Object");
+        } else if (json instanceof JSONArray) {
+            Log.e("Json Object", "Object");
+            JSONArray arrayReports = new JSONArray(menu.getResponse());
+            Log.e("arrayReports", arrayReports.toString());
+
+            if (arrayReports.length() > 0) {
+                modules = new ArrayList<>();
+                //ReportsModelPojo
+
+
+                for (int i = 0; i < arrayReports.length(); i++) {
+                    ModulesPojo modulesPojo = new ModulesPojo();
+                    JSONObject object = arrayReports.getJSONObject(i);
+
+                    modulesPojo.setId(Econstants.decodeBase64(object.optString("Menuid")));
+                    modulesPojo.setName(Econstants.decodeBase64(object.optString("MenuName")));
+                    modulesPojo.setLogo(Econstants.decodeBase64(object.optString("MenuIcon")));
+
+
+                    modules.add(modulesPojo);
+                }
+
+                //  Log.e("Departments Data", departments.toString());;
+                adapter_modules = new HomeGridViewAdapter(this, (ArrayList<ModulesPojo>) modules, Global_deptId);
+                home_gv.setAdapter(adapter_modules);
+
+
+            } else {
+                CD.showDialog(MainActivity.this, "No Departments Found");
+
+            }
+        }
+    }
+
 
     @Override
     protected void onResume() {

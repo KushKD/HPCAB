@@ -111,7 +111,7 @@ public class Econstants {
 
 
 
-
+   public static final String NO_DATA = "No Data Available. Please Connect to Internet and try again !";
 
 
 
