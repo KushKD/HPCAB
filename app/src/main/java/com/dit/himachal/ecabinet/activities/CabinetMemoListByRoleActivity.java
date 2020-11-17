@@ -1,9 +1,5 @@
 package com.dit.himachal.ecabinet.activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -19,6 +15,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.dit.himachal.ecabinet.R;
 import com.dit.himachal.ecabinet.adapter.CabinetMemosAdapter;
 import com.dit.himachal.ecabinet.databases.DatabaseHandler;
@@ -26,11 +26,8 @@ import com.dit.himachal.ecabinet.enums.TaskType;
 import com.dit.himachal.ecabinet.generic.Generic_Async_Get;
 import com.dit.himachal.ecabinet.interfaces.AsyncTaskListenerObjectGet;
 import com.dit.himachal.ecabinet.modal.CabinetMemoPojo;
-import com.dit.himachal.ecabinet.modal.DepartmentsUserPojo;
 import com.dit.himachal.ecabinet.modal.GetDataPojo;
 import com.dit.himachal.ecabinet.modal.OfflineDataModel;
-import com.dit.himachal.ecabinet.modal.ResponsObject;
-import com.dit.himachal.ecabinet.modal.UserDataPojo;
 import com.dit.himachal.ecabinet.presentation.CustomDialog;
 import com.dit.himachal.ecabinet.utilities.AppStatus;
 import com.dit.himachal.ecabinet.utilities.CommonUtils;

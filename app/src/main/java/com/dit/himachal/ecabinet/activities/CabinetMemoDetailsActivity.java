@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.dit.himachal.ecabinet.R;
 import com.dit.himachal.ecabinet.adapter.CabinetMemosAdapter;
+import com.dit.himachal.ecabinet.databases.DatabaseHandler;
 import com.dit.himachal.ecabinet.enums.TaskType;
 import com.dit.himachal.ecabinet.generic.GenericAsyncPostObject;
 import com.dit.himachal.ecabinet.generic.Generic_Async_Get;
@@ -471,6 +472,7 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
                 parameters.add(Preferences.getInstance().user_id);
                 parameters.add(Preferences.getInstance().role_id);
                 object.setParameters(parameters);
+                object.setBifurcation("CABINET_MEMOS_DETAILS" +cabinetMemoPojo.getDeptid()+ cabinetMemoPojo.getCabinetMemoID());
 
                 Log.e("Departments", Preferences.getInstance().mapped_departments);
 
@@ -480,7 +482,20 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
                         TaskType.CABINET_MEMOS_DETAILS).
                         execute(object);
             } else {
-                CD.showDialog(CabinetMemoDetailsActivity.this, "Please connect to Internet and tr again.");
+                DatabaseHandler DB = new DatabaseHandler(CabinetMemoDetailsActivity.this);
+                Log.e("CABINET_MEMOS_DETAILS", Integer.toString(DB.GetAllOfflineDataViaFunction(TaskType.CABINET_MEMOS_DETAILS.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "CABINET_MEMOS_DETAILS" +cabinetMemoPojo.getDeptid()+ cabinetMemoPojo.getCabinetMemoID()      ).size()));
+                if (DB.GetAllOfflineDataViaFunction(TaskType.CABINET_MEMOS_DETAILS.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "CABINET_MEMOS_DETAILS" +cabinetMemoPojo.getDeptid()+ cabinetMemoPojo.getCabinetMemoID()).size() > 0) {
+                    //Show Events
+
+                    try {
+                        cabinetMemoDetails(DB.GetAllOfflineDataViaFunction(TaskType.CABINET_MEMOS_DETAILS.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "CABINET_MEMOS_DETAILS" +cabinetMemoPojo.getDeptid()+ cabinetMemoPojo.getCabinetMemoID()).get(0));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                } else {
+                    CD.showDialogCloseActivity(CabinetMemoDetailsActivity.this, Econstants.NO_DATA);
+                }
             }
         } else {
             if (AppStatus.getInstance(CabinetMemoDetailsActivity.this).isOnline()) {
@@ -496,6 +511,7 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
                 parameters.add(Preferences.getInstance().user_id);
                 parameters.add(Preferences.getInstance().role_id);
                 object.setParameters(parameters);
+                object.setBifurcation("CABINET_MEMOS_DETAILS" +cabinetMemoPojo.getDeptid()+ cabinetMemoPojo.getCabinetMemoID());
 
                 Log.e("Departments", Preferences.getInstance().mapped_departments);
 
@@ -505,9 +521,149 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
                         TaskType.CABINET_MEMOS_DETAILS).
                         execute(object);
             } else {
-                CD.showDialog(CabinetMemoDetailsActivity.this, "Please connect to Internet and tr again.");
+                DatabaseHandler DB = new DatabaseHandler(CabinetMemoDetailsActivity.this);
+                Log.e("CABINET_MEMOS_DETAILS", Integer.toString(DB.GetAllOfflineDataViaFunction(TaskType.CABINET_MEMOS_DETAILS.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "CABINET_MEMOS_DETAILS" +cabinetMemoPojo.getDeptid()+ cabinetMemoPojo.getCabinetMemoID()).size()));
+                if (DB.GetAllOfflineDataViaFunction(TaskType.CABINET_MEMOS_DETAILS.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "CABINET_MEMOS_DETAILS" +cabinetMemoPojo.getDeptid()+ cabinetMemoPojo.getCabinetMemoID()).size() > 0) {
+                    //Show Events
+
+                    try {
+                        cabinetMemoDetails(DB.GetAllOfflineDataViaFunction(TaskType.CABINET_MEMOS_DETAILS.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "CABINET_MEMOS_DETAILS" +cabinetMemoPojo.getDeptid()+ cabinetMemoPojo.getCabinetMemoID()).get(0));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                } else {
+                    CD.showDialogCloseActivity(CabinetMemoDetailsActivity.this, Econstants.NO_DATA);
+                }
             }
         }
+    }
+
+    private void cabinetMemoDetails(OfflineDataModel result) throws JSONException {
+        Log.e("Result == ", result.getResponse());
+        Object json = new JSONTokener(result.getResponse()).nextValue();
+        if (json instanceof JSONObject) {
+            Log.e("Json Object", "Object");
+            JSONObject object = new JSONObject(result.getResponse());
+
+            Log.e("arrayReports", object.toString());
+            cabinetMemoPojoDetails = new CabinetMemoPojo();
+
+            cabinetMemoPojoDetails.setAdditionalInformation(object.optString("AdditionalInformation"));
+            // cabinetMemoPojoDetails.setAgendaItemNo(Econstants.decodeBase64(object.optString("AgendaItemNo")));
+            //abinetMemoPojoDetails.setAgendaItemType(Econstants.decodeBase64(object.optString("AgendaItemType")));
+            cabinetMemoPojoDetails.setApprovalStatus(Econstants.decodeBase64(object.optString("ApprovalStatus")));
+            cabinetMemoPojoDetails.setCabinetMemoID(Econstants.decodeBase64(object.optString("CabinetMemoID")));
+            cabinetMemoPojoDetails.setDeptName(Econstants.decodeBase64(object.optString("DeptName")));
+            cabinetMemoPojoDetails.setDeptid(Econstants.decodeBase64(object.optString("Deptid")));
+            cabinetMemoPojoDetails.setFileNo(Econstants.decodeBase64(object.optString("FileNo")));
+            cabinetMemoPojoDetails.setMeetingdate(Econstants.decodeBase64(object.optString("Meetingdate")));
+            cabinetMemoPojoDetails.setMemoStatus(Econstants.decodeBase64(object.optString("MemoStatus")));
+            cabinetMemoPojoDetails.setMinisterIncharge(Econstants.decodeBase64(object.optString("MinisterIncharge")));
+            cabinetMemoPojoDetails.setProposalDetails(object.optString("ProposalDetails"));
+            cabinetMemoPojoDetails.setSecIncharge(Econstants.decodeBase64(object.optString("SecIncharge")));
+            cabinetMemoPojoDetails.setSubject(Econstants.decodeBase64(object.optString("Subject")));
+            // cabinetMemoPojoDetails.setDate(Econstants.decodeBase64(object.optString("Date")));
+
+            //extracting data array from json string
+            //TODO KD
+            JSONArray ja_data = object.getJSONArray("ListConsiderationPoints");
+            int length = ja_data.length();
+            if (length >= 0) {
+                listConsiderationPoints = new ArrayList<>();
+                for (int i = 0; i < ja_data.length(); i++) {
+                    JSONObject objectListConsidration = ja_data.getJSONObject(i);
+                    ListConsiderationPoints listConsiderationPoints_ = new ListConsiderationPoints();
+                    listConsiderationPoints_.setCabinetMemoID(Econstants.decodeBase64(objectListConsidration.optString("CabinetMemoID")));
+                    listConsiderationPoints_.setConsiderationPointID(Econstants.decodeBase64(objectListConsidration.optString("ConsiderationPointID")));
+                    listConsiderationPoints_.setConsiderationPtFinalRemarks(Econstants.decodeBase64(objectListConsidration.optString("ConsiderationPtFinalRemarks")));
+                    listConsiderationPoints_.setConsiderationPtFinalStatus(Econstants.decodeBase64(objectListConsidration.optString("ConsiderationPtFinalStatus")));
+                    listConsiderationPoints_.setConsiderationPtStatus(Econstants.decodeBase64(objectListConsidration.optString("ConsiderationPtStatus")));
+                    listConsiderationPoints_.setTitle(Econstants.decodeBase64(objectListConsidration.optString("Title")));
+                    listConsiderationPoints_.setPointNumber(Econstants.decodeBase64(objectListConsidration.optString("PointNumber")));
+                    listConsiderationPoints_.setStatus(Econstants.decodeBase64(objectListConsidration.optString("Status")));
+
+
+                    listConsiderationPoints.add(listConsiderationPoints_);
+                }
+                cabinetMemoPojoDetails.setListConsiderationPoints(listConsiderationPoints);
+                Log.e("Considration Points", cabinetMemoPojoDetails.getListConsiderationPoints().toString());
+
+            }
+
+            //ListAnnexures_  listAnnexures
+            JSONArray ListAnnexures_Object = object.getJSONArray("ListAnnexures");
+            int length_ListAnnexures_Object = ListAnnexures_Object.length();
+            if (length_ListAnnexures_Object > 0) {
+                listAnnexures = new ArrayList<>();
+                for (int i = 0; i < ListAnnexures_Object.length(); i++) {
+                    JSONObject objectListConsidration = ListAnnexures_Object.getJSONObject(i);
+                    ListAnnexures listAnnuxtiresPojo = new ListAnnexures();
+                    listAnnuxtiresPojo.setCabinetMemoID(Econstants.decodeBase64(objectListConsidration.optString("CabinetMemoID")));
+                    listAnnuxtiresPojo.setCabinetMemoID(Econstants.decodeBase64(objectListConsidration.optString("AnnexureID")));
+                    listAnnuxtiresPojo.setAnnexureID(Econstants.decodeBase64(objectListConsidration.optString("AnnexureName")));
+                    listAnnuxtiresPojo.setTitle(Econstants.decodeBase64(objectListConsidration.optString("Title")));
+                    listAnnuxtiresPojo.setAttachment(Econstants.decodeBase64(objectListConsidration.optString("Attachment")));
+
+
+                    listAnnexures.add(listAnnuxtiresPojo);
+                }
+                cabinetMemoPojoDetails.setListAnnexures_(listAnnexures);
+                Log.e("List Annuxter", cabinetMemoPojoDetails.getListAnnexures_().toString());
+
+            }
+
+
+            JSONArray ListCabinetMemoTrackingHistoryListsObject = object.getJSONArray("ListCabinetMemoTrackingHistoryLists");
+            int ListCabinetMemoTrackingHistoryListsObject_Length = ListCabinetMemoTrackingHistoryListsObject.length();
+            if (ListCabinetMemoTrackingHistoryListsObject_Length > 0) {
+                listCabinetMemoTrackingHistoryListsPojos = new ArrayList<>();
+                for (int i = 0; i < ListCabinetMemoTrackingHistoryListsObject.length(); i++) {
+                    JSONObject ox = ListCabinetMemoTrackingHistoryListsObject.getJSONObject(i);
+                    ListCabinetMemoTrackingHistoryListsPojo pojo = new ListCabinetMemoTrackingHistoryListsPojo();
+                    pojo.setAction(Econstants.decodeBase64(ox.optString("Action")));
+                    pojo.setDate(Econstants.decodeBase64(ox.optString("Date")));
+                    pojo.setRemarks(Econstants.decodeBase64(ox.optString("Remarks")));
+//                        pojo.setTitle(Econstants.decodeBase64(objectListConsidration.optString("Title")));
+//                        pojo.setAttachment(Econstants.decodeBase64(objectListConsidration.optString("Attachment")));
+
+
+                    listCabinetMemoTrackingHistoryListsPojos.add(pojo);
+                }
+                cabinetMemoPojoDetails.setListCabinetMemoTrackingHistoryLists(listCabinetMemoTrackingHistoryListsPojos);
+                Log.e("List Cabinet Tracking", cabinetMemoPojoDetails.getListCabinetMemoTrackingHistoryLists().toString());
+
+            }
+
+
+            Log.e("cabinetMemoPojoDetails", cabinetMemoPojoDetails.toString());
+
+            departmentname.setText(cabinetMemoPojoDetails.getDeptName());
+            approvalchannel.setText(cabinetMemoPojoDetails.getApprovalStatus());
+            filenumber.setText(cabinetMemoPojoDetails.getFileNo());
+            // top_head.setText(cabinetMemoPojoDetails);
+            ministerincharge.setText(cabinetMemoPojoDetails.getMinisterIncharge());
+            secretaryincharge.setText(cabinetMemoPojoDetails.getSecIncharge());
+            subjet.setText(cabinetMemoPojoDetails.getSubject());
+            proposal.setText(Html.fromHtml(cabinetMemoPojoDetails.getProposalDetails()));
+
+            if (cabinetMemoPojoDetails.getListConsiderationPoints().size() > 0) {
+                StringBuilder SB = new StringBuilder();
+                for (int i = 0; i < cabinetMemoPojoDetails.getListConsiderationPoints().size(); i++) {
+                    SB.append(cabinetMemoPojoDetails.getListConsiderationPoints().get(i).getPointNumber() + "). ");
+                    SB.append(cabinetMemoPojoDetails.getListConsiderationPoints().get(i).getTitle());
+                    SB.append("\n");
+                }
+                pointsconsideration.setText(SB.toString());
+            } else {
+                pointsconsideration.setText("NA");
+            }
+
+
+            //  advisory_department_approval.setText(cabinetMemoPojoDetails.getA);
+            additional_information.setText(Html.fromHtml(cabinetMemoPojoDetails.getAdditionalInformation()));
+            // pointsconsideration.setText("");
+        } else if (json instanceof JSONArray) Log.e("Json Array", "Array");
     }
 
     private void init() {
@@ -569,130 +725,30 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
 
         if (taskType == TaskType.CABINET_MEMOS_DETAILS) {
 
-            Log.e("Result == ", result.getResponse());
-            Object json = new JSONTokener(result.getResponse()).nextValue();
-            if (json instanceof JSONObject) {
-                Log.e("Json Object", "Object");
-                JSONObject object = new JSONObject(result.getResponse());
-
-                Log.e("arrayReports", object.toString());
-                cabinetMemoPojoDetails = new CabinetMemoPojo();
-
-                cabinetMemoPojoDetails.setAdditionalInformation(object.optString("AdditionalInformation"));
-                // cabinetMemoPojoDetails.setAgendaItemNo(Econstants.decodeBase64(object.optString("AgendaItemNo")));
-                //abinetMemoPojoDetails.setAgendaItemType(Econstants.decodeBase64(object.optString("AgendaItemType")));
-                cabinetMemoPojoDetails.setApprovalStatus(Econstants.decodeBase64(object.optString("ApprovalStatus")));
-                cabinetMemoPojoDetails.setCabinetMemoID(Econstants.decodeBase64(object.optString("CabinetMemoID")));
-                cabinetMemoPojoDetails.setDeptName(Econstants.decodeBase64(object.optString("DeptName")));
-                cabinetMemoPojoDetails.setDeptid(Econstants.decodeBase64(object.optString("Deptid")));
-                cabinetMemoPojoDetails.setFileNo(Econstants.decodeBase64(object.optString("FileNo")));
-                cabinetMemoPojoDetails.setMeetingdate(Econstants.decodeBase64(object.optString("Meetingdate")));
-                cabinetMemoPojoDetails.setMemoStatus(Econstants.decodeBase64(object.optString("MemoStatus")));
-                cabinetMemoPojoDetails.setMinisterIncharge(Econstants.decodeBase64(object.optString("MinisterIncharge")));
-                cabinetMemoPojoDetails.setProposalDetails(object.optString("ProposalDetails"));
-                cabinetMemoPojoDetails.setSecIncharge(Econstants.decodeBase64(object.optString("SecIncharge")));
-                cabinetMemoPojoDetails.setSubject(Econstants.decodeBase64(object.optString("Subject")));
-                // cabinetMemoPojoDetails.setDate(Econstants.decodeBase64(object.optString("Date")));
-
-                //extracting data array from json string
-                //TODO KD
-                JSONArray ja_data = object.getJSONArray("ListConsiderationPoints");
-                int length = ja_data.length();
-                if (length >= 0) {
-                    listConsiderationPoints = new ArrayList<>();
-                    for (int i = 0; i < ja_data.length(); i++) {
-                        JSONObject objectListConsidration = ja_data.getJSONObject(i);
-                        ListConsiderationPoints listConsiderationPoints_ = new ListConsiderationPoints();
-                        listConsiderationPoints_.setCabinetMemoID(Econstants.decodeBase64(objectListConsidration.optString("CabinetMemoID")));
-                        listConsiderationPoints_.setConsiderationPointID(Econstants.decodeBase64(objectListConsidration.optString("ConsiderationPointID")));
-                        listConsiderationPoints_.setConsiderationPtFinalRemarks(Econstants.decodeBase64(objectListConsidration.optString("ConsiderationPtFinalRemarks")));
-                        listConsiderationPoints_.setConsiderationPtFinalStatus(Econstants.decodeBase64(objectListConsidration.optString("ConsiderationPtFinalStatus")));
-                        listConsiderationPoints_.setConsiderationPtStatus(Econstants.decodeBase64(objectListConsidration.optString("ConsiderationPtStatus")));
-                        listConsiderationPoints_.setTitle(Econstants.decodeBase64(objectListConsidration.optString("Title")));
-                        listConsiderationPoints_.setPointNumber(Econstants.decodeBase64(objectListConsidration.optString("PointNumber")));
-                        listConsiderationPoints_.setStatus(Econstants.decodeBase64(objectListConsidration.optString("Status")));
-
-
-                        listConsiderationPoints.add(listConsiderationPoints_);
-                    }
-                    cabinetMemoPojoDetails.setListConsiderationPoints(listConsiderationPoints);
-                    Log.e("Considration Points", cabinetMemoPojoDetails.getListConsiderationPoints().toString());
-
-                }
-
-                //ListAnnexures_  listAnnexures
-                JSONArray ListAnnexures_Object = object.getJSONArray("ListAnnexures");
-                int length_ListAnnexures_Object = ListAnnexures_Object.length();
-                if (length_ListAnnexures_Object > 0) {
-                    listAnnexures = new ArrayList<>();
-                    for (int i = 0; i < ListAnnexures_Object.length(); i++) {
-                        JSONObject objectListConsidration = ListAnnexures_Object.getJSONObject(i);
-                        ListAnnexures listAnnuxtiresPojo = new ListAnnexures();
-                        listAnnuxtiresPojo.setCabinetMemoID(Econstants.decodeBase64(objectListConsidration.optString("CabinetMemoID")));
-                        listAnnuxtiresPojo.setCabinetMemoID(Econstants.decodeBase64(objectListConsidration.optString("AnnexureID")));
-                        listAnnuxtiresPojo.setAnnexureID(Econstants.decodeBase64(objectListConsidration.optString("AnnexureName")));
-                        listAnnuxtiresPojo.setTitle(Econstants.decodeBase64(objectListConsidration.optString("Title")));
-                        listAnnuxtiresPojo.setAttachment(Econstants.decodeBase64(objectListConsidration.optString("Attachment")));
-
-
-                        listAnnexures.add(listAnnuxtiresPojo);
-                    }
-                    cabinetMemoPojoDetails.setListAnnexures_(listAnnexures);
-                    Log.e("List Annuxter", cabinetMemoPojoDetails.getListAnnexures_().toString());
-
-                }
-
-
-                JSONArray ListCabinetMemoTrackingHistoryListsObject = object.getJSONArray("ListCabinetMemoTrackingHistoryLists");
-                int ListCabinetMemoTrackingHistoryListsObject_Length = ListCabinetMemoTrackingHistoryListsObject.length();
-                if (ListCabinetMemoTrackingHistoryListsObject_Length > 0) {
-                    listCabinetMemoTrackingHistoryListsPojos = new ArrayList<>();
-                    for (int i = 0; i < ListCabinetMemoTrackingHistoryListsObject.length(); i++) {
-                        JSONObject ox = ListCabinetMemoTrackingHistoryListsObject.getJSONObject(i);
-                        ListCabinetMemoTrackingHistoryListsPojo pojo = new ListCabinetMemoTrackingHistoryListsPojo();
-                        pojo.setAction(Econstants.decodeBase64(ox.optString("Action")));
-                        pojo.setDate(Econstants.decodeBase64(ox.optString("Date")));
-                        pojo.setRemarks(Econstants.decodeBase64(ox.optString("Remarks")));
-//                        pojo.setTitle(Econstants.decodeBase64(objectListConsidration.optString("Title")));
-//                        pojo.setAttachment(Econstants.decodeBase64(objectListConsidration.optString("Attachment")));
-
-
-                        listCabinetMemoTrackingHistoryListsPojos.add(pojo);
-                    }
-                    cabinetMemoPojoDetails.setListCabinetMemoTrackingHistoryLists(listCabinetMemoTrackingHistoryListsPojos);
-                    Log.e("List Cabinet Tracking", cabinetMemoPojoDetails.getListCabinetMemoTrackingHistoryLists().toString());
-
-                }
-
-
-                Log.e("cabinetMemoPojoDetails", cabinetMemoPojoDetails.toString());
-
-                departmentname.setText(cabinetMemoPojoDetails.getDeptName());
-                approvalchannel.setText(cabinetMemoPojoDetails.getApprovalStatus());
-                filenumber.setText(cabinetMemoPojoDetails.getFileNo());
-                // top_head.setText(cabinetMemoPojoDetails);
-                ministerincharge.setText(cabinetMemoPojoDetails.getMinisterIncharge());
-                secretaryincharge.setText(cabinetMemoPojoDetails.getSecIncharge());
-                subjet.setText(cabinetMemoPojoDetails.getSubject());
-                proposal.setText(Html.fromHtml(cabinetMemoPojoDetails.getProposalDetails()));
-
-                if (cabinetMemoPojoDetails.getListConsiderationPoints().size() > 0) {
-                    StringBuilder SB = new StringBuilder();
-                    for (int i = 0; i < cabinetMemoPojoDetails.getListConsiderationPoints().size(); i++) {
-                        SB.append(cabinetMemoPojoDetails.getListConsiderationPoints().get(i).getPointNumber() + "). ");
-                        SB.append(cabinetMemoPojoDetails.getListConsiderationPoints().get(i).getTitle());
-                        SB.append("\n");
-                    }
-                    pointsconsideration.setText(SB.toString());
+            if (result.getHttpFlag().equalsIgnoreCase(Econstants.success)) {
+                //Save the rsult to Database
+                DatabaseHandler DH = new DatabaseHandler(CabinetMemoDetailsActivity.this);
+                //Check weather the Hash is Present in the DB or not
+                Log.e("??Total Numner of Rows", Integer.toString(DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_MENU_LIST.toString(), "CABINET_MEMOS_DETAILS" +cabinetMemoPojo.getDeptid()+ cabinetMemoPojo.getCabinetMemoID())));
+                if (DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.CABINET_MEMOS_DETAILS.toString(), "CABINET_MEMOS_DETAILS" +cabinetMemoPojo.getDeptid()+ cabinetMemoPojo.getCabinetMemoID()) == 1) {
+                    //Update the Earlier Record
+                    DH.updateData(result);
+                    Log.e("Updated Row", Boolean.toString(DH.updateData(result)));
+                } else if (DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.CABINET_MEMOS_DETAILS.toString(), "CABINET_MEMOS_DETAILS" +cabinetMemoPojo.getDeptid()+ cabinetMemoPojo.getCabinetMemoID()) == 0) {
+                    DH.addOfflineAccess(result);
+                    Log.e("Added Row", Boolean.toString(DH.addOfflineAccess(result)));
                 } else {
-                    pointsconsideration.setText("NA");
+                    //DELETE ALL THE RECORDS
+                    DH.deleteAllExistingOfflineData(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.CABINET_MEMOS_DETAILS.toString(), "CABINET_MEMOS_DETAILS" +cabinetMemoPojo.getDeptid()+ cabinetMemoPojo.getCabinetMemoID());
+                    Log.e("Total Records Deleted:-", Integer.toString(DH.deleteAllExistingOfflineData(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.CABINET_MEMOS_DETAILS.toString(), "CABINET_MEMOS_DETAILS" +cabinetMemoPojo.getDeptid()+ cabinetMemoPojo.getCabinetMemoID())));
+                    //Add the Latest Record
+                    DH.addOfflineAccess(result);
                 }
 
-
-                //  advisory_department_approval.setText(cabinetMemoPojoDetails.getA);
-                additional_information.setText(Html.fromHtml(cabinetMemoPojoDetails.getAdditionalInformation()));
-                // pointsconsideration.setText("");
-            } else if (json instanceof JSONArray) Log.e("Json Array", "Array");
+                cabinetMemoDetails(result);
+            } else {
+                CD.showDialogCloseActivity(CabinetMemoDetailsActivity.this, result.getResponse().toString());
+            }
 
 
         } else if (taskType == TaskType.GET_OTP_VIA_MOBILE) {
