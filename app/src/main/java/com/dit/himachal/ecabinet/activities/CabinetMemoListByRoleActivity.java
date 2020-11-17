@@ -17,9 +17,11 @@ import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dit.himachal.ecabinet.R;
 import com.dit.himachal.ecabinet.adapter.CabinetMemosAdapter;
+import com.dit.himachal.ecabinet.databases.DatabaseHandler;
 import com.dit.himachal.ecabinet.enums.TaskType;
 import com.dit.himachal.ecabinet.generic.Generic_Async_Get;
 import com.dit.himachal.ecabinet.interfaces.AsyncTaskListenerObjectGet;
@@ -50,7 +52,7 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
     private ListView list;
     CustomDialog CD = new CustomDialog();
     String deptId, param, meetingId = null;
-   List<CabinetMemoPojo> cabinetMemoPojoList = null ;
+    List<CabinetMemoPojo> cabinetMemoPojoList = null ;
     CabinetMemosAdapter cabinetMemosAdapter = null;
     SwipeRefreshLayout pullToRefresh;
     TextView  header;
@@ -68,7 +70,6 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
         pullToRefresh = findViewById(R.id.pullToRefresh);
         header = findViewById(R.id.heading);
 
-        //department_id
 
         try {
             Intent intent = getIntent();
@@ -97,6 +98,7 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
                 parameters.add(Preferences.getInstance().mapped_departments);
                 parameters.add(Preferences.getInstance().branched_mapped);
                 object.setParameters(parameters);
+                object.setBifurcation(param);
 
                 Log.e("Departments", Preferences.getInstance().mapped_departments);
 
@@ -106,7 +108,22 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
                         TaskType.GET_PENDING_MEMO_LIST_CABINET).
                         execute(object);
             } else {
-                CD.showDialog(CabinetMemoListByRoleActivity.this, "Please connect to Internet and tr again.");
+                DatabaseHandler DB = new DatabaseHandler(CabinetMemoListByRoleActivity.this);
+                Log.e("GET_MENU_LIST Start", Integer.toString(DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).size()));
+                if (DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).size() > 0) {
+                    //Show Events
+                    try {
+
+                        showData(DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).get(0));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                } else {
+                    CD.showDialogCloseActivity(CabinetMemoListByRoleActivity.this, Econstants.NO_DATA);
+                }
+                Toast.makeText(getApplicationContext(),"Application running in Offline Mode.",Toast.LENGTH_LONG).show();
+
             }
         } else  if (param.equalsIgnoreCase("Cabinet_Decisions")) {
             header.setText("Cabinet Decisions");
@@ -129,6 +146,7 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
                 parameters.add(Preferences.getInstance().branched_mapped);
 
                 object.setParameters(parameters);
+                object.setBifurcation(param);
 
                 Log.e("Departments", Preferences.getInstance().mapped_departments);
 
@@ -138,7 +156,21 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
                         TaskType.GET_PENDING_MEMO_LIST_CABINET).
                         execute(object);
             } else {
-                CD.showDialog(CabinetMemoListByRoleActivity.this, "Please connect to Internet and tr again.");
+                DatabaseHandler DB = new DatabaseHandler(CabinetMemoListByRoleActivity.this);
+                Log.e("GET_MENU_LIST Start", Integer.toString(DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).size()));
+                if (DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).size() > 0) {
+                    //Show Events
+                    try {
+
+                        showData(DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).get(0));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                } else {
+                    CD.showDialogCloseActivity(CabinetMemoListByRoleActivity.this, Econstants.NO_DATA);
+                }
+                Toast.makeText(getApplicationContext(),"Application running in Offline Mode.",Toast.LENGTH_LONG).show();
             }
         }
 
@@ -161,6 +193,7 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
                 parameters.add(Preferences.getInstance().branched_mapped);
 
                 object.setParameters(parameters);
+                object.setBifurcation(param);
 
                 Log.e("Departments", Preferences.getInstance().mapped_departments);
 
@@ -170,8 +203,23 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
                         TaskType.GET_PENDING_MEMO_LIST_CABINET).
                         execute(object);
             } else {
-                CD.showDialog(CabinetMemoListByRoleActivity.this, "Please connect to Internet and tr again.");
+                DatabaseHandler DB = new DatabaseHandler(CabinetMemoListByRoleActivity.this);
+                Log.e("GET_MENU_LIST Start", Integer.toString(DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).size()));
+                if (DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).size() > 0) {
+                    //Show Events
+                    try {
+
+                        showData(DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).get(0));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                } else {
+                    CD.showDialogCloseActivity(CabinetMemoListByRoleActivity.this, Econstants.NO_DATA);
+                }
+                Toast.makeText(getApplicationContext(),"Application running in Offline Mode.",Toast.LENGTH_LONG).show();
             }
+
 
         }
         else if (param.equalsIgnoreCase("PlacedInCabinet")) {
@@ -190,6 +238,7 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
                 parameters.add(Preferences.getInstance().mapped_departments);
                 parameters.add(Preferences.getInstance().branched_mapped);
                 object.setParameters(parameters);
+                object.setBifurcation(param);
 
                 Log.e("Departments", Preferences.getInstance().mapped_departments);
 
@@ -199,7 +248,21 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
                         TaskType.GET_PENDING_MEMO_LIST_CABINET).
                         execute(object);
             } else {
-                CD.showDialog(CabinetMemoListByRoleActivity.this, "Please connect to Internet and tr again.");
+                DatabaseHandler DB = new DatabaseHandler(CabinetMemoListByRoleActivity.this);
+                Log.e("GET_MENU_LIST Start", Integer.toString(DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).size()));
+                if (DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).size() > 0) {
+                    //Show Events
+                    try {
+
+                        showData(DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).get(0));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                } else {
+                    CD.showDialogCloseActivity(CabinetMemoListByRoleActivity.this, Econstants.NO_DATA);
+                }
+                Toast.makeText(getApplicationContext(),"Application running in Offline Mode.",Toast.LENGTH_LONG).show();
             }
 
         }
@@ -222,6 +285,7 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
                 // parameters.add(Preferences.getInstance().mapped_departments);
 
                 object.setParameters(parameters);
+                object.setBifurcation(param);
 
                 //  Log.e("Departments", Preferences.getInstance().mapped_departments);
 
@@ -231,7 +295,21 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
                         TaskType.GET_ALLOWED_MEMO_LIST_CABINET).
                         execute(object);
             } else {
-                CD.showDialog(CabinetMemoListByRoleActivity.this, "Please connect to Internet and tr again.");
+                DatabaseHandler DB = new DatabaseHandler(CabinetMemoListByRoleActivity.this);
+                Log.e("GET_MENU_LIST Start", Integer.toString(DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).size()));
+                if (DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).size() > 0) {
+                    //Show Events
+                    try {
+
+                        showData(DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).get(0));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                } else {
+                    CD.showDialogCloseActivity(CabinetMemoListByRoleActivity.this, Econstants.NO_DATA);
+                }
+                Toast.makeText(getApplicationContext(),"Application running in Offline Mode.",Toast.LENGTH_LONG).show();
             }
         } else {
             if (AppStatus.getInstance(CabinetMemoListByRoleActivity.this).isOnline()) {
@@ -248,7 +326,7 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
                 parameters.add(Preferences.getInstance().mapped_departments);
                 parameters.add(Preferences.getInstance().branched_mapped);
                 object.setParameters(parameters);
-
+                object.setBifurcation(param);
                 Log.e("Departments", Preferences.getInstance().mapped_departments);
 
                 new Generic_Async_Get(
@@ -257,7 +335,21 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
                         TaskType.GET_PENDING_MEMO_LIST_CABINET).
                         execute(object);
             } else {
-                CD.showDialog(CabinetMemoListByRoleActivity.this, "Please connect to Internet and tr again.");
+                DatabaseHandler DB = new DatabaseHandler(CabinetMemoListByRoleActivity.this);
+                Log.e("GET_MENU_LIST Start", Integer.toString(DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).size()));
+                if (DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).size() > 0) {
+                    //Show Events
+                    try {
+
+                        showData(DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).get(0));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                } else {
+                    CD.showDialogCloseActivity(CabinetMemoListByRoleActivity.this, Econstants.NO_DATA);
+                }
+                Toast.makeText(getApplicationContext(),"Application running in Offline Mode.",Toast.LENGTH_LONG).show();
             }
         }
 
@@ -300,6 +392,7 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
             public void onRefresh() {
 
                 if (param.equalsIgnoreCase("Forwarded")) {
+                    header.setText("Forwarded Cabinet Memos");
                     if (AppStatus.getInstance(CabinetMemoListByRoleActivity.this).isOnline()) {
                         GetDataPojo object = new GetDataPojo();
                         object.setUrl(Econstants.url);
@@ -314,6 +407,7 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
                         parameters.add(Preferences.getInstance().mapped_departments);
                         parameters.add(Preferences.getInstance().branched_mapped);
                         object.setParameters(parameters);
+                        object.setBifurcation(param);
 
                         Log.e("Departments", Preferences.getInstance().mapped_departments);
 
@@ -323,10 +417,25 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
                                 TaskType.GET_PENDING_MEMO_LIST_CABINET).
                                 execute(object);
                     } else {
-                        CD.showDialog(CabinetMemoListByRoleActivity.this, "Please connect to Internet and tr again.");
+                        DatabaseHandler DB = new DatabaseHandler(CabinetMemoListByRoleActivity.this);
+                        Log.e("GET_MENU_LIST Start", Integer.toString(DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).size()));
+                        if (DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).size() > 0) {
+                            //Show Events
+                            try {
+
+                                showData(DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).get(0));
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                        } else {
+                            CD.showDialogCloseActivity(CabinetMemoListByRoleActivity.this, Econstants.NO_DATA);
+                        }
+                        Toast.makeText(getApplicationContext(),"Application running in Offline Mode.",Toast.LENGTH_LONG).show();
+
                     }
-                }
-                else  if (param.equalsIgnoreCase("Cabinet_Decisions")) {
+                } else  if (param.equalsIgnoreCase("Cabinet_Decisions")) {
+                    header.setText("Cabinet Decisions");
                     Intent intent = getIntent();
                     meetingId = intent.getStringExtra("meetingid");
                     if (AppStatus.getInstance(CabinetMemoListByRoleActivity.this).isOnline()) {
@@ -337,14 +446,16 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
                         object.setTaskType(TaskType.GET_PENDING_MEMO_LIST_CABINET);
                         object.setTimeStamp(CommonUtils.getTimeStamp());
                         List<String> parameters = new ArrayList<>();
-                       // parameters.add(deptId);
+                        // parameters.add(deptId);
                         parameters.add(Preferences.getInstance().user_id);
                         parameters.add(Preferences.getInstance().role_id);
                         parameters.add(Preferences.getInstance().mapped_departments);
+
                         parameters.add(meetingId);
                         parameters.add(Preferences.getInstance().branched_mapped);
 
                         object.setParameters(parameters);
+                        object.setBifurcation(param);
 
                         Log.e("Departments", Preferences.getInstance().mapped_departments);
 
@@ -354,11 +465,28 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
                                 TaskType.GET_PENDING_MEMO_LIST_CABINET).
                                 execute(object);
                     } else {
-                        CD.showDialog(CabinetMemoListByRoleActivity.this, "Please connect to Internet and tr again.");
+                        DatabaseHandler DB = new DatabaseHandler(CabinetMemoListByRoleActivity.this);
+                        Log.e("GET_MENU_LIST Start", Integer.toString(DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).size()));
+                        if (DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).size() > 0) {
+                            //Show Events
+                            try {
+
+                                showData(DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).get(0));
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                        } else {
+                            CD.showDialogCloseActivity(CabinetMemoListByRoleActivity.this, Econstants.NO_DATA);
+                        }
+                        Toast.makeText(getApplicationContext(),"Application running in Offline Mode.",Toast.LENGTH_LONG).show();
                     }
                 }
 
+
+
                 else if (param.equalsIgnoreCase("Backwarded")) {
+                    header.setText("Sent Back Cabinet Memos");
                     if (AppStatus.getInstance(CabinetMemoListByRoleActivity.this).isOnline()) {
                         GetDataPojo object = new GetDataPojo();
                         object.setUrl(Econstants.url);
@@ -372,7 +500,9 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
                         parameters.add(Preferences.getInstance().role_id);
                         parameters.add(Preferences.getInstance().mapped_departments);
                         parameters.add(Preferences.getInstance().branched_mapped);
+
                         object.setParameters(parameters);
+                        object.setBifurcation(param);
 
                         Log.e("Departments", Preferences.getInstance().mapped_departments);
 
@@ -382,10 +512,27 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
                                 TaskType.GET_PENDING_MEMO_LIST_CABINET).
                                 execute(object);
                     } else {
-                        CD.showDialog(CabinetMemoListByRoleActivity.this, "Please connect to Internet and try again.");
+                        DatabaseHandler DB = new DatabaseHandler(CabinetMemoListByRoleActivity.this);
+                        Log.e("GET_MENU_LIST Start", Integer.toString(DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).size()));
+                        if (DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).size() > 0) {
+                            //Show Events
+                            try {
+
+                                showData(DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).get(0));
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                        } else {
+                            CD.showDialogCloseActivity(CabinetMemoListByRoleActivity.this, Econstants.NO_DATA);
+                        }
+                        Toast.makeText(getApplicationContext(),"Application running in Offline Mode.",Toast.LENGTH_LONG).show();
                     }
 
-                }  else if (param.equalsIgnoreCase("PlacedInCabinet")) {
+
+                }
+                else if (param.equalsIgnoreCase("PlacedInCabinet")) {
+                    header.setText("Cabinet Memos Placed in Cabinet");
                     if (AppStatus.getInstance(CabinetMemoListByRoleActivity.this).isOnline()) {
                         GetDataPojo object = new GetDataPojo();
                         object.setUrl(Econstants.url);
@@ -399,8 +546,8 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
                         parameters.add(Preferences.getInstance().role_id);
                         parameters.add(Preferences.getInstance().mapped_departments);
                         parameters.add(Preferences.getInstance().branched_mapped);
-
                         object.setParameters(parameters);
+                        object.setBifurcation(param);
 
                         Log.e("Departments", Preferences.getInstance().mapped_departments);
 
@@ -410,32 +557,68 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
                                 TaskType.GET_PENDING_MEMO_LIST_CABINET).
                                 execute(object);
                     } else {
-                        CD.showDialog(CabinetMemoListByRoleActivity.this, "Please connect to Internet and tr again.");
+                        DatabaseHandler DB = new DatabaseHandler(CabinetMemoListByRoleActivity.this);
+                        Log.e("GET_MENU_LIST Start", Integer.toString(DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).size()));
+                        if (DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).size() > 0) {
+                            //Show Events
+                            try {
+
+                                showData(DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).get(0));
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                        } else {
+                            CD.showDialogCloseActivity(CabinetMemoListByRoleActivity.this, Econstants.NO_DATA);
+                        }
+                        Toast.makeText(getApplicationContext(),"Application running in Offline Mode.",Toast.LENGTH_LONG).show();
                     }
 
-                }else if (param.equalsIgnoreCase("allowedCabinetMemos")) {
+                }
+
+
+
+                else if (param.equalsIgnoreCase("allowedCabinetMemos")) {
+                    header.setText("Cabinet Memos Allowed");
                     if (AppStatus.getInstance(CabinetMemoListByRoleActivity.this).isOnline()) {
                         GetDataPojo object = new GetDataPojo();
                         object.setUrl(Econstants.url);
                         object.setMethord(Econstants.methordAllowedCabinetMemo);
                         object.setMethordHash(Econstants.encodeBase64(Econstants.methordAllowedCabinetMemoToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
-                        object.setTaskType(TaskType.GET_PENDING_MEMO_LIST_CABINET);
+                        object.setTaskType(TaskType.GET_ALLOWED_MEMO_LIST_CABINET);
                         object.setTimeStamp(CommonUtils.getTimeStamp());
                         List<String> parameters = new ArrayList<>();
                         parameters.add(deptId);
-                        Log.e("DeptID=-=-=-", deptId);
                         parameters.add(Preferences.getInstance().user_id);
                         parameters.add(Preferences.getInstance().role_id);
+                        // parameters.add(Preferences.getInstance().mapped_departments);
 
                         object.setParameters(parameters);
+                        object.setBifurcation(param);
+
+                        //  Log.e("Departments", Preferences.getInstance().mapped_departments);
 
                         new Generic_Async_Get(
                                 CabinetMemoListByRoleActivity.this,
                                 CabinetMemoListByRoleActivity.this,
-                                TaskType.GET_PENDING_MEMO_LIST_CABINET).
+                                TaskType.GET_ALLOWED_MEMO_LIST_CABINET).
                                 execute(object);
                     } else {
-                        CD.showDialog(CabinetMemoListByRoleActivity.this, "Please connect to Internet and tr again.");
+                        DatabaseHandler DB = new DatabaseHandler(CabinetMemoListByRoleActivity.this);
+                        Log.e("GET_MENU_LIST Start", Integer.toString(DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).size()));
+                        if (DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).size() > 0) {
+                            //Show Events
+                            try {
+
+                                showData(DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).get(0));
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                        } else {
+                            CD.showDialogCloseActivity(CabinetMemoListByRoleActivity.this, Econstants.NO_DATA);
+                        }
+                        Toast.makeText(getApplicationContext(),"Application running in Offline Mode.",Toast.LENGTH_LONG).show();
                     }
                 } else {
                     if (AppStatus.getInstance(CabinetMemoListByRoleActivity.this).isOnline()) {
@@ -452,7 +635,7 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
                         parameters.add(Preferences.getInstance().mapped_departments);
                         parameters.add(Preferences.getInstance().branched_mapped);
                         object.setParameters(parameters);
-
+                        object.setBifurcation(param);
                         Log.e("Departments", Preferences.getInstance().mapped_departments);
 
                         new Generic_Async_Get(
@@ -461,7 +644,21 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
                                 TaskType.GET_PENDING_MEMO_LIST_CABINET).
                                 execute(object);
                     } else {
-                        CD.showDialog(CabinetMemoListByRoleActivity.this, "Please connect to Internet and try again.");
+                        DatabaseHandler DB = new DatabaseHandler(CabinetMemoListByRoleActivity.this);
+                        Log.e("GET_MENU_LIST Start", Integer.toString(DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).size()));
+                        if (DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).size() > 0) {
+                            //Show Events
+                            try {
+
+                                showData(DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).get(0));
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                        } else {
+                            CD.showDialogCloseActivity(CabinetMemoListByRoleActivity.this, Econstants.NO_DATA);
+                        }
+                        Toast.makeText(getApplicationContext(),"Application running in Offline Mode.",Toast.LENGTH_LONG).show();
                     }
                 }
 
@@ -512,220 +709,19 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
         });
     }
 
-    @Override
-    protected void onResume() {
-        PreventScreenshot.on(CabinetMemoListByRoleActivity.this);
-        super.onResume();
-        if (param.equalsIgnoreCase("Forwarded")) {
-            if (AppStatus.getInstance(CabinetMemoListByRoleActivity.this).isOnline()) {
-                GetDataPojo object = new GetDataPojo();
-                object.setUrl(Econstants.url);
-                object.setMethord(Econstants.methordForwardedCabinetMemoListByRole);
-                object.setMethordHash(Econstants.encodeBase64(Econstants.methordForwardedCabinetMemoListByRoleToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
-                object.setTaskType(TaskType.GET_PENDING_MEMO_LIST_CABINET);
-                object.setTimeStamp(CommonUtils.getTimeStamp());
-                List<String> parameters = new ArrayList<>();
-                parameters.add(deptId);
-                parameters.add(Preferences.getInstance().user_id);
-                parameters.add(Preferences.getInstance().role_id);
-                parameters.add(Preferences.getInstance().mapped_departments);
-                parameters.add(Preferences.getInstance().branched_mapped);
-                object.setParameters(parameters);
+    private void showData(OfflineDataModel forwarded) throws JSONException {
 
-                Log.e("Departments", Preferences.getInstance().mapped_departments);
+        if (forwarded.getFunctionName().equalsIgnoreCase(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString())) {
 
-                new Generic_Async_Get(
-                        CabinetMemoListByRoleActivity.this,
-                        CabinetMemoListByRoleActivity.this,
-                        TaskType.GET_PENDING_MEMO_LIST_CABINET).
-                        execute(object);
-            } else {
-                CD.showDialog(CabinetMemoListByRoleActivity.this, "Please connect to Internet and tr again.");
-            }
-        }
-
-        else  if (param.equalsIgnoreCase("Cabinet_Decisions")) {
-            Intent intent = getIntent();
-            meetingId = intent.getStringExtra("meetingid");
-            if (AppStatus.getInstance(CabinetMemoListByRoleActivity.this).isOnline()) {
-                GetDataPojo object = new GetDataPojo();
-                object.setUrl(Econstants.url);
-                object.setMethord(Econstants.CabinetDecisionlists);
-                object.setMethordHash(Econstants.encodeBase64(Econstants.CabinetDecisionlistsToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
-                object.setTaskType(TaskType.GET_PENDING_MEMO_LIST_CABINET);
-                object.setTimeStamp(CommonUtils.getTimeStamp());
-                List<String> parameters = new ArrayList<>();
-                //parameters.add(deptId);
-                parameters.add(Preferences.getInstance().user_id);
-                parameters.add(Preferences.getInstance().role_id);
-                parameters.add(Preferences.getInstance().mapped_departments);
-
-                parameters.add(meetingId);
-                parameters.add(Preferences.getInstance().branched_mapped);
-
-                object.setParameters(parameters);
-
-                Log.e("Departments", Preferences.getInstance().mapped_departments);
-
-                new Generic_Async_Get(
-                        CabinetMemoListByRoleActivity.this,
-                        CabinetMemoListByRoleActivity.this,
-                        TaskType.GET_PENDING_MEMO_LIST_CABINET).
-                        execute(object);
-            } else {
-                CD.showDialog(CabinetMemoListByRoleActivity.this, "Please connect to Internet and tr again.");
-            }
-        }
-        else if (param.equalsIgnoreCase("Backwarded")) {
-            if (AppStatus.getInstance(CabinetMemoListByRoleActivity.this).isOnline()) {
-                GetDataPojo object = new GetDataPojo();
-                object.setUrl(Econstants.url);
-                object.setMethord(Econstants.methordSentBackCabinetMemoListByRole);
-                object.setMethordHash(Econstants.encodeBase64(Econstants.methordSentBackCabinetMemoListByRoleToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
-                object.setTaskType(TaskType.GET_PENDING_MEMO_LIST_CABINET);
-                object.setTimeStamp(CommonUtils.getTimeStamp());
-                List<String> parameters = new ArrayList<>();
-                parameters.add(deptId);
-                parameters.add(Preferences.getInstance().user_id);
-                parameters.add(Preferences.getInstance().role_id);
-                parameters.add(Preferences.getInstance().mapped_departments);
-                parameters.add(Preferences.getInstance().branched_mapped);
-                object.setParameters(parameters);
-
-                Log.e("Departments", Preferences.getInstance().mapped_departments);
-
-                new Generic_Async_Get(
-                        CabinetMemoListByRoleActivity.this,
-                        CabinetMemoListByRoleActivity.this,
-                        TaskType.GET_PENDING_MEMO_LIST_CABINET).
-                        execute(object);
-            } else {
-                CD.showDialog(CabinetMemoListByRoleActivity.this, "Please connect to Internet and try again.");
-            }
-
-        }
-
-        else if (param.equalsIgnoreCase("PlacedInCabinet")) {
-            if (AppStatus.getInstance(CabinetMemoListByRoleActivity.this).isOnline()) {
-                GetDataPojo object = new GetDataPojo();
-                object.setUrl(Econstants.url);
-                object.setMethord(Econstants.PlaceinCabinetagendalists);
-                object.setMethordHash(Econstants.encodeBase64(Econstants.PlaceinCabinetagendalistsToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
-                object.setTaskType(TaskType.GET_PENDING_MEMO_LIST_CABINET);
-                object.setTimeStamp(CommonUtils.getTimeStamp());
-                List<String> parameters = new ArrayList<>();
-                parameters.add(deptId);
-                parameters.add(Preferences.getInstance().user_id);
-                parameters.add(Preferences.getInstance().role_id);
-                parameters.add(Preferences.getInstance().mapped_departments);
-                parameters.add(Preferences.getInstance().branched_mapped);
-                object.setParameters(parameters);
-
-                Log.e("Departments", Preferences.getInstance().mapped_departments);
-
-                new Generic_Async_Get(
-                        CabinetMemoListByRoleActivity.this,
-                        CabinetMemoListByRoleActivity.this,
-                        TaskType.GET_PENDING_MEMO_LIST_CABINET).
-                        execute(object);
-            } else {
-                CD.showDialog(CabinetMemoListByRoleActivity.this, "Please connect to Internet and tr again.");
-            }
-
-        }
-
-
-        else if (param.equalsIgnoreCase("allowedCabinetMemos")) {
-            if (AppStatus.getInstance(CabinetMemoListByRoleActivity.this).isOnline()) {
-                GetDataPojo object = new GetDataPojo();
-                object.setUrl(Econstants.url);
-                object.setMethord(Econstants.methordAllowedCabinetMemo);
-                object.setMethordHash(Econstants.encodeBase64(Econstants.methordAllowedCabinetMemoToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
-                object.setTaskType(TaskType.GET_PENDING_MEMO_LIST_CABINET);
-                object.setTimeStamp(CommonUtils.getTimeStamp());
-                List<String> parameters = new ArrayList<>();
-                parameters.add(deptId);
-                Log.e("DeptID=-=-=-", deptId);
-                parameters.add(Preferences.getInstance().user_id);
-                parameters.add(Preferences.getInstance().role_id);
-
-                object.setParameters(parameters);
-
-                new Generic_Async_Get(
-                        CabinetMemoListByRoleActivity.this,
-                        CabinetMemoListByRoleActivity.this,
-                        TaskType.GET_PENDING_MEMO_LIST_CABINET).
-                        execute(object);
-            } else {
-                CD.showDialog(CabinetMemoListByRoleActivity.this, "Please connect to Internet and tr again.");
-            }
-        } else {
-            if (AppStatus.getInstance(CabinetMemoListByRoleActivity.this).isOnline()) {
-                GetDataPojo object = new GetDataPojo();
-                object.setUrl(Econstants.url);
-                object.setMethord(Econstants.methordCabinetMemoListByRole);
-                object.setMethordHash(Econstants.encodeBase64(Econstants.methordCabinetMemoListByToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
-                object.setTaskType(TaskType.GET_PENDING_MEMO_LIST_CABINET);
-                object.setTimeStamp(CommonUtils.getTimeStamp());
-                List<String> parameters = new ArrayList<>();
-                parameters.add(deptId);
-                parameters.add(Preferences.getInstance().user_id);
-                parameters.add(Preferences.getInstance().role_id);
-                parameters.add(Preferences.getInstance().mapped_departments);
-                parameters.add(Preferences.getInstance().branched_mapped);
-                object.setParameters(parameters);
-
-                Log.e("Departments", Preferences.getInstance().mapped_departments);
-
-                new Generic_Async_Get(
-                        CabinetMemoListByRoleActivity.this,
-                        CabinetMemoListByRoleActivity.this,
-                        TaskType.GET_PENDING_MEMO_LIST_CABINET).
-                        execute(object);
-            } else {
-                CD.showDialog(CabinetMemoListByRoleActivity.this, "Please connect to Internet and try again.");
-            }
-        }
-    }
-
-
-
-
-
-    @Override
-    protected void onStop() {
-        PreventScreenshot.on(CabinetMemoListByRoleActivity.this);
-        super.onStop();
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState, @NonNull PersistableBundle outPersistentState) {
-        PreventScreenshot.on(CabinetMemoListByRoleActivity.this);
-        super.onSaveInstanceState(outState, outPersistentState);
-    }
-
-    @Override
-    protected void onPause() {
-        PreventScreenshot.on(CabinetMemoListByRoleActivity.this);
-        super.onPause();
-
-    }
-
-    @Override
-    public void onTaskCompleted(OfflineDataModel result, TaskType taskType) throws JSONException {
-
-
-        if (taskType == TaskType.GET_PENDING_MEMO_LIST_CABINET) {
-
-            Log.e("Result == ", result.getResponse());
-            Object json = new JSONTokener(result.getResponse()).nextValue();
+            Log.e("Result == ", forwarded.getResponse());
+            Object json = new JSONTokener(forwarded.getResponse()).nextValue();
             if (json instanceof JSONObject) {
                 Log.e("Json Object", "Object");
             } else if (json instanceof JSONArray) {
                 Log.e("Json Object", "Object");
-                JSONArray arrayReports = new JSONArray(result.getResponse());
+                JSONArray arrayReports = new JSONArray(forwarded.getResponse());
                 Log.e("arrayReports", arrayReports.toString());
-//No Record Found  StatusMessage
+                //No Record Found  StatusMessage
                 if (arrayReports.length() > 0) {
                     //ReportsModelPojo
                     JSONObject object = arrayReports.getJSONObject(0);
@@ -768,15 +764,10 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
                         list.setTextFilterEnabled(true);
                         edit_text_search.setVisibility(View.VISIBLE);
 
-                        Log.e("DAta", cabinetMemoPojoList.toString());
+                        Log.e("Data", cabinetMemoPojoList.toString());
                     } else {
                         CD.showDialogCloseActivity(CabinetMemoListByRoleActivity.this, "The Request was Successful. No Records Found.");
                     }
-
-
-//                    } else {
-//                        CD.showDialog(CabinetMemoListByRoleActivity.this, Econstants.decodeBase64(object.optString("StatusMessage")));
-//                    }
 
 
                 } else {
@@ -785,6 +776,472 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
             }
 
 
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        PreventScreenshot.on(CabinetMemoListByRoleActivity.this);
+        super.onResume();
+
+        if (param.equalsIgnoreCase("Forwarded")) {
+            header.setText("Forwarded Cabinet Memos");
+            if (AppStatus.getInstance(CabinetMemoListByRoleActivity.this).isOnline()) {
+                GetDataPojo object = new GetDataPojo();
+                object.setUrl(Econstants.url);
+                object.setMethord(Econstants.methordForwardedCabinetMemoListByRole);
+                object.setMethordHash(Econstants.encodeBase64(Econstants.methordForwardedCabinetMemoListByRoleToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
+                object.setTaskType(TaskType.GET_PENDING_MEMO_LIST_CABINET);
+                object.setTimeStamp(CommonUtils.getTimeStamp());
+                List<String> parameters = new ArrayList<>();
+                parameters.add(deptId);
+                parameters.add(Preferences.getInstance().user_id);
+                parameters.add(Preferences.getInstance().role_id);
+                parameters.add(Preferences.getInstance().mapped_departments);
+                parameters.add(Preferences.getInstance().branched_mapped);
+                object.setParameters(parameters);
+                object.setBifurcation(param);
+
+                Log.e("Departments", Preferences.getInstance().mapped_departments);
+
+                new Generic_Async_Get(
+                        CabinetMemoListByRoleActivity.this,
+                        CabinetMemoListByRoleActivity.this,
+                        TaskType.GET_PENDING_MEMO_LIST_CABINET).
+                        execute(object);
+            } else {
+                DatabaseHandler DB = new DatabaseHandler(CabinetMemoListByRoleActivity.this);
+                Log.e("GET_MENU_LIST Start", Integer.toString(DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).size()));
+                if (DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).size() > 0) {
+                    //Show Events
+                    try {
+
+                        showData(DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).get(0));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                } else {
+                    CD.showDialogCloseActivity(CabinetMemoListByRoleActivity.this, Econstants.NO_DATA);
+                }
+                Toast.makeText(getApplicationContext(),"Application running in Offline Mode.",Toast.LENGTH_LONG).show();
+
+            }
+        } else  if (param.equalsIgnoreCase("Cabinet_Decisions")) {
+            header.setText("Cabinet Decisions");
+            Intent intent = getIntent();
+            meetingId = intent.getStringExtra("meetingid");
+            if (AppStatus.getInstance(CabinetMemoListByRoleActivity.this).isOnline()) {
+                GetDataPojo object = new GetDataPojo();
+                object.setUrl(Econstants.url);
+                object.setMethord(Econstants.CabinetDecisionlists);
+                object.setMethordHash(Econstants.encodeBase64(Econstants.CabinetDecisionlistsToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
+                object.setTaskType(TaskType.GET_PENDING_MEMO_LIST_CABINET);
+                object.setTimeStamp(CommonUtils.getTimeStamp());
+                List<String> parameters = new ArrayList<>();
+                // parameters.add(deptId);
+                parameters.add(Preferences.getInstance().user_id);
+                parameters.add(Preferences.getInstance().role_id);
+                parameters.add(Preferences.getInstance().mapped_departments);
+
+                parameters.add(meetingId);
+                parameters.add(Preferences.getInstance().branched_mapped);
+
+                object.setParameters(parameters);
+                object.setBifurcation(param);
+
+                Log.e("Departments", Preferences.getInstance().mapped_departments);
+
+                new Generic_Async_Get(
+                        CabinetMemoListByRoleActivity.this,
+                        CabinetMemoListByRoleActivity.this,
+                        TaskType.GET_PENDING_MEMO_LIST_CABINET).
+                        execute(object);
+            } else {
+                DatabaseHandler DB = new DatabaseHandler(CabinetMemoListByRoleActivity.this);
+                Log.e("GET_MENU_LIST Start", Integer.toString(DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).size()));
+                if (DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).size() > 0) {
+                    //Show Events
+                    try {
+
+                        showData(DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).get(0));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                } else {
+                    CD.showDialogCloseActivity(CabinetMemoListByRoleActivity.this, Econstants.NO_DATA);
+                }
+                Toast.makeText(getApplicationContext(),"Application running in Offline Mode.",Toast.LENGTH_LONG).show();
+            }
+        }
+
+
+
+        else if (param.equalsIgnoreCase("Backwarded")) {
+            header.setText("Sent Back Cabinet Memos");
+            if (AppStatus.getInstance(CabinetMemoListByRoleActivity.this).isOnline()) {
+                GetDataPojo object = new GetDataPojo();
+                object.setUrl(Econstants.url);
+                object.setMethord(Econstants.methordSentBackCabinetMemoListByRole);
+                object.setMethordHash(Econstants.encodeBase64(Econstants.methordSentBackCabinetMemoListByRoleToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
+                object.setTaskType(TaskType.GET_PENDING_MEMO_LIST_CABINET);
+                object.setTimeStamp(CommonUtils.getTimeStamp());
+                List<String> parameters = new ArrayList<>();
+                parameters.add(deptId);
+                parameters.add(Preferences.getInstance().user_id);
+                parameters.add(Preferences.getInstance().role_id);
+                parameters.add(Preferences.getInstance().mapped_departments);
+                parameters.add(Preferences.getInstance().branched_mapped);
+
+                object.setParameters(parameters);
+                object.setBifurcation(param);
+
+                Log.e("Departments", Preferences.getInstance().mapped_departments);
+
+                new Generic_Async_Get(
+                        CabinetMemoListByRoleActivity.this,
+                        CabinetMemoListByRoleActivity.this,
+                        TaskType.GET_PENDING_MEMO_LIST_CABINET).
+                        execute(object);
+            } else {
+                DatabaseHandler DB = new DatabaseHandler(CabinetMemoListByRoleActivity.this);
+                Log.e("GET_MENU_LIST Start", Integer.toString(DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).size()));
+                if (DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).size() > 0) {
+                    //Show Events
+                    try {
+
+                        showData(DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).get(0));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                } else {
+                    CD.showDialogCloseActivity(CabinetMemoListByRoleActivity.this, Econstants.NO_DATA);
+                }
+                Toast.makeText(getApplicationContext(),"Application running in Offline Mode.",Toast.LENGTH_LONG).show();
+            }
+
+
+        }
+        else if (param.equalsIgnoreCase("PlacedInCabinet")) {
+            header.setText("Cabinet Memos Placed in Cabinet");
+            if (AppStatus.getInstance(CabinetMemoListByRoleActivity.this).isOnline()) {
+                GetDataPojo object = new GetDataPojo();
+                object.setUrl(Econstants.url);
+                object.setMethord(Econstants.PlaceinCabinetagendalists);
+                object.setMethordHash(Econstants.encodeBase64(Econstants.PlaceinCabinetagendalistsToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
+                object.setTaskType(TaskType.GET_PENDING_MEMO_LIST_CABINET);
+                object.setTimeStamp(CommonUtils.getTimeStamp());
+                List<String> parameters = new ArrayList<>();
+                parameters.add(deptId);
+                parameters.add(Preferences.getInstance().user_id);
+                parameters.add(Preferences.getInstance().role_id);
+                parameters.add(Preferences.getInstance().mapped_departments);
+                parameters.add(Preferences.getInstance().branched_mapped);
+                object.setParameters(parameters);
+                object.setBifurcation(param);
+
+                Log.e("Departments", Preferences.getInstance().mapped_departments);
+
+                new Generic_Async_Get(
+                        CabinetMemoListByRoleActivity.this,
+                        CabinetMemoListByRoleActivity.this,
+                        TaskType.GET_PENDING_MEMO_LIST_CABINET).
+                        execute(object);
+            } else {
+                DatabaseHandler DB = new DatabaseHandler(CabinetMemoListByRoleActivity.this);
+                Log.e("GET_MENU_LIST Start", Integer.toString(DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).size()));
+                if (DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).size() > 0) {
+                    //Show Events
+                    try {
+
+                        showData(DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).get(0));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                } else {
+                    CD.showDialogCloseActivity(CabinetMemoListByRoleActivity.this, Econstants.NO_DATA);
+                }
+                Toast.makeText(getApplicationContext(),"Application running in Offline Mode.",Toast.LENGTH_LONG).show();
+            }
+
+        }
+
+
+
+        else if (param.equalsIgnoreCase("allowedCabinetMemos")) {
+            header.setText("Cabinet Memos Allowed");
+            if (AppStatus.getInstance(CabinetMemoListByRoleActivity.this).isOnline()) {
+                GetDataPojo object = new GetDataPojo();
+                object.setUrl(Econstants.url);
+                object.setMethord(Econstants.methordAllowedCabinetMemo);
+                object.setMethordHash(Econstants.encodeBase64(Econstants.methordAllowedCabinetMemoToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
+                object.setTaskType(TaskType.GET_ALLOWED_MEMO_LIST_CABINET);
+                object.setTimeStamp(CommonUtils.getTimeStamp());
+                List<String> parameters = new ArrayList<>();
+                parameters.add(deptId);
+                parameters.add(Preferences.getInstance().user_id);
+                parameters.add(Preferences.getInstance().role_id);
+                // parameters.add(Preferences.getInstance().mapped_departments);
+
+                object.setParameters(parameters);
+                object.setBifurcation(param);
+
+                //  Log.e("Departments", Preferences.getInstance().mapped_departments);
+
+                new Generic_Async_Get(
+                        CabinetMemoListByRoleActivity.this,
+                        CabinetMemoListByRoleActivity.this,
+                        TaskType.GET_ALLOWED_MEMO_LIST_CABINET).
+                        execute(object);
+            } else {
+                DatabaseHandler DB = new DatabaseHandler(CabinetMemoListByRoleActivity.this);
+                Log.e("GET_MENU_LIST Start", Integer.toString(DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).size()));
+                if (DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).size() > 0) {
+                    //Show Events
+                    try {
+
+                        showData(DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).get(0));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                } else {
+                    CD.showDialogCloseActivity(CabinetMemoListByRoleActivity.this, Econstants.NO_DATA);
+                }
+                Toast.makeText(getApplicationContext(),"Application running in Offline Mode.",Toast.LENGTH_LONG).show();
+            }
+        } else {
+            if (AppStatus.getInstance(CabinetMemoListByRoleActivity.this).isOnline()) {
+                GetDataPojo object = new GetDataPojo();
+                object.setUrl(Econstants.url);
+                object.setMethord(Econstants.methordCabinetMemoListByRole);
+                object.setMethordHash(Econstants.encodeBase64(Econstants.methordCabinetMemoListByToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
+                object.setTaskType(TaskType.GET_PENDING_MEMO_LIST_CABINET);
+                object.setTimeStamp(CommonUtils.getTimeStamp());
+                List<String> parameters = new ArrayList<>();
+                parameters.add(deptId);
+                parameters.add(Preferences.getInstance().user_id);
+                parameters.add(Preferences.getInstance().role_id);
+                parameters.add(Preferences.getInstance().mapped_departments);
+                parameters.add(Preferences.getInstance().branched_mapped);
+                object.setParameters(parameters);
+                object.setBifurcation(param);
+                Log.e("Departments", Preferences.getInstance().mapped_departments);
+
+                new Generic_Async_Get(
+                        CabinetMemoListByRoleActivity.this,
+                        CabinetMemoListByRoleActivity.this,
+                        TaskType.GET_PENDING_MEMO_LIST_CABINET).
+                        execute(object);
+            } else {
+                DatabaseHandler DB = new DatabaseHandler(CabinetMemoListByRoleActivity.this);
+                Log.e("GET_MENU_LIST Start", Integer.toString(DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).size()));
+                if (DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).size() > 0) {
+                    //Show Events
+                    try {
+
+                        showData(DB.GetAllOfflineDataViaFunction(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,   param).get(0));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                } else {
+                    CD.showDialogCloseActivity(CabinetMemoListByRoleActivity.this, Econstants.NO_DATA);
+                }
+                Toast.makeText(getApplicationContext(),"Application running in Offline Mode.",Toast.LENGTH_LONG).show();
+            }
+        }
+
+    }
+
+
+
+
+
+    @Override
+    protected void onStop() {
+        PreventScreenshot.on(CabinetMemoListByRoleActivity.this);
+        super.onStop();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState, @NonNull PersistableBundle outPersistentState) {
+        PreventScreenshot.on(CabinetMemoListByRoleActivity.this);
+        super.onSaveInstanceState(outState, outPersistentState);
+    }
+
+    @Override
+    protected void onPause() {
+        PreventScreenshot.on(CabinetMemoListByRoleActivity.this);
+        super.onPause();
+
+    }
+
+    @Override
+    public void onTaskCompleted(OfflineDataModel result, TaskType taskType) throws JSONException {
+
+
+        if (taskType == TaskType.GET_PENDING_MEMO_LIST_CABINET) {
+
+            if(result.getBifurcation().equalsIgnoreCase("Forwarded")){
+                if (result.getHttpFlag().equalsIgnoreCase(Econstants.success)) {
+                    //Save the rsult to Database
+                    DatabaseHandler DH = new DatabaseHandler(CabinetMemoListByRoleActivity.this);
+                    //Check weather the Hash is Present in the DB or not
+                    Log.e("??Total Numner of Rows", Integer.toString(DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), "Forwarded")));
+                    if (DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), "Forwarded") == 1) {
+                        //Update the Earlier Record
+                        DH.updateData(result);
+                        Log.e("Updated Row", Boolean.toString(DH.updateData(result)));
+                    } else if (DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), "Forwarded") == 0) {
+                        DH.addOfflineAccess(result);
+                        Log.e("Added Row", Boolean.toString(DH.addOfflineAccess(result)));
+                    } else {
+                        //DELETE ALL THE RECORDS
+                        DH.deleteAllExistingOfflineData(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), "Forwarded");
+                        Log.e("Total Records Deleted:-", Integer.toString(DH.deleteAllExistingOfflineData(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), "Forwarded")));
+                        //Add the Latest Record
+                        DH.addOfflineAccess(result);
+                    }
+
+                    showData(result);
+                } else {
+                    CD.showDialogCloseActivity(CabinetMemoListByRoleActivity.this, result.getResponse().toString());
+                }
+
+            } else if(result.getBifurcation().equalsIgnoreCase("Cabinet_Decisions")){
+                if (result.getHttpFlag().equalsIgnoreCase(Econstants.success)) {
+                    //Save the rsult to Database
+                    DatabaseHandler DH = new DatabaseHandler(CabinetMemoListByRoleActivity.this);
+                    //Check weather the Hash is Present in the DB or not
+                    Log.e("??Total Numner of Rows", Integer.toString(DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), "Cabinet_Decisions")));
+                    if (DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), "Cabinet_Decisions") == 1) {
+                        //Update the Earlier Record
+                        DH.updateData(result);
+                        Log.e("Updated Row", Boolean.toString(DH.updateData(result)));
+                    } else if (DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), "Cabinet_Decisions") == 0) {
+                        DH.addOfflineAccess(result);
+                        Log.e("Added Row", Boolean.toString(DH.addOfflineAccess(result)));
+                    } else {
+                        //DELETE ALL THE RECORDS
+                        DH.deleteAllExistingOfflineData(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), "Cabinet_Decisions");
+                        Log.e("Total Records Deleted:-", Integer.toString(DH.deleteAllExistingOfflineData(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), "Cabinet_Decisions")));
+                        //Add the Latest Record
+                        DH.addOfflineAccess(result);
+                    }
+
+                    showData(result);
+                } else {
+                    CD.showDialogCloseActivity(CabinetMemoListByRoleActivity.this, result.getResponse().toString());
+                }
+
+            }  else if(result.getBifurcation().equalsIgnoreCase("Backwarded")){
+                if (result.getHttpFlag().equalsIgnoreCase(Econstants.success)) {
+                    //Save the rsult to Database
+                    DatabaseHandler DH = new DatabaseHandler(CabinetMemoListByRoleActivity.this);
+                    //Check weather the Hash is Present in the DB or not
+                    Log.e("??Total Numner of Rows", Integer.toString(DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), "Backwarded")));
+                    if (DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), "Backwarded") == 1) {
+                        //Update the Earlier Record
+                        DH.updateData(result);
+                        Log.e("Updated Row", Boolean.toString(DH.updateData(result)));
+                    } else if (DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), "Backwarded") == 0) {
+                        DH.addOfflineAccess(result);
+                        Log.e("Added Row", Boolean.toString(DH.addOfflineAccess(result)));
+                    } else {
+                        //DELETE ALL THE RECORDS
+                        DH.deleteAllExistingOfflineData(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), "Backwarded");
+                        Log.e("Total Records Deleted:-", Integer.toString(DH.deleteAllExistingOfflineData(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), "Backwarded")));
+                        //Add the Latest Record
+                        DH.addOfflineAccess(result);
+                    }
+
+                    showData(result);
+                } else {
+                    CD.showDialogCloseActivity(CabinetMemoListByRoleActivity.this, result.getResponse().toString());
+                }
+
+            }else if(result.getBifurcation().equalsIgnoreCase("PlacedInCabinet")){
+                if (result.getHttpFlag().equalsIgnoreCase(Econstants.success)) {
+                    //Save the rsult to Database
+                    DatabaseHandler DH = new DatabaseHandler(CabinetMemoListByRoleActivity.this);
+                    //Check weather the Hash is Present in the DB or not
+                    Log.e("??Total Numner of Rows", Integer.toString(DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), "PlacedInCabinet")));
+                    if (DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), "PlacedInCabinet") == 1) {
+                        //Update the Earlier Record
+                        DH.updateData(result);
+                        Log.e("Updated Row", Boolean.toString(DH.updateData(result)));
+                    } else if (DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), "PlacedInCabinet") == 0) {
+                        DH.addOfflineAccess(result);
+                        Log.e("Added Row", Boolean.toString(DH.addOfflineAccess(result)));
+                    } else {
+                        //DELETE ALL THE RECORDS
+                        DH.deleteAllExistingOfflineData(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), "PlacedInCabinet");
+                        Log.e("Total Records Deleted:-", Integer.toString(DH.deleteAllExistingOfflineData(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), "PlacedInCabinet")));
+                        //Add the Latest Record
+                        DH.addOfflineAccess(result);
+                    }
+
+                    showData(result);
+                } else {
+                    CD.showDialogCloseActivity(CabinetMemoListByRoleActivity.this, result.getResponse().toString());
+                }
+
+            }else if(result.getBifurcation().equalsIgnoreCase("allowedCabinetMemos")){
+                if (result.getHttpFlag().equalsIgnoreCase(Econstants.success)) {
+                    //Save the rsult to Database
+                    DatabaseHandler DH = new DatabaseHandler(CabinetMemoListByRoleActivity.this);
+                    //Check weather the Hash is Present in the DB or not
+                    Log.e("??Total Numner of Rows", Integer.toString(DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), "allowedCabinetMemos")));
+                    if (DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), "allowedCabinetMemos") == 1) {
+                        //Update the Earlier Record
+                        DH.updateData(result);
+                        Log.e("Updated Row", Boolean.toString(DH.updateData(result)));
+                    } else if (DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), "allowedCabinetMemos") == 0) {
+                        DH.addOfflineAccess(result);
+                        Log.e("Added Row", Boolean.toString(DH.addOfflineAccess(result)));
+                    } else {
+                        //DELETE ALL THE RECORDS
+                        DH.deleteAllExistingOfflineData(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), "allowedCabinetMemos");
+                        Log.e("Total Records Deleted:-", Integer.toString(DH.deleteAllExistingOfflineData(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), "allowedCabinetMemos")));
+                        //Add the Latest Record
+                        DH.addOfflineAccess(result);
+                    }
+
+                    showData(result);
+                } else {
+                    CD.showDialogCloseActivity(CabinetMemoListByRoleActivity.this, result.getResponse().toString());
+                }
+
+            }else {
+                if (result.getHttpFlag().equalsIgnoreCase(Econstants.success)) {
+                    //Save the rsult to Database
+                    DatabaseHandler DH = new DatabaseHandler(CabinetMemoListByRoleActivity.this);
+                    //Check weather the Hash is Present in the DB or not
+                    Log.e("??Total Numner of Rows", Integer.toString(DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), "else")));
+                    if (DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), "else") == 1) {
+                        //Update the Earlier Record
+                        DH.updateData(result);
+                        Log.e("Updated Row", Boolean.toString(DH.updateData(result)));
+                    } else if (DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), "else") == 0) {
+                        DH.addOfflineAccess(result);
+                        Log.e("Added Row", Boolean.toString(DH.addOfflineAccess(result)));
+                    } else {
+                        //DELETE ALL THE RECORDS
+                        DH.deleteAllExistingOfflineData(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), "else");
+                        Log.e("Total Records Deleted:-", Integer.toString(DH.deleteAllExistingOfflineData(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), "else")));
+                        //Add the Latest Record
+                        DH.addOfflineAccess(result);
+                    }
+
+                    showData(result);
+                } else {
+                    CD.showDialogCloseActivity(CabinetMemoListByRoleActivity.this, result.getResponse().toString());
+                }
+            }
         } else if (taskType == TaskType.GET_ALLOWED_MEMO_LIST_CABINET) {
 
             Log.e("Result == ", result.getResponse());
