@@ -25,6 +25,7 @@ import com.dit.himachal.ecabinet.modal.CabinetMemoPojo;
 import com.dit.himachal.ecabinet.modal.DepartmentsPojo;
 import com.dit.himachal.ecabinet.modal.GetDataPojo;
 import com.dit.himachal.ecabinet.modal.MeetingDatesPojo;
+import com.dit.himachal.ecabinet.modal.OfflineDataModel;
 import com.dit.himachal.ecabinet.modal.ResponsObject;
 import com.dit.himachal.ecabinet.presentation.CustomDialog;
 import com.dit.himachal.ecabinet.utilities.AppStatus;
@@ -209,17 +210,17 @@ public class FinalAgendaList extends AppCompatActivity implements AsyncTaskListe
     }
 
     @Override
-    public void onTaskCompleted(ResponsObject result, TaskType taskType) throws JSONException {
+    public void onTaskCompleted(OfflineDataModel result, TaskType taskType) throws JSONException {
 
         if (taskType == TaskType.GET_PUBLISHED_MEETING_ID_BY_ROLE) {
 
-            Log.e("Result == ", result.respnse);
-            Object json = new JSONTokener(result.respnse).nextValue();
+            Log.e("Result == ", result.getResponse());
+            Object json = new JSONTokener(result.getResponse()).nextValue();
             if (json instanceof JSONObject) {
                 Log.e("Json Object", "Object");
             } else if (json instanceof JSONArray) {
                 Log.e("Json Object", "Object");
-                JSONArray arrayReports = new JSONArray(result.respnse);
+                JSONArray arrayReports = new JSONArray(result.getResponse());
                 Log.e("arrayReports", arrayReports.toString());
                 if (arrayReports.length() > 0) {
                     //ReportsModelPojo
@@ -272,13 +273,13 @@ public class FinalAgendaList extends AppCompatActivity implements AsyncTaskListe
 
         } else if (taskType == TaskType.FINAL_MEETING_AGENDA_LIST) {
 
-            Log.e("Result == ", result.respnse);
-            Object json = new JSONTokener(result.respnse).nextValue();
+            Log.e("Result == ", result.getResponse());
+            Object json = new JSONTokener(result.getResponse()).nextValue();
             if (json instanceof JSONObject) {
                 Log.e("Json Object", "Object");
             } else if (json instanceof JSONArray) {
                 Log.e("Json Object", "Object");
-                JSONArray arrayReports = new JSONArray(result.respnse);
+                JSONArray arrayReports = new JSONArray(result.getResponse());
                 Log.e("arrayReports", arrayReports.toString());
                 if (arrayReports.length() > 0) {
                     //ReportsModelPojo

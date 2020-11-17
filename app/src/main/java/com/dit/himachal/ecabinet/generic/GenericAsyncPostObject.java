@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.dit.himachal.ecabinet.enums.TaskType;
 import com.dit.himachal.ecabinet.interfaces.AsyncTaskListenerObject;
+import com.dit.himachal.ecabinet.modal.OfflineDataModel;
 import com.dit.himachal.ecabinet.modal.PostDataPojo;
 import com.dit.himachal.ecabinet.modal.PostObject;
 import com.dit.himachal.ecabinet.modal.ResponsObject;
@@ -14,7 +15,7 @@ import com.dit.himachal.ecabinet.network.HttpManager;
 
 import org.json.JSONException;
 
-public class GenericAsyncPostObject extends AsyncTask<PostDataPojo,Void , ResponsObject> {
+public class GenericAsyncPostObject extends AsyncTask<PostDataPojo,Void , OfflineDataModel> {
 
     ProgressDialog dialog;
     Context context;
@@ -36,11 +37,11 @@ public class GenericAsyncPostObject extends AsyncTask<PostDataPojo,Void , Respon
     }
 
     @Override
-    protected ResponsObject doInBackground(PostDataPojo... uploadObjects) {
+    protected OfflineDataModel doInBackground(PostDataPojo... uploadObjects) {
         PostDataPojo data = null;
         data = uploadObjects[0];
         HttpManager http_manager = null;
-        ResponsObject Data_From_Server = null;
+        OfflineDataModel Data_From_Server = null;
         boolean save = false;
 
         try{
@@ -72,7 +73,7 @@ public class GenericAsyncPostObject extends AsyncTask<PostDataPojo,Void , Respon
     }
 
     @Override
-    protected void onPostExecute(ResponsObject result) {
+    protected void onPostExecute(OfflineDataModel result) {
         super.onPostExecute(result);
 
         try {

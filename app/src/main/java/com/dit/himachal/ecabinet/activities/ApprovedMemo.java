@@ -27,6 +27,7 @@ import com.dit.himachal.ecabinet.interfaces.AsyncTaskListenerObjectGet;
 import com.dit.himachal.ecabinet.modal.CabinetMemoPojo;
 import com.dit.himachal.ecabinet.modal.DepartmentsPojo;
 import com.dit.himachal.ecabinet.modal.GetDataPojo;
+import com.dit.himachal.ecabinet.modal.OfflineDataModel;
 import com.dit.himachal.ecabinet.modal.ResponsObject;
 import com.dit.himachal.ecabinet.presentation.CustomDialog;
 import com.dit.himachal.ecabinet.utilities.AppStatus;
@@ -325,18 +326,18 @@ public class ApprovedMemo extends AppCompatActivity implements AsyncTaskListener
 
 
     @Override
-    public void onTaskCompleted(ResponsObject result, TaskType taskType) throws JSONException {
+    public void onTaskCompleted(OfflineDataModel result, TaskType taskType) throws JSONException {
 
 
        if (taskType == TaskType.GET_ALLOWED_MEMO_LIST_CABINET) {
 
-            Log.e("Result == ", result.respnse);
-            Object json = new JSONTokener(result.respnse).nextValue();
+            Log.e("Result == ", result.getResponse());
+            Object json = new JSONTokener(result.getResponse()).nextValue();
             if (json instanceof JSONObject) {
                 Log.e("Json Object", "Object");
             } else if (json instanceof JSONArray) {
                 Log.e("Json Object", "Object");
-                JSONArray arrayReports = new JSONArray(result.respnse);
+                JSONArray arrayReports = new JSONArray(result.getResponse());
                 Log.e("arrayReports", arrayReports.toString());
                 if (arrayReports.length() > 0) {
                     //ReportsModelPojo
@@ -398,15 +399,15 @@ public class ApprovedMemo extends AppCompatActivity implements AsyncTaskListener
 
         }else if (taskType == TaskType.GET_DEPARTMENTS_VIA_ROLES) {
 
-            Log.e("Result fd == ", result.respnse);
-            if (result.getSuccessFailure().equalsIgnoreCase("SUCCESS")) {
-                Log.e("Result == ", result.respnse);
-                Object json = new JSONTokener(result.respnse).nextValue();
+            Log.e("Result fd == ", result.getResponse());
+            if (result.getHttpFlag().equalsIgnoreCase("SUCCESS")) {
+                Log.e("Result == ", result.getResponse());
+                Object json = new JSONTokener(result.getResponse()).nextValue();
                 if (json instanceof JSONObject) {
                     Log.e("Json Object", "Object");
                 } else if (json instanceof JSONArray) {
                     Log.e("Json Object", "Object");
-                    JSONArray arrayReports = new JSONArray(result.respnse);
+                    JSONArray arrayReports = new JSONArray(result.getResponse());
                     Log.e("arrayReports", arrayReports.toString());
 
                     if (arrayReports.length() > 0) {
@@ -442,7 +443,7 @@ public class ApprovedMemo extends AppCompatActivity implements AsyncTaskListener
 
 
             } else {
-                CD.showDialog(ApprovedMemo.this, result.getRespnse());
+                CD.showDialog(ApprovedMemo.this, result.getResponse());
 
             }
 

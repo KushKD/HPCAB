@@ -8,6 +8,7 @@ import android.util.Log;
 import com.dit.himachal.ecabinet.enums.TaskType;
 import com.dit.himachal.ecabinet.interfaces.AsyncTaskListenerObjectGet;
 import com.dit.himachal.ecabinet.modal.GetDataPojo;
+import com.dit.himachal.ecabinet.modal.OfflineDataModel;
 import com.dit.himachal.ecabinet.modal.ResponsObject;
 import com.dit.himachal.ecabinet.network.HttpManager;
 
@@ -18,7 +19,7 @@ import org.json.JSONException;
  * @project HPePass
  * @Time 05, 07 , 2020
  */
-public class Generic_Async_Get extends AsyncTask<GetDataPojo,Void , ResponsObject> {
+public class Generic_Async_Get extends AsyncTask<GetDataPojo,Void , OfflineDataModel> {
 
 
     String outputStr;
@@ -41,8 +42,8 @@ public class Generic_Async_Get extends AsyncTask<GetDataPojo,Void , ResponsObjec
     }
 
     @Override
-    protected ResponsObject doInBackground(GetDataPojo... getDataPojo) {
-        ResponsObject Data_From_Server = null;
+    protected OfflineDataModel doInBackground(GetDataPojo... getDataPojo) {
+        OfflineDataModel Data_From_Server = null;
         HttpManager http_manager = null;
         try {
             http_manager = new HttpManager();
@@ -121,7 +122,7 @@ public class Generic_Async_Get extends AsyncTask<GetDataPojo,Void , ResponsObjec
     }
 
     @Override
-    protected void onPostExecute(ResponsObject result) {
+    protected void onPostExecute(OfflineDataModel result) {
         super.onPostExecute(result);
         try {
             taskListener.onTaskCompleted(result, taskType);

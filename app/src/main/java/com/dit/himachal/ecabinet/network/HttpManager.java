@@ -3,11 +3,12 @@ package com.dit.himachal.ecabinet.network;
 import android.util.Log;
 
 import com.dit.himachal.ecabinet.modal.GetDataPojo;
+import com.dit.himachal.ecabinet.modal.OfflineDataModel;
 import com.dit.himachal.ecabinet.modal.PostDataPojo;
-import com.dit.himachal.ecabinet.modal.PostObject;
 import com.dit.himachal.ecabinet.modal.ResponsObject;
 import com.dit.himachal.ecabinet.utilities.CommonUtils;
 import com.dit.himachal.ecabinet.utilities.Econstants;
+import com.dit.himachal.ecabinet.utilities.Preferences;
 
 import org.json.JSONStringer;
 
@@ -26,11 +27,12 @@ import java.net.URL;
  */
 public class HttpManager {
 
-    public ResponsObject GetData(GetDataPojo data) throws IOException {
+    public OfflineDataModel GetData(GetDataPojo data) throws IOException {
         BufferedReader reader = null;
         URL url_ = null;
-        ResponsObject response = null;
+        OfflineDataModel response = null;
         HttpURLConnection con = null;
+
 
         try {
             url_ = new URL(CommonUtils.createUrl(data));
@@ -46,8 +48,20 @@ public class HttpManager {
                     sb.append(line + "\n");
                 }
                 con.disconnect();
-                response = Econstants.getResponseObject(Econstants.failure, sb.toString(), con.getResponseCode(),data.getDepartmentId());
+                response = new OfflineDataModel();
+                response.setUrl(url_.toString());
+                if(data.getParameters()!=null){
+                    response.setParams(data.getParameters().toString());
+                }else{
+                    response.setParams("");
+                }
 
+                response.setResponse("Something went wrong. Please re-connect to Internet and try again.");
+                response.setHttpFlag(Econstants.failure);
+                response.setFunctionName(data.getTaskType().toString());
+                response.setUserId(Preferences.getInstance().user_id);
+                response.setRoleId(Preferences.getInstance().role_id);
+                response.setBifurcation(data.getBifurcation());
                 return response;
             } else {
 
@@ -59,14 +73,38 @@ public class HttpManager {
                     sb.append(line + "\n");
                 }
                 con.disconnect();
-                Log.e("DAta", sb.toString());
-                response = Econstants.getResponseObject(Econstants.success, sb.toString(), con.getResponseCode(),data.getDepartmentId());
-                return response;
+                Log.e("Data", sb.toString());
+                response = new OfflineDataModel();
+                response.setUrl(url_.toString());
+                if(data.getParameters()!=null){
+                    response.setParams(data.getParameters().toString());
+                }else{
+                    response.setParams("");
+                }
+                response.setResponse(sb.toString());
+                response.setHttpFlag(Econstants.success);
+                response.setFunctionName(data.getTaskType().toString());
+                response.setUserId(Preferences.getInstance().user_id);
+                response.setRoleId(Preferences.getInstance().role_id);
+                response.setBifurcation(data.getBifurcation());
+               return response;
             }
 
         } catch (Exception e) {
             e.printStackTrace();
-            response = Econstants.getResponseObject(Econstants.failure, e.getLocalizedMessage().toString(), con.getResponseCode(),data.getDepartmentId());
+            response = new OfflineDataModel();
+            response.setUrl(url_.toString());
+            if(data.getParameters() != null){
+                response.setParams(data.getParameters().toString());
+            }else{
+                response.setParams("");
+            }
+            response.setResponse("Something went wrong. Please re-connect to Internet and try again.");
+            response.setHttpFlag(Econstants.failure);
+            response.setFunctionName(data.getTaskType().toString());
+            response.setUserId(Preferences.getInstance().user_id);
+            response.setRoleId(Preferences.getInstance().role_id);
+            response.setBifurcation(data.getBifurcation());
             return response;
         } finally {
             if (reader != null) {
@@ -75,14 +113,26 @@ public class HttpManager {
 
                 } catch (IOException e) {
                     e.printStackTrace();
-                    response = Econstants.getResponseObject(Econstants.failure, e.getLocalizedMessage().toString(), con.getResponseCode(), data.getDepartmentId());
+                    response = new OfflineDataModel();
+                    response.setUrl(url_.toString());
+                    if(data.getParameters()!=null){
+                        response.setParams(data.getParameters().toString());
+                    }else{
+                        response.setParams("");
+                    }
+                    response.setResponse("Something went wrong. Please re-connect to Internet and try again.");
+                    response.setHttpFlag(Econstants.failure);
+                    response.setFunctionName(data.getTaskType().toString());
+                    response.setUserId(Preferences.getInstance().user_id);
+                    response.setRoleId(Preferences.getInstance().role_id);
+                    response.setBifurcation(data.getBifurcation());
                     return response;
                 }
             }
         }
     }
 
-    public ResponsObject PostDataScanQRCode(PostDataPojo data) {
+    public OfflineDataModel PostDataScanQRCode(PostDataPojo data) {
 
         URL url_ = null;
         HttpURLConnection conn_ = null;
@@ -90,7 +140,7 @@ public class HttpManager {
         JSONStringer userJson = null;
 
         String URL = null;
-        ResponsObject response = null;
+        OfflineDataModel response = null;
 
 
         try {
@@ -125,9 +175,14 @@ public class HttpManager {
                     br.close();
                     System.out.println(sb.toString());
                     Log.e("Data from Service", sb.toString());
-                    response = new ResponsObject();
-                    response = Econstants.getResponseObject(Econstants.failure, sb.toString(), conn_.getResponseCode(),data.getParameters().getDeptId());
-                    return response;
+                    response.setUrl(url_.toString());
+                    response.setParams(data.getParameters().toString());
+                    response.setResponse("Something went wrong. Please re-connect to Internet and try again.");
+                    response.setHttpFlag(Econstants.failure);
+                    response.setFunctionName(data.getTaskType().toString());
+                    response.setUserId(Preferences.getInstance().user_id);
+                    response.setRoleId(Preferences.getInstance().role_id);
+                    response.setBifurcation("bifercation");
 
 
                 } else {
@@ -140,15 +195,26 @@ public class HttpManager {
                     br.close();
                     System.out.println(sb.toString());
                     Log.e("Data from Service", sb.toString());
-                    response = new ResponsObject();
-                    response = Econstants.getResponseObject(Econstants.success, sb.toString(), conn_.getResponseCode(),data.getParameters().getDeptId());
-
+                    response.setUrl(url_.toString());
+                    response.setParams(data.getParameters().toString());
+                    response.setResponse(sb.toString());
+                    response.setHttpFlag(Econstants.success);
+                    response.setFunctionName(data.getTaskType().toString());
+                    response.setUserId(Preferences.getInstance().user_id);
+                    response.setRoleId(Preferences.getInstance().role_id);
+                    response.setBifurcation("bifercation");
                 }
 
             } catch (Exception e) {
-                response = new ResponsObject();
-                response = Econstants.getResponseObject(Econstants.failure, sb.toString(), conn_.getResponseCode(),data.getParameters().getDeptId());
-                return response;
+                Log.e("Data from Service", sb.toString());
+                response.setUrl(url_.toString());
+                response.setParams(data.getParameters().toString());
+                response.setResponse("Something went wrong. Please re-connect to Internet and try again.");
+                response.setHttpFlag(Econstants.failure);
+                response.setFunctionName(data.getTaskType().toString());
+                response.setUserId(Preferences.getInstance().user_id);
+                response.setRoleId(Preferences.getInstance().role_id);
+                response.setBifurcation("bifercation");
             }
 
         } catch (MalformedURLException e) {

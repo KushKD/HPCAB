@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat;
 import com.dit.himachal.ecabinet.R;
 import com.dit.himachal.ecabinet.activities.Login;
 import com.dit.himachal.ecabinet.activities.MainActivity;
+import com.dit.himachal.ecabinet.databases.DatabaseHandler;
 import com.dit.himachal.ecabinet.enums.TaskType;
 import com.dit.himachal.ecabinet.generic.Generic_Async_Get;
 import com.dit.himachal.ecabinet.generic.Generic_Async_Get_Widget;
@@ -23,11 +24,13 @@ import com.dit.himachal.ecabinet.interfaces.AsyncTaskListenerObjectGet;
 import com.dit.himachal.ecabinet.interfaces.AsyncTaskListenerObjectGetWidget;
 import com.dit.himachal.ecabinet.modal.AgendaPojo;
 import com.dit.himachal.ecabinet.modal.GetDataPojo;
+import com.dit.himachal.ecabinet.modal.OfflineDataModel;
 import com.dit.himachal.ecabinet.modal.ResponsObject;
 import com.dit.himachal.ecabinet.network.HttpManager;
 import com.dit.himachal.ecabinet.utilities.AppStatus;
 import com.dit.himachal.ecabinet.utilities.CommonUtils;
 import com.dit.himachal.ecabinet.utilities.Econstants;
+import com.dit.himachal.ecabinet.utilities.Preferences;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -66,8 +69,6 @@ public class MeetingStatus extends androidx.appcompat.widget.AppCompatTextView {
 
         this.context_ = context;
         this.setVisibility(View.VISIBLE);
-//        this.setText("//[{\"AgendaItemNo\":null,\"AgendaType\":null,\"FileNo\":null,\"StatusCode\":401,\"StatusMessage\":\"VG9rZW4gaGFzIGV4cGlyZWQ=\",\"Title\":null,\"Token\":null}]\n" +
-//                "          ");
 
 
     }
@@ -104,21 +105,35 @@ public class MeetingStatus extends androidx.appcompat.widget.AppCompatTextView {
                     public void run() {
                         try {
 
-                            //  if (AppStatus.getInstance(getContext()).isOnline()) {
-                            GetDataPojo object = new GetDataPojo();
-                            object.setUrl(Econstants.url);
-                            object.setMethord(Econstants.methordGetOnlineCabinetIDMeetingStatus);
-                            object.setMethordHash(Econstants.encodeBase64(Econstants.methordGetOnlineCabinetIDMeetingToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
-                            object.setTaskType(TaskType.CABINET_MEETING_STATUS);
-                            object.setTimeStamp(CommonUtils.getTimeStamp());
+                            if (AppStatus.getInstance(getContext()).isOnline()) {
+                                GetDataPojo object = new GetDataPojo();
+                                object.setUrl(Econstants.url);
+                                object.setMethord(Econstants.methordGetOnlineCabinetIDMeetingStatus);
+                                object.setMethordHash(Econstants.encodeBase64(Econstants.methordGetOnlineCabinetIDMeetingToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
+                                object.setTaskType(TaskType.CABINET_MEETING_STATUS);
+                                object.setTimeStamp(CommonUtils.getTimeStamp());
+                                object.setBifurcation("CABINET_MEETING_STATUS");
 
 
-                            currentTask = new GetAvailability();
-                            currentTask.execute(object);
+                                currentTask = new GetAvailability();
+                                currentTask.execute(object);
 
-//                            } else {
-//                                CD.showDialog((Activity) context_, "Please connect to Internet and try again.");
-//                            }
+                            } else {
+                                DatabaseHandler DB = new DatabaseHandler(context_);
+                                Log.e("GET_DEPARTMENTS_VIA", Integer.toString(DB.GetAllOfflineDataViaFunction(TaskType.CABINET_MEETING_STATUS.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "CABINET_MEETING_STATUS").size()));
+                                if (DB.GetAllOfflineDataViaFunction(TaskType.CABINET_MEETING_STATUS.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "CABINET_MEETING_STATUS").size() > 0) {
+                                    //Show Events
+                                    try {
+
+                                        showCabinetAgenda(DB.GetAllOfflineDataViaFunction(TaskType.CABINET_MEETING_STATUS.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "CABINET_MEETING_STATUS").get(0));
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                } else {
+                                    CD.showDialogCloseActivity((Activity) context_, Econstants.NO_DATA);
+                                }
+                            }
 
                         } catch (Exception e) {
                             // TODO Auto-generated catch block
@@ -127,12 +142,10 @@ public class MeetingStatus extends androidx.appcompat.widget.AppCompatTextView {
                 });
             }
         };
-        timer.schedule(doAsynchronousTask, 0, 300000); //executes in every 5 minutes 300000
-
-        //super.setText("sdsdsdsdsdsdsds + Please connect to Internet and try again");
+        timer.schedule(doAsynchronousTask, 0, 300000);
     }
 
-    class GetAvailability extends AsyncTask<GetDataPojo, String, ResponsObject> {
+    class GetAvailability extends AsyncTask<GetDataPojo, String, OfflineDataModel> {
 
         private ProgressDialog progressDialog;
         private String Server_Value = null;
@@ -145,8 +158,10 @@ public class MeetingStatus extends androidx.appcompat.widget.AppCompatTextView {
         }
 
         @Override
-        protected ResponsObject doInBackground(GetDataPojo... getDataPojo) {
-            ResponsObject Data_From_Server = null;
+        protected OfflineDataModel doInBackground(GetDataPojo... getDataPojo) {
+
+
+            OfflineDataModel Data_From_Server = null;
             HttpManager http_manager = null;
             try {
                 http_manager = new HttpManager();
@@ -167,53 +182,92 @@ public class MeetingStatus extends androidx.appcompat.widget.AppCompatTextView {
         }
 
         @Override
-        protected void onPostExecute(ResponsObject result) {
+        protected void onPostExecute(OfflineDataModel result) {
             super.onPostExecute(result);
 
-            AgendaPojo agendaPojo = null;
-            if (result.getSuccessFailure().equalsIgnoreCase("SUCCESS")) {
-                Log.e("Result == ", result.respnse);
-                Object json = null;
+            if (result.getHttpFlag().equalsIgnoreCase(Econstants.success)) {
+                //Save the rsult to Database
+                DatabaseHandler DH = new DatabaseHandler(context_);
+                //Check weather the Hash is Present in the DB or not
+                Log.e("??Total Numner of Rows", Integer.toString(DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.CABINET_MEETING_STATUS.toString(), "CABINET_MEETING_STATUS")));
+                if (DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.CABINET_MEETING_STATUS.toString(), "CABINET_MEETING_STATUS") == 1) {
+                    //Update the Earlier Record
+                    DH.updateData(result);
+                    Log.e("Updated Row", Boolean.toString(DH.updateData(result)));
+                } else if (DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.CABINET_MEETING_STATUS.toString(), "CABINET_MEETING_STATUS") == 0) {
+                    DH.addOfflineAccess(result);
+                    Log.e("Added Row", Boolean.toString(DH.addOfflineAccess(result)));
+                } else {
+                    //DELETE ALL THE RECORDS
+                    DH.deleteAllExistingOfflineData(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.CABINET_MEETING_STATUS.toString(), "CABINET_MEETING_STATUS");
+                    Log.e("Total Records Deleted:-", Integer.toString(DH.deleteAllExistingOfflineData(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.CABINET_MEETING_STATUS.toString(), "CABINET_MEETING_STATUS")));
+                    //Add the Latest Record
+                    DH.addOfflineAccess(result);
+                }
+
                 try {
-                    json = new JSONTokener(result.respnse).nextValue();
+                    showCabinetAgenda(result);
                 } catch (JSONException e) {
-                    Log.e("==Error", e.getLocalizedMessage().toString());
+                    e.printStackTrace();
                 }
-                if (json instanceof JSONObject) {
-                    try {
-                        Log.e("Json Object", "Object");
-                        JSONObject object = new JSONObject(result.respnse);
-                        agendaPojo = new AgendaPojo();
-                        agendaPojo.setAgendaItemNo(Econstants.decodeBase64(object.optString("AgendaItemNo")));
-                        agendaPojo.setAgendaItemType(Econstants.decodeBase64(object.optString("AgendaItemType")));
-                        agendaPojo.setDeptName(Econstants.decodeBase64(object.optString("DeptName")));
-                        agendaPojo.setFileNo(Econstants.decodeBase64(object.optString("FileNo")));
-                        agendaPojo.setSubject(Econstants.decodeBase64(object.optString("Subject")));
-
-
-                        if(agendaPojo.getAgendaItemType().length()>0){
-                             setVisibility(View.VISIBLE);
-                            setText("Agenda Number:- " + agendaPojo.getAgendaItemNo() + "Agenda Type:- " + agendaPojo.getAgendaItemType()  +"Title:- " + agendaPojo.getSubject() + "File No:- " + agendaPojo.getFileNo() +  "Subject :- " + agendaPojo.getSubject() + "Department Name :- " + agendaPojo.getDeptName());
-
-                        }else{
-                            setVisibility(View.INVISIBLE);
-                        }
-
-                    } catch (Exception ex) {
-                        Log.e("arrayReports", ex.toString());
-                    }
-
-
-                }else{
-
-                }
-
-
+            } else {
+                CD.showDialogCloseActivity((Activity)context_, "No fddfdfdf");
             }
+
 
         }
 
 
     }
 
+    private void showCabinetAgenda(OfflineDataModel result) throws JSONException {
+
+        if (result.getFunctionName().equalsIgnoreCase(TaskType.CABINET_MEETING_STATUS.toString())) {
+            AgendaPojo agendaPojo = null;
+
+            Log.e("Result == ", result.getResponse());
+            Object json = null;
+            try {
+                json = new JSONTokener(result.getResponse()).nextValue();
+            } catch (JSONException e) {
+                Log.e("==Error", e.getLocalizedMessage().toString());
+            }
+            if (json instanceof JSONObject) {
+                try {
+                    Log.e("Json Object", "Object");
+                    JSONObject object = new JSONObject(result.getResponse());
+                    agendaPojo = new AgendaPojo();
+                    agendaPojo.setAgendaItemNo(Econstants.decodeBase64(object.optString("AgendaItemNo")));
+                    agendaPojo.setAgendaItemType(Econstants.decodeBase64(object.optString("AgendaItemType")));
+                    agendaPojo.setDeptName(Econstants.decodeBase64(object.optString("DeptName")));
+                    agendaPojo.setFileNo(Econstants.decodeBase64(object.optString("FileNo")));
+                    agendaPojo.setSubject(Econstants.decodeBase64(object.optString("Subject")));
+
+
+                    if (agendaPojo.getAgendaItemType().length() > 0) {
+                        Log.e("Agenda", agendaPojo.toString());
+                        setVisibility(View.VISIBLE);
+                        setText("Agenda Number:- " + agendaPojo.getAgendaItemNo() + "Agenda Type:- " + agendaPojo.getAgendaItemType() + "Title:- " + agendaPojo.getSubject() + "File No:- " + agendaPojo.getFileNo() + "Subject :- " + agendaPojo.getSubject() + "Department Name :- " + agendaPojo.getDeptName());
+
+                    } else {
+                        Log.e("Agenda", agendaPojo.toString());
+                        setVisibility(View.INVISIBLE);
+                    }
+
+                } catch (Exception ex) {
+                    Log.e("arrayReports", ex.toString());
+                }
+
+
+            }
+
+
+
+
+
+        } else {
+            CD.showDialog((Activity)context_, result.getResponse());
+
+        }
+    }
 }

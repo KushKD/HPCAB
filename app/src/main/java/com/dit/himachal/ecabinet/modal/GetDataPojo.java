@@ -19,6 +19,15 @@ public class GetDataPojo implements Serializable {
     private String timeStamp;
     private TaskType taskType;
     private String DepartmentId ;
+    private String bifurcation;
+
+    public String getBifurcation() {
+        return bifurcation;
+    }
+
+    public void setBifurcation(String bifurcation) {
+        this.bifurcation = bifurcation;
+    }
 
     public String getDepartmentId() {
         return DepartmentId;
@@ -86,6 +95,7 @@ public class GetDataPojo implements Serializable {
                 ", timeStamp='" + timeStamp + '\'' +
                 ", taskType=" + taskType +
                 ", DepartmentId='" + DepartmentId + '\'' +
+                ", bifurcation='" + bifurcation + '\'' +
                 '}';
     }
 }

@@ -26,6 +26,7 @@ import com.dit.himachal.ecabinet.interfaces.AsyncTaskListenerObjectGet;
 import com.dit.himachal.ecabinet.modal.CabinetMemoPojo;
 import com.dit.himachal.ecabinet.modal.DepartmentsUserPojo;
 import com.dit.himachal.ecabinet.modal.GetDataPojo;
+import com.dit.himachal.ecabinet.modal.OfflineDataModel;
 import com.dit.himachal.ecabinet.modal.ResponsObject;
 import com.dit.himachal.ecabinet.modal.UserDataPojo;
 import com.dit.himachal.ecabinet.presentation.CustomDialog;
@@ -711,18 +712,18 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
     }
 
     @Override
-    public void onTaskCompleted(ResponsObject result, TaskType taskType) throws JSONException {
+    public void onTaskCompleted(OfflineDataModel result, TaskType taskType) throws JSONException {
 
 
         if (taskType == TaskType.GET_PENDING_MEMO_LIST_CABINET) {
 
-            Log.e("Result == ", result.respnse);
-            Object json = new JSONTokener(result.respnse).nextValue();
+            Log.e("Result == ", result.getResponse());
+            Object json = new JSONTokener(result.getResponse()).nextValue();
             if (json instanceof JSONObject) {
                 Log.e("Json Object", "Object");
             } else if (json instanceof JSONArray) {
                 Log.e("Json Object", "Object");
-                JSONArray arrayReports = new JSONArray(result.respnse);
+                JSONArray arrayReports = new JSONArray(result.getResponse());
                 Log.e("arrayReports", arrayReports.toString());
 //No Record Found  StatusMessage
                 if (arrayReports.length() > 0) {
@@ -786,13 +787,13 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
 
         } else if (taskType == TaskType.GET_ALLOWED_MEMO_LIST_CABINET) {
 
-            Log.e("Result == ", result.respnse);
-            Object json = new JSONTokener(result.respnse).nextValue();
+            Log.e("Result == ", result.getResponse());
+            Object json = new JSONTokener(result.getResponse()).nextValue();
             if (json instanceof JSONObject) {
                 Log.e("Json Object", "Object");
             } else if (json instanceof JSONArray) {
                 Log.e("Json Object", "Object");
-                JSONArray arrayReports = new JSONArray(result.respnse);
+                JSONArray arrayReports = new JSONArray(result.getResponse());
                 Log.e("arrayReports", arrayReports.toString());
 //No Record Found  StatusMessage
                 if (arrayReports.length() > 0) {

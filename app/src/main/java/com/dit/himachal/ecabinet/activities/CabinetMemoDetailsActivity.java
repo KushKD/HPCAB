@@ -27,6 +27,7 @@ import com.dit.himachal.ecabinet.modal.GetDataPojo;
 import com.dit.himachal.ecabinet.modal.ListAnnexures;
 import com.dit.himachal.ecabinet.modal.ListCabinetMemoTrackingHistoryListsPojo;
 import com.dit.himachal.ecabinet.modal.ListConsiderationPoints;
+import com.dit.himachal.ecabinet.modal.OfflineDataModel;
 import com.dit.himachal.ecabinet.modal.PostDataPojo;
 import com.dit.himachal.ecabinet.modal.PostObject;
 import com.dit.himachal.ecabinet.modal.ResponsObject;
@@ -564,15 +565,15 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
 
 
     @Override
-    public void onTaskCompleted(ResponsObject result, TaskType taskType) throws JSONException {
+    public void onTaskCompleted(OfflineDataModel result, TaskType taskType) throws JSONException {
 
         if (taskType == TaskType.CABINET_MEMOS_DETAILS) {
 
-            Log.e("Result == ", result.getRespnse());
-            Object json = new JSONTokener(result.getRespnse()).nextValue();
+            Log.e("Result == ", result.getResponse());
+            Object json = new JSONTokener(result.getResponse()).nextValue();
             if (json instanceof JSONObject) {
                 Log.e("Json Object", "Object");
-                JSONObject object = new JSONObject(result.respnse);
+                JSONObject object = new JSONObject(result.getResponse());
 
                 Log.e("arrayReports", object.toString());
                 cabinetMemoPojoDetails = new CabinetMemoPojo();
@@ -696,12 +697,12 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
 
         } else if (taskType == TaskType.GET_OTP_VIA_MOBILE) {
             //Check Weather the String is Json array or Json Object
-            if (result.getSuccessFailure().equalsIgnoreCase("SUCCESS")) {
-                Log.e("Result == ", result.getRespnse());
-                Object json = new JSONTokener(result.getRespnse()).nextValue();
+            if (result.getHttpFlag().equalsIgnoreCase("SUCCESS")) {
+                Log.e("Result == ", result.getResponse());
+                Object json = new JSONTokener(result.getResponse()).nextValue();
                 if (json instanceof JSONObject) {
                     Log.e("Json Object", "Object");
-                    JSONObject object = new JSONObject(result.getRespnse());
+                    JSONObject object = new JSONObject(result.getResponse());
                     Log.e("arrayReports", object.toString());
 
                     CD.showDialog(CabinetMemoDetailsActivity.this, Econstants.decodeBase64(object.getString("StatusMessage")));
@@ -711,38 +712,38 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
 
 
             } else {
-                CD.showDialog(CabinetMemoDetailsActivity.this, result.getRespnse());
+                CD.showDialog(CabinetMemoDetailsActivity.this, result.getResponse());
             }
         } else if (taskType == TaskType.SEND_BACK) {
             //Check Weather the String is Json array or Json Object
-            if (result.getSuccessFailure().equalsIgnoreCase("SUCCESS")) {
-                Log.e("Result == ", result.getRespnse());
-                CD.showDialogCloseActivity(CabinetMemoDetailsActivity.this, result.getRespnse());
+            if (result.getHttpFlag().equalsIgnoreCase("SUCCESS")) {
+                Log.e("Result == ", result.getResponse());
+                CD.showDialogCloseActivity(CabinetMemoDetailsActivity.this, result.getResponse());
 
 
             } else {
-                CD.showDialog(CabinetMemoDetailsActivity.this, result.getRespnse());
+                CD.showDialog(CabinetMemoDetailsActivity.this, result.getResponse());
             }
         } else if (taskType == TaskType.FORWARD) {
             //Check Weather the String is Json array or Json Object
-            if (result.getSuccessFailure().equalsIgnoreCase("SUCCESS")) {
-                Log.e("Result == ", result.getRespnse());
-                CD.showDialogCloseActivity(CabinetMemoDetailsActivity.this, result.getRespnse());
+            if (result.getHttpFlag().equalsIgnoreCase("SUCCESS")) {
+                Log.e("Result == ", result.getResponse());
+                CD.showDialogCloseActivity(CabinetMemoDetailsActivity.this, result.getResponse());
 
 
             } else {
-                CD.showDialog(CabinetMemoDetailsActivity.this, result.getRespnse());
+                CD.showDialog(CabinetMemoDetailsActivity.this, result.getResponse());
             }
         } else if (taskType == TaskType.ALLOW) {
-            Log.e("Result", result.getRespnse());
-            if (result.getSuccessFailure().equalsIgnoreCase("SUCCESS")) {
-                Log.e("Result == ", result.getRespnse());
-                CD.showDialogCloseActivity(CabinetMemoDetailsActivity.this, result.getRespnse());
+            Log.e("Result", result.getResponse());
+            if (result.getHttpFlag().equalsIgnoreCase("SUCCESS")) {
+                Log.e("Result == ", result.getResponse());
+                CD.showDialogCloseActivity(CabinetMemoDetailsActivity.this, result.getResponse());
 
 
             } else {
-                Log.e("Result == ", result.getRespnse());
-                CD.showDialog(CabinetMemoDetailsActivity.this, result.getRespnse());
+                Log.e("Result == ", result.getResponse());
+                CD.showDialog(CabinetMemoDetailsActivity.this, result.getResponse());
             }
         }
 

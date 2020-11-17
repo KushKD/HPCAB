@@ -32,6 +32,7 @@ import com.dit.himachal.ecabinet.modal.BranchPojo;
 import com.dit.himachal.ecabinet.modal.DepartmentsPojo;
 import com.dit.himachal.ecabinet.modal.DepartmentsUserPojo;
 import com.dit.himachal.ecabinet.modal.GetDataPojo;
+import com.dit.himachal.ecabinet.modal.OfflineDataModel;
 import com.dit.himachal.ecabinet.modal.ResponsObject;
 import com.dit.himachal.ecabinet.modal.RolesPojo;
 import com.dit.himachal.ecabinet.modal.UserDataPojo;
@@ -479,18 +480,18 @@ public class Login extends AppCompatActivity implements AsyncTaskListenerObjectG
     }
 
     @Override
-    public void onTaskCompleted(ResponsObject result, TaskType taskType) throws JSONException {
-
+    public void onTaskCompleted(OfflineDataModel result, TaskType taskType) throws JSONException {
+       Log.e("Result", result.toString());
         if (taskType == TaskType.GET_ROLES) {
             //Check Weather the String is Json array or Json Object
-            if (result.getSuccessFailure().equalsIgnoreCase("SUCCESS")) {
-                Log.e("Result == ", result.respnse);
-                Object json = new JSONTokener(result.respnse).nextValue();
+            if (result.getHttpFlag().equalsIgnoreCase(Econstants.success)) {
+                Log.e("Result == ", result.getResponse());
+                Object json = new JSONTokener(result.getResponse()).nextValue();
                 if (json instanceof JSONObject) {
                     Log.e("Json Object", "Object");
                 } else if (json instanceof JSONArray) {
                     Log.e("Json Object", "Object");
-                    JSONArray arrayReports = new JSONArray(result.respnse);
+                    JSONArray arrayReports = new JSONArray(result.getResponse());
                     Log.e("arrayReports", arrayReports.toString());
 
                     if (arrayReports.length() > 0) {
@@ -517,22 +518,22 @@ public class Login extends AppCompatActivity implements AsyncTaskListenerObjectG
 
 
             } else {
-                CD.showDialog(Login.this, result.getRespnse());
+                CD.showDialog(Login.this, result.getResponse());
             }
         }
 
         //Departments
         else if (taskType == TaskType.GET_DEPARTMENTS_VIA_ROLES) {
 
-            Log.e("Result fd == ", result.respnse);
-            if (result.getSuccessFailure().equalsIgnoreCase("SUCCESS")) {
-                Log.e("Result == ", result.respnse);
-                Object json = new JSONTokener(result.respnse).nextValue();
+            Log.e("Result fd == ", result.getResponse());
+            if (result.getHttpFlag().equalsIgnoreCase("SUCCESS")) {
+                Log.e("Result == ", result.getResponse());
+                Object json = new JSONTokener(result.getResponse()).nextValue();
                 if (json instanceof JSONObject) {
                     Log.e("Json Object", "Object");
                 } else if (json instanceof JSONArray) {
                     Log.e("Json Object", "Object");
-                    JSONArray arrayReports = new JSONArray(result.respnse);
+                    JSONArray arrayReports = new JSONArray(result.getResponse());
                     Log.e("arrayReports", arrayReports.toString());
 
                     if (arrayReports.length() > 0) {
@@ -561,21 +562,21 @@ public class Login extends AppCompatActivity implements AsyncTaskListenerObjectG
 
 
             } else {
-                CD.showDialog(Login.this, result.getRespnse());
+                CD.showDialog(Login.this, result.getResponse());
 
             }
 
 
         } else if (taskType == TaskType.GET_BRANCHES) {
             //Check Weather the String is Json array or Json Object
-            if (result.getSuccessFailure().equalsIgnoreCase("SUCCESS")) {
-                Log.e("Result == ", result.respnse);
-                Object json = new JSONTokener(result.respnse).nextValue();
+            if (result.getHttpFlag().equalsIgnoreCase("SUCCESS")) {
+                Log.e("Result == ", result.getResponse());
+                Object json = new JSONTokener(result.getResponse()).nextValue();
                 if (json instanceof JSONObject) {
                     Log.e("Json Object", "Object");
                 } else if (json instanceof JSONArray) {
                     Log.e("Json Object", "Object");
-                    JSONArray arrayReports = new JSONArray(result.respnse);
+                    JSONArray arrayReports = new JSONArray(result.getResponse());
                     Log.e("arrayReports", arrayReports.toString());
 
                     if (arrayReports.length() > 0) {
@@ -604,21 +605,21 @@ public class Login extends AppCompatActivity implements AsyncTaskListenerObjectG
 
 
             } else {
-                CD.showDialog(Login.this, result.getRespnse());
+                CD.showDialog(Login.this, result.getResponse());
 
             }
 
 
         } else if (taskType == TaskType.GET_USERS) {
             //Check Weather the String is Json array or Json Object
-            if (result.getSuccessFailure().equalsIgnoreCase("SUCCESS")) {
-                Log.e("Result == ", result.respnse);
-                Object json = new JSONTokener(result.respnse).nextValue();
+            if (result.getHttpFlag().equalsIgnoreCase("SUCCESS")) {
+                Log.e("Result == ", result.getResponse());
+                Object json = new JSONTokener(result.getResponse()).nextValue();
                 if (json instanceof JSONObject) {
                     Log.e("Json Object", "Object");
                 } else if (json instanceof JSONArray) {
                     Log.e("Json Object", "Object");
-                    JSONArray arrayReports = new JSONArray(result.respnse);
+                    JSONArray arrayReports = new JSONArray(result.getResponse());
                     Log.e("arrayReports", arrayReports.toString());
 
                     if (arrayReports.length() > 0) {
@@ -649,40 +650,40 @@ public class Login extends AppCompatActivity implements AsyncTaskListenerObjectG
 
 
             } else {
-                CD.showDialog(Login.this, result.getRespnse());
+                CD.showDialog(Login.this, result.getResponse());
             }
         } else if (taskType == TaskType.GET_OTP_VIA_MOBILE) {
             //Check Weather the String is Json array or Json Object
-            if (result.getSuccessFailure().equalsIgnoreCase("SUCCESS")) {
-                Log.e("Result == ", result.respnse);
-                Object json = new JSONTokener(result.respnse).nextValue();
+            if (result.getHttpFlag().equalsIgnoreCase("SUCCESS")) {
+                Log.e("Result == ", result.getResponse());
+                Object json = new JSONTokener(result.getResponse()).nextValue();
                 if (json instanceof JSONObject) {
                     Log.e("Json Object", "Object");
-                    JSONObject object = new JSONObject(result.respnse);
+                    JSONObject object = new JSONObject(result.getResponse());
                     Log.e("arrayReports", object.toString());
 
                     CD.showDialogSuccess(Login.this, Econstants.decodeBase64(object.getString("StatusMessage")));
 
 
                 }else{
-                    JSONObject json2 = new JSONObject(result.respnse);
+                    JSONObject json2 = new JSONObject(result.getResponse());
                     CD.showDialog(Login.this,Econstants.decodeBase64(json2.getString("StatusMessage")));
                 }
 
 
             } else {
-                CD.showDialog(Login.this, result.getRespnse());
+                CD.showDialog(Login.this, result.getResponse());
             }
         } else if (taskType == TaskType.LOGIN) {
             //Check Weather the String is Json array or Json Object
-            if (result.getSuccessFailure().equalsIgnoreCase("SUCCESS")) {
-                Log.e("Result == ", result.respnse);
-                Object json = new JSONTokener(result.respnse).nextValue();
+            if (result.getHttpFlag().equalsIgnoreCase("SUCCESS")) {
+                Log.e("Result == ", result.getResponse());
+                Object json = new JSONTokener(result.getResponse()).nextValue();
                 if (json instanceof JSONObject) {
                     Log.e("Json Object", "Object");
                 } else if (json instanceof JSONArray) {
                     Log.e("Json Object", "Object");
-                    JSONArray arrayReports = new JSONArray(result.respnse);
+                    JSONArray arrayReports = new JSONArray(result.getResponse());
                     Log.e("arrayReports", arrayReports.toString());
 
                     if (arrayReports.length() > 0) {
@@ -731,13 +732,13 @@ public class Login extends AppCompatActivity implements AsyncTaskListenerObjectG
 
 
                     } else {
-                        CD.showDialog(Login.this, result.respnse);
+                        CD.showDialog(Login.this, result.getResponse());
                     }
                 }
 
 
             } else {
-                CD.showDialog(Login.this, result.getRespnse());
+                CD.showDialog(Login.this, result.getResponse());
             }
         }
     }

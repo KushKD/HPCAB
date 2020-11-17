@@ -18,6 +18,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dit.himachal.ecabinet.R;
 import com.dit.himachal.ecabinet.adapter.DepartmentsAdapter;
@@ -65,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
 
     TextView username, designation, mobile, is_cabinet;
     ImageView imageuser;
-     SwipeRefreshLayout pullToRefresh;
+    SwipeRefreshLayout pullToRefresh;
 
 
     ImageLoader imageLoader = new ImageLoader(MainActivity.this);
@@ -102,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
 //        Log.e("Photo==", Preferences.getInstance().photo);
 
         //if (!Preferences.getInstance().photo.isEmpty()) {
-          //  imageLoader.DisplayCircleImage(Preferences.getInstance().photo, imageuser, null, null, false);
+        //  imageLoader.DisplayCircleImage(Preferences.getInstance().photo, imageuser, null, null, false);
         //}
 
 
@@ -129,6 +130,7 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
                         List<String> parameters = new ArrayList<>();
                         parameters.add(Preferences.getInstance().role_id);
                         object.setParameters(parameters);
+                        object.setBifurcation("Menu" + Global_deptId);
 
                         new Generic_Async_Get(
                                 MainActivity.this,
@@ -138,21 +140,20 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
 
                     } else {
                         DatabaseHandler DB = new DatabaseHandler(MainActivity.this);
-                        Log.e("GET_MENU_LIST Start", Integer.toString(DB.GetAllOfflineDataViaFunction(TaskType.GET_MENU_LIST.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id,"Menu").size()));
-                        if(DB.GetAllOfflineDataViaFunction(TaskType.GET_MENU_LIST.toString(),Preferences.getInstance().user_id, Preferences.getInstance().role_id,"Menu").size()>0){
+                        Log.e("GET_MENU_LIST Start", Integer.toString(DB.GetAllOfflineDataViaFunction(TaskType.GET_MENU_LIST.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "Menu" + Global_deptId).size()));
+                        if (DB.GetAllOfflineDataViaFunction(TaskType.GET_MENU_LIST.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "Menu" + Global_deptId).size() > 0) {
                             //Show Events
                             try {
 
-                                showMenu(DB.GetAllOfflineDataViaFunction(TaskType.GET_MENU_LIST.toString(),Preferences.getInstance().user_id, Preferences.getInstance().role_id,"Menu").get(0));
+                                showMenu(DB.GetAllOfflineDataViaFunction(TaskType.GET_MENU_LIST.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "Menu" + Global_deptId).get(0));
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
 
-                        }else{
-                            // Toast.makeText(PolicyHomeScreen.this,"No Data Available.",Toast.LENGTH_LONG).show();
+                        } else {
                             CD.showDialogCloseActivity(MainActivity.this, Econstants.NO_DATA);
                         }
-                        CD.showDialog(MainActivity.this, "Please connect to Internet and try again.");
+                        Toast.makeText(getApplicationContext(),"Application running in Offline Mode.",Toast.LENGTH_LONG).show();
                     }
 
 
@@ -180,6 +181,7 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
             parameters.add(Preferences.getInstance().user_id);
             parameters.add(Preferences.getInstance().role_id);
             object2.setParameters(parameters);
+            object2.setBifurcation("GET_DEPARTMENTS_VIA_ROLES");
 
             new Generic_Async_Get(
                     MainActivity.this,
@@ -188,16 +190,26 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
                     execute(object2);
 
         } else {
-            CD.showDialog(MainActivity.this, "Please connect to Internet and try again.");
+
+            DatabaseHandler DB = new DatabaseHandler(MainActivity.this);
+            Log.e("GET_DEPARTMENTS_VIA", Integer.toString(DB.GetAllOfflineDataViaFunction(TaskType.GET_DEPARTMENTS_VIA_ROLES.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "GET_DEPARTMENTS_VIA_ROLES").size()));
+            if (DB.GetAllOfflineDataViaFunction(TaskType.GET_DEPARTMENTS_VIA_ROLES.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "GET_DEPARTMENTS_VIA_ROLES").size() > 0) {
+                //Show Events
+                try {
+
+                    showDepartments(DB.GetAllOfflineDataViaFunction(TaskType.GET_DEPARTMENTS_VIA_ROLES.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "GET_DEPARTMENTS_VIA_ROLES").get(0));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            } else {
+                CD.showDialogCloseActivity(MainActivity.this, Econstants.NO_DATA);
+            }
+
         }
 
 
-//        meetingStatus.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                CD.showDialog(MainActivity.this, meetingStatus.getText().toString());
-//            }
-//        });
+
 
         home_gv.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
@@ -235,7 +247,21 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
                             execute(object2);
 
                 } else {
-                    CD.showDialog(MainActivity.this, "Please connect to Internet and try again.");
+
+                    DatabaseHandler DB = new DatabaseHandler(MainActivity.this);
+                    Log.e("GET_DEPARTMENTS_VIA", Integer.toString(DB.GetAllOfflineDataViaFunction(TaskType.GET_DEPARTMENTS_VIA_ROLES.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "GET_DEPARTMENTS_VIA_ROLES").size()));
+                    if (DB.GetAllOfflineDataViaFunction(TaskType.GET_DEPARTMENTS_VIA_ROLES.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "GET_DEPARTMENTS_VIA_ROLES").size() > 0) {
+                        //Show Events
+                        try {
+
+                            showDepartments(DB.GetAllOfflineDataViaFunction(TaskType.GET_DEPARTMENTS_VIA_ROLES.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "GET_DEPARTMENTS_VIA_ROLES").get(0));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    } else {
+                        CD.showDialogCloseActivity(MainActivity.this, Econstants.NO_DATA);
+                    }
                 }
 
 
@@ -248,8 +274,6 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
                 Log.e("We are Here", intent.getAction());
                 if (intent.getAction() == "getAgenda") {
 
-                    //SCAN_DATA
-                    Log.e("We are Here 2sd ", intent.getAction());
 
                     if (AppStatus.getInstance(MainActivity.this).isOnline()) {
                         GetDataPojo object = new GetDataPojo();
@@ -258,6 +282,7 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
                         object.setMethordHash(Econstants.encodeBase64(Econstants.methordGetOnlineCabinetIDMeetingToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
                         object.setTaskType(TaskType.CABINET_MEETING_STATUS);
                         object.setTimeStamp(CommonUtils.getTimeStamp());
+                        object.setBifurcation("CABINET_MEETING_STATUS");
 
                         new Generic_Async_Get(
                                 MainActivity.this,
@@ -266,7 +291,20 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
                                 execute(object);
 
                     } else {
-                        CD.showDialog(MainActivity.this, "Please Connect to Internet and try again.");
+                        DatabaseHandler DB = new DatabaseHandler(MainActivity.this);
+                        Log.e("CABINET_MEETING_STATUS", Integer.toString(DB.GetAllOfflineDataViaFunction(TaskType.CABINET_MEETING_STATUS.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "CABINET_MEETING_STATUS").size()));
+                        if (DB.GetAllOfflineDataViaFunction(TaskType.CABINET_MEETING_STATUS.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "CABINET_MEETING_STATUS").size() > 0) {
+                            //Show Events
+                            try {
+
+                                showCabinetAgenda(DB.GetAllOfflineDataViaFunction(TaskType.CABINET_MEETING_STATUS.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "CABINET_MEETING_STATUS").get(0));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        } else {
+                            CD.showDialogCloseActivity(MainActivity.this, Econstants.NO_DATA);
+                        }
                     }
 
 
@@ -278,40 +316,149 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
     }
 
     private void showMenu(OfflineDataModel menu) throws JSONException {
-        Object json = new JSONTokener(menu.getResponse()).nextValue();
-        if (json instanceof JSONObject) {
-            Log.e("Json Object", "Object");
-        } else if (json instanceof JSONArray) {
-            Log.e("Json Object", "Object");
-            JSONArray arrayReports = new JSONArray(menu.getResponse());
-            Log.e("arrayReports", arrayReports.toString());
 
-            if (arrayReports.length() > 0) {
-                modules = new ArrayList<>();
-                //ReportsModelPojo
+        if (menu.getFunctionName().equalsIgnoreCase(TaskType.GET_MENU_LIST.toString())) {
+            Object json = new JSONTokener(menu.getResponse()).nextValue();
+            if (json instanceof JSONObject) {
+                Log.e("Json Object", "Object");
+            } else if (json instanceof JSONArray) {
+                Log.e("Json Object", "Object");
+                JSONArray arrayReports = new JSONArray(menu.getResponse());
+                Log.e("arrayReports", arrayReports.toString());
 
-
-                for (int i = 0; i < arrayReports.length(); i++) {
-                    ModulesPojo modulesPojo = new ModulesPojo();
-                    JSONObject object = arrayReports.getJSONObject(i);
-
-                    modulesPojo.setId(Econstants.decodeBase64(object.optString("Menuid")));
-                    modulesPojo.setName(Econstants.decodeBase64(object.optString("MenuName")));
-                    modulesPojo.setLogo(Econstants.decodeBase64(object.optString("MenuIcon")));
+                if (arrayReports.length() > 0) {
+                    modules = new ArrayList<>();
+                    //ReportsModelPojo
 
 
-                    modules.add(modulesPojo);
+                    for (int i = 0; i < arrayReports.length(); i++) {
+                        ModulesPojo modulesPojo = new ModulesPojo();
+                        JSONObject object = arrayReports.getJSONObject(i);
+
+                        modulesPojo.setId(Econstants.decodeBase64(object.optString("Menuid")));
+                        modulesPojo.setName(Econstants.decodeBase64(object.optString("MenuName")));
+                        modulesPojo.setLogo(Econstants.decodeBase64(object.optString("MenuIcon")));
+
+
+                        modules.add(modulesPojo);
+                    }
+
+                    adapter_modules = new HomeGridViewAdapter(this, (ArrayList<ModulesPojo>) modules, Global_deptId);
+                    home_gv.setAdapter(adapter_modules);
+
+
+                } else {
+                    Toast.makeText(getApplicationContext(), "No Records Found", Toast.LENGTH_LONG).show();
+
                 }
+            }
+        }
+    }
 
-                //  Log.e("Departments Data", departments.toString());;
-                adapter_modules = new HomeGridViewAdapter(this, (ArrayList<ModulesPojo>) modules, Global_deptId);
-                home_gv.setAdapter(adapter_modules);
+
+    private void showDepartments(OfflineDataModel result) throws JSONException {
+
+        if (result.getFunctionName().equalsIgnoreCase(TaskType.GET_DEPARTMENTS_VIA_ROLES.toString())) {
+            Log.e("Result fd == ", result.getResponse());
+            // if (result.getHttpFlag().equalsIgnoreCase(Econstants.success)) {
+            Log.e("Result == ", result.getResponse());
+            Object json = new JSONTokener(result.getResponse()).nextValue();
+            if (json instanceof JSONObject) {
+                Log.e("Json Object", "Object");
+            } else if (json instanceof JSONArray) {
+                Log.e("Json Object", "Object");
+                JSONArray arrayReports = new JSONArray(result.getResponse());
+                Log.e("arrayReports", arrayReports.toString());
+
+                if (arrayReports.length() > 0) {
+                    departments = new ArrayList<>();
+                    //ReportsModelPojo
+
+                    DepartmentsPojo all = new DepartmentsPojo();
+                    all.setDeptName("All");
+                    all.setDeptId("0");
 
 
-            } else {
-                CD.showDialog(MainActivity.this, "No Departments Found");
+                    for (int i = 0; i < arrayReports.length(); i++) {
+                        DepartmentsPojo departmentsPojo = new DepartmentsPojo();
+                        JSONObject object = arrayReports.getJSONObject(i);
+
+                        departmentsPojo.setDeptId(Econstants.decodeBase64(object.getString("DeptId")));
+                        departmentsPojo.setDeptName(Econstants.decodeBase64(object.getString("DeptName")));
+
+
+                        departments.add(departmentsPojo);
+                    }
+                    departments.add(0, all);
+                    Log.e("Departments Data", departments.toString());
+                    departmentsAdapter = new DepartmentsAdapter(MainActivity.this, android.R.layout.simple_spinner_item, departments);
+                    department.setAdapter(departmentsAdapter);
+
+
+                } else {
+                    CD.showDialog(MainActivity.this, "No Departments Found");
+
+                }
+            }
+
+
+            // }
+            else {
+                CD.showDialog(MainActivity.this, result.getResponse());
 
             }
+        }
+
+
+    }
+
+    private void showCabinetAgenda(OfflineDataModel result) throws JSONException {
+
+        if (result.getFunctionName().equalsIgnoreCase(TaskType.CABINET_MEETING_STATUS.toString())) {
+            AgendaPojo agendaPojo = null;
+
+                Log.e("Result == ", result.getResponse());
+                Object json = null;
+                try {
+                    json = new JSONTokener(result.getResponse()).nextValue();
+                } catch (JSONException e) {
+                    Log.e("==Error", e.getLocalizedMessage().toString());
+                }
+                if (json instanceof JSONObject) {
+                    try {
+                        Log.e("Json Object", "Object");
+                        JSONObject object = new JSONObject(result.getResponse());
+                        agendaPojo = new AgendaPojo();
+                        agendaPojo.setAgendaItemNo(Econstants.decodeBase64(object.optString("AgendaItemNo")));
+                        agendaPojo.setAgendaItemType(Econstants.decodeBase64(object.optString("AgendaItemType")));
+                        agendaPojo.setDeptName(Econstants.decodeBase64(object.optString("DeptName")));
+                        agendaPojo.setFileNo(Econstants.decodeBase64(object.optString("FileNo")));
+                        agendaPojo.setSubject(Econstants.decodeBase64(object.optString("Subject")));
+
+
+                        if (agendaPojo.getAgendaItemType().length() > 0) {
+                            Log.e("Agenda", agendaPojo.toString());
+                            CD.showDialogActiveAjenda(MainActivity.this, agendaPojo);
+                            //TODO Agenda Pop Up
+                        } else {
+                            Log.e("Agenda", agendaPojo.toString());
+                            CD.showDialogSuccess(MainActivity.this, "No Active Agenda Item Available.");
+                        }
+
+                    } catch (Exception ex) {
+                        Log.e("arrayReports", ex.toString());
+                    }
+
+
+                }
+
+
+
+
+
+        } else {
+            CD.showDialog(MainActivity.this, result.getResponse());
+
         }
     }
 
@@ -323,8 +470,6 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
         registerReceiver(mReceiver, new IntentFilter("getAgenda"));
 
     }
-
-
 
 
     @Override
@@ -348,147 +493,87 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
     }
 
     @Override
-    public void onTaskCompleted(ResponsObject result, TaskType taskType) throws JSONException {
+    public void onTaskCompleted(OfflineDataModel result, TaskType taskType) throws JSONException {
 
         if (taskType == TaskType.GET_DEPARTMENTS_VIA_ROLES) {
 
-            Log.e("Result fd == ", result.respnse);
-            if (result.getSuccessFailure().equalsIgnoreCase("SUCCESS")) {
-                Log.e("Result == ", result.respnse);
-                Object json = new JSONTokener(result.respnse).nextValue();
-                if (json instanceof JSONObject) {
-                    Log.e("Json Object", "Object");
-                } else if (json instanceof JSONArray) {
-                    Log.e("Json Object", "Object");
-                    JSONArray arrayReports = new JSONArray(result.respnse);
-                    Log.e("arrayReports", arrayReports.toString());
-
-                    if (arrayReports.length() > 0) {
-                        departments = new ArrayList<>();
-                        //ReportsModelPojo
-
-                        DepartmentsPojo all = new DepartmentsPojo();
-                        all.setDeptName("All");
-                        all.setDeptId("0");
-
-
-                        for (int i = 0; i < arrayReports.length(); i++) {
-                            DepartmentsPojo departmentsPojo = new DepartmentsPojo();
-                            JSONObject object = arrayReports.getJSONObject(i);
-
-                            departmentsPojo.setDeptId(Econstants.decodeBase64(object.getString("DeptId")));
-                            departmentsPojo.setDeptName(Econstants.decodeBase64(object.getString("DeptName")));
-
-
-                            departments.add(departmentsPojo);
-                        }
-                        departments.add(0, all);
-                        Log.e("Departments Data", departments.toString());
-                        departmentsAdapter = new DepartmentsAdapter(MainActivity.this, android.R.layout.simple_spinner_item, departments);
-                        department.setAdapter(departmentsAdapter);
-
-
-                    } else {
-                        CD.showDialog(MainActivity.this, "No Departments Found");
-
-                    }
+            if (result.getHttpFlag().equalsIgnoreCase(Econstants.success)) {
+                //Save the rsult to Database
+                DatabaseHandler DH = new DatabaseHandler(MainActivity.this);
+                //Check weather the Hash is Present in the DB or not
+                Log.e("??Total Numner of Rows", Integer.toString(DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_DEPARTMENTS_VIA_ROLES.toString(), "GET_DEPARTMENTS_VIA_ROLES")));
+                if (DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_DEPARTMENTS_VIA_ROLES.toString(), "GET_DEPARTMENTS_VIA_ROLES") == 1) {
+                    //Update the Earlier Record
+                    DH.updateData(result);
+                    Log.e("Updated Row", Boolean.toString(DH.updateData(result)));
+                } else if (DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_DEPARTMENTS_VIA_ROLES.toString(), "GET_DEPARTMENTS_VIA_ROLES") == 0) {
+                    DH.addOfflineAccess(result);
+                    Log.e("Added Row", Boolean.toString(DH.addOfflineAccess(result)));
+                } else {
+                    //DELETE ALL THE RECORDS
+                    DH.deleteAllExistingOfflineData(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_DEPARTMENTS_VIA_ROLES.toString(), "GET_DEPARTMENTS_VIA_ROLES");
+                    Log.e("Total Records Deleted:-", Integer.toString(DH.deleteAllExistingOfflineData(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_DEPARTMENTS_VIA_ROLES.toString(), "GET_DEPARTMENTS_VIA_ROLES")));
+                    //Add the Latest Record
+                    DH.addOfflineAccess(result);
                 }
 
-
+                showDepartments(result);
             } else {
-                CD.showDialog(MainActivity.this, result.getRespnse());
-
+                CD.showDialogCloseActivity(MainActivity.this, result.getResponse().toString());
             }
 
         } else if (taskType == TaskType.GET_MENU_LIST) {
 
-            Log.e("Result fd == ", result.respnse);
-            if (result.getSuccessFailure().equalsIgnoreCase("SUCCESS")) {
-                Log.e("Result == ", result.respnse);
-                Object json = new JSONTokener(result.respnse).nextValue();
-                if (json instanceof JSONObject) {
-                    Log.e("Json Object", "Object");
-                } else if (json instanceof JSONArray) {
-                    Log.e("Json Object", "Object");
-                    JSONArray arrayReports = new JSONArray(result.respnse);
-                    Log.e("arrayReports", arrayReports.toString());
-
-                    if (arrayReports.length() > 0) {
-                        modules = new ArrayList<>();
-                        //ReportsModelPojo
-
-
-                        for (int i = 0; i < arrayReports.length(); i++) {
-                            ModulesPojo modulesPojo = new ModulesPojo();
-                            JSONObject object = arrayReports.getJSONObject(i);
-
-                            modulesPojo.setId(Econstants.decodeBase64(object.optString("Menuid")));
-                            modulesPojo.setName(Econstants.decodeBase64(object.optString("MenuName")));
-                            modulesPojo.setLogo(Econstants.decodeBase64(object.optString("MenuIcon")));
-
-
-                            modules.add(modulesPojo);
-                        }
-
-                        //  Log.e("Departments Data", departments.toString());;
-                        adapter_modules = new HomeGridViewAdapter(this, (ArrayList<ModulesPojo>) modules, Global_deptId);
-                        home_gv.setAdapter(adapter_modules);
-
-
-                    } else {
-                        CD.showDialog(MainActivity.this, "No Departments Found");
-
-                    }
+            if (result.getHttpFlag().equalsIgnoreCase(Econstants.success)) {
+                //Save the rsult to Database
+                DatabaseHandler DH = new DatabaseHandler(MainActivity.this);
+                //Check weather the Hash is Present in the DB or not
+                Log.e("??Total Numner of Rows", Integer.toString(DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_MENU_LIST.toString(), "Menu" + Global_deptId)));
+                if (DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_MENU_LIST.toString(), "Menu" + Global_deptId) == 1) {
+                    //Update the Earlier Record
+                    DH.updateData(result);
+                    Log.e("Updated Row", Boolean.toString(DH.updateData(result)));
+                } else if (DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_MENU_LIST.toString(), "Menu" + Global_deptId) == 0) {
+                    DH.addOfflineAccess(result);
+                    Log.e("Added Row", Boolean.toString(DH.addOfflineAccess(result)));
+                } else {
+                    //DELETE ALL THE RECORDS
+                    DH.deleteAllExistingOfflineData(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_MENU_LIST.toString(), "Menu" + Global_deptId);
+                    Log.e("Total Records Deleted:-", Integer.toString(DH.deleteAllExistingOfflineData(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_MENU_LIST.toString(), "Menu" + Global_deptId)));
+                    //Add the Latest Record
+                    DH.addOfflineAccess(result);
                 }
 
-
+                showMenu(result);
             } else {
-                CD.showDialog(MainActivity.this, result.getRespnse());
-
+                CD.showDialogCloseActivity(MainActivity.this, result.getResponse().toString());
             }
 
+
         } else if (taskType == TaskType.CABINET_MEETING_STATUS) {
-
-            AgendaPojo agendaPojo = null;
-            if (result.getSuccessFailure().equalsIgnoreCase("SUCCESS")) {
-                Log.e("Result == ", result.respnse);
-                Object json = null;
-                try {
-                    json = new JSONTokener(result.respnse).nextValue();
-                } catch (JSONException e) {
-                    Log.e("==Error", e.getLocalizedMessage().toString());
-                }
-                if (json instanceof JSONObject) {
-                    try {
-                        Log.e("Json Object", "Object");
-                        JSONObject object = new JSONObject(result.respnse);
-                        agendaPojo = new AgendaPojo();
-                        agendaPojo.setAgendaItemNo(Econstants.decodeBase64(object.optString("AgendaItemNo")));
-                        agendaPojo.setAgendaItemType(Econstants.decodeBase64(object.optString("AgendaItemType")));
-                        agendaPojo.setDeptName(Econstants.decodeBase64(object.optString("DeptName")));
-                        agendaPojo.setFileNo(Econstants.decodeBase64(object.optString("FileNo")));
-                        agendaPojo.setSubject(Econstants.decodeBase64(object.optString("Subject")));
-
-
-                        if (agendaPojo.getAgendaItemType().length() > 0) {
-                                Log.e("Agenda",agendaPojo.toString());
-                            CD.showDialogActiveAjenda(MainActivity.this, agendaPojo);
-                                //TODO Agenda Pop Up
-                        } else {
-                            Log.e("Agenda",agendaPojo.toString());
-                            CD.showDialogSuccess(MainActivity.this, "No Active Agenda Item Available.");
-                        }
-
-                    } catch (Exception ex) {
-                        Log.e("arrayReports", ex.toString());
-                    }
-
-
+            if (result.getHttpFlag().equalsIgnoreCase(Econstants.success)) {
+                //Save the rsult to Database
+                DatabaseHandler DH = new DatabaseHandler(MainActivity.this);
+                //Check weather the Hash is Present in the DB or not
+                Log.e("??Total Numner of Rows", Integer.toString(DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.CABINET_MEETING_STATUS.toString(), "CABINET_MEETING_STATUS")));
+                if (DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.CABINET_MEETING_STATUS.toString(), "CABINET_MEETING_STATUS") == 1) {
+                    //Update the Earlier Record
+                    DH.updateData(result);
+                    Log.e("Updated Row", Boolean.toString(DH.updateData(result)));
+                } else if (DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.CABINET_MEETING_STATUS.toString(), "CABINET_MEETING_STATUS") == 0) {
+                    DH.addOfflineAccess(result);
+                    Log.e("Added Row", Boolean.toString(DH.addOfflineAccess(result)));
                 } else {
-
+                    //DELETE ALL THE RECORDS
+                    DH.deleteAllExistingOfflineData(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.CABINET_MEETING_STATUS.toString(), "CABINET_MEETING_STATUS");
+                    Log.e("Total Records Deleted:-", Integer.toString(DH.deleteAllExistingOfflineData(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.CABINET_MEETING_STATUS.toString(), "CABINET_MEETING_STATUS")));
+                    //Add the Latest Record
+                    DH.addOfflineAccess(result);
                 }
 
-
+                showCabinetAgenda(result);
+            } else {
+                CD.showDialogCloseActivity(MainActivity.this, result.getResponse().toString());
             }
 
         }
