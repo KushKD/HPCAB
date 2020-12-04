@@ -15,14 +15,16 @@ import org.apache.commons.codec.binary.Base64;
  */
 public class Econstants {
     //URL Staging
-   // public static final String url = "http://164.100.138.114/eCabinetService.svc";
+    public static final String url = "http://164.100.138.114/eCabinetService.svc";
 
     //URL Production
-    public static final String url = "http://ecabinetwcf.hp.gov.in/eCabinetService.svc";
+    //public static final String url = "http://ecabinetwcf.hp.gov.in/eCabinetService.svc";
 
 
     public static String delemeter = "/";
     public static String seperator = "#";
+
+    private static String Color_Grey = "#000000";
 
     public static final String methordGetRoles = "GetRole";
     public static final String methordGetRolesToken = "UFG776888a314e7421e7e12f5cfuhuu081f0";

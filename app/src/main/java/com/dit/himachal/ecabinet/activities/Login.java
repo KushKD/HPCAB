@@ -194,7 +194,8 @@ public class Login extends AppCompatActivity implements AsyncTaskListenerObjectG
                     Global_roleId = roles.getRoleId();
 
 
-                    if (Global_roleId.equalsIgnoreCase("7") || Global_roleId.equalsIgnoreCase("6")) {
+                    if (Global_roleId.equalsIgnoreCase("7") || Global_roleId.equalsIgnoreCase("6")
+                            || Global_roleId.equalsIgnoreCase("4") ||  Global_roleId.equalsIgnoreCase("5")) {
                         dept_lay.setVisibility(View.GONE);
                         linear.setVisibility(View.GONE);
                         if (AppStatus.getInstance(Login.this).isOnline()) {

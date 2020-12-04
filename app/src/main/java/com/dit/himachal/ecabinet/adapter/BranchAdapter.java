@@ -48,7 +48,7 @@ public class BranchAdapter extends ArrayAdapter<BranchPojo> {
         TextView label = new TextView(context);
         //label.setTextColor(Color.BLACK);
         label.setTextSize(17);
-        label.setTextColor(Color.parseColor("#475EAB"));
+        label.setTextColor(Color.parseColor("#000000"));
         label.setPadding(5, 5, 5, 5);
         // Then you can get the current item using the values array (Users array) and the current position
         // You can NOW reference each method you has created in your bean object (User class)
@@ -66,7 +66,7 @@ public class BranchAdapter extends ArrayAdapter<BranchPojo> {
                                 ViewGroup parent) {
         TextView label = new TextView(context);
         label.setTextColor(Color.BLACK);
-        label.setTextColor(Color.parseColor("#475EAB"));
+        label.setTextColor(Color.parseColor("#000000"));
         label.setTextSize(17);
         label.setPadding(15, 15, 15, 15);
         label.setText(values.get(position).getBranchName());
