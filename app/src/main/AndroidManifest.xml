@@ -21,13 +21,22 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
-        <activity android:name=".activities.CabinetDecisions"
+        <activity
+            android:name=".activities.MainActivity2"
             android:alwaysRetainTaskState="true"
             android:focusableInTouchMode="true"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden"></activity>
+        <activity
+            android:name=".activities.CabinetDecisions"
+            android:alwaysRetainTaskState="true"
+            android:focusableInTouchMode="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activities.FinalAgendaList"
             android:alwaysRetainTaskState="true"

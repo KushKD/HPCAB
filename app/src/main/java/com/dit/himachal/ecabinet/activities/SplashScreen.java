@@ -1,9 +1,5 @@
 package com.dit.himachal.ecabinet.activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -12,9 +8,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.PersistableBundle;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.dit.himachal.ecabinet.R;
 import com.dit.himachal.ecabinet.utilities.Preferences;
@@ -50,7 +49,7 @@ public class SplashScreen extends AppCompatActivity {
             public void run() {
                 overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
                 if(Preferences.getInstance().isLoggedIn){
-                    Intent mainIntent = new Intent(SplashScreen.this, MainActivity.class);
+                    Intent mainIntent = new Intent(SplashScreen.this, MainActivity2.class);
                     SplashScreen.this.startActivity(mainIntent);
                     SplashScreen.this.finish();
                 }else{

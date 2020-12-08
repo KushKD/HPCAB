@@ -1,12 +1,7 @@
 package com.dit.himachal.ecabinet.activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.PersistableBundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -19,6 +14,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.dit.himachal.ecabinet.R;
 import com.dit.himachal.ecabinet.adapter.BranchAdapter;
@@ -33,7 +31,6 @@ import com.dit.himachal.ecabinet.modal.DepartmentsPojo;
 import com.dit.himachal.ecabinet.modal.DepartmentsUserPojo;
 import com.dit.himachal.ecabinet.modal.GetDataPojo;
 import com.dit.himachal.ecabinet.modal.OfflineDataModel;
-import com.dit.himachal.ecabinet.modal.ResponsObject;
 import com.dit.himachal.ecabinet.modal.RolesPojo;
 import com.dit.himachal.ecabinet.modal.UserDataPojo;
 import com.dit.himachal.ecabinet.modal.UserPojo;
@@ -41,6 +38,7 @@ import com.dit.himachal.ecabinet.presentation.CustomDialog;
 import com.dit.himachal.ecabinet.utilities.AppStatus;
 import com.dit.himachal.ecabinet.utilities.CommonUtils;
 import com.dit.himachal.ecabinet.utilities.Econstants;
+import com.dit.himachal.ecabinet.utilities.Preferences;
 import com.dit.himachal.ecabinet.utilities.PreventScreenshot;
 import com.doi.spinnersearchable.SearchableSpinner;
 
@@ -51,8 +49,6 @@ import org.json.JSONTokener;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.dit.himachal.ecabinet.utilities.Preferences;
 
 public class Login extends AppCompatActivity implements AsyncTaskListenerObjectGet {
 
@@ -719,8 +715,9 @@ public class Login extends AppCompatActivity implements AsyncTaskListenerObjectG
                             //Save Data to shared Prefrences
                             boolean goToMain = saveDataSharedPrefrences(dataPojo);
                             if (goToMain) {
-                                Toast.makeText(Login.this,"Login Successful",Toast.LENGTH_LONG);
-                                Intent mainIntent = new Intent(Login.this, MainActivity.class);
+                                Toast.makeText(Login.this, "Login Successful", Toast.LENGTH_LONG);
+                                // Intent mainIntent = new Intent(Login.this, MainActivity.class);
+                                Intent mainIntent = new Intent(Login.this, MainActivity2.class);
                                 Login.this.startActivity(mainIntent);
                                 Login.this.finish();
                             } else {
