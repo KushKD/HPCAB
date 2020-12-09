@@ -238,7 +238,7 @@ public class MeetingStatus extends LinearLayout {
                     e.printStackTrace();
                 }
             } else {
-                CD.showDialogCloseActivity((Activity)context_, "No fddfdfdf");
+               // CD.showDialogCloseActivity((Activity)context_, "No fddfdfdf");
             }
 
 

@@ -9,10 +9,9 @@
         <!--android:icon="@drawable/user"-->
         <!--android:title="@string/menu_profile" />-->
         <item
-            android:id="@+id/log_out"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Logout"
-            android:visible="false" />
+            android:id="@+id/log_in"
+            android:icon="@drawable/login_user"
+            android:title="Login" />
         <!--<item-->
         <!--android:id="@+id/nav_slideshow"-->
         <!--android:icon="@drawable/ic_menu_slideshow"-->

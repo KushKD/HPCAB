@@ -1,5 +1,6 @@
 package com.dit.himachal.ecabinet.activities;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +12,7 @@ import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
@@ -24,6 +26,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -64,7 +67,7 @@ import org.json.JSONTokener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity2 extends AppCompatActivity implements AsyncTaskListenerObjectGet, LengthAgenda {
+public class MainActivity2 extends AppCompatActivity implements AsyncTaskListenerObjectGet, LengthAgenda, NavigationView.OnNavigationItemSelectedListener {
 
     public SliderView sliderView;
 
@@ -128,23 +131,23 @@ public class MainActivity2 extends AppCompatActivity implements AsyncTaskListene
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-        // navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setNavigationItemSelectedListener(this);
 
         View hView = navigationView.getHeaderView(0);
-        //  TextView name = (TextView) hView.findViewById(R.id.name);
-        // TextView role_name = (TextView) hView.findViewById(R.id.role_name);
-        // TextView department_name = (TextView) hView.findViewById(R.id.department_name);
-        // name.setText(Preferences.getInstance().fullName);
-        // role_name.setText(Preferences.getInstance().roleName);
-        // department_name.setText(Preferences.getInstance().department_name);
+        TextView name = (TextView) hView.findViewById(R.id.name);
+        TextView mobile_number = (TextView) hView.findViewById(R.id.mobilenumber);
+        TextView designation = (TextView) hView.findViewById(R.id.designation);
+        name.setText(Preferences.getInstance().user_name);
+        mobile_number.setText(Preferences.getInstance().phone_number);
+        designation.setText(Preferences.getInstance().role_name);
 
-//        if(Preferences.getInstance().isLoggedIn){
-//            navigationView.getMenu().clear();
-//            navigationView.inflateMenu(R.menu.logout);
-//        }else{
-//            navigationView.getMenu().clear();
-//            navigationView.inflateMenu(R.menu.login);
-//        }
+        if (Preferences.getInstance().isLoggedIn) {
+            navigationView.getMenu().clear();
+            navigationView.inflateMenu(R.menu.logout);
+        } else {
+            navigationView.getMenu().clear();
+            navigationView.inflateMenu(R.menu.login);
+        }
 
         PreventScreenshot.on(MainActivity2.this);
 
@@ -683,4 +686,48 @@ public class MainActivity2 extends AppCompatActivity implements AsyncTaskListene
     public void onLengthChanged(View v, int progress) {
         Log.e("Methord Called", "We are HEre");
     }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.log_in) {
+            Intent i = new Intent(MainActivity2.this, Login.class);
+            startActivity(i);
+
+        }
+        //else
+        else if (id == R.id.log_out) {
+            Preferences.getInstance().loadPreferences(MainActivity2.this);
+
+
+            Preferences.getInstance().role_id = "";
+            Preferences.getInstance().user_id = "";
+            Preferences.getInstance().user_name = "";
+            Preferences.getInstance().role_name = "";
+            Preferences.getInstance().mapped_departments = "";
+            Preferences.getInstance().branched_mapped = "";
+            Preferences.getInstance().photo = "";
+            Preferences.getInstance().is_cabinet_minister = false;
+            Preferences.getInstance().isLoggedIn = false;
+
+
+            Preferences.getInstance().savePreferences(MainActivity2.this);
+            Toast.makeText(MainActivity2.this, "Logout Successful", Toast.LENGTH_LONG).show();
+
+            Intent mainIntent = new Intent(MainActivity2.this, Login.class);
+            (MainActivity2.this).startActivity(mainIntent);
+            ((Activity) MainActivity2.this).finish();
+
+
+        }
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+
 }
