@@ -5,9 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.Environment;
 import android.util.Log;
-
 
 import com.dit.himachal.ecabinet.modal.OfflineDataModel;
 
@@ -21,10 +19,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     boolean bool = false;
 
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
     // Database Name
-    private static final String DATABASE_NAME = "eCabinet.db";
+    private static final String DATABASE_NAME = "eCabinetV3.db";
 
 
 
