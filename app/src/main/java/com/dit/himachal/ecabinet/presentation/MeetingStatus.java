@@ -3,29 +3,24 @@ package com.dit.himachal.ecabinet.presentation;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.graphics.Color;
+import android.content.res.TypedArray;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.core.content.ContextCompat;
-
 import com.dit.himachal.ecabinet.R;
-import com.dit.himachal.ecabinet.activities.Login;
-import com.dit.himachal.ecabinet.activities.MainActivity;
+import com.dit.himachal.ecabinet.activities.MainActivity2;
 import com.dit.himachal.ecabinet.databases.DatabaseHandler;
 import com.dit.himachal.ecabinet.enums.TaskType;
-import com.dit.himachal.ecabinet.generic.Generic_Async_Get;
-import com.dit.himachal.ecabinet.generic.Generic_Async_Get_Widget;
-import com.dit.himachal.ecabinet.interfaces.AsyncTaskListenerObjectGet;
-import com.dit.himachal.ecabinet.interfaces.AsyncTaskListenerObjectGetWidget;
+import com.dit.himachal.ecabinet.interfaces.LengthAgenda;
 import com.dit.himachal.ecabinet.modal.AgendaPojo;
 import com.dit.himachal.ecabinet.modal.GetDataPojo;
 import com.dit.himachal.ecabinet.modal.OfflineDataModel;
-import com.dit.himachal.ecabinet.modal.ResponsObject;
 import com.dit.himachal.ecabinet.network.HttpManager;
 import com.dit.himachal.ecabinet.utilities.AppStatus;
 import com.dit.himachal.ecabinet.utilities.CommonUtils;
@@ -39,37 +34,69 @@ import org.json.JSONTokener;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class MeetingStatus extends androidx.appcompat.widget.AppCompatTextView {
+public class MeetingStatus extends LinearLayout {
 
 
     CustomDialog CD = new CustomDialog();
+    MainActivity2 MS = new MainActivity2();
+
+    LinearLayout layout = null;
+    TextView agendanumberTextView = null;
+    TextView ajendanameTextView = null;
+    TextView designationTextView = null;
+
+    private LengthAgenda lengthAgendaListener;
+
     Context context_;
     private GetAvailability currentTask = null;
 
-    public MeetingStatus(Context context) {
+    public MeetingStatus(Context context, LengthAgenda lengthAgenda) {
         super(context);
-        SetUP_TextView(context);
+        this.context_ = context;
+        this.lengthAgendaListener = lengthAgenda;
 
     }
 
     public MeetingStatus(Context context, AttributeSet attrs) {
         super(context, attrs);
-        SetUP_TextView(context);
+        this.context_ = context;
+        SetUP_TextView(attrs, context);
+
 
     }
 
     public MeetingStatus(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        SetUP_TextView(context);
+        this.context_ = context;
 
     }
 
 
-    public void SetUP_TextView(Context context) {
+    public void SetUP_TextView(AttributeSet attrs, Context context) {
 
         this.context_ = context;
-        this.setVisibility(View.VISIBLE);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.MeetingStatus);
+        String agendanumber = a.getString(R.styleable.MeetingStatus_agendanumber);
+        String ajendaname = a.getString(R.styleable.MeetingStatus_ajendaname);
+        String designation = a.getString(R.styleable.MeetingStatus_designation);
 
+        agendanumber = agendanumber == null ? "" : agendanumber;
+        ajendaname = ajendaname == null ? "" : ajendaname;
+        designation = designation == null ? "" : designation;
+
+        String service = Context.LAYOUT_INFLATER_SERVICE;
+        LayoutInflater li = (LayoutInflater) getContext().getSystemService(service);
+
+        layout = (LinearLayout) li.inflate(R.layout.user_dashboard, this, true);
+
+        agendanumberTextView = (TextView) layout.findViewById(R.id.agendanumber);
+        ajendanameTextView = (TextView) layout.findViewById(R.id.ajendaname);
+        designationTextView = (TextView) layout.findViewById(R.id.designation);
+
+
+        //SetText
+
+        a.recycle();
 
     }
 
@@ -142,7 +169,7 @@ public class MeetingStatus extends androidx.appcompat.widget.AppCompatTextView {
                 });
             }
         };
-        timer.schedule(doAsynchronousTask, 0, 300000);
+        timer.schedule(doAsynchronousTask, 0, 1000); //300000
     }
 
     class GetAvailability extends AsyncTask<GetDataPojo, String, OfflineDataModel> {
@@ -174,7 +201,7 @@ public class MeetingStatus extends androidx.appcompat.widget.AppCompatTextView {
 
 
             } catch (Exception e) {
-                Log.e("Value Saved", e.getLocalizedMessage().toString());
+                Log.e("Value Saved", e.getLocalizedMessage());
             }
             return Data_From_Server;
 
@@ -230,7 +257,7 @@ public class MeetingStatus extends androidx.appcompat.widget.AppCompatTextView {
             try {
                 json = new JSONTokener(result.getResponse()).nextValue();
             } catch (JSONException e) {
-                Log.e("==Error", e.getLocalizedMessage().toString());
+                Log.e("==Error", e.getLocalizedMessage());
             }
             if (json instanceof JSONObject) {
                 try {
@@ -246,16 +273,32 @@ public class MeetingStatus extends androidx.appcompat.widget.AppCompatTextView {
 
                     if (agendaPojo.getAgendaItemType().length() > 0) {
                         Log.e("Agenda", agendaPojo.toString());
-                        setVisibility(View.VISIBLE);
-                        setText("Agenda Number:- " + agendaPojo.getAgendaItemNo() + "Agenda Type:- " + agendaPojo.getAgendaItemType() + "Title:- " + agendaPojo.getSubject() + "File No:- " + agendaPojo.getFileNo() + "Subject :- " + agendaPojo.getSubject() + "Department Name :- " + agendaPojo.getDeptName());
+                        agendanumberTextView.setText(agendaPojo.getAgendaItemNo());
+                        ajendanameTextView.setText(agendaPojo.getSubject());
+                        designationTextView.setText(agendaPojo.getDeptName());
+                        layout.setVisibility(View.VISIBLE);
+
+                        String global_deptId = ((MainActivity2) getContext()).Global_deptId;
+                        ((MainActivity2) getContext()).sliderView.setVisibility(View.GONE);
+                        Log.e("GlobalDept Id", global_deptId);
+
+//                        if (lengthAgendaListener != null)
+//                            lengthAgendaListener.onLengthChanged(this, agendaPojo.getAgendaItemType().length());
+
+
+                        // setText("Agenda Number:- " + agendaPojo.getAgendaItemNo() + "Agenda Type:- " + agendaPojo.getAgendaItemType() + "Title:- " + agendaPojo.getSubject() + "File No:- " + agendaPojo.getFileNo() + "Subject :- " + agendaPojo.getSubject() + "Department Name :- " + agendaPojo.getDeptName());
 
                     } else {
                         Log.e("Agenda", agendaPojo.toString());
-                        setVisibility(View.INVISIBLE);
+                        layout.setVisibility(View.INVISIBLE);
+                        ((MainActivity2) getContext()).sliderView.setVisibility(View.VISIBLE);
+
                     }
 
                 } catch (Exception ex) {
                     Log.e("arrayReports", ex.toString());
+                    layout.setVisibility(View.INVISIBLE);
+
                 }
 
 

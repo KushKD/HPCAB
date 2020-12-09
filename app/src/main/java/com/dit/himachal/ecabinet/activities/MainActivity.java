@@ -1,9 +1,5 @@
 package com.dit.himachal.ecabinet.activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -20,6 +16,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.dit.himachal.ecabinet.R;
 import com.dit.himachal.ecabinet.adapter.DepartmentsAdapter;
 import com.dit.himachal.ecabinet.adapter.HomeGridViewAdapter;
@@ -33,7 +33,6 @@ import com.dit.himachal.ecabinet.modal.DepartmentsPojo;
 import com.dit.himachal.ecabinet.modal.GetDataPojo;
 import com.dit.himachal.ecabinet.modal.ModulesPojo;
 import com.dit.himachal.ecabinet.modal.OfflineDataModel;
-import com.dit.himachal.ecabinet.modal.ResponsObject;
 import com.dit.himachal.ecabinet.presentation.CustomDialog;
 import com.dit.himachal.ecabinet.presentation.MeetingStatus;
 import com.dit.himachal.ecabinet.utilities.AppStatus;
@@ -85,20 +84,20 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
         pullToRefresh = findViewById(R.id.pullToRefresh);
         home_gv = findViewById(R.id.gv);
         department = findViewById(R.id.department);
-        LinearLayout layout_user_dashboard = findViewById(R.id.user_dashboard);
-        username = (TextView) layout_user_dashboard.findViewById(R.id.username);
-        designation = (TextView) layout_user_dashboard.findViewById(R.id.designation);
-        meetingStatus = (MeetingStatus) layout_user_dashboard.findViewById(R.id.meeting_status);
-        meetingStatus.setSelected(true);
-        imageuser = (ImageView) layout_user_dashboard.findViewById(R.id.imageuser);
+        //LinearLayout layout_user_dashboard = findViewById(R.id.user_dashboard);
+        // username = (TextView) layout_user_dashboard.findViewById(R.id.username);
+        //designation = (TextView) layout_user_dashboard.findViewById(R.id.designation);
+//        meetingStatus = (MeetingStatus) layout_user_dashboard.findViewById(R.id.meeting_status);
+        //      meetingStatus.setSelected(true);
+        // imageuser = (ImageView) layout_user_dashboard.findViewById(R.id.imageuser);
 
         department.setTitle(" Select Department");
         department.setPrompt(" Select Department");
         // mobile = (TextView) layout_user_dashboard.findViewById(R.id.mobile);
         //  is_cabinet = (TextView) layout_user_dashboard.findViewById(R.id.is_cabinet);
 
-        username.setText(Preferences.getInstance().user_name);
-        designation.setText(Preferences.getInstance().role_name);
+        //username.setText(Preferences.getInstance().user_name);
+        //designation.setText(Preferences.getInstance().role_name);
 
 //        Log.e("Photo==", Preferences.getInstance().photo);
 
@@ -422,7 +421,7 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
                 try {
                     json = new JSONTokener(result.getResponse()).nextValue();
                 } catch (JSONException e) {
-                    Log.e("==Error", e.getLocalizedMessage().toString());
+                    Log.e("==Error", e.getLocalizedMessage());
                 }
                 if (json instanceof JSONObject) {
                     try {
@@ -519,7 +518,7 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
 
                 showDepartments(result);
             } else {
-                CD.showDialogCloseActivity(MainActivity.this, result.getResponse().toString());
+                CD.showDialogCloseActivity(MainActivity.this, result.getResponse());
             }
 
         } else if (taskType == TaskType.GET_MENU_LIST) {
@@ -546,7 +545,7 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
 
                 showMenu(result);
             } else {
-                CD.showDialogCloseActivity(MainActivity.this, result.getResponse().toString());
+                CD.showDialogCloseActivity(MainActivity.this, result.getResponse());
             }
 
 
@@ -573,7 +572,7 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
 
                 showCabinetAgenda(result);
             } else {
-                CD.showDialogCloseActivity(MainActivity.this, result.getResponse().toString());
+                CD.showDialogCloseActivity(MainActivity.this, result.getResponse());
             }
 
         }

@@ -28,8 +28,8 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.SliderAdapter
 
     @Override
     public void onBindViewHolder(SliderAdapter.SliderAdapterVH viewHolder, int position) {
-        viewHolder.textViewDescription.setText("This is slider item " + position);  //Write Text Here
-        viewHolder.textViewDescription.setVisibility(View.GONE);
+        viewHolder.textViewDescription.setText("eCabinet V2.0");
+        viewHolder.textViewDescription.setVisibility(View.VISIBLE);
 
         switch (position) {
             case 0:
@@ -70,6 +70,7 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.SliderAdapter
             super(itemView);
             imageViewBackground = itemView.findViewById(R.id.iv_auto_image_slider);
             textViewDescription = itemView.findViewById(R.id.tv_auto_image_slider);
+            //textViewDescription.setText("eCabinet V2.0");
             this.itemView = itemView;
         }
     }

@@ -5,6 +5,7 @@
         <item name="colorPrimary">@color/color_dark_rd</item>
         <item name="colorPrimaryDark">@color/color_maroon_top</item>
         <item name="colorAccent">@color/colcr_blue</item>
+        <item name="drawerArrowStyle">@style/DrawerIcon</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -15,6 +16,18 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="DrawerIcon" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@color/color_red_maroon</item>
+    </style>
+
+    <declare-styleable name="MeetingStatus">
+        <attr name="agendanumber" format="string" />
+        <attr name="ajendaname" format="string" />
+        <attr name="designation" format="string" />
+        <attr name="android:ems" />
+
+    </declare-styleable>
 
 
 </resources>
