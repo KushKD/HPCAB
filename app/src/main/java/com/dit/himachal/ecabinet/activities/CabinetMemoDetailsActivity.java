@@ -1,22 +1,23 @@
 package com.dit.himachal.ecabinet.activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.dit.himachal.ecabinet.R;
-import com.dit.himachal.ecabinet.adapter.CabinetMemosAdapter;
+import com.dit.himachal.ecabinet.adapter.ChannelListAdapter;
+import com.dit.himachal.ecabinet.adapter.SendToListAdapter;
 import com.dit.himachal.ecabinet.databases.DatabaseHandler;
 import com.dit.himachal.ecabinet.enums.TaskType;
 import com.dit.himachal.ecabinet.generic.GenericAsyncPostObject;
@@ -24,6 +25,7 @@ import com.dit.himachal.ecabinet.generic.Generic_Async_Get;
 import com.dit.himachal.ecabinet.interfaces.AsyncTaskListenerObject;
 import com.dit.himachal.ecabinet.interfaces.AsyncTaskListenerObjectGet;
 import com.dit.himachal.ecabinet.modal.CabinetMemoPojo;
+import com.dit.himachal.ecabinet.modal.ChannelListPojo;
 import com.dit.himachal.ecabinet.modal.GetDataPojo;
 import com.dit.himachal.ecabinet.modal.ListAnnexures;
 import com.dit.himachal.ecabinet.modal.ListCabinetMemoTrackingHistoryListsPojo;
@@ -31,13 +33,14 @@ import com.dit.himachal.ecabinet.modal.ListConsiderationPoints;
 import com.dit.himachal.ecabinet.modal.OfflineDataModel;
 import com.dit.himachal.ecabinet.modal.PostDataPojo;
 import com.dit.himachal.ecabinet.modal.PostObject;
-import com.dit.himachal.ecabinet.modal.ResponsObject;
+import com.dit.himachal.ecabinet.modal.SendToList;
 import com.dit.himachal.ecabinet.presentation.CustomDialog;
 import com.dit.himachal.ecabinet.utilities.AppStatus;
 import com.dit.himachal.ecabinet.utilities.CommonUtils;
 import com.dit.himachal.ecabinet.utilities.Econstants;
 import com.dit.himachal.ecabinet.utilities.Preferences;
 import com.dit.himachal.ecabinet.utilities.PreventScreenshot;
+import com.doi.spinnersearchable.SearchableSpinner;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -63,11 +66,19 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
             advisory_department_approval,
             additional_information,
             pointsconsideration, phone;
+    private SearchableSpinner action_spinner, sent_back_to;
     private List<ListConsiderationPoints> listConsiderationPoints = null;
     private List<ListAnnexures> listAnnexures = null;
     private List<ListCabinetMemoTrackingHistoryListsPojo> listCabinetMemoTrackingHistoryListsPojos = null;
 
+    List<ChannelListPojo> channelList_List = new ArrayList<>();
+    ChannelListAdapter channelListAdapter = null;
+
+    List<SendToList> SendToList_ = new ArrayList<>();
+    SendToListAdapter sendToListadapter = null;
+
     EditText otp, remarks;
+    private String Global_ChannelID, GlobalSentBack, GlobalSentBack_afterSplit = null;
 
     Button approve, back, allow, proceed, cancel, attachments, history;
     LinearLayout otp_proceed, proceed_cancel, buttons, remarkslay;
@@ -87,7 +98,32 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
         Log.e("EVENTS_DETAILS", cabinetMemoPojo.toString());
         init();
 
-//TODO
+        //Get Action Goes Here
+
+        if (AppStatus.getInstance(CabinetMemoDetailsActivity.this).isOnline()) {
+            GetDataPojo object = new GetDataPojo();
+            object.setUrl(Econstants.url);
+            object.setMethord(Econstants.GetChannelistbyRole);
+            object.setMethordHash(Econstants.encodeBase64(Econstants.GetChannelistbyRoleToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
+            object.setTaskType(TaskType.GET_ACTION);
+            object.setTimeStamp(CommonUtils.getTimeStamp());
+            List<String> parameters = new ArrayList<>();
+            parameters.add(Preferences.getInstance().role_id);
+            object.setParameters(parameters);
+
+
+            new Generic_Async_Get(
+                    CabinetMemoDetailsActivity.this,
+                    CabinetMemoDetailsActivity.this,
+                    TaskType.GET_ACTION).
+                    execute(object);
+
+
+        } else {
+            CD.showDialog(CabinetMemoDetailsActivity.this, "Please connect to Internet and try again.");
+        }
+
+
         if (param.equalsIgnoreCase("Forwarded")) {
             buttons.setVisibility(View.GONE);
             remarkslay.setVisibility(View.GONE);
@@ -115,6 +151,86 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
 
         phone.setText(Preferences.getInstance().phone_number);
 
+
+        action_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+
+
+                try {
+                    ChannelListPojo channel = channelListAdapter.getItem(position);
+                    Log.e("Channel  ID", channel.getChannelID());
+                    Log.e("Channel Name", channel.getStatusCode());
+                    Global_ChannelID = channel.getChannelID();
+
+
+                    if (AppStatus.getInstance(CabinetMemoDetailsActivity.this).isOnline()) {
+                        Log.e("We ", "are Here");
+                        GetDataPojo object = new GetDataPojo();
+                        object.setUrl(Econstants.url);
+                        object.setMethord(Econstants.GetSectListsbyDeptBranch);
+                        object.setMethordHash(Econstants.encodeBase64(Econstants.GetSectListsbyDeptBranchToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
+                        object.setTaskType(TaskType.GET_SENT_BACK_TO);
+                        object.setTimeStamp(CommonUtils.getTimeStamp());
+                        List<String> parameters = new ArrayList<>();
+                        parameters.add(Preferences.getInstance().user_id);
+                        parameters.add(cabinetMemoPojo.getDeptid());
+                        parameters.add(cabinetMemoPojo.getBranchId());
+                        parameters.add(Preferences.getInstance().role_id);
+                        parameters.add(Global_ChannelID);
+                        object.setParameters(parameters);
+                        new Generic_Async_Get(
+                                CabinetMemoDetailsActivity.this,
+                                CabinetMemoDetailsActivity.this,
+                                TaskType.GET_SENT_BACK_TO).
+                                execute(object);
+
+
+                    } else {
+                        CD.showDialog(CabinetMemoDetailsActivity.this, "Please connect to Internet and try again.");
+                    }
+
+
+                } catch (Exception ex) {
+                    CD.showDialog(CabinetMemoDetailsActivity.this, ex.getLocalizedMessage());
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapter) {
+            }
+
+        });
+
+
+        sent_back_to.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+
+
+                try {
+                    SendToList channel = sendToListadapter.getItem(position);
+                    Log.e("Channel  ID", channel.getName());
+                    Log.e("Channel Name", channel.getPendingwithroleid());
+                    GlobalSentBack = channel.getPendingwithroleid();
+
+
+                } catch (Exception ex) {
+                    CD.showDialog(CabinetMemoDetailsActivity.this, ex.getLocalizedMessage());
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapter) {
+            }
+
+        });
+
+
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,6 +241,8 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
 
             }
         });
+
+
 //TODO OTP CHECK USER BASE
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -343,7 +461,7 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
                     }
 
                 } catch (Exception ex) {
-                    Log.e(" Attachments", ex.getLocalizedMessage().toString());
+                    Log.e(" Attachments", ex.getLocalizedMessage());
                 }
             }
         });
@@ -362,7 +480,7 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
                         CD.showDialog(CabinetMemoDetailsActivity.this, "No Data Available.");
                     }
                 } catch (Exception ex) {
-                    Log.e("Memo History", ex.getLocalizedMessage().toString());
+                    Log.e("Memo History", ex.getLocalizedMessage());
                 }
             }
         });
@@ -692,6 +810,8 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
         remarkslay = findViewById(R.id.remarkslay);
         attachments = findViewById(R.id.attachments);
         history = findViewById(R.id.history);
+        action_spinner = findViewById(R.id.action_spinner);
+        sent_back_to = findViewById(R.id.sent_back_to);
     }
 
     @Override
@@ -747,7 +867,7 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
 
                 cabinetMemoDetails(result);
             } else {
-                CD.showDialogCloseActivity(CabinetMemoDetailsActivity.this, result.getResponse().toString());
+                CD.showDialogCloseActivity(CabinetMemoDetailsActivity.this, result.getResponse());
             }
 
 
@@ -801,6 +921,74 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
                 Log.e("Result == ", result.getResponse());
                 CD.showDialog(CabinetMemoDetailsActivity.this, result.getResponse());
             }
+        } else if (taskType == TaskType.GET_ACTION) {
+            //GET DATA HERE
+            Log.e("Result == ", result.getResponse());
+            Object json = new JSONTokener(result.getResponse()).nextValue();
+            if (json instanceof JSONObject) {
+                Log.e("Json Object", "Object");
+            } else if (json instanceof JSONArray) {
+                Log.e("Json Object", "Object");
+                JSONArray arrayReports = new JSONArray(result.getResponse());
+                Log.e("arrayReports", arrayReports.toString());
+
+                if (arrayReports.length() > 0) {
+                    channelList_List = new ArrayList<>();
+                    //ReportsModelPojo
+                    for (int i = 0; i < arrayReports.length(); i++) {
+                        ChannelListPojo channelList = new ChannelListPojo();
+                        JSONObject object = arrayReports.getJSONObject(i);
+
+                        channelList.setChannelID(Econstants.decodeBase64(object.getString("ChannelID")));
+                        channelList.setStatusCode(Econstants.decodeBase64(object.getString("Channel")));
+
+
+                        channelList_List.add(channelList);
+                    }
+                    Log.e("Roles Data", channelList_List.toString());
+                    channelListAdapter = new ChannelListAdapter(CabinetMemoDetailsActivity.this, android.R.layout.simple_spinner_item, channelList_List);
+                    action_spinner.setAdapter(channelListAdapter);
+
+                } else {
+                    CD.showDialog(CabinetMemoDetailsActivity.this, "No Roles Found");
+                }
+            }
+
+        } //GET_SENT_BACK_TO
+        else if (taskType == TaskType.GET_SENT_BACK_TO) {
+            //GET DATA HERE
+            Log.e("Result == ", result.getResponse());
+            Object json = new JSONTokener(result.getResponse()).nextValue();
+            if (json instanceof JSONObject) {
+                Log.e("Json Object", "Object");
+            } else if (json instanceof JSONArray) {
+                Log.e("Json Object", "Object");
+                JSONArray arrayReports = new JSONArray(result.getResponse());
+                Log.e("arrayReports", arrayReports.toString());
+
+                if (arrayReports.length() > 0) {
+                    SendToList_ = new ArrayList<>();
+                    //ReportsModelPojo
+                    for (int i = 0; i < arrayReports.length(); i++) {
+                        SendToList sendToList = new SendToList();
+                        JSONObject object = arrayReports.getJSONObject(i);
+
+                        sendToList.setPendingwithroleid(Econstants.decodeBase64(object.getString("Pendingwithroleid")));
+                        sendToList.setStatusMessage(Econstants.decodeBase64(object.getString("StatusMessage")));
+                        sendToList.setName(Econstants.decodeBase64(object.optString("Name")));
+
+
+                        SendToList_.add(sendToList);
+                    }
+                    Log.e("Roles Data", SendToList_.toString());
+                    sendToListadapter = new SendToListAdapter(CabinetMemoDetailsActivity.this, android.R.layout.simple_spinner_item, SendToList_);
+                    sent_back_to.setAdapter(sendToListadapter);
+
+                } else {
+                    CD.showDialog(CabinetMemoDetailsActivity.this, "Nothing Found.");
+                }
+            }
+
         }
 
 

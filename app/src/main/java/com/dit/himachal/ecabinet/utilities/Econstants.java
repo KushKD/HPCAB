@@ -97,26 +97,27 @@ public class Econstants {
     public static final String methordAllowedCabinetMemoToken = "ghsssaccaa314e7421e7e12f5cf0sseeddd";
 
 
-
-
-
     public static final String PlaceinCabinetagendalists = "PlaceinCabinetagendalists";
     public static final String PlaceinCabinetagendalistsToken = "ssdaccaa314e7421e7e12f5cf7171081a0ss";
 
     //CabinetDecisionlists/{Token}/{DeptID}/{UserID}/{RoleID}/{LoginDeptID}/{Meetingid}
     public static final String CabinetDecisionlists = "CabinetDecisionlists";
-    public static final String  CabinetDecisionlistsToken = "69FBBF62A31CBC7C761B0AB96696C9EB";
+    public static final String CabinetDecisionlistsToken = "69FBBF62A31CBC7C761B0AB96696C9EB";
 
     //GetCabinetDecisionbyMeetingDates
     public static final String GetCabinetDecisionbyMeetingDates = "GetCabinetDecisionbyMeetingDates";
-    public static final String GetCabinetDecisionbyMeetingDatesToken= "da314e7421e7e12f5cf7171081a0ddd";
+    public static final String GetCabinetDecisionbyMeetingDatesToken = "da314e7421e7e12f5cf7171081a0ddd";
+
+    //GetChannelistbyRole Action
+    public static final String GetChannelistbyRole = "GetChannelistbyRole";
+    public static final String GetChannelistbyRoleToken = "3GFHF5BE7CB28FF963C57D51E6D3FGHYGTRDF";
+
+    //GetSectListsbyDeptBranch Sent back to
+    public static final String GetSectListsbyDeptBranch = "GetSectListsbyDeptBranch";
+    public static final String GetSectListsbyDeptBranchToken = "893GFHF5BE7CB28FF963C57D51E6D3FGHYGTRDF";
 
 
-
-   public static final String NO_DATA = "No Data Available. Please Connect to Internet and try again !";
-
-
-
+    public static final String NO_DATA = "No Data Available. Please Connect to Internet and try again !";
 
 
     public static final String success = "SUCCESS";

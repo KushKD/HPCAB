@@ -9,7 +9,6 @@ import com.dit.himachal.ecabinet.enums.TaskType;
 import com.dit.himachal.ecabinet.interfaces.AsyncTaskListenerObjectGet;
 import com.dit.himachal.ecabinet.modal.GetDataPojo;
 import com.dit.himachal.ecabinet.modal.OfflineDataModel;
-import com.dit.himachal.ecabinet.modal.ResponsObject;
 import com.dit.himachal.ecabinet.network.HttpManager;
 
 import org.json.JSONException;
@@ -103,7 +102,15 @@ public class Generic_Async_Get extends AsyncTask<GetDataPojo,Void , OfflineDataM
                 Log.e("We Here", getDataPojo[0].getMethord());
                 Data_From_Server = http_manager.GetData(getDataPojo[0]);
                 return Data_From_Server;
-            }else  if(getDataPojo[0].getTaskType().toString().equalsIgnoreCase(TaskType.GET_CABINET_DECISIONS_COUNT.toString())){
+            }else  if (getDataPojo[0].getTaskType().toString().equalsIgnoreCase(TaskType.GET_CABINET_DECISIONS_COUNT.toString())) {
+                Log.e("We Here", getDataPojo[0].getMethord());
+                Data_From_Server = http_manager.GetData(getDataPojo[0]);
+                return Data_From_Server;
+            } else if (getDataPojo[0].getTaskType().toString().equalsIgnoreCase(TaskType.GET_ACTION.toString())) {
+                Log.e("We Here", getDataPojo[0].getMethord());
+                Data_From_Server = http_manager.GetData(getDataPojo[0]);
+                return Data_From_Server;
+            } else if (getDataPojo[0].getTaskType().toString().equalsIgnoreCase(TaskType.GET_SENT_BACK_TO.toString())) {
                 Log.e("We Here", getDataPojo[0].getMethord());
                 Data_From_Server = http_manager.GetData(getDataPojo[0]);
                 return Data_From_Server;
@@ -114,8 +121,9 @@ public class Generic_Async_Get extends AsyncTask<GetDataPojo,Void , OfflineDataM
 
 
 
+
         } catch (Exception e) {
-            Log.e("Value Saved",e.getLocalizedMessage().toString());
+            Log.e("Value Saved", e.getLocalizedMessage());
         }
         return Data_From_Server;
 

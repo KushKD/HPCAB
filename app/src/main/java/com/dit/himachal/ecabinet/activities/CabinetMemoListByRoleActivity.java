@@ -747,6 +747,8 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
                         memoPojo.setSecIncharge(Econstants.decodeBase64(objectx.optString("SecIncharge")));
                         memoPojo.setSubject(Econstants.decodeBase64(objectx.optString("Subject")));
                         memoPojo.setStatusMessage(Econstants.decodeBase64(objectx.optString("StatusMessage")));
+                        memoPojo.setBranchId(Econstants.decodeBase64(objectx.optString("BranchID")));
+                        Log.e("BranchID:-", memoPojo.getBranchId());
 
                         if (!memoPojo.getStatusMessage().equalsIgnoreCase("No Record Found")) {
                             cabinetMemoPojoList.add(memoPojo);
@@ -1106,7 +1108,7 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
 
                     showData(result);
                 } else {
-                    CD.showDialogCloseActivity(CabinetMemoListByRoleActivity.this, result.getResponse().toString());
+                    CD.showDialogCloseActivity(CabinetMemoListByRoleActivity.this, result.getResponse());
                 }
 
             } else if(result.getBifurcation().equalsIgnoreCase("Cabinet_Decisions")){
@@ -1132,7 +1134,7 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
 
                     showData(result);
                 } else {
-                    CD.showDialogCloseActivity(CabinetMemoListByRoleActivity.this, result.getResponse().toString());
+                    CD.showDialogCloseActivity(CabinetMemoListByRoleActivity.this, result.getResponse());
                 }
 
             }  else if(result.getBifurcation().equalsIgnoreCase("Backwarded")){
@@ -1158,7 +1160,7 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
 
                     showData(result);
                 } else {
-                    CD.showDialogCloseActivity(CabinetMemoListByRoleActivity.this, result.getResponse().toString());
+                    CD.showDialogCloseActivity(CabinetMemoListByRoleActivity.this, result.getResponse());
                 }
 
             }else if(result.getBifurcation().equalsIgnoreCase("PlacedInCabinet")){
@@ -1184,7 +1186,7 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
 
                     showData(result);
                 } else {
-                    CD.showDialogCloseActivity(CabinetMemoListByRoleActivity.this, result.getResponse().toString());
+                    CD.showDialogCloseActivity(CabinetMemoListByRoleActivity.this, result.getResponse());
                 }
 
             }else if(result.getBifurcation().equalsIgnoreCase("allowedCabinetMemos")){
@@ -1210,7 +1212,7 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
 
                     showData(result);
                 } else {
-                    CD.showDialogCloseActivity(CabinetMemoListByRoleActivity.this, result.getResponse().toString());
+                    CD.showDialogCloseActivity(CabinetMemoListByRoleActivity.this, result.getResponse());
                 }
 
             }else {
@@ -1236,7 +1238,7 @@ public class CabinetMemoListByRoleActivity extends AppCompatActivity implements 
 
                     showData(result);
                 } else {
-                    CD.showDialogCloseActivity(CabinetMemoListByRoleActivity.this, result.getResponse().toString());
+                    CD.showDialogCloseActivity(CabinetMemoListByRoleActivity.this, result.getResponse());
                 }
             }
         } else if (taskType == TaskType.GET_ALLOWED_MEMO_LIST_CABINET) {

@@ -89,9 +89,9 @@ public class MeetingStatus extends LinearLayout {
 
         layout = (LinearLayout) li.inflate(R.layout.user_dashboard, this, true);
 
-        agendanumberTextView = (TextView) layout.findViewById(R.id.agendanumber);
-        ajendanameTextView = (TextView) layout.findViewById(R.id.ajendaname);
-        designationTextView = (TextView) layout.findViewById(R.id.designation);
+        agendanumberTextView = layout.findViewById(R.id.agendanumber);
+        ajendanameTextView = layout.findViewById(R.id.ajendaname);
+        designationTextView = layout.findViewById(R.id.designation);
 
 
         //SetText
@@ -169,7 +169,7 @@ public class MeetingStatus extends LinearLayout {
                 });
             }
         };
-        timer.schedule(doAsynchronousTask, 0, 1000); //300000
+        timer.schedule(doAsynchronousTask, 0, 1000000); //300000   10000
     }
 
     class GetAvailability extends AsyncTask<GetDataPojo, String, OfflineDataModel> {

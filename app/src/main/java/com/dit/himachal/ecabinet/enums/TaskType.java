@@ -22,7 +22,13 @@ public enum TaskType {
     GET_ALLOWED_MEMO_LIST_CABINET(13),
     GET_PUBLISHED_MEETING_ID_BY_ROLE(14),
     FINAL_MEETING_AGENDA_LIST(15),
-    GET_CABINET_DECISIONS_COUNT(16);
+    GET_CABINET_DECISIONS_COUNT(16),
+    GET_ACTION(17),
+    GET_SENT_BACK_TO(18);
 
-    int value; private TaskType(int value) { this.value = value; }
+    int value;
+
+    TaskType(int value) {
+        this.value = value;
+    }
 }

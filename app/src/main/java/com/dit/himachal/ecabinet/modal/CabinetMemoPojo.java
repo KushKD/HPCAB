@@ -12,6 +12,7 @@ public class CabinetMemoPojo implements Serializable {
     private String ApprovalStatus;
     private String CabinetMemoID;
     private String DeptName;
+    private String BranchId;
     private String Deptid;
     private String FileNo;
     private String ListAdvisoryDepartments;
@@ -26,6 +27,14 @@ public class CabinetMemoPojo implements Serializable {
     private String Subject;
     private String Date;
     private String StatusMessage;
+
+    public String getBranchId() {
+        return BranchId;
+    }
+
+    public void setBranchId(String branchId) {
+        BranchId = branchId;
+    }
 
     public String getStatusMessage() {
         return StatusMessage;
@@ -199,6 +208,7 @@ public class CabinetMemoPojo implements Serializable {
                 ", ApprovalStatus='" + ApprovalStatus + '\'' +
                 ", CabinetMemoID='" + CabinetMemoID + '\'' +
                 ", DeptName='" + DeptName + '\'' +
+                ", BranchId='" + BranchId + '\'' +
                 ", Deptid='" + Deptid + '\'' +
                 ", FileNo='" + FileNo + '\'' +
                 ", ListAdvisoryDepartments='" + ListAdvisoryDepartments + '\'' +
