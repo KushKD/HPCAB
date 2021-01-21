@@ -166,25 +166,50 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
 
 
                     if (AppStatus.getInstance(CabinetMemoDetailsActivity.this).isOnline()) {
-                        Log.e("We ", "are Here");
-                        GetDataPojo object = new GetDataPojo();
-                        object.setUrl(Econstants.url);
-                        object.setMethord(Econstants.GetSectListsbyDeptBranch);
-                        object.setMethordHash(Econstants.encodeBase64(Econstants.GetSectListsbyDeptBranchToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
-                        object.setTaskType(TaskType.GET_SENT_BACK_TO);
-                        object.setTimeStamp(CommonUtils.getTimeStamp());
-                        List<String> parameters = new ArrayList<>();
-                        parameters.add(Preferences.getInstance().user_id);
-                        parameters.add(cabinetMemoPojo.getDeptid());
-                        parameters.add(cabinetMemoPojo.getBranchId());
-                        parameters.add(Preferences.getInstance().role_id);
-                        parameters.add(Global_ChannelID);
-                        object.setParameters(parameters);
-                        new Generic_Async_Get(
-                                CabinetMemoDetailsActivity.this,
-                                CabinetMemoDetailsActivity.this,
-                                TaskType.GET_SENT_BACK_TO).
-                                execute(object);
+
+
+                        if (channel.getStatusCode().equalsIgnoreCase("Send Back")) {
+                            //TODO
+                            Log.e("We ", "are Here");
+                            GetDataPojo object = new GetDataPojo();
+                            object.setUrl(Econstants.url);
+                            object.setMethord(Econstants.GetSentBackListsbyDeptBranch);
+                            object.setMethordHash(Econstants.encodeBase64(Econstants.GetSentBackListsbyDeptBranchToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
+                            object.setTaskType(TaskType.GET_SENT_BACK_TO);
+                            object.setTimeStamp(CommonUtils.getTimeStamp());
+                            List<String> parameters = new ArrayList<>();
+                            parameters.add(Preferences.getInstance().user_id);
+                            parameters.add(cabinetMemoPojo.getDeptid());
+                            parameters.add(cabinetMemoPojo.getBranchId());
+                            parameters.add(Preferences.getInstance().role_id);
+                            parameters.add(Global_ChannelID);
+                            object.setParameters(parameters);
+                            new Generic_Async_Get(
+                                    CabinetMemoDetailsActivity.this,
+                                    CabinetMemoDetailsActivity.this,
+                                    TaskType.GET_SENT_BACK_TO).
+                                    execute(object);
+                        } else {
+                            Log.e("We ", "are Here");
+                            GetDataPojo object = new GetDataPojo();
+                            object.setUrl(Econstants.url);
+                            object.setMethord(Econstants.GetSectListsbyDeptBranch);
+                            object.setMethordHash(Econstants.encodeBase64(Econstants.GetSectListsbyDeptBranchToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
+                            object.setTaskType(TaskType.GET_SENT_BACK_TO);
+                            object.setTimeStamp(CommonUtils.getTimeStamp());
+                            List<String> parameters = new ArrayList<>();
+                            parameters.add(Preferences.getInstance().user_id);
+                            parameters.add(cabinetMemoPojo.getDeptid());
+                            parameters.add(cabinetMemoPojo.getBranchId());
+                            parameters.add(Preferences.getInstance().role_id);
+                            parameters.add(Global_ChannelID);
+                            object.setParameters(parameters);
+                            new Generic_Async_Get(
+                                    CabinetMemoDetailsActivity.this,
+                                    CabinetMemoDetailsActivity.this,
+                                    TaskType.GET_SENT_BACK_TO).
+                                    execute(object);
+                        }
 
 
                     } else {
@@ -214,7 +239,7 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
                 try {
                     SendToList channel = sendToListadapter.getItem(position);
                     Log.e("Channel  ID", channel.getName());
-                    Log.e("Channel Name", channel.getPendingwithroleid());
+                    Log.e("Sent Back Name", channel.getPendingwithroleid());
                     GlobalSentBack = channel.getPendingwithroleid();
 
 
@@ -259,7 +284,10 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
                         postObject.setToken(Econstants.encodeBase64(Econstants.methordForwardCabinetMemoToken + Econstants.seperator + CommonUtils.getTimeStamp()));
                         postObject.setPhone(phone.getText().toString());
                         postObject.setOtp(otp.getText().toString());
-
+                        postObject.setPendingWithRoleID(GlobalSentBack);
+                        postObject.setUserName(Preferences.getInstance().user_name);
+                        postObject.setMinisterinCharge(cabinetMemoPojoDetails.getMinisterIncharge());
+                        postObject.setSecinIncharge(cabinetMemoPojoDetails.getSecIncharge());
                         PostDataPojo postDataPojo = new PostDataPojo();
                         postDataPojo.setParameters(postObject);
                         postDataPojo.setTaskType(TaskType.FORWARD);
@@ -289,7 +317,10 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
                         postObject.setToken(Econstants.encodeBase64(Econstants.methordsendBackCabinetMemoListsToken + Econstants.seperator + CommonUtils.getTimeStamp()));
                         postObject.setPhone(phone.getText().toString());
                         postObject.setOtp(otp.getText().toString());
-
+                        postObject.setPendingWithRoleID(GlobalSentBack);
+                        postObject.setUserName(Preferences.getInstance().user_name);
+                        postObject.setMinisterinCharge(cabinetMemoPojoDetails.getMinisterIncharge());
+                        postObject.setSecinIncharge(cabinetMemoPojoDetails.getSecIncharge());
                         PostDataPojo postDataPojo = new PostDataPojo();
                         postDataPojo.setParameters(postObject);
                         postDataPojo.setTaskType(TaskType.SEND_BACK);
@@ -319,7 +350,9 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
             public void onClick(View v) {
                 //TODO Send Back
                 buttonName = "forward";
-                if (Preferences.getInstance().role_id.equalsIgnoreCase("4") || Preferences.getInstance().role_id.equalsIgnoreCase("11")) {
+                if (Preferences.getInstance().role_id.equalsIgnoreCase("4") || Preferences.getInstance().role_id.equalsIgnoreCase("11")
+                        || Preferences.getInstance().role_id.equalsIgnoreCase("12") || Preferences.getInstance().role_id.equalsIgnoreCase("13")
+                        || Preferences.getInstance().role_id.equalsIgnoreCase("14") || Preferences.getInstance().role_id.equalsIgnoreCase("15")) {
                     //check Remarks
                     //  if (!remarks.getText().toString().isEmpty()) {
                     ////OTP Functionality Enable
@@ -366,6 +399,13 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
                 } else {
                     //   if (!remarks.getText().toString().isEmpty()) {
                     try {
+
+                        /**
+                         * objDAMemo.ForwardCabinetMemo(forwardCabinetMemo.UserId,
+                         *                             forwardCabinetMemo.CabinetMemoID, forwardCabinetMemo.DeptId, forwardCabinetMemo.remarks,
+                         *                             Arr[1], forwardCabinetMemo.LoginUsername, forwardCabinetMemo.MinisterinCharge,
+                         *                             forwardCabinetMemo.SecinIncharge, forwardCabinetMemo.RoleID);
+                         */
                         PostObject postObject = new PostObject();
                         postObject.setUserid(Preferences.getInstance().user_id);
                         postObject.setCabinetMemoId(cabinetMemoPojoDetails.getCabinetMemoID());
@@ -375,6 +415,11 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
                         postObject.setToken(Econstants.encodeBase64(Econstants.methordForwardCabinetMemoToken + Econstants.seperator + CommonUtils.getTimeStamp()));
                         postObject.setPhone("");
                         postObject.setOtp("");
+                        postObject.setPendingWithRoleID(GlobalSentBack);
+                        postObject.setUserName(Preferences.getInstance().user_name);
+                        postObject.setMinisterinCharge(cabinetMemoPojoDetails.getMinisterIncharge());
+                        postObject.setSecinIncharge(cabinetMemoPojoDetails.getSecIncharge());
+
 
                         PostDataPojo postDataPojo = new PostDataPojo();
                         postDataPojo.setParameters(postObject);
@@ -419,6 +464,11 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
                     postObject.setToken(Econstants.encodeBase64(Econstants.methordForwardCabinetMemoToken + Econstants.seperator + CommonUtils.getTimeStamp()));
                     postObject.setPhone("");
                     postObject.setOtp("");
+
+                    /**
+                     *  postObject.setPendingWithRoleID(GlobalSentBack);
+                     *                         postObject.setUserName(Preferences.getInstance().user_name);
+                     */
 
                     PostDataPojo postDataPojo = new PostDataPojo();
                     postDataPojo.setParameters(postObject);
@@ -546,6 +596,10 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
                         postObject.setToken(Econstants.encodeBase64(Econstants.methordsendBackCabinetMemoListsToken + Econstants.seperator + CommonUtils.getTimeStamp()));
                         postObject.setPhone("");
                         postObject.setOtp("");
+                        postObject.setPendingWithRoleID(GlobalSentBack);
+                        postObject.setUserName(Preferences.getInstance().user_name);
+                        postObject.setMinisterinCharge(cabinetMemoPojoDetails.getMinisterIncharge());
+                        postObject.setSecinIncharge(cabinetMemoPojoDetails.getSecIncharge());
 
                         PostDataPojo postDataPojo = new PostDataPojo();
                         postDataPojo.setParameters(postObject);
@@ -956,6 +1010,12 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
 
         } //GET_SENT_BACK_TO
         else if (taskType == TaskType.GET_SENT_BACK_TO) {
+
+            if (Global_ChannelID.equalsIgnoreCase("Send Back")) {
+
+            } else {
+
+            }
             //GET DATA HERE
             Log.e("Result == ", result.getResponse());
             Object json = new JSONTokener(result.getResponse()).nextValue();

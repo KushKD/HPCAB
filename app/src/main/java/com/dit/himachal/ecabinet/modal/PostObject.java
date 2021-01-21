@@ -1,9 +1,6 @@
 package com.dit.himachal.ecabinet.modal;
 
 import com.dit.himachal.ecabinet.enums.TaskType;
-import com.dit.himachal.ecabinet.utilities.CommonUtils;
-import com.dit.himachal.ecabinet.utilities.Econstants;
-import com.dit.himachal.ecabinet.utilities.Preferences;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,15 +9,51 @@ import java.io.Serializable;
 
 public class PostObject implements Serializable {
 
-       private String userid;
-       private String cabinetMemoId;
-       private String roleid;
-       private String deptId;
-       private String remarks;
-       private String token;
-       private String phone;
-       private String otp;
-       private TaskType taskType;
+    private String userid;
+    private String cabinetMemoId;
+    private String roleid;
+    private String deptId;
+    private String remarks;
+    private String token;
+    private String phone;
+    private String otp;
+    private TaskType taskType;
+    private String PendingWithRoleID;
+    private String UserName;
+    private String MinisterinCharge;
+    private String SecinIncharge;
+
+    public String getMinisterinCharge() {
+        return MinisterinCharge;
+    }
+
+    public void setMinisterinCharge(String ministerinCharge) {
+        MinisterinCharge = ministerinCharge;
+    }
+
+    public String getSecinIncharge() {
+        return SecinIncharge;
+    }
+
+    public void setSecinIncharge(String secinIncharge) {
+        SecinIncharge = secinIncharge;
+    }
+
+    public String getUserName() {
+        return UserName;
+    }
+
+    public void setUserName(String userName) {
+        UserName = userName;
+    }
+
+    public String getPendingWithRoleID() {
+        return PendingWithRoleID;
+    }
+
+    public void setPendingWithRoleID(String pendingWithRoleID) {
+        PendingWithRoleID = pendingWithRoleID;
+    }
 
     public TaskType getTaskType() {
         return taskType;
@@ -124,6 +157,10 @@ public class PostObject implements Serializable {
             jsonObject.put("remarks", getRemarks());
             jsonObject.put("OTP", getOtp());
             jsonObject.put("MobileNO", getPhone());
+            jsonObject.put("PendingWithRoleID", getPendingWithRoleID());
+            jsonObject.put("LoginUsername", UserName);
+            jsonObject.put("MinisterinCharge", getMinisterinCharge());
+            jsonObject.put("SecinIncharge", getSecinIncharge());
 
 
             return jsonObject.toString();

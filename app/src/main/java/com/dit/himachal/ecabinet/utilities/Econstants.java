@@ -116,6 +116,10 @@ public class Econstants {
     public static final String GetSectListsbyDeptBranch = "GetSectListsbyDeptBranch";
     public static final String GetSectListsbyDeptBranchToken = "893GFHF5BE7CB28FF963C57D51E6D3FGHYGTRDF";
 
+    //GetSentBackListsbyDeptBranch
+    public static final String GetSentBackListsbyDeptBranch = "GetSentBackListsbyDeptBranch";
+    public static final String GetSentBackListsbyDeptBranchToken = "3000GFHF5BE7CB2IJHUGYHJIKKKIJJOKKJIKKOIK";
+
 
     public static final String NO_DATA = "No Data Available. Please Connect to Internet and try again !";
 
