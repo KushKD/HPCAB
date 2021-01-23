@@ -81,7 +81,7 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
     private String Global_ChannelID, GlobalSentBack, GlobalSentBack_afterSplit = null;
 
     Button approve, back, allow, proceed, cancel, attachments, history;
-    LinearLayout otp_proceed, proceed_cancel, buttons, remarkslay;
+    LinearLayout otp_proceed, proceed_cancel, buttons, remarkslay, sent_lay, action_lay;
     private String buttonName = null;
     private String param = null;
 
@@ -127,16 +127,24 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
         if (param.equalsIgnoreCase("Forwarded")) {
             buttons.setVisibility(View.GONE);
             remarkslay.setVisibility(View.GONE);
+            action_lay.setVisibility(View.GONE);
+            sent_lay.setVisibility(View.GONE);
         } else if (param.equalsIgnoreCase("Backwarded")) {
             buttons.setVisibility(View.GONE);
             remarkslay.setVisibility(View.GONE);
+            action_lay.setVisibility(View.GONE);
+            sent_lay.setVisibility(View.GONE);
         } else if (param.equalsIgnoreCase("allowedCabinetMemos") || param.equalsIgnoreCase("PlacedInCabinet")
                 || param.equalsIgnoreCase("final") || param.equalsIgnoreCase("Cabinet_Decisions")) {
             buttons.setVisibility(View.GONE);
             remarkslay.setVisibility(View.GONE);
+            action_lay.setVisibility(View.GONE);
+            sent_lay.setVisibility(View.GONE);
         } else {
             buttons.setVisibility(View.VISIBLE);
             remarkslay.setVisibility(View.VISIBLE);
+            action_lay.setVisibility(View.VISIBLE);
+            sent_lay.setVisibility(View.VISIBLE);
         }
 
         if (Preferences.getInstance().role_id.equalsIgnoreCase("7")) {
@@ -866,6 +874,8 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
         history = findViewById(R.id.history);
         action_spinner = findViewById(R.id.action_spinner);
         sent_back_to = findViewById(R.id.sent_back_to);
+        sent_lay = findViewById(R.id.sent_lay);
+        action_lay = findViewById(R.id.action_lay);
     }
 
     @Override

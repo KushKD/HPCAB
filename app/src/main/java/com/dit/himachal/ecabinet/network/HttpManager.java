@@ -5,7 +5,6 @@ import android.util.Log;
 import com.dit.himachal.ecabinet.modal.GetDataPojo;
 import com.dit.himachal.ecabinet.modal.OfflineDataModel;
 import com.dit.himachal.ecabinet.modal.PostDataPojo;
-import com.dit.himachal.ecabinet.modal.ResponsObject;
 import com.dit.himachal.ecabinet.utilities.CommonUtils;
 import com.dit.himachal.ecabinet.utilities.Econstants;
 import com.dit.himachal.ecabinet.utilities.Preferences;
@@ -19,6 +18,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 /**
  * @author Kush.Dhawan
@@ -166,7 +166,7 @@ public class HttpManager {
             try {
                 int HttpResult = conn_.getResponseCode();
                 if (HttpResult != HttpURLConnection.HTTP_OK) {
-                    BufferedReader br = new BufferedReader(new InputStreamReader(conn_.getErrorStream(), "utf-8"));
+                    BufferedReader br = new BufferedReader(new InputStreamReader(conn_.getErrorStream(), StandardCharsets.UTF_8));
                     String line = null;
                     sb = new StringBuilder();
                     while ((line = br.readLine()) != null) {
@@ -175,6 +175,7 @@ public class HttpManager {
                     br.close();
                     System.out.println(sb.toString());
                     Log.e("Data from Service", sb.toString());
+                    response = new OfflineDataModel();
                     response.setUrl(url_.toString());
                     response.setParams(data.getParameters().toString());
                     response.setResponse("Something went wrong. Please re-connect to Internet and try again.");
@@ -186,7 +187,7 @@ public class HttpManager {
 
 
                 } else {
-                    BufferedReader br = new BufferedReader(new InputStreamReader(conn_.getInputStream(), "utf-8"));
+                    BufferedReader br = new BufferedReader(new InputStreamReader(conn_.getInputStream(), StandardCharsets.UTF_8));
                     String line = null;
                     sb = new StringBuilder();
                     while ((line = br.readLine()) != null) {
@@ -194,10 +195,11 @@ public class HttpManager {
                     }
                     br.close();
                     System.out.println(sb.toString());
+                    response = new OfflineDataModel();
                     Log.e("Data from Service", sb.toString());
                     response.setUrl(url_.toString());
                     response.setParams(data.getParameters().toString());
-                    response.setResponse(sb.toString());
+                    response.setResponse(sb.toString().trim());
                     response.setHttpFlag(Econstants.success);
                     response.setFunctionName(data.getTaskType().toString());
                     response.setUserId(Preferences.getInstance().user_id);
@@ -207,6 +209,7 @@ public class HttpManager {
 
             } catch (Exception e) {
                 Log.e("Data from Service", sb.toString());
+                response = new OfflineDataModel();
                 response.setUrl(url_.toString());
                 response.setParams(data.getParameters().toString());
                 response.setResponse("Something went wrong. Please re-connect to Internet and try again.");

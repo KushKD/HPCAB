@@ -569,6 +569,7 @@
 
                     <!-- Action  -->
                     <LinearLayout
+                        android:id="@+id/action_lay"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
@@ -604,6 +605,7 @@
 
                     <!-- Action  -->
                     <LinearLayout
+                        android:id="@+id/sent_lay"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
@@ -836,7 +838,7 @@
                             android:layout_weight="1"
                             android:fontFamily="@font/poppins_semibold"
                             android:background="#228B22"
-                            android:textColor="#FFFFFF"/>                            android:textSize="14dip" />
+                            android:textColor="#FFFFFF" />
 
                     </LinearLayout>
                 </LinearLayout>
