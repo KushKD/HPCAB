@@ -853,7 +853,7 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
         top_head = findViewById(R.id.top_head);
         ministerincharge = findViewById(R.id.ministerincharge);
         secretaryincharge = findViewById(R.id.secretaryincharge);
-        subjet = findViewById(R.id.subjet);
+        subjet = findViewById(R.id.subject);
         proposal = findViewById(R.id.proposal);
         advisory_department_approval = findViewById(R.id.advisory_department_approval);
         additional_information = findViewById(R.id.additional_information);
