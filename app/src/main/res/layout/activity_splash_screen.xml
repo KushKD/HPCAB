@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.4"
-        android:background="@drawable/pink_bordor_rect_grid"
+        android:background="@drawable/solid_line"
         android:gravity="right|center_vertical|center_horizontal"
         android:orientation="horizontal">
 
@@ -27,7 +27,6 @@
             <ImageView
                 android:id="@+id/image_english"
                 android:layout_width="80dp"
-                android:background="@drawable/pink_bordor_rect"
                 android:src="@drawable/hp_n"
                 android:padding="5dp"
                 android:layout_margin="5dp"
@@ -38,21 +37,23 @@
 
     </LinearLayout>
 
+
+    <!-- Button -->
     <LinearLayout
         android:id="@+id/laydetails"
         android:layout_width="fill_parent"
-        android:background="#FFFFFF"
         android:layout_height="0dip"
+        android:layout_weight="2.4"
+        android:background="#e6e6e6"
         android:gravity="center_vertical|center_horizontal|center"
-        android:orientation="vertical"
-        android:layout_weight="2.4" >
-  <!-- Logo -->
+        android:orientation="vertical">
+        <!-- Logo -->
         <ImageView
             android:id="@+id/splash_image"
-            android:gravity="center"
-            android:src="@mipmap/logo"
             android:layout_width="170dp"
-            android:layout_height="170dp">
+            android:layout_height="170dp"
+            android:gravity="center"
+            android:src="@mipmap/logo">
 
         </ImageView>
 
@@ -61,27 +62,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:fontFamily="@font/poppins_semibold"
             android:gravity="bottom"
-            android:textStyle="bold"
             android:text="eCabinet"
             android:textColor="@color/color_dark_rd"
-            android:fontFamily="@font/poppins_semibold"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textStyle="bold"
             android:text="Government of Himachal Pradesh"
-            android:textColor="@color/color_red_maroon"
-            android:textSize="19sp" />
+            android:textColor="@color/colcr_blue"
+            android:textSize="19sp"
+            android:textStyle="bold" />
 
 
     </LinearLayout>
 
-
-    <!-- Button -->
     <LinearLayout
         android:id="@+id/lay3"
         android:layout_width="fill_parent"
@@ -99,7 +98,7 @@
             android:fontFamily="@font/poppins_semibold"
             android:textColor="@color/colcr_blue"
             android:text="Department of Information Technology"
-            android:textSize="15sp" />
+            android:textSize="12sp" />
     </LinearLayout>
 
 </LinearLayout>

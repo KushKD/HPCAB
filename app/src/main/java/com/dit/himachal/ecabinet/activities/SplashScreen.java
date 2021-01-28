@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.PersistableBundle;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -33,11 +34,11 @@ public class SplashScreen extends AppCompatActivity {
 
         textView = findViewById(R.id.splash_text);
         imageView = findViewById(R.id.splash_image);
-       // animationUptoDown = AnimationUtils.loadAnimation(SplashScreen.this,R.anim.uptodownanim);
-       // animationDownToUp = AnimationUtils.loadAnimation(SplashScreen.this,R.anim.downtotopanim);
+        animationUptoDown = AnimationUtils.loadAnimation(SplashScreen.this,R.anim.uptodownanim);
+        animationDownToUp = AnimationUtils.loadAnimation(SplashScreen.this,R.anim.downtotopanim);
 
-        //imageView.setAnimation(animationUptoDown);
-        //textView.setAnimation(animationDownToUp);
+        imageView.setAnimation(animationUptoDown);
+        textView.setAnimation(animationDownToUp);
         Preferences.getInstance().loadPreferences(SplashScreen.this);
         requestPermissions();
 
@@ -60,7 +61,7 @@ public class SplashScreen extends AppCompatActivity {
 
 
             }
-        }, 4000);
+        }, 6000);
     }
 
     @Override
