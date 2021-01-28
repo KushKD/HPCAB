@@ -345,8 +345,6 @@ public class ApprovedMemo extends AppCompatActivity implements AsyncTaskListener
                     for (int i = 0; i < arrayReports.length(); i++) {
                         CabinetMemoPojo memoPojo = new CabinetMemoPojo();
                         JSONObject objectx = arrayReports.getJSONObject(i);
-
-
                         memoPojo.setAdditionalInformation(Econstants.decodeBase64(objectx.optString("AdditionalInformation")));
                         memoPojo.setAgendaItemNo(Econstants.decodeBase64(objectx.optString("AgendaItemNo")));
                         memoPojo.setAgendaItemType(Econstants.decodeBase64(objectx.optString("AgendaItemType")));

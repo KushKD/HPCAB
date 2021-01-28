@@ -38,7 +38,7 @@ public class ModulesPojo implements Serializable {
         return "ModulesPojo{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
-                ", logo='" + logo + '\'' +
+                ", ic_launcher='" + logo + '\'' +
                 '}';
     }
 }

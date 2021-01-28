@@ -10,7 +10,7 @@
         <!--android:title="@string/menu_profile" />-->
         <item
             android:id="@+id/log_out"
-            android:icon="@mipmap/logo"
+            android:icon="@drawable/ic_launcher"
             android:title="Logout" />
         <!--<item-->
         <!--android:id="@+id/nav_slideshow"-->
