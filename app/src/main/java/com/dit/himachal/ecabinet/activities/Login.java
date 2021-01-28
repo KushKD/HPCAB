@@ -1,14 +1,15 @@
 package com.dit.himachal.ecabinet.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -56,7 +57,7 @@ public class Login extends AppCompatActivity implements AsyncTaskListenerObjectG
     EditText otp, mobile;
     SearchableSpinner user, branch, department, role;
     LinearLayout linear, dept_lay;
-    Button login, reset;
+    Button login, reset, get_otp;
 
     List<RolesPojo> roles = new ArrayList<>();
     RolesAdapter adapter = null;
@@ -104,6 +105,7 @@ public class Login extends AppCompatActivity implements AsyncTaskListenerObjectG
         role.setTitle("Please Select Role");
         role.setPrompt("Please Select Role");
         login = (Button) login_form.findViewById(R.id.login);
+        get_otp = (Button) login_form.findViewById(R.id.get_otp);
 
         PreventScreenshot.on(Login.this);
 
@@ -128,23 +130,59 @@ public class Login extends AppCompatActivity implements AsyncTaskListenerObjectG
             CD.showDialog(Login.this, "Please connect to Internet and try again.");
         }
 
-        mobile.addTextChangedListener(new TextWatcher() {
+//        mobile.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//
+//                // TODO Auto-generated method stub
+//            }
+//        This mobile number is not mapped in the application
+//
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//                // TODO Auto-generated method stub
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//
+//                // if(addPersons.isEmpty()){
+//                if (mobile.getText().toString().length() == 10) {
+//                    if (AppStatus.getInstance(Login.this).isOnline()) {
+//                        GetDataPojo object = new GetDataPojo();
+//                        object.setUrl(Econstants.url);
+//                        object.setMethord(Econstants.methordGetOTP);
+//                        object.setMethordHash(Econstants.encodeBase64(Econstants.methordOTPToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
+//                        object.setTaskType(TaskType.GET_OTP_VIA_MOBILE);
+//                        object.setTimeStamp(CommonUtils.getTimeStamp());
+//                        List<String> parameters = new ArrayList<>();
+//                        parameters.add(mobile.getText().toString());
+//                        parameters.add(Global_user_id);
+//                        parameters.add(Global_roleId);
+//                        object.setParameters(parameters);
+//                        new Generic_Async_Get(
+//                                Login.this,
+//                                Login.this,
+//                                TaskType.GET_OTP_VIA_MOBILE).
+//                                execute(object);
+//
+//
+//                    } else {
+//                        CD.showDialog(Login.this, "Please connect to Internet and try again.");
+//                    }
+//                } else {
+//                    Log.e("Ted", "rere");
+//                }
+//
+//
+//            }
+//        });
+
+        get_otp.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            public void onClick(View v) {
 
-                // TODO Auto-generated method stub
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                // TODO Auto-generated method stub
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-                // if(addPersons.isEmpty()){
                 if (mobile.getText().toString().length() == 10) {
                     if (AppStatus.getInstance(Login.this).isOnline()) {
                         GetDataPojo object = new GetDataPojo();
@@ -169,13 +207,11 @@ public class Login extends AppCompatActivity implements AsyncTaskListenerObjectG
                         CD.showDialog(Login.this, "Please connect to Internet and try again.");
                     }
                 } else {
-                    Log.e("Ted", "rere");
+                    CD.showDialog(Login.this, "Please enter a valid 10 digit Mobile Number.");
                 }
-
 
             }
         });
-
 
         role.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
@@ -477,8 +513,17 @@ public class Login extends AppCompatActivity implements AsyncTaskListenerObjectG
     }
 
     @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (getCurrentFocus() != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+    @Override
     public void onTaskCompleted(OfflineDataModel result, TaskType taskType) throws JSONException {
-       Log.e("Result", result.toString());
+        Log.e("Result", result.toString());
         if (taskType == TaskType.GET_ROLES) {
             //Check Weather the String is Json array or Json Object
             if (result.getHttpFlag().equalsIgnoreCase(Econstants.success)) {
@@ -753,11 +798,7 @@ public class Login extends AppCompatActivity implements AsyncTaskListenerObjectG
             Preferences.getInstance().photo = dataPojo.getPhoto();
             Log.e("Mapped Departments", Preferences.getInstance().photo);
 
-            if (dataPojo.getIsCabinetMinister().equalsIgnoreCase("Y")) {
-                Preferences.getInstance().is_cabinet_minister = true;
-            } else {
-                Preferences.getInstance().is_cabinet_minister = false;
-            }
+            Preferences.getInstance().is_cabinet_minister = dataPojo.getIsCabinetMinister().equalsIgnoreCase("Y");
 
 
             Preferences.getInstance().phone_number = dataPojo.getMobileNumber();
@@ -775,7 +816,7 @@ public class Login extends AppCompatActivity implements AsyncTaskListenerObjectG
             finish();
             return true;
         } catch (Exception ex) {
-            Log.e("Error SP==", ex.getLocalizedMessage().toString());
+            Log.e("Error SP==", ex.getLocalizedMessage());
             return false;
         }
 
