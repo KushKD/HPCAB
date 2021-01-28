@@ -17,7 +17,6 @@ import androidx.core.content.ContextCompat;
 
 import com.dit.himachal.ecabinet.R;
 import com.dit.himachal.ecabinet.utilities.Preferences;
-import com.dit.himachal.ecabinet.utilities.PreventScreenshot;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -30,7 +29,7 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-        PreventScreenshot.on(SplashScreen.this);
+       // PreventScreenshot.on(SplashScreen.this);
 
         textView = findViewById(R.id.splash_text);
         imageView = findViewById(R.id.splash_image);
@@ -67,7 +66,7 @@ public class SplashScreen extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        PreventScreenshot.on(SplashScreen.this);
+        // PreventScreenshot.on(SplashScreen.this);
 
     }
 
@@ -76,19 +75,19 @@ public class SplashScreen extends AppCompatActivity {
 
     @Override
     protected void onStop() {
-        PreventScreenshot.on(SplashScreen.this);
+        // PreventScreenshot.on(SplashScreen.this);
         super.onStop();
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState, @NonNull PersistableBundle outPersistentState) {
-        PreventScreenshot.on(SplashScreen.this);
+        //  PreventScreenshot.on(SplashScreen.this);
         super.onSaveInstanceState(outState, outPersistentState);
     }
 
     @Override
     protected void onPause() {
-        PreventScreenshot.on(SplashScreen.this);
+        // PreventScreenshot.on(SplashScreen.this);
         super.onPause();
 
     }

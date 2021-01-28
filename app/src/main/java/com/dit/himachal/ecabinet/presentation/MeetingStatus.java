@@ -169,7 +169,7 @@ public class MeetingStatus extends LinearLayout {
                 });
             }
         };
-        timer.schedule(doAsynchronousTask, 0, 30000000); //300000   10000
+        timer.schedule(doAsynchronousTask, 0, 20000); //300000   10000
     }
 
     class GetAvailability extends AsyncTask<GetDataPojo, String, OfflineDataModel> {

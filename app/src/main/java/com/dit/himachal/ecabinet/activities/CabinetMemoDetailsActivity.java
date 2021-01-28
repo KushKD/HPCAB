@@ -39,7 +39,6 @@ import com.dit.himachal.ecabinet.utilities.AppStatus;
 import com.dit.himachal.ecabinet.utilities.CommonUtils;
 import com.dit.himachal.ecabinet.utilities.Econstants;
 import com.dit.himachal.ecabinet.utilities.Preferences;
-import com.dit.himachal.ecabinet.utilities.PreventScreenshot;
 import com.doi.spinnersearchable.SearchableSpinner;
 
 import org.json.JSONArray;
@@ -90,7 +89,7 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cabinet_memo_details);
 
-        PreventScreenshot.on(CabinetMemoDetailsActivity.this);
+       // PreventScreenshot.on(CabinetMemoDetailsActivity.this);
 
         Intent cabinetData = getIntent();
         cabinetMemoPojo = (CabinetMemoPojo) cabinetData.getSerializableExtra("EVENTS_DETAILS");
@@ -880,26 +879,26 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
 
     @Override
     protected void onStop() {
-        PreventScreenshot.on(CabinetMemoDetailsActivity.this);
+        //  PreventScreenshot.on(CabinetMemoDetailsActivity.this);
         super.onStop();
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState, @NonNull PersistableBundle outPersistentState) {
-        PreventScreenshot.on(CabinetMemoDetailsActivity.this);
+        // PreventScreenshot.on(CabinetMemoDetailsActivity.this);
         super.onSaveInstanceState(outState, outPersistentState);
     }
 
     @Override
     protected void onPause() {
-        PreventScreenshot.on(CabinetMemoDetailsActivity.this);
+        // PreventScreenshot.on(CabinetMemoDetailsActivity.this);
         super.onPause();
 
     }
 
     @Override
     protected void onResume() {
-        PreventScreenshot.on(CabinetMemoDetailsActivity.this);
+        //  PreventScreenshot.on(CabinetMemoDetailsActivity.this);
         super.onResume();
     }
 

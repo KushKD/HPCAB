@@ -51,7 +51,6 @@ import com.dit.himachal.ecabinet.utilities.AppStatus;
 import com.dit.himachal.ecabinet.utilities.CommonUtils;
 import com.dit.himachal.ecabinet.utilities.Econstants;
 import com.dit.himachal.ecabinet.utilities.Preferences;
-import com.dit.himachal.ecabinet.utilities.PreventScreenshot;
 import com.doi.spinnersearchable.SearchableSpinner;
 import com.google.android.material.navigation.NavigationView;
 import com.smarteist.autoimageslider.IndicatorAnimations;
@@ -149,7 +148,7 @@ public class MainActivity2 extends AppCompatActivity implements AsyncTaskListene
             navigationView.inflateMenu(R.menu.login);
         }
 
-        PreventScreenshot.on(MainActivity2.this);
+      //  PreventScreenshot.on(MainActivity2.this);
 
         pullToRefresh = findViewById(R.id.pullToRefresh);
         sliderView = findViewById(R.id.imageSlider);
@@ -562,7 +561,7 @@ public class MainActivity2 extends AppCompatActivity implements AsyncTaskListene
     @Override
     protected void onResume() {
         super.onResume();
-        PreventScreenshot.on(MainActivity2.this);
+        // PreventScreenshot.on(MainActivity2.this);
         registerReceiver(mReceiver, new IntentFilter("getAgenda"));
 
     }
@@ -570,19 +569,19 @@ public class MainActivity2 extends AppCompatActivity implements AsyncTaskListene
 
     @Override
     protected void onStop() {
-        PreventScreenshot.on(MainActivity2.this);
+        // PreventScreenshot.on(MainActivity2.this);
         super.onStop();
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState, @NonNull PersistableBundle outPersistentState) {
-        PreventScreenshot.on(MainActivity2.this);
+        // PreventScreenshot.on(MainActivity2.this);
         super.onSaveInstanceState(outState, outPersistentState);
     }
 
     @Override
     protected void onPause() {
-        PreventScreenshot.on(MainActivity2.this);
+        // PreventScreenshot.on(MainActivity2.this);
         unregisterReceiver(mReceiver);
         super.onPause();
 

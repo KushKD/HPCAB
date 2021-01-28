@@ -1,9 +1,5 @@
 package com.dit.himachal.ecabinet.activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -14,6 +10,10 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.dit.himachal.ecabinet.R;
 import com.dit.himachal.ecabinet.adapter.CabinetMemosAdapter;
 import com.dit.himachal.ecabinet.adapter.DepartmentsAdapter;
@@ -22,17 +22,14 @@ import com.dit.himachal.ecabinet.enums.TaskType;
 import com.dit.himachal.ecabinet.generic.Generic_Async_Get;
 import com.dit.himachal.ecabinet.interfaces.AsyncTaskListenerObjectGet;
 import com.dit.himachal.ecabinet.modal.CabinetMemoPojo;
-import com.dit.himachal.ecabinet.modal.DepartmentsPojo;
 import com.dit.himachal.ecabinet.modal.GetDataPojo;
 import com.dit.himachal.ecabinet.modal.MeetingDatesPojo;
 import com.dit.himachal.ecabinet.modal.OfflineDataModel;
-import com.dit.himachal.ecabinet.modal.ResponsObject;
 import com.dit.himachal.ecabinet.presentation.CustomDialog;
 import com.dit.himachal.ecabinet.utilities.AppStatus;
 import com.dit.himachal.ecabinet.utilities.CommonUtils;
 import com.dit.himachal.ecabinet.utilities.Econstants;
 import com.dit.himachal.ecabinet.utilities.Preferences;
-import com.dit.himachal.ecabinet.utilities.PreventScreenshot;
 import com.doi.spinnersearchable.SearchableSpinner;
 
 import org.json.JSONArray;
@@ -61,7 +58,7 @@ public class FinalAgendaList extends AppCompatActivity implements AsyncTaskListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_final_agenda_list);
-        PreventScreenshot.on(FinalAgendaList.this);
+        // PreventScreenshot.on(FinalAgendaList.this);
 
 
         list = findViewById(R.id.list);
@@ -183,7 +180,7 @@ public class FinalAgendaList extends AppCompatActivity implements AsyncTaskListe
     @Override
     protected void onResume() {
         super.onResume();
-        PreventScreenshot.on(FinalAgendaList.this);
+        //   PreventScreenshot.on(FinalAgendaList.this);
 
     }
 
@@ -192,19 +189,19 @@ public class FinalAgendaList extends AppCompatActivity implements AsyncTaskListe
 
     @Override
     protected void onStop() {
-        PreventScreenshot.on(FinalAgendaList.this);
+        // PreventScreenshot.on(FinalAgendaList.this);
         super.onStop();
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState, @NonNull PersistableBundle outPersistentState) {
-        PreventScreenshot.on(FinalAgendaList.this);
+        // PreventScreenshot.on(FinalAgendaList.this);
         super.onSaveInstanceState(outState, outPersistentState);
     }
 
     @Override
     protected void onPause() {
-        PreventScreenshot.on(FinalAgendaList.this);
+        //  PreventScreenshot.on(FinalAgendaList.this);
         super.onPause();
 
     }

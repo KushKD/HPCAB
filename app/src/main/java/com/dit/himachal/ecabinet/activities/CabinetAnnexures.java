@@ -1,8 +1,5 @@
 package com.dit.himachal.ecabinet.activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.util.Log;
@@ -10,14 +7,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.dit.himachal.ecabinet.R;
 import com.dit.himachal.ecabinet.adapter.CabinetAnnextureMemosAdapter;
-import com.dit.himachal.ecabinet.adapter.CabinetHistoryMemosAdapter;
 import com.dit.himachal.ecabinet.modal.CabinetMemoPojo;
 import com.dit.himachal.ecabinet.modal.ListAnnexures;
-import com.dit.himachal.ecabinet.modal.ListCabinetMemoTrackingHistoryListsPojo;
 import com.dit.himachal.ecabinet.presentation.CustomDialog;
-import com.dit.himachal.ecabinet.utilities.PreventScreenshot;
 
 public class CabinetAnnexures extends AppCompatActivity {
 
@@ -32,7 +29,7 @@ public class CabinetAnnexures extends AppCompatActivity {
         setContentView(R.layout.activity_cabinet_annexures);
         data = (CabinetMemoPojo) getIntent().getSerializableExtra("data");
         list = findViewById(R.id.list);
-        PreventScreenshot.on(CabinetAnnexures.this);
+        //PreventScreenshot.on(CabinetAnnexures.this);
         list = findViewById(R.id.list);
 
         if(data.getListCabinetMemoTrackingHistoryLists().size()>0){
@@ -66,26 +63,26 @@ public class CabinetAnnexures extends AppCompatActivity {
 
     @Override
     protected void onStop() {
-        PreventScreenshot.on(CabinetAnnexures.this);
+        //  PreventScreenshot.on(CabinetAnnexures.this);
         super.onStop();
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState, @NonNull PersistableBundle outPersistentState) {
-        PreventScreenshot.on(CabinetAnnexures.this);
+        // PreventScreenshot.on(CabinetAnnexures.this);
         super.onSaveInstanceState(outState, outPersistentState);
     }
 
     @Override
     protected void onPause() {
-        PreventScreenshot.on(CabinetAnnexures.this);
+        // PreventScreenshot.on(CabinetAnnexures.this);
         super.onPause();
 
     }
 
     @Override
     protected void onResume() {
-        PreventScreenshot.on(CabinetAnnexures.this);
+        //  PreventScreenshot.on(CabinetAnnexures.this);
         super.onResume();
     }
 }

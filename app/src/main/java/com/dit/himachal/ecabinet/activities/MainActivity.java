@@ -39,7 +39,6 @@ import com.dit.himachal.ecabinet.utilities.AppStatus;
 import com.dit.himachal.ecabinet.utilities.CommonUtils;
 import com.dit.himachal.ecabinet.utilities.Econstants;
 import com.dit.himachal.ecabinet.utilities.Preferences;
-import com.dit.himachal.ecabinet.utilities.PreventScreenshot;
 import com.doi.spinnersearchable.SearchableSpinner;
 
 import org.json.JSONArray;
@@ -79,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        PreventScreenshot.on(MainActivity.this);
+      //  PreventScreenshot.on(MainActivity.this);
 
         pullToRefresh = findViewById(R.id.pullToRefresh);
         home_gv = findViewById(R.id.gv);
@@ -465,7 +464,7 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
     @Override
     protected void onResume() {
         super.onResume();
-        PreventScreenshot.on(MainActivity.this);
+        //  PreventScreenshot.on(MainActivity.this);
         registerReceiver(mReceiver, new IntentFilter("getAgenda"));
 
     }
@@ -473,19 +472,19 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
 
     @Override
     protected void onStop() {
-        PreventScreenshot.on(MainActivity.this);
+        // PreventScreenshot.on(MainActivity.this);
         super.onStop();
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState, @NonNull PersistableBundle outPersistentState) {
-        PreventScreenshot.on(MainActivity.this);
+        // PreventScreenshot.on(MainActivity.this);
         super.onSaveInstanceState(outState, outPersistentState);
     }
 
     @Override
     protected void onPause() {
-        PreventScreenshot.on(MainActivity.this);
+        //  PreventScreenshot.on(MainActivity.this);
         unregisterReceiver(mReceiver);
         super.onPause();
 

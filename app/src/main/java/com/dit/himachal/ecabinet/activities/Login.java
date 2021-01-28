@@ -40,7 +40,6 @@ import com.dit.himachal.ecabinet.utilities.AppStatus;
 import com.dit.himachal.ecabinet.utilities.CommonUtils;
 import com.dit.himachal.ecabinet.utilities.Econstants;
 import com.dit.himachal.ecabinet.utilities.Preferences;
-import com.dit.himachal.ecabinet.utilities.PreventScreenshot;
 import com.doi.spinnersearchable.SearchableSpinner;
 
 import org.json.JSONArray;
@@ -107,7 +106,7 @@ public class Login extends AppCompatActivity implements AsyncTaskListenerObjectG
         login = (Button) login_form.findViewById(R.id.login);
         get_otp = (Button) login_form.findViewById(R.id.get_otp);
 
-        PreventScreenshot.on(Login.this);
+      //  PreventScreenshot.on(Login.this);
 
 
         if (AppStatus.getInstance(Login.this).isOnline()) {
@@ -486,7 +485,7 @@ public class Login extends AppCompatActivity implements AsyncTaskListenerObjectG
     @Override
     protected void onResume() {
         super.onResume();
-        PreventScreenshot.on(Login.this);
+        // PreventScreenshot.on(Login.this);
 
     }
 
@@ -495,19 +494,19 @@ public class Login extends AppCompatActivity implements AsyncTaskListenerObjectG
 
     @Override
     protected void onStop() {
-        PreventScreenshot.on(Login.this);
+        // PreventScreenshot.on(Login.this);
         super.onStop();
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState, @NonNull PersistableBundle outPersistentState) {
-        PreventScreenshot.on(Login.this);
+        // PreventScreenshot.on(Login.this);
         super.onSaveInstanceState(outState, outPersistentState);
     }
 
     @Override
     protected void onPause() {
-        PreventScreenshot.on(Login.this);
+        // PreventScreenshot.on(Login.this);
         super.onPause();
 
     }
