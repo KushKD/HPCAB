@@ -19,7 +19,7 @@ import com.dit.himachal.ecabinet.utilities.Preferences;
 
 public class SplashScreen extends AppCompatActivity {
 
-    TextView textView;
+    TextView textView,govt;
     ImageView imageView;
     Animation animationUptoDown , animationDownToUp;
 
@@ -30,13 +30,13 @@ public class SplashScreen extends AppCompatActivity {
 
        // PreventScreenshot.on(SplashScreen.this);
 
-        textView = findViewById(R.id.splash_text);
+        textView = findViewById(R.id.splash_text); govt = findViewById(R.id.govt);
         imageView = findViewById(R.id.splash_image);
         animationUptoDown = AnimationUtils.loadAnimation(SplashScreen.this,R.anim.uptodownanim);
         animationDownToUp = AnimationUtils.loadAnimation(SplashScreen.this,R.anim.downtotopanim);
 
         imageView.setAnimation(animationUptoDown);
-        textView.setAnimation(animationDownToUp);
+        textView.setAnimation(animationDownToUp); govt.setAnimation(animationDownToUp);
         Preferences.getInstance().loadPreferences(SplashScreen.this);
         requestPermissions();
 
