@@ -10,6 +10,8 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -92,6 +94,13 @@ public class MeetingStatus extends LinearLayout {
         agendanumberTextView = layout.findViewById(R.id.agendanumber);
         ajendanameTextView = layout.findViewById(R.id.ajendaname);
         designationTextView = layout.findViewById(R.id.designation);
+
+        Animation anim = new AlphaAnimation(0.0f, 1.0f);
+        anim.setDuration(50); //You can manage the blinking time with this parameter
+        anim.setStartOffset(20);
+        anim.setRepeatMode(Animation.REVERSE);
+        anim.setRepeatCount(Animation.INFINITE);
+        agendanumberTextView.startAnimation(anim);
 
 
         //SetText

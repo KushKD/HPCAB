@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_weight="1"
         android:id="@+id/l1"
-        android:padding="10dp"
+        android:padding="3dp"
         android:orientation="horizontal"
         android:layout_height="match_parent">
 
@@ -21,6 +21,16 @@
             android:padding="5dp"
             android:gravity="center_vertical|center_horizontal|top"
             android:layout_weight="1">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center|center_vertical|center_horizontal"
+                android:padding="5dp"
+                android:text="Current Active Agenda"
+                android:textStyle="bold"
+                android:background="@drawable/gradient_login_top"
+                android:textColor="#FFFFFF" />
 
 
             <LinearLayout
@@ -52,7 +62,7 @@
                     android:gravity="center_vertical|center_horizontal|left"
                     android:padding="2dp"
                     android:text="Agenda Name"
-                    android:textColor="#000000" />
+                    android:textColor="@color/colcr_blue" />
 
             </LinearLayout>
 
@@ -84,7 +94,7 @@
                     android:gravity="center_vertical|center_horizontal|left"
                     android:padding="2dp"
                     android:text="Department Name"
-                    android:textColor="#000000" />
+                    android:textColor="@color/colcr_blue" />
 
             </LinearLayout>
 
@@ -145,12 +155,14 @@
             <TextView
                 android:id="@+id/agendanumber"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical|center_horizontal|center"
-                android:gravity="center|center_horizontal|center_vertical"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|center_horizontal|top"
+                android:gravity="center"
                 android:textColor="#FFFFFF"
+                android:text="25"
+                android:padding="1sp"
                 android:textStyle="bold"
-                android:textSize="40sp">
+                android:textSize="50sp">
 
             </TextView>
 
