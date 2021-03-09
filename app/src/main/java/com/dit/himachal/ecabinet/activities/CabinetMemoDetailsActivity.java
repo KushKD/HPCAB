@@ -832,6 +832,11 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
                     SB.append(cabinetMemoPojoDetails.getListConsiderationPoints().get(i).getPointNumber() + "). ");
                     SB.append(cabinetMemoPojoDetails.getListConsiderationPoints().get(i).getTitle());
                     SB.append("\n");
+                    SB.append("\n \n \t");
+                    SB.append("Status:- " + cabinetMemoPojoDetails.getListConsiderationPoints().get(i).getConsiderationPtFinalStatus());
+                    SB.append("\n \n \t");
+                    SB.append("Remarks:- " + cabinetMemoPojoDetails.getListConsiderationPoints().get(i).getConsiderationPtFinalRemarks());
+                    SB.append("\n");
                 }
                 pointsconsideration.setText(SB.toString());
             } else {

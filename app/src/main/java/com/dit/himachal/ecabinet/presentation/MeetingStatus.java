@@ -83,6 +83,9 @@ public class MeetingStatus extends LinearLayout {
         String ajendaname = a.getString(R.styleable.MeetingStatus_ajendaname);
         String designation = a.getString(R.styleable.MeetingStatus_designation);
 
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+        params.gravity = Gravity.CENTER_VERTICAL | Gravity.CENTER | Gravity.CENTER_HORIZONTAL;
+
         agendanumber = agendanumber == null ? "" : agendanumber;
         ajendaname = ajendaname == null ? "" : ajendaname;
         designation = designation == null ? "" : designation;
@@ -103,7 +106,8 @@ public class MeetingStatus extends LinearLayout {
         anim.setRepeatCount(Animation.INFINITE);
         agendanumberTextView.startAnimation(anim);
 
-        ajendanameTextView.setGravity(Gravity.CENTER);
+        ajendanameTextView.setLayoutParams(params);
+        agendanumberTextView.setLayoutParams(params);
 
 
         //SetText
@@ -181,7 +185,7 @@ public class MeetingStatus extends LinearLayout {
                 });
             }
         };
-        timer.schedule(doAsynchronousTask, 0, 1000); //300000   10000
+        timer.schedule(doAsynchronousTask, 0, 10000); //300000   10000
     }
 
     class GetAvailability extends AsyncTask<GetDataPojo, String, OfflineDataModel> {
