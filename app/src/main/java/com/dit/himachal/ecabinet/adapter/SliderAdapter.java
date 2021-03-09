@@ -28,7 +28,7 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.SliderAdapter
 
     @Override
     public void onBindViewHolder(SliderAdapter.SliderAdapterVH viewHolder, int position) {
-        viewHolder.textViewDescription.setText("eCabinet V2.0");
+        viewHolder.textViewDescription.setText("eCabinet V4.0");
         viewHolder.textViewDescription.setVisibility(View.VISIBLE);
 
         switch (position) {

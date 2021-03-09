@@ -1,6 +1,5 @@
 package com.dit.himachal.ecabinet.activities;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -14,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.LinearLayout;
@@ -28,7 +26,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.dit.himachal.ecabinet.R;
 import com.dit.himachal.ecabinet.adapter.DepartmentsAdapter;
@@ -83,7 +80,7 @@ public class MainActivity2 extends AppCompatActivity implements AsyncTaskListene
 
     TextView username, designation, mobile, is_cabinet;
     //ImageView imageuser;
-    SwipeRefreshLayout pullToRefresh;
+    //SwipeRefreshLayout pullToRefresh;
 
 
     ImageLoader imageLoader = new ImageLoader(MainActivity2.this);
@@ -133,9 +130,9 @@ public class MainActivity2 extends AppCompatActivity implements AsyncTaskListene
         navigationView.setNavigationItemSelectedListener(this);
 
         View hView = navigationView.getHeaderView(0);
-        TextView name = (TextView) hView.findViewById(R.id.name);
-        TextView mobile_number = (TextView) hView.findViewById(R.id.mobilenumber);
-        TextView designation = (TextView) hView.findViewById(R.id.designation);
+        TextView name = hView.findViewById(R.id.name);
+        TextView mobile_number = hView.findViewById(R.id.mobilenumber);
+        TextView designation = hView.findViewById(R.id.designation);
         name.setText(Preferences.getInstance().user_name);
         mobile_number.setText(Preferences.getInstance().phone_number);
         designation.setText(Preferences.getInstance().role_name);
@@ -150,7 +147,7 @@ public class MainActivity2 extends AppCompatActivity implements AsyncTaskListene
 
       //  PreventScreenshot.on(MainActivity2.this);
 
-        pullToRefresh = findViewById(R.id.pullToRefresh);
+        // pullToRefresh = findViewById(R.id.pullToRefresh);
         sliderView = findViewById(R.id.imageSlider);
         home_gv = findViewById(R.id.gv);
         department = findViewById(R.id.department);
@@ -280,63 +277,63 @@ public class MainActivity2 extends AppCompatActivity implements AsyncTaskListene
         }
 
 
-        home_gv.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
+//        home_gv.setOnScrollListener(new AbsListView.OnScrollListener() {
+//            @Override
+//            public void onScrollStateChanged(AbsListView view, int scrollState) {
+//
+//            }
+//
+//            @Override
+//            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+//                int topRowVerticalPosition = (home_gv == null || home_gv.getChildCount() == 0) ? 0 : home_gv.getChildAt(0).getTop();
+//                pullToRefresh.setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0);
+//            }
+//        });
 
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                int topRowVerticalPosition = (home_gv == null || home_gv.getChildCount() == 0) ? 0 : home_gv.getChildAt(0).getTop();
-                pullToRefresh.setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0);
-            }
-        });
-
-        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-
-                if (AppStatus.getInstance(MainActivity2.this).isOnline()) {
-                    GetDataPojo object2 = new GetDataPojo();
-                    object2.setUrl(Econstants.url);
-                    object2.setMethord(Econstants.getDepartmentsViaRoles);
-                    object2.setMethordHash(Econstants.encodeBase64(Econstants.getDepartmentsViaRolesToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
-                    object2.setTaskType(TaskType.GET_DEPARTMENTS_VIA_ROLES);
-                    object2.setTimeStamp(CommonUtils.getTimeStamp());
-                    List<String> parameters = new ArrayList<>();
-                    parameters.add(Preferences.getInstance().user_id);
-                    parameters.add(Preferences.getInstance().role_id);
-                    object2.setParameters(parameters);
-
-                    new Generic_Async_Get(
-                            MainActivity2.this,
-                            MainActivity2.this,
-                            TaskType.GET_DEPARTMENTS_VIA_ROLES).
-                            execute(object2);
-
-                } else {
-
-                    DatabaseHandler DB = new DatabaseHandler(MainActivity2.this);
-                    Log.e("GET_DEPARTMENTS_VIA", Integer.toString(DB.GetAllOfflineDataViaFunction(TaskType.GET_DEPARTMENTS_VIA_ROLES.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "GET_DEPARTMENTS_VIA_ROLES").size()));
-                    if (DB.GetAllOfflineDataViaFunction(TaskType.GET_DEPARTMENTS_VIA_ROLES.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "GET_DEPARTMENTS_VIA_ROLES").size() > 0) {
-                        //Show Events
-                        try {
-
-                            showDepartments(DB.GetAllOfflineDataViaFunction(TaskType.GET_DEPARTMENTS_VIA_ROLES.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "GET_DEPARTMENTS_VIA_ROLES").get(0));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                    } else {
-                        CD.showDialogCloseActivity(MainActivity2.this, Econstants.NO_DATA);
-                    }
-                }
-
-
-                pullToRefresh.setRefreshing(false);
-            }
-        });
+//        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//
+//                if (AppStatus.getInstance(MainActivity2.this).isOnline()) {
+//                    GetDataPojo object2 = new GetDataPojo();
+//                    object2.setUrl(Econstants.url);
+//                    object2.setMethord(Econstants.getDepartmentsViaRoles);
+//                    object2.setMethordHash(Econstants.encodeBase64(Econstants.getDepartmentsViaRolesToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
+//                    object2.setTaskType(TaskType.GET_DEPARTMENTS_VIA_ROLES);
+//                    object2.setTimeStamp(CommonUtils.getTimeStamp());
+//                    List<String> parameters = new ArrayList<>();
+//                    parameters.add(Preferences.getInstance().user_id);
+//                    parameters.add(Preferences.getInstance().role_id);
+//                    object2.setParameters(parameters);
+//
+//                    new Generic_Async_Get(
+//                            MainActivity2.this,
+//                            MainActivity2.this,
+//                            TaskType.GET_DEPARTMENTS_VIA_ROLES).
+//                            execute(object2);
+//
+//                } else {
+//
+//                    DatabaseHandler DB = new DatabaseHandler(MainActivity2.this);
+//                    Log.e("GET_DEPARTMENTS_VIA", Integer.toString(DB.GetAllOfflineDataViaFunction(TaskType.GET_DEPARTMENTS_VIA_ROLES.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "GET_DEPARTMENTS_VIA_ROLES").size()));
+//                    if (DB.GetAllOfflineDataViaFunction(TaskType.GET_DEPARTMENTS_VIA_ROLES.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "GET_DEPARTMENTS_VIA_ROLES").size() > 0) {
+//                        //Show Events
+//                        try {
+//
+//                            showDepartments(DB.GetAllOfflineDataViaFunction(TaskType.GET_DEPARTMENTS_VIA_ROLES.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "GET_DEPARTMENTS_VIA_ROLES").get(0));
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//
+//                    } else {
+//                        CD.showDialogCloseActivity(MainActivity2.this, Econstants.NO_DATA);
+//                    }
+//                }
+//
+//
+//                pullToRefresh.setRefreshing(false);
+//            }
+//        });
 
         SliderAdapter adapters = new SliderAdapter(this);
 
@@ -718,7 +715,7 @@ public class MainActivity2 extends AppCompatActivity implements AsyncTaskListene
 
             Intent mainIntent = new Intent(MainActivity2.this, Login.class);
             (MainActivity2.this).startActivity(mainIntent);
-            ((Activity) MainActivity2.this).finish();
+            MainActivity2.this.finish();
 
 
         }
