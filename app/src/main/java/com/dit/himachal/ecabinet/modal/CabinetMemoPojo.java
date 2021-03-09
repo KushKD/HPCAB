@@ -27,6 +27,16 @@ public class CabinetMemoPojo implements Serializable {
     private String Subject;
     private String Date;
     private String StatusMessage;
+    private String Currentlywith;
+
+
+    public String getCurrentlywith() {
+        return Currentlywith;
+    }
+
+    public void setCurrentlywith(String currentlywith) {
+        Currentlywith = currentlywith;
+    }
 
     public String getBranchId() {
         return BranchId;
@@ -223,6 +233,7 @@ public class CabinetMemoPojo implements Serializable {
                 ", Subject='" + Subject + '\'' +
                 ", Date='" + Date + '\'' +
                 ", StatusMessage='" + StatusMessage + '\'' +
+                ", Currentlywith='" + Currentlywith + '\'' +
                 '}';
     }
 }

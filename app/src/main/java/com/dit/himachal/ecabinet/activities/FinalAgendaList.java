@@ -155,21 +155,21 @@ public class FinalAgendaList extends AppCompatActivity implements AsyncTaskListe
                 }
             });
 
-            list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                    CabinetMemoPojo cabinet_memo_pojo = (CabinetMemoPojo) parent.getItemAtPosition(position);
-                    Intent i = new Intent(FinalAgendaList.this, CabinetMemoDetailsActivity.class);
-                    i.putExtra("EVENTS_DETAILS", cabinet_memo_pojo);
-
-                        i.putExtra("param", "final");
-
-                    startActivity(i);
-
-                }
-            });
+//            list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//
+//                @Override
+//                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//
+//                    CabinetMemoPojo cabinet_memo_pojo = (CabinetMemoPojo) parent.getItemAtPosition(position);
+//                    Intent i = new Intent(FinalAgendaList.this, CabinetMemoDetailsActivity.class);
+//                    i.putExtra("EVENTS_DETAILS", cabinet_memo_pojo);
+//
+//                        i.putExtra("param", "final");
+//
+//                    startActivity(i);
+//
+//                }
+//            });
 
 
         } catch (Exception ex) {

@@ -64,7 +64,7 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
             proposal,
             advisory_department_approval,
             additional_information,
-            pointsconsideration, phone;
+            pointsconsideration, phone, currentlywith;
     private SearchableSpinner action_spinner, sent_back_to;
     private List<ListConsiderationPoints> listConsiderationPoints = null;
     private List<ListAnnexures> listAnnexures = null;
@@ -742,6 +742,7 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
             cabinetMemoPojoDetails.setProposalDetails(object.optString("ProposalDetails"));
             cabinetMemoPojoDetails.setSecIncharge(Econstants.decodeBase64(object.optString("SecIncharge")));
             cabinetMemoPojoDetails.setSubject(Econstants.decodeBase64(object.optString("Subject")));
+            cabinetMemoPojoDetails.setCurrentlywith(Econstants.decodeBase64(object.optString("Currentlywith")));
             // cabinetMemoPojoDetails.setDate(Econstants.decodeBase64(object.optString("Date")));
 
             //extracting data array from json string
@@ -825,6 +826,7 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
             secretaryincharge.setText(cabinetMemoPojoDetails.getSecIncharge());
             subjet.setText(cabinetMemoPojoDetails.getSubject());
             proposal.setText(Html.fromHtml(cabinetMemoPojoDetails.getProposalDetails()));
+            currentlywith.setText(cabinetMemoPojoDetails.getCurrentlywith());
 
             if (cabinetMemoPojoDetails.getListConsiderationPoints().size() > 0) {
                 StringBuilder SB = new StringBuilder();
@@ -880,6 +882,7 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
         sent_back_to = findViewById(R.id.sent_back_to);
         sent_lay = findViewById(R.id.sent_lay);
         action_lay = findViewById(R.id.action_lay);
+        currentlywith = findViewById(R.id.currentlywith);
     }
 
     @Override
