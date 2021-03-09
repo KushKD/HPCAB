@@ -18,7 +18,7 @@ public class Econstants {
     public static final String url = "http://ecabinetwcftest.hp.gov.in/eCabinetService.svc";
 
     //URL Production
-    //public static final String url = "http://ecabinetwcf.hp.gov.in/eCabinetService.svc";
+   // public static final String url = "http://ecabinetwcf.hp.gov.in/eCabinetService.svc";
 
 
     public static String delemeter = "/";
