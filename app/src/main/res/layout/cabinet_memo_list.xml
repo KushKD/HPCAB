@@ -71,6 +71,20 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
+        android:id="@+id/number"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/thumbnail"
+        android:layout_marginLeft="5dip"
+        android:visibility="gone"
+        android:layout_below="@+id/central_dept"
+        android:textSize="14sp"
+        android:text="323232"
+        android:fontFamily="@font/poppins_semibold"
+        android:textColor="@color/color_red_maroon"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
         android:id="@+id/details"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

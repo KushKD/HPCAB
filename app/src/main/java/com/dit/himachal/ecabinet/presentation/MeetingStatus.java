@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -96,11 +97,13 @@ public class MeetingStatus extends LinearLayout {
         designationTextView = layout.findViewById(R.id.designation);
 
         Animation anim = new AlphaAnimation(0.0f, 1.0f);
-        anim.setDuration(50); //You can manage the blinking time with this parameter
-        anim.setStartOffset(20);
+        anim.setDuration(2000); //You can manage the blinking time with this parameter
+        anim.setStartOffset(10);
         anim.setRepeatMode(Animation.REVERSE);
         anim.setRepeatCount(Animation.INFINITE);
         agendanumberTextView.startAnimation(anim);
+
+        ajendanameTextView.setGravity(Gravity.CENTER);
 
 
         //SetText
@@ -178,7 +181,7 @@ public class MeetingStatus extends LinearLayout {
                 });
             }
         };
-        timer.schedule(doAsynchronousTask, 0, 20000); //300000   10000
+        timer.schedule(doAsynchronousTask, 0, 1000); //300000   10000
     }
 
     class GetAvailability extends AsyncTask<GetDataPojo, String, OfflineDataModel> {

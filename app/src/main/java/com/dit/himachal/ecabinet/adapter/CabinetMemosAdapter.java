@@ -82,38 +82,46 @@ public class CabinetMemosAdapter extends BaseAdapter implements Filterable {
         View view = inflater.inflate(R.layout.cabinet_memo_list, parent, false);
 
         CabinetMemoPojo u = news.get(position);
-        TextView name = (TextView) view.findViewById(R.id.name);
-        TextView state_dept = (TextView) view.findViewById(R.id.state_dept);
-        TextView central_dept = (TextView) view.findViewById(R.id.central_dept);
-        ImageView imageView1 = (ImageView)view.findViewById(R.id.imageView1);
+        TextView name = view.findViewById(R.id.name);
+        TextView state_dept = view.findViewById(R.id.state_dept);
+        TextView central_dept = view.findViewById(R.id.central_dept);
+        ImageView imageView1 = view.findViewById(R.id.imageView1);
+        TextView number = view.findViewById(R.id.number);
 
-        if(param_.equalsIgnoreCase("Forwarded")){
+        if (param_.equalsIgnoreCase("Forwarded")) {
             imageView1.setImageDrawable(context.getResources().getDrawable(R.drawable.forward_memos));
             state_dept.setVisibility(View.GONE);
+            number.setVisibility(View.GONE);
+
             name.setText(u.getSubject());
-            state_dept.setText("Agenda Item No:- "+u.getAgendaItemType());
+            state_dept.setText("Agenda Item No:- " + u.getAgendaItemType());
             central_dept.setText(u.getDeptName());
-        }else if(param_.equalsIgnoreCase("Backwarded")){
+        } else if (param_.equalsIgnoreCase("Backwarded")) {
             imageView1.setImageDrawable(context.getResources().getDrawable(R.drawable.sent_back_memos));
             state_dept.setVisibility(View.GONE);
+            number.setVisibility(View.GONE);
+
             name.setText(u.getSubject());
-            state_dept.setText("Agenda Item No:- "+u.getAgendaItemType());
+            state_dept.setText("Agenda Item No:- " + u.getAgendaItemType());
             central_dept.setText(u.getDeptName());
         }else if(param_.equalsIgnoreCase("PlacedInCabinet")){
             imageView1.setImageDrawable(context.getResources().getDrawable(R.drawable.sent_back_memos));
             state_dept.setVisibility(View.VISIBLE);
+            number.setVisibility(View.GONE);
             name.setText(u.getSubject());
             state_dept.setText("Date:- " +u.getMeetingdate() +", Item No:- "+u.getAgendaItemType());
           //  state_dept.setText("Item No:- "+u.getAgendaItemType());
             central_dept.setText(u.getDeptName());
         }
-        else{
+        else {
             imageView1.setImageDrawable(context.getResources().getDrawable(R.drawable.cabinet_memos));
             state_dept.setVisibility(View.VISIBLE);
             name.setText(u.getSubject());
-            state_dept.setText("Item No:- "+u.getAgendaItemType());
+            number.setVisibility(View.VISIBLE);
+            number.setText("Item Number:- " + u.getAgendaItemNo());
+            state_dept.setText("Item Type :- " + u.getAgendaItemType());
             central_dept.setText(u.getDeptName());
-       }
+        }
 
 
           //  PlacedInCabinet
