@@ -10,6 +10,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -20,6 +21,8 @@ import com.dit.himachal.ecabinet.R;
 import com.dit.himachal.ecabinet.activities.MainActivity2;
 import com.dit.himachal.ecabinet.databases.DatabaseHandler;
 import com.dit.himachal.ecabinet.enums.TaskType;
+import com.dit.himachal.ecabinet.generic.Generic_Async_Get;
+import com.dit.himachal.ecabinet.interfaces.AsyncTaskListenerObjectGet;
 import com.dit.himachal.ecabinet.interfaces.LengthAgenda;
 import com.dit.himachal.ecabinet.modal.AgendaPojo;
 import com.dit.himachal.ecabinet.modal.GetDataPojo;
@@ -37,7 +40,7 @@ import org.json.JSONTokener;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class MeetingStatus extends LinearLayout {
+public class MeetingStatus extends LinearLayout implements AsyncTaskListenerObjectGet {
 
 
     CustomDialog CD = new CustomDialog();
@@ -49,8 +52,12 @@ public class MeetingStatus extends LinearLayout {
     TextView designationTextView = null;
 
     private LengthAgenda lengthAgendaListener;
+    //If set to false, the children are clickable. If set to true, they are not.
+    private boolean mDisableChildrenTouchEvents;
 
     Context context_;
+
+
     private GetAvailability currentTask = null;
 
     public MeetingStatus(Context context, LengthAgenda lengthAgenda) {
@@ -64,6 +71,7 @@ public class MeetingStatus extends LinearLayout {
         super(context, attrs);
         this.context_ = context;
         SetUP_TextView(attrs, context);
+        mDisableChildrenTouchEvents = false;
 
 
     }
@@ -71,6 +79,8 @@ public class MeetingStatus extends LinearLayout {
     public MeetingStatus(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.context_ = context;
+        mDisableChildrenTouchEvents = false;
+
 
     }
 
@@ -78,6 +88,8 @@ public class MeetingStatus extends LinearLayout {
     public void SetUP_TextView(AttributeSet attrs, Context context) {
 
         this.context_ = context;
+        mDisableChildrenTouchEvents = false;
+
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.MeetingStatus);
         String agendanumber = a.getString(R.styleable.MeetingStatus_agendanumber);
         String ajendaname = a.getString(R.styleable.MeetingStatus_ajendaname);
@@ -109,11 +121,40 @@ public class MeetingStatus extends LinearLayout {
         ajendanameTextView.setLayoutParams(params);
         agendanumberTextView.setLayoutParams(params);
 
+        agendanumberTextView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GetDataPojo object = new GetDataPojo();
+                object.setUrl(Econstants.url);
+                object.setMethord(Econstants.methordGetOnlineCabinetIDMeetingStatus);
+                object.setMethordHash(Econstants.encodeBase64(Econstants.methordGetOnlineCabinetIDMeetingToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
+                object.setTaskType(TaskType.CABINET_MEETING_STATUS);
+                object.setTimeStamp(CommonUtils.getTimeStamp());
+                object.setBifurcation("CABINET_MEETING_STATUS");
+
+                new Generic_Async_Get(
+                        context_,
+                        (AsyncTaskListenerObjectGet) context_,
+                        TaskType.CABINET_MEETING_STATUS).
+                        execute(object);
+
+            }
+        });
+
 
         //SetText
 
         a.recycle();
 
+    }
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        return mDisableChildrenTouchEvents;
+    }
+
+    public void setDisableChildrenTouchEvents(boolean flag) {
+        mDisableChildrenTouchEvents = flag;
     }
 
 
@@ -187,6 +228,70 @@ public class MeetingStatus extends LinearLayout {
         };
         timer.schedule(doAsynchronousTask, 0, 10000); //300000   10000
     }
+
+    @Override
+    public void onTaskCompleted(OfflineDataModel result, TaskType taskType) throws JSONException {
+
+        if (taskType == TaskType.CABINET_MEETING_STATUS) {
+
+            showCabinetAgendaAlert(result);
+
+
+        }
+
+
+    }
+
+    private void showCabinetAgendaAlert(OfflineDataModel result) {
+
+
+        if (result.getFunctionName().equalsIgnoreCase(TaskType.CABINET_MEETING_STATUS.toString())) {
+            AgendaPojo agendaPojo = null;
+
+            Log.e("Result == ", result.getResponse());
+            Object json = null;
+            try {
+                json = new JSONTokener(result.getResponse()).nextValue();
+            } catch (JSONException e) {
+                Log.e("==Error", e.getLocalizedMessage());
+            }
+            if (json instanceof JSONObject) {
+                try {
+                    Log.e("Json Object", "Object");
+                    JSONObject object = new JSONObject(result.getResponse());
+                    agendaPojo = new AgendaPojo();
+                    agendaPojo.setAgendaItemNo(Econstants.decodeBase64(object.optString("AgendaItemNo")));
+                    agendaPojo.setAgendaItemType(Econstants.decodeBase64(object.optString("AgendaItemType")));
+                    agendaPojo.setDeptName(Econstants.decodeBase64(object.optString("DeptName")));
+                    agendaPojo.setFileNo(Econstants.decodeBase64(object.optString("FileNo")));
+                    agendaPojo.setSubject(Econstants.decodeBase64(object.optString("Subject")));
+
+
+                    if (agendaPojo.getAgendaItemType().length() > 0) {
+                        Log.e("Agenda", agendaPojo.toString());
+                        CD.showDialogActiveAjenda((Activity) context_, agendaPojo);
+                        //TODO Agenda Pop Up
+                    } else {
+                        Log.e("Agenda", agendaPojo.toString());
+                        CD.showDialogSuccess((Activity) context_, "No Active Agenda Item Available.");
+                    }
+
+                } catch (Exception ex) {
+                    Log.e("arrayReports", ex.toString());
+                }
+
+
+            }
+
+
+        } else {
+            CD.showDialog((Activity) context_, result.getResponse());
+
+        }
+
+
+    }
+
 
     class GetAvailability extends AsyncTask<GetDataPojo, String, OfflineDataModel> {
 
@@ -289,7 +394,7 @@ public class MeetingStatus extends LinearLayout {
 
                     if (agendaPojo.getAgendaItemType().length() > 0) {
                         Log.e("Agenda", agendaPojo.toString());
-                        agendanumberTextView.setText(agendaPojo.getAgendaItemNo());
+                        agendanumberTextView.setText("   " + agendaPojo.getAgendaItemNo());
                         ajendanameTextView.setText(agendaPojo.getSubject());
                         designationTextView.setText(agendaPojo.getDeptName());
                         layout.setVisibility(View.VISIBLE);

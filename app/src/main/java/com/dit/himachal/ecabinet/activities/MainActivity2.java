@@ -145,18 +145,22 @@ public class MainActivity2 extends AppCompatActivity implements AsyncTaskListene
             navigationView.inflateMenu(R.menu.login);
         }
 
-      //  PreventScreenshot.on(MainActivity2.this);
+        //  PreventScreenshot.on(MainActivity2.this);
 
         // pullToRefresh = findViewById(R.id.pullToRefresh);
         sliderView = findViewById(R.id.imageSlider);
         home_gv = findViewById(R.id.gv);
         department = findViewById(R.id.department);
         meetingStatus = findViewById(R.id.mstatus);
+        //  meetingStatus.setDisableChildrenTouchEvents(true);
+
         // LinearLayout layout_user_dashboard = findViewById(R.id.layout_user);
         // username = (TextView) layout_user_dashboard.findViewById(R.id.username);
         // designation = (TextView) layout_user_dashboard.findViewById(R.id.designation);
-        //   meetingStatus = (MeetingStatus) layout_user_dashboard.findViewById(R.id.user_dashboard);
-        // meetingStatus.setSelected(true);
+        // meetingStatus =  meetingStatus.findViewById(R.id.user_dashboard);
+        //  meetingStatus.setSelected(true);
+        //  meetingStatus.setClickable(true);
+        // meetingStatus.setFocusable(true);
 //        imageuser = (ImageView) layout_user_dashboard.findViewById(R.id.imageuser);
 
         department.setTitle(" Select Department");
@@ -173,6 +177,31 @@ public class MainActivity2 extends AppCompatActivity implements AsyncTaskListene
         //if (!Preferences.getInstance().photo.isEmpty()) {
         //  imageLoader.DisplayCircleImage(Preferences.getInstance().photo, imageuser, null, null, false);
         //}
+
+
+        /**
+         *  if (AppStatus.getInstance(MainActivity2.this).isOnline()) {
+         *                         GetDataPojo object = new GetDataPojo();
+         *                         object.setUrl(Econstants.url);
+         *                         object.setMethord(Econstants.methordGetOnlineCabinetIDMeetingStatus);
+         *                         object.setMethordHash(Econstants.encodeBase64(Econstants.methordGetOnlineCabinetIDMeetingToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
+         *                         object.setTaskType(TaskType.CABINET_MEETING_STATUS);
+         *                         object.setTimeStamp(CommonUtils.getTimeStamp());
+         *                         object.setBifurcation("CABINET_MEETING_STATUS");
+         *
+         *                         new Generic_Async_Get(
+         *                                 MainActivity2.this,
+         *                                 MainActivity2.this,
+         *                                 TaskType.CABINET_MEETING_STATUS).
+         *                                 execute(object);
+         */
+
+        meetingStatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity2.this, "Running", Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
         department.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
