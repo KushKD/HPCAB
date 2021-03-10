@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +13,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 
 import com.dit.himachal.ecabinet.R;
 import com.dit.himachal.ecabinet.activities.ApprovedMemo;
@@ -27,7 +25,6 @@ import com.dit.himachal.ecabinet.modal.ModulesPojo;
 import com.dit.himachal.ecabinet.presentation.CustomDialog;
 import com.dit.himachal.ecabinet.utilities.Preferences;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 
 /**
@@ -74,8 +71,8 @@ public class HomeGridViewAdapter extends BaseAdapter {
 
         final ModulesPojo s = (ModulesPojo) this.getItem(i);
 
-        ImageView img = (ImageView) view.findViewById(R.id.spacecraftImg);
-        TextView nameTxt = (TextView) view.findViewById(R.id.nameTxt);
+        ImageView img = view.findViewById(R.id.spacecraftImg);
+        TextView nameTxt = view.findViewById(R.id.nameTxt);
 
 
         nameTxt.setText(s.getName());
@@ -150,6 +147,7 @@ public class HomeGridViewAdapter extends BaseAdapter {
                 if (s.getId().equalsIgnoreCase("7")) {
                     Intent i = new Intent(c.getApplicationContext(), FinalAgendaList.class);
                     i.putExtra("department_id", dept_id_);
+                    i.putExtra("param", "finalagendalist");
                     (c).startActivity(i);
                 }  //PlacedInCabinet
                 if (s.getId().equalsIgnoreCase("8")) {

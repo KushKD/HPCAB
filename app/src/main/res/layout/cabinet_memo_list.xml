@@ -27,6 +27,18 @@
     </LinearLayout>
 
 
+    <TextView
+        android:id="@+id/number"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/thumbnail"
+        android:layout_marginLeft="5dip"
+        android:visibility="gone"
+        android:textSize="16sp"
+        android:text="323232"
+        android:fontFamily="@font/poppins_semibold"
+        android:textColor="@color/color_red_maroon"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
         android:id="@+id/name"
@@ -34,6 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/thumbnail"
         android:layout_marginLeft="5dip"
+        android:layout_below="@+id/number"
         android:textColor="#FF545454"
         android:fontFamily="@font/poppins_semibold"
         android:textSize="14sp"
@@ -49,7 +62,7 @@
         android:layout_toRightOf="@+id/thumbnail"
         android:layout_marginLeft="5dip"
         android:layout_below="@+id/name"
-        android:textSize="10sp"
+        android:textSize="14sp"
         android:text="323232"
         android:fontFamily="@font/poppins_semibold"
         android:textColor="@color/colcr_blue"
@@ -64,25 +77,12 @@
         android:layout_toRightOf="@+id/thumbnail"
         android:layout_marginLeft="5dip"
         android:layout_below="@+id/state_dept"
-        android:textSize="10sp"
+        android:textSize="13sp"
         android:text="323232"
         android:fontFamily="@font/poppins_semibold"
         android:textColor="@color/colcr_blue"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <TextView
-        android:id="@+id/number"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/thumbnail"
-        android:layout_marginLeft="5dip"
-        android:visibility="gone"
-        android:layout_below="@+id/central_dept"
-        android:textSize="14sp"
-        android:text="323232"
-        android:fontFamily="@font/poppins_semibold"
-        android:textColor="@color/color_red_maroon"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
         android:id="@+id/details"
