@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.dit.himachal.ecabinet.R;
 import com.dit.himachal.ecabinet.lazyloader.ImageLoader;
 import com.dit.himachal.ecabinet.modal.ListAnnexures;
-import com.dit.himachal.ecabinet.modal.ListCabinetMemoTrackingHistoryListsPojo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,20 +78,17 @@ public class CabinetAnnextureMemosAdapter extends BaseAdapter implements Filtera
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.cabinet_memo_history_list, parent, false);
+        View view = inflater.inflate(R.layout.cabinet_memo_annexture_list, parent, false);
 
         ListAnnexures u = news.get(position);
-        TextView name = (TextView) view.findViewById(R.id.name);
-        TextView state_dept = (TextView) view.findViewById(R.id.state_dept);
-        TextView central_dept = (TextView) view.findViewById(R.id.central_dept);
-        ImageView imageView1 = (ImageView)view.findViewById(R.id.imageView1);
-
+        TextView name = view.findViewById(R.id.name);
+        TextView state_dept = view.findViewById(R.id.state_dept);
+        TextView central_dept = view.findViewById(R.id.central_dept);
+        ImageView imageView1 = view.findViewById(R.id.imageView1);
 
 
         central_dept.setVisibility(View.GONE);
         state_dept.setVisibility(View.GONE);
-
-
 
 
         name.setText(u.getAnnexureID());

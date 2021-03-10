@@ -130,6 +130,7 @@ public class CabinetMemosAdapter extends BaseAdapter implements Filterable {
             number.setVisibility(View.GONE);
             number.setText("Item Number:- " + u.getAgendaItemNo());
             state_dept.setText("Item Type :- " + u.getAgendaItemType());
+            state_dept.setVisibility(View.GONE);
             central_dept.setText(u.getDeptName());
         }
 

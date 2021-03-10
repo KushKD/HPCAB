@@ -78,7 +78,7 @@
         android:layout_marginLeft="5dip"
         android:layout_below="@+id/central_dept"
         android:textSize="10sp"
-        android:text="Click to View Details"
+        android:text="View"
         android:gravity="right|center_vertical|center_horizontal"
         android:fontFamily="@font/poppins_semibold"
         android:textColor="@color/color_red_maroon" />
