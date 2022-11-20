@@ -19,6 +19,16 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 /**
  * @author Kush.Dhawan
@@ -26,6 +36,39 @@ import java.nio.charset.StandardCharsets;
  * @Time 03, 05 , 2020
  */
 public class HttpManager {
+
+    private SSLSocketFactory getSSLSocketFactory() {
+        SSLContext sslContext = null;
+        try {
+            TrustManager[] tm = {
+                    new X509TrustManager() {
+                        @Override
+                        public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+                        }
+
+                        @Override
+                        public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+                        }
+
+                        @Override
+                        public X509Certificate[] getAcceptedIssuers() {
+                            return null;
+                        }
+                    }
+            };
+            sslContext = SSLContext.getInstance("SSL");
+            sslContext.init(null, tm, null);
+            HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
+                @Override
+                public boolean verify(String hostname, SSLSession session) {
+                    return true;
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return sslContext.getSocketFactory();
+    }
 
     public OfflineDataModel GetData(GetDataPojo data) throws IOException {
         BufferedReader reader = null;
@@ -38,6 +81,15 @@ public class HttpManager {
             url_ = new URL(CommonUtils.createUrl(data));
             Log.e("url", url_.toString());
             con = (HttpURLConnection) url_.openConnection();
+
+            if (data.getUrl().startsWith("https")) {
+                HttpsURLConnection httpsURLConnection = (HttpsURLConnection) con;
+                httpsURLConnection.setSSLSocketFactory(getSSLSocketFactory());
+            } else {
+                con = (HttpURLConnection) url_.openConnection();
+
+            }
+
             con.connect();
 
             if (con.getResponseCode() != 200) {
