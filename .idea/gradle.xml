@@ -4,20 +4,24 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
-        <option name="testRunner" value="PLATFORM" />
+        <option name="testRunner" value="GRADLE" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="gradleHome" value="C:/gradle/gradle/gradle" />
+        <option name="gradleHome" value="$PROJECT_DIR$/../../../../gradle/gradle/gradle" />
         <option name="gradleJvm" value="1.8" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/filepicker" />
+            <option value="$PROJECT_DIR$/instructions" />
+            <option value="$PROJECT_DIR$/locationmanager" />
+            <option value="$PROJECT_DIR$/openweathermaphelper" />
             <option value="$PROJECT_DIR$/prdownloader" />
+            <option value="$PROJECT_DIR$/qrcodescanner" />
             <option value="$PROJECT_DIR$/spinnersearchable" />
           </set>
         </option>
-        <option name="resolveModulePerSourceSet" value="false" />
       </GradleProjectSettings>
     </option>
   </component>

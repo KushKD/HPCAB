@@ -1,0 +1,49 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 27
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+// Earlier Working
+//repositories {
+//    mavenCentral() // jcenter() works as well because it pulls from Maven Central
+//    jcenter()
+//    if (project.hasProperty('local.repo'))
+//    {
+//        maven { name 'glide-local'; url project.property('local.repo') }
+//    }
+//    maven { name 'glide-snapshot'; url 'http://oss.sonatype.org/content/repositories/snapshots' }
+//    flatDir name: 'libs', dirs: 'libs'
+//    maven
+//            {
+//                url "https://jitpack.io"
+//            }
+//}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    androidTestImplementation 'junit:junit:4.12'
+    implementation 'com.android.support:support-v4:27.1.1'
+    implementation 'com.android.support:percent:27.1.1'
+   // implementation 'com.github.bumptech.glide:glide:3.7.0'
+    implementation 'com.github.bumptech.glide:glide:4.10.0'
+}

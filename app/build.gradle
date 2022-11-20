@@ -5,7 +5,7 @@ android {
 
     defaultConfig {
         applicationId "com.dit.himachal.ecabinet"
-        minSdkVersion 16
+        minSdkVersion 26
         targetSdkVersion 29
         versionCode 4
         versionName "1.4"
@@ -43,6 +43,14 @@ dependencies {
 
     implementation project(path: ':spinnersearchable')
     implementation project(path: ':prdownloader')
+    implementation project(path: ':instructions')
+    implementation project(path: ':locationmanager')
+    implementation project(path: ':filepicker')
+    implementation project(path: ':openweathermaphelper')
+    implementation project(path: ':qrcodescanner')
+
+
+
 
 
 }

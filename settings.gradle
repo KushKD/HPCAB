@@ -2,3 +2,8 @@ include ':prdownloader'
 include ':spinnersearchable'
 include ':app'
 rootProject.name = "eCabinet"
+include ':instructions'
+include ':locationmanager'
+include ':filepicker'
+include ':openweathermaphelper'
+include ':qrcodescanner'
