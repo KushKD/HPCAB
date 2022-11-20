@@ -352,289 +352,289 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
             }
         });
 
-        approve.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //TODO Send Back
-                buttonName = "forward";
-                if (Preferences.getInstance().role_id.equalsIgnoreCase("4") || Preferences.getInstance().role_id.equalsIgnoreCase("11")
-                        || Preferences.getInstance().role_id.equalsIgnoreCase("12") || Preferences.getInstance().role_id.equalsIgnoreCase("13")
-                        || Preferences.getInstance().role_id.equalsIgnoreCase("14") || Preferences.getInstance().role_id.equalsIgnoreCase("15")) {
-                    //check Remarks
-                    //  if (!remarks.getText().toString().isEmpty()) {
-                    ////OTP Functionality Enable
-                    buttons.setVisibility(View.GONE);
-                    proceed_cancel.setVisibility(View.VISIBLE);
-                    otp_proceed.setVisibility(View.VISIBLE);
-                    // if(addPersons.isEmpty()){
-                    if (phone.getText().toString().length() == 10) {
-                        if (AppStatus.getInstance(CabinetMemoDetailsActivity.this).isOnline()) {
-                            GetDataPojo object = new GetDataPojo();
-                            object.setUrl(Econstants.url);
-                            object.setMethord(Econstants.methordGetOTP);
-                            object.setMethordHash(Econstants.encodeBase64(Econstants.methordOTPToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
-                            object.setTaskType(TaskType.GET_OTP_VIA_MOBILE);
-                            object.setTimeStamp(CommonUtils.getTimeStamp());
-                            List<String> parameters = new ArrayList<>();
-                            parameters.add(phone.getText().toString());
-                            parameters.add(Preferences.getInstance().user_id);
-                            parameters.add(Preferences.getInstance().role_id);
-                            object.setParameters(parameters);
-                            new Generic_Async_Get(
-                                    CabinetMemoDetailsActivity.this,
-                                    CabinetMemoDetailsActivity.this,
-                                    TaskType.GET_OTP_VIA_MOBILE).
-                                    execute(object);
-
-
-                        } else {
-                            CD.showDialog(CabinetMemoDetailsActivity.this, "Please connect to Internet and try again.");
-                        }
-                    } else {
-                        CD.showDialog(CabinetMemoDetailsActivity.this, "Please contact the department regarding the Phone number.");
-                    }
-
-                    // } else {
-                    //  CD.showDialog(CabinetMemoDetailsActivity.this, "Please enter Remarks.");
-                    // buttons.setVisibility(View.VISIBLE);
-                    // proceed_cancel.setVisibility(View.GONE);
-                    // otp_proceed.setVisibility(View.GONE);
-                    // otp.setText("");
-
-
-                    //}
-                } else {
-                    //   if (!remarks.getText().toString().isEmpty()) {
-                    try {
-
-                        /**
-                         * objDAMemo.ForwardCabinetMemo(forwardCabinetMemo.UserId,
-                         *                             forwardCabinetMemo.CabinetMemoID, forwardCabinetMemo.DeptId, forwardCabinetMemo.remarks,
-                         *                             Arr[1], forwardCabinetMemo.LoginUsername, forwardCabinetMemo.MinisterinCharge,
-                         *                             forwardCabinetMemo.SecinIncharge, forwardCabinetMemo.RoleID);
-                         */
-                        PostObject postObject = new PostObject();
-                        postObject.setUserid(Preferences.getInstance().user_id);
-                        postObject.setCabinetMemoId(cabinetMemoPojoDetails.getCabinetMemoID());
-                        postObject.setRoleid(Preferences.getInstance().role_id);
-                        postObject.setDeptId(cabinetMemoPojoDetails.getDeptid());
-                        postObject.setRemarks(remarks.getText().toString());
-                        postObject.setToken(Econstants.encodeBase64(Econstants.methordForwardCabinetMemoToken + Econstants.seperator + CommonUtils.getTimeStamp()));
-                        postObject.setPhone("");
-                        postObject.setOtp("");
-                        postObject.setPendingWithRoleID(GlobalSentBack);
-                        postObject.setUserName(Preferences.getInstance().user_name);
-                        postObject.setMinisterinCharge(cabinetMemoPojoDetails.getMinisterIncharge());
-                        postObject.setSecinIncharge(cabinetMemoPojoDetails.getSecIncharge());
-
-
-                        PostDataPojo postDataPojo = new PostDataPojo();
-                        postDataPojo.setParameters(postObject);
-                        postDataPojo.setTaskType(TaskType.FORWARD);
-                        postDataPojo.setMethord(Econstants.methordForwardCabinetMemo);
-                        postDataPojo.setUrl(Econstants.url);
-
-                        //Send Object
-                        Log.e("Object", postObject.toString());
-
-                        new GenericAsyncPostObject(
-                                CabinetMemoDetailsActivity.this,
-                                CabinetMemoDetailsActivity.this,
-                                TaskType.FORWARD).
-                                execute(postDataPojo);
-
-                        //Send Object
-                        Log.e("Object", postObject.toString());
-                    } catch (Exception ex) {
-                        Log.e("Error", ex.toString());
-                        CD.showDialog(CabinetMemoDetailsActivity.this, "Something Bad happened. Please restart your application.");
-                    }
-                } //else
-                {
-//                        CD.showDialog(CabinetMemoDetailsActivity.this, "Please enter Remarks.");
-//                    }
-                }
-            }
-        });
-
-        allow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (AppStatus.getInstance(CabinetMemoDetailsActivity.this).isOnline()) {
-                    PostObject postObject = new PostObject();
-                    postObject.setUserid(Preferences.getInstance().user_id);
-                    postObject.setCabinetMemoId(cabinetMemoPojoDetails.getCabinetMemoID());
-                    postObject.setRoleid(Preferences.getInstance().role_id);
-                    postObject.setDeptId(cabinetMemoPojoDetails.getDeptid());
-                    postObject.setRemarks(remarks.getText().toString());
-                    postObject.setToken(Econstants.encodeBase64(Econstants.methordForwardCabinetMemoToken + Econstants.seperator + CommonUtils.getTimeStamp()));
-                    postObject.setPhone("");
-                    postObject.setOtp("");
-
-                    /**
-                     *  postObject.setPendingWithRoleID(GlobalSentBack);
-                     *                         postObject.setUserName(Preferences.getInstance().user_name);
-                     */
-
-                    PostDataPojo postDataPojo = new PostDataPojo();
-                    postDataPojo.setParameters(postObject);
-                    postDataPojo.setTaskType(TaskType.ALLOW);
-                    postDataPojo.setMethord(Econstants.methordForwardCabinetMemo);
-                    postDataPojo.setUrl(Econstants.url);
-
-                    //Send Object
-                    Log.e("Object", postObject.toString());
-
-                    new GenericAsyncPostObject(
-                            CabinetMemoDetailsActivity.this,
-                            CabinetMemoDetailsActivity.this,
-                            TaskType.ALLOW).
-                            execute(postDataPojo);
-
-                    //Send Object
-                    Log.e("Object", postObject.toString());
-
-
-                } else {
-                    CD.showDialog(CabinetMemoDetailsActivity.this, "Please connect to Internet and try again.");
-                }
-
-            }
-        });
-
-        attachments.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    if (cabinetMemoPojoDetails.getListAnnexures_() != null) {
-                        Log.e("Attachments", "Death");
-                        Log.e("Attachments", cabinetMemoPojoDetails.getListAnnexures_().toString());
-                        Intent in = new Intent(CabinetMemoDetailsActivity.this, CabinetAnnexures.class);
-                        in.putExtra("data", cabinetMemoPojoDetails);
-                        startActivity(in);
-                    } else {
-                        CD.showDialog(CabinetMemoDetailsActivity.this, "No Data Available.");
-                    }
-
-                } catch (Exception ex) {
-                    Log.e(" Attachments", ex.getLocalizedMessage());
-                }
-            }
-        });
-
-        history.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    if (cabinetMemoPojoDetails.getListCabinetMemoTrackingHistoryLists() != null) {
-                        Log.e("Attachments", "Death history");
-                        Log.e("Memo History", cabinetMemoPojoDetails.getListCabinetMemoTrackingHistoryLists().toString());
-                        Intent in = new Intent(CabinetMemoDetailsActivity.this, CabinetMemoHistory.class);
-                        in.putExtra("data", cabinetMemoPojoDetails);
-                        startActivity(in);
-                    } else {
-                        CD.showDialog(CabinetMemoDetailsActivity.this, "No Data Available.");
-                    }
-                } catch (Exception ex) {
-                    Log.e("Memo History", ex.getLocalizedMessage());
-                }
-            }
-        });
-
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //TODO Send Back
-                buttonName = "back";
-//                if (Preferences.getInstance().role_id.equalsIgnoreCase("4") || Preferences.getInstance().role_id.equalsIgnoreCase("11")) {
+//        approve.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //TODO Send Back
+//                buttonName = "forward";
+//                if (Preferences.getInstance().role_id.equalsIgnoreCase("4") || Preferences.getInstance().role_id.equalsIgnoreCase("11")
+//                        || Preferences.getInstance().role_id.equalsIgnoreCase("12") || Preferences.getInstance().role_id.equalsIgnoreCase("13")
+//                        || Preferences.getInstance().role_id.equalsIgnoreCase("14") || Preferences.getInstance().role_id.equalsIgnoreCase("15")) {
 //                    //check Remarks
-//                    if (!remarks.getText().toString().isEmpty()) {
-//                        ////OTP Functionality Enable
-//                        buttons.setVisibility(View.GONE);
-//                        proceed_cancel.setVisibility(View.VISIBLE);
-//                        otp_proceed.setVisibility(View.VISIBLE);
-//                        // if(addPersons.isEmpty()){
-//                        if (phone.getText().toString().length() == 10) {
-//                            if (AppStatus.getInstance(CabinetMemoDetailsActivity.this).isOnline()) {
-//                                GetDataPojo object = new GetDataPojo();
-//                                object.setUrl(Econstants.url);
-//                                object.setMethord(Econstants.methordGetOTP);
-//                                object.setMethordHash(Econstants.encodeBase64(Econstants.methordOTPToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
-//                                object.setTaskType(TaskType.GET_OTP_VIA_MOBILE);
-//                                object.setTimeStamp(CommonUtils.getTimeStamp());
-//                                List<String> parameters = new ArrayList<>();
-//                                parameters.add(phone.getText().toString());
-//                                parameters.add(Preferences.getInstance().user_id);
-//                                parameters.add(Preferences.getInstance().role_id);
-//                                object.setParameters(parameters);
-//                                new Generic_Async_Get(
-//                                        CabinetMemoDetailsActivity.this,
-//                                        CabinetMemoDetailsActivity.this,
-//                                        TaskType.GET_OTP_VIA_MOBILE).
-//                                        execute(object);
+//                    //  if (!remarks.getText().toString().isEmpty()) {
+//                    ////OTP Functionality Enable
+//                    buttons.setVisibility(View.GONE);
+//                    proceed_cancel.setVisibility(View.VISIBLE);
+//                    otp_proceed.setVisibility(View.VISIBLE);
+//                    // if(addPersons.isEmpty()){
+//                    if (phone.getText().toString().length() == 10) {
+//                        if (AppStatus.getInstance(CabinetMemoDetailsActivity.this).isOnline()) {
+//                            GetDataPojo object = new GetDataPojo();
+//                            object.setUrl(Econstants.url);
+//                            object.setMethord(Econstants.methordGetOTP);
+//                            object.setMethordHash(Econstants.encodeBase64(Econstants.methordOTPToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
+//                            object.setTaskType(TaskType.GET_OTP_VIA_MOBILE);
+//                            object.setTimeStamp(CommonUtils.getTimeStamp());
+//                            List<String> parameters = new ArrayList<>();
+//                            parameters.add(phone.getText().toString());
+//                            parameters.add(Preferences.getInstance().user_id);
+//                            parameters.add(Preferences.getInstance().role_id);
+//                            object.setParameters(parameters);
+//                            new Generic_Async_Get(
+//                                    CabinetMemoDetailsActivity.this,
+//                                    CabinetMemoDetailsActivity.this,
+//                                    TaskType.GET_OTP_VIA_MOBILE).
+//                                    execute(object);
 //
 //
-//                            } else {
-//                                CD.showDialog(CabinetMemoDetailsActivity.this, "Please connect to Internet and try again.");
-//                            }
 //                        } else {
-//                            CD.showDialog(CabinetMemoDetailsActivity.this, "Please contact the department regarding the Phone number.");
+//                            CD.showDialog(CabinetMemoDetailsActivity.this, "Please connect to Internet and try again.");
 //                        }
-//
 //                    } else {
-//                        CD.showDialog(CabinetMemoDetailsActivity.this, "Please enter Remarks.");
-//                        buttons.setVisibility(View.VISIBLE);
-//                        proceed_cancel.setVisibility(View.GONE);
-//                        otp_proceed.setVisibility(View.GONE);
-//                        otp.setText("");
-//
-//
+//                        CD.showDialog(CabinetMemoDetailsActivity.this, "Please contact the department regarding the Phone number.");
 //                    }
-                //    } else {
-                if (!remarks.getText().toString().isEmpty()) {
-                    try {
-                        PostObject postObject = new PostObject();
-                        postObject.setUserid(Preferences.getInstance().user_id);
-                        postObject.setCabinetMemoId(cabinetMemoPojoDetails.getCabinetMemoID());
-                        postObject.setRoleid(Preferences.getInstance().role_id);
-                        postObject.setDeptId(cabinetMemoPojoDetails.getDeptid());
-                        postObject.setRemarks(remarks.getText().toString());
-                        postObject.setToken(Econstants.encodeBase64(Econstants.methordsendBackCabinetMemoListsToken + Econstants.seperator + CommonUtils.getTimeStamp()));
-                        postObject.setPhone("");
-                        postObject.setOtp("");
-                        postObject.setPendingWithRoleID(GlobalSentBack);
-                        postObject.setUserName(Preferences.getInstance().user_name);
-                        postObject.setMinisterinCharge(cabinetMemoPojoDetails.getMinisterIncharge());
-                        postObject.setSecinIncharge(cabinetMemoPojoDetails.getSecIncharge());
+//
+//                    // } else {
+//                    //  CD.showDialog(CabinetMemoDetailsActivity.this, "Please enter Remarks.");
+//                    // buttons.setVisibility(View.VISIBLE);
+//                    // proceed_cancel.setVisibility(View.GONE);
+//                    // otp_proceed.setVisibility(View.GONE);
+//                    // otp.setText("");
+//
+//
+//                    //}
+//                } else {
+//                    //   if (!remarks.getText().toString().isEmpty()) {
+//                    try {
+//
+//                        /**
+//                         * objDAMemo.ForwardCabinetMemo(forwardCabinetMemo.UserId,
+//                         *                             forwardCabinetMemo.CabinetMemoID, forwardCabinetMemo.DeptId, forwardCabinetMemo.remarks,
+//                         *                             Arr[1], forwardCabinetMemo.LoginUsername, forwardCabinetMemo.MinisterinCharge,
+//                         *                             forwardCabinetMemo.SecinIncharge, forwardCabinetMemo.RoleID);
+//                         */
+//                        PostObject postObject = new PostObject();
+//                        postObject.setUserid(Preferences.getInstance().user_id);
+//                        postObject.setCabinetMemoId(cabinetMemoPojoDetails.getCabinetMemoID());
+//                        postObject.setRoleid(Preferences.getInstance().role_id);
+//                        postObject.setDeptId(cabinetMemoPojoDetails.getDeptid());
+//                        postObject.setRemarks(remarks.getText().toString());
+//                        postObject.setToken(Econstants.encodeBase64(Econstants.methordForwardCabinetMemoToken + Econstants.seperator + CommonUtils.getTimeStamp()));
+//                        postObject.setPhone("");
+//                        postObject.setOtp("");
+//                        postObject.setPendingWithRoleID(GlobalSentBack);
+//                        postObject.setUserName(Preferences.getInstance().user_name);
+//                        postObject.setMinisterinCharge(cabinetMemoPojoDetails.getMinisterIncharge());
+//                        postObject.setSecinIncharge(cabinetMemoPojoDetails.getSecIncharge());
+//
+//
+//                        PostDataPojo postDataPojo = new PostDataPojo();
+//                        postDataPojo.setParameters(postObject);
+//                        postDataPojo.setTaskType(TaskType.FORWARD);
+//                        postDataPojo.setMethord(Econstants.methordForwardCabinetMemo);
+//                        postDataPojo.setUrl(Econstants.url);
+//
+//                        //Send Object
+//                        Log.e("Object", postObject.toString());
+//
+//                        new GenericAsyncPostObject(
+//                                CabinetMemoDetailsActivity.this,
+//                                CabinetMemoDetailsActivity.this,
+//                                TaskType.FORWARD).
+//                                execute(postDataPojo);
+//
+//                        //Send Object
+//                        Log.e("Object", postObject.toString());
+//                    } catch (Exception ex) {
+//                        Log.e("Error", ex.toString());
+//                        CD.showDialog(CabinetMemoDetailsActivity.this, "Something Bad happened. Please restart your application.");
+//                    }
+//                } //else
+//                {
+////                        CD.showDialog(CabinetMemoDetailsActivity.this, "Please enter Remarks.");
+////                    }
+//                }
+//            }
+//        });
 
-                        PostDataPojo postDataPojo = new PostDataPojo();
-                        postDataPojo.setParameters(postObject);
-                        postDataPojo.setTaskType(TaskType.SEND_BACK);
-                        postDataPojo.setMethord(Econstants.methordsendBackCabinetMemoLists);
-                        postDataPojo.setUrl(Econstants.url);
-
-                        //Send Object
-                        Log.e("Object", postObject.toString());
-
-                        new GenericAsyncPostObject(
-                                CabinetMemoDetailsActivity.this,
-                                CabinetMemoDetailsActivity.this,
-                                TaskType.SEND_BACK).
-                                execute(postDataPojo);
-
-                        //Send Object
-                        Log.e("Object", postObject.toString());
-                    } catch (Exception ex) {
-                        Log.e("Error", ex.toString());
-                        CD.showDialog(CabinetMemoDetailsActivity.this, "Something Bad happened. Please restart your application.");
-                    }
-                } else {
-                    CD.showDialog(CabinetMemoDetailsActivity.this, "Please enter Remarks.");
-                }
-                // }
-            }
-        });
+//        allow.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                if (AppStatus.getInstance(CabinetMemoDetailsActivity.this).isOnline()) {
+//                    PostObject postObject = new PostObject();
+//                    postObject.setUserid(Preferences.getInstance().user_id);
+//                    postObject.setCabinetMemoId(cabinetMemoPojoDetails.getCabinetMemoID());
+//                    postObject.setRoleid(Preferences.getInstance().role_id);
+//                    postObject.setDeptId(cabinetMemoPojoDetails.getDeptid());
+//                    postObject.setRemarks(remarks.getText().toString());
+//                    postObject.setToken(Econstants.encodeBase64(Econstants.methordForwardCabinetMemoToken + Econstants.seperator + CommonUtils.getTimeStamp()));
+//                    postObject.setPhone("");
+//                    postObject.setOtp("");
+//
+//                    /**
+//                     *  postObject.setPendingWithRoleID(GlobalSentBack);
+//                     *                         postObject.setUserName(Preferences.getInstance().user_name);
+//                     */
+//
+//                    PostDataPojo postDataPojo = new PostDataPojo();
+//                    postDataPojo.setParameters(postObject);
+//                    postDataPojo.setTaskType(TaskType.ALLOW);
+//                    postDataPojo.setMethord(Econstants.methordForwardCabinetMemo);
+//                    postDataPojo.setUrl(Econstants.url);
+//
+//                    //Send Object
+//                    Log.e("Object", postObject.toString());
+//
+//                    new GenericAsyncPostObject(
+//                            CabinetMemoDetailsActivity.this,
+//                            CabinetMemoDetailsActivity.this,
+//                            TaskType.ALLOW).
+//                            execute(postDataPojo);
+//
+//                    //Send Object
+//                    Log.e("Object", postObject.toString());
+//
+//
+//                } else {
+//                    CD.showDialog(CabinetMemoDetailsActivity.this, "Please connect to Internet and try again.");
+//                }
+//
+//            }
+//        });
+//
+//        attachments.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                try {
+//                    if (cabinetMemoPojoDetails.getListAnnexures_() != null) {
+//                        Log.e("Attachments", "Death");
+//                        Log.e("Attachments", cabinetMemoPojoDetails.getListAnnexures_().toString());
+//                        Intent in = new Intent(CabinetMemoDetailsActivity.this, CabinetAnnexures.class);
+//                        in.putExtra("data", cabinetMemoPojoDetails);
+//                        startActivity(in);
+//                    } else {
+//                        CD.showDialog(CabinetMemoDetailsActivity.this, "No Data Available.");
+//                    }
+//
+//                } catch (Exception ex) {
+//                    Log.e(" Attachments", ex.getLocalizedMessage());
+//                }
+//            }
+//        });
+//
+//        history.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                try {
+//                    if (cabinetMemoPojoDetails.getListCabinetMemoTrackingHistoryLists() != null) {
+//                        Log.e("Attachments", "Death history");
+//                        Log.e("Memo History", cabinetMemoPojoDetails.getListCabinetMemoTrackingHistoryLists().toString());
+//                        Intent in = new Intent(CabinetMemoDetailsActivity.this, CabinetMemoHistory.class);
+//                        in.putExtra("data", cabinetMemoPojoDetails);
+//                        startActivity(in);
+//                    } else {
+//                        CD.showDialog(CabinetMemoDetailsActivity.this, "No Data Available.");
+//                    }
+//                } catch (Exception ex) {
+//                    Log.e("Memo History", ex.getLocalizedMessage());
+//                }
+//            }
+//        });
+//
+//        back.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //TODO Send Back
+//                buttonName = "back";
+////                if (Preferences.getInstance().role_id.equalsIgnoreCase("4") || Preferences.getInstance().role_id.equalsIgnoreCase("11")) {
+////                    //check Remarks
+////                    if (!remarks.getText().toString().isEmpty()) {
+////                        ////OTP Functionality Enable
+////                        buttons.setVisibility(View.GONE);
+////                        proceed_cancel.setVisibility(View.VISIBLE);
+////                        otp_proceed.setVisibility(View.VISIBLE);
+////                        // if(addPersons.isEmpty()){
+////                        if (phone.getText().toString().length() == 10) {
+////                            if (AppStatus.getInstance(CabinetMemoDetailsActivity.this).isOnline()) {
+////                                GetDataPojo object = new GetDataPojo();
+////                                object.setUrl(Econstants.url);
+////                                object.setMethord(Econstants.methordGetOTP);
+////                                object.setMethordHash(Econstants.encodeBase64(Econstants.methordOTPToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
+////                                object.setTaskType(TaskType.GET_OTP_VIA_MOBILE);
+////                                object.setTimeStamp(CommonUtils.getTimeStamp());
+////                                List<String> parameters = new ArrayList<>();
+////                                parameters.add(phone.getText().toString());
+////                                parameters.add(Preferences.getInstance().user_id);
+////                                parameters.add(Preferences.getInstance().role_id);
+////                                object.setParameters(parameters);
+////                                new Generic_Async_Get(
+////                                        CabinetMemoDetailsActivity.this,
+////                                        CabinetMemoDetailsActivity.this,
+////                                        TaskType.GET_OTP_VIA_MOBILE).
+////                                        execute(object);
+////
+////
+////                            } else {
+////                                CD.showDialog(CabinetMemoDetailsActivity.this, "Please connect to Internet and try again.");
+////                            }
+////                        } else {
+////                            CD.showDialog(CabinetMemoDetailsActivity.this, "Please contact the department regarding the Phone number.");
+////                        }
+////
+////                    } else {
+////                        CD.showDialog(CabinetMemoDetailsActivity.this, "Please enter Remarks.");
+////                        buttons.setVisibility(View.VISIBLE);
+////                        proceed_cancel.setVisibility(View.GONE);
+////                        otp_proceed.setVisibility(View.GONE);
+////                        otp.setText("");
+////
+////
+////                    }
+//                //    } else {
+//                if (!remarks.getText().toString().isEmpty()) {
+//                    try {
+//                        PostObject postObject = new PostObject();
+//                        postObject.setUserid(Preferences.getInstance().user_id);
+//                        postObject.setCabinetMemoId(cabinetMemoPojoDetails.getCabinetMemoID());
+//                        postObject.setRoleid(Preferences.getInstance().role_id);
+//                        postObject.setDeptId(cabinetMemoPojoDetails.getDeptid());
+//                        postObject.setRemarks(remarks.getText().toString());
+//                        postObject.setToken(Econstants.encodeBase64(Econstants.methordsendBackCabinetMemoListsToken + Econstants.seperator + CommonUtils.getTimeStamp()));
+//                        postObject.setPhone("");
+//                        postObject.setOtp("");
+//                        postObject.setPendingWithRoleID(GlobalSentBack);
+//                        postObject.setUserName(Preferences.getInstance().user_name);
+//                        postObject.setMinisterinCharge(cabinetMemoPojoDetails.getMinisterIncharge());
+//                        postObject.setSecinIncharge(cabinetMemoPojoDetails.getSecIncharge());
+//
+//                        PostDataPojo postDataPojo = new PostDataPojo();
+//                        postDataPojo.setParameters(postObject);
+//                        postDataPojo.setTaskType(TaskType.SEND_BACK);
+//                        postDataPojo.setMethord(Econstants.methordsendBackCabinetMemoLists);
+//                        postDataPojo.setUrl(Econstants.url);
+//
+//                        //Send Object
+//                        Log.e("Object", postObject.toString());
+//
+//                        new GenericAsyncPostObject(
+//                                CabinetMemoDetailsActivity.this,
+//                                CabinetMemoDetailsActivity.this,
+//                                TaskType.SEND_BACK).
+//                                execute(postDataPojo);
+//
+//                        //Send Object
+//                        Log.e("Object", postObject.toString());
+//                    } catch (Exception ex) {
+//                        Log.e("Error", ex.toString());
+//                        CD.showDialog(CabinetMemoDetailsActivity.this, "Something Bad happened. Please restart your application.");
+//                    }
+//                } else {
+//                    CD.showDialog(CabinetMemoDetailsActivity.this, "Please enter Remarks.");
+//                }
+//                // }
+//            }
+//        });
 
 
         if (param.equalsIgnoreCase("Current")) {

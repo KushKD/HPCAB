@@ -67,6 +67,7 @@
                         android:background="@drawable/pink_bordor_rect"
                         android:fontFamily="@font/poppins_semibold"
                         android:hint=" Role"
+                        android:entries="@array/roles"
                         android:inputType="textCapWords"
                         android:textColor="@color/colcr_blue"
                         android:textColorHint="@color/colcr_blue"
@@ -101,257 +102,7 @@
                 </RelativeLayout>
             </LinearLayout>
 
-            <!-- Department -->
-            <LinearLayout
-                android:id="@+id/dept_lay"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="2dp">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:gravity="left|center_horizontal|center_vertical"
-                    android:text="Select Department*"
-                    android:textColor="@color/colcr_blue"
-                    android:textSize="15sp" />
-
-                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center|center_vertical|center_horizontal"
-                    android:orientation="horizontal"
-                    android:padding="1dp">
-
-                    <!-- ListRow Left sied Thumbnail image -->
-
-                    <com.doi.spinnersearchable.SearchableSpinner
-                        android:id="@+id/department"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="53dip"
-                        android:layout_marginRight="5dip"
-                        android:background="@drawable/pink_bordor_rect"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:hint=" Department"
-                        android:textColor="@color/colcr_blue"
-                        android:textColorHint="@color/colcr_blue"
-                        android:textSize="18dip" />
-
-                    <!-- Rightend Arrow -->
-                    <ImageButton
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:contentDescription="@string/app_name"
-
-                        android:visibility="gone" />
-
-                    <!--   android:src="@drawable/speaker"
-                       android:background="@drawable/circularbutton"-->
-
-
-                    <LinearLayout
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_marginRight="3dip"
-                        android:padding="3dip">
-
-
-                        <ImageView
-
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:padding="10dp"
-                            android:layout_gravity="top"
-                            android:background="@drawable/image_back"
-                            android:contentDescription="@string/app_name"
-                            android:src="@drawable/department" />
-
-                        <!--  android:src="@drawable/mobilenumber"-->
-
-                    </LinearLayout>
-
-                    <!--android:inputType="textCapCharacters-->"
-
-                </RelativeLayout>
-            </LinearLayout>
-
-            <!-- Branch -->
-            <LinearLayout
-                android:id="@+id/linear"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="2dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:gravity="left|center_horizontal|center_vertical"
-                    android:text="Select Branch*"
-                    android:textColor="@color/colcr_blue"
-                    android:textSize="15sp" />
-
-                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center|center_vertical|center_horizontal"
-                    android:orientation="horizontal"
-                    android:padding="1dip">
-
-                    <!-- ListRow Left sied Thumbnail image -->
-
-                    <com.doi.spinnersearchable.SearchableSpinner
-
-                        android:id="@+id/branch"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="53dip"
-                        android:layout_marginRight="5dip"
-                        android:background="@drawable/pink_bordor_rect"
-                        android:hint=" Branch"
-                        android:inputType="textCapWords"
-                        android:textColor="@color/colcr_blue"
-                        android:textColorHint="@color/colcr_blue"
-                        android:textSize="18dip" />
-
-                    <!-- Rightend Arrow -->
-                    <ImageButton
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:contentDescription="@string/app_name"
-
-                        android:visibility="gone" />
-
-                    <!--   android:src="@drawable/speaker"
-                       android:background="@drawable/circularbutton"-->
-
-
-                    <LinearLayout
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_marginRight="3dip"
-                        android:padding="3dip">
-
-
-                        <ImageView
-
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_gravity="top"
-                            android:padding="10dp"
-                            android:background="@drawable/image_back"
-                            android:contentDescription="@string/app_name"
-                            android:src="@drawable/branch" />
-
-                        <!--  android:src="@drawable/mobilenumber"-->
-
-                    </LinearLayout>
-
-                    <!--android:inputType="textCapCharacters-->"
-
-                </RelativeLayout>
-            </LinearLayout>
-
-
-            <!-- User -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="2dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:gravity="left|center_horizontal|center_vertical"
-                    android:text="Select User*"
-                    android:textColor="@color/colcr_blue"
-                    android:textSize="15sp" />
-
-                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center|center_vertical|center_horizontal"
-                    android:orientation="horizontal"
-                    android:padding="1dip">
-
-                    <!-- ListRow Left sied Thumbnail image -->
-
-                    <com.doi.spinnersearchable.SearchableSpinner
-
-                        android:id="@+id/user"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="53dip"
-                        android:layout_marginRight="5dip"
-                        android:background="@drawable/pink_bordor_rect"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:hint=" User"
-                        android:inputType="textCapWords"
-                        android:textColor="@color/colcr_blue"
-                        android:textColorHint="@color/colcr_blue"
-                        android:textSize="18dip" />
-
-                    <!-- Rightend Arrow -->
-                    <ImageButton
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:contentDescription="@string/app_name"
-
-                        android:visibility="gone" />
-
-                    <!--   android:src="@drawable/speaker"
-                       android:background="@drawable/circularbutton"-->
-
-
-                    <LinearLayout
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_marginRight="3dip"
-                        android:padding="3dip">
-
-
-                        <ImageView
-
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_gravity="top"
-                            android:padding="10dp"
-                            android:background="@drawable/image_back"
-                            android:contentDescription="@string/app_name"
-                            android:src="@drawable/user" />
-
-                        <!--  android:src="@drawable/mobilenumber"-->
-
-                    </LinearLayout>
-
-                    <!--android:inputType="textCapCharacters-->"
-
-                </RelativeLayout>
-            </LinearLayout>
 
             <!-- Mobile Number -->
             <LinearLayout
@@ -390,6 +141,7 @@
                         android:background="@drawable/pink_bordor_rect"
                         android:fontFamily="@font/poppins_semibold"
                         android:inputType="number"
+                        android:gravity="center|center_horizontal|center_vertical"
                         android:maxLength="10"
                         android:textColor="@color/colcr_blue"
                         android:textColorHint="@color/colcr_blue"
@@ -440,18 +192,6 @@
 
 
             <!-- Get OTP Button -->
-            <Button
-                android:id="@+id/get_otp"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@color/color_red_maroon"
-                android:fontFamily="@font/poppins_semibold"
-                android:gravity="center|center_vertical|center_horizontal"
-                android:text="Get OTP"
-
-                android:textColor="#FFFFFF"
-                android:textSize="16sp" />
 
 
             <!-- OTP -->
@@ -467,7 +207,7 @@
                     android:fontFamily="@font/poppins_semibold"
                     android:gravity="left|center_horizontal|center_vertical"
 
-                    android:text="Enter OTP"
+                    android:text="Enter Password"
                     android:textColor="@color/colcr_blue"
                     android:textSize="15sp" />
 

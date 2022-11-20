@@ -84,26 +84,26 @@ public class ApprovedMemo extends AppCompatActivity implements AsyncTaskListener
 
 
         //Get Departments departments
-        if (AppStatus.getInstance(ApprovedMemo.this).isOnline()) {
-            GetDataPojo object = new GetDataPojo();
-            object.setUrl(Econstants.url);
-            object.setMethord(Econstants.methordDepartmentsViaRoles);
-            object.setMethordHash(Econstants.encodeBase64(Econstants.methordDepartmentsToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
-            object.setTaskType(TaskType.GET_DEPARTMENTS_VIA_ROLES);
-            object.setTimeStamp(CommonUtils.getTimeStamp());
-            List<String> parameters = new ArrayList<>();
-            parameters.add(Preferences.getInstance().role_id);
-            object.setParameters(parameters);
-            new Generic_Async_Get(
-                    ApprovedMemo.this,
-                    ApprovedMemo.this,
-                    TaskType.GET_DEPARTMENTS_VIA_ROLES).
-                    execute(object);
-
-
-        } else {
-            CD.showDialog(ApprovedMemo.this, "Please connect to Internet and try again.");
-        }
+//        if (AppStatus.getInstance(ApprovedMemo.this).isOnline()) {
+//            GetDataPojo object = new GetDataPojo();
+//            object.setUrl(Econstants.url);
+//            object.setMethord(Econstants.methordDepartmentsViaRoles);
+//            object.setMethordHash(Econstants.encodeBase64(Econstants.methordDepartmentsToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
+//            object.setTaskType(TaskType.GET_DEPARTMENTS_VIA_ROLES);
+//            object.setTimeStamp(CommonUtils.getTimeStamp());
+//            List<String> parameters = new ArrayList<>();
+//            parameters.add(Preferences.getInstance().role_id);
+//            object.setParameters(parameters);
+//            new Generic_Async_Get(
+//                    ApprovedMemo.this,
+//                    ApprovedMemo.this,
+//                    TaskType.GET_DEPARTMENTS_VIA_ROLES).
+//                    execute(object);
+//
+//
+//        } else {
+//            CD.showDialog(ApprovedMemo.this, "Please connect to Internet and try again.");
+//        }
 
 
         departmentsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

@@ -11,4 +11,11 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
+
+    <string-array name="roles">
+        <item>--SELECT--</item>
+        <item>Advocate</item>
+        <item>Citizen</item>
+
+    </string-array>
 </resources>

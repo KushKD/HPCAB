@@ -15,10 +15,8 @@ import org.apache.commons.codec.binary.Base64;
  */
 public class Econstants {
     //URL Staging
-    // public static final String url = "http://ecabinetwcftest.hp.gov.in/eCabinetService.svc";
+     public static final String url = "https://staging8.hp.gov.in/rmsservice.svc";
 
-    //URL Production
-    public static final String url = "http://ecabinetwcf.hp.gov.in/eCabinetService.svc";
 
 
     public static String delemeter = "/";
@@ -26,33 +24,17 @@ public class Econstants {
 
     private static String Color_Grey = "#000000";
 
-    public static final String methordGetRoles = "GetRole";
-    public static final String methordGetRolesToken = "UFG776888a314e7421e7e12f5cfuhuu081f0";
+
+    public static String advaocateLogin= "2";
+    public static String citizenLogin= "1";
 
 
-    public static final String methordDepartmentsViaRoles = "GetMappedDepartmentsListByUserRole";
-    public static final String methordDepartmentsToken = "klhkhughiknbv12f5cf7171081a0dddss";
 
-   // public static final String methordGetDepartments="DepartmentsList";
-   // public static final String methordGetDepartmentsToken="aaccaa314e7421e7e12f5cf7171081rr";
-
-
-    public static final String methordBranchesViaDept = "GetBranchDetails";
-    public static final String methordBranchesToken = "ckhijjkkjjhjdddii990001e7e12f5cf71710";
-
-    public static final String methordUsers = "GetUserRegistration";
-    public static final String methordUsersToken = "KKuuugghgjhjjdd888898hiuh710";
-
-    public static final String methordGetOTP = "LoginOTP";
-    public static final String methordOTPToken = "dff89999a314e7421e7e12f5cf7171081f0";
-
-
-    public static final String methordLogin = "Login";
-    public static final String methordLoginToken = "daccaa314e7421e7e12f5cf7171081a0";
+    public static final String methordLogin = "GetLogin";
+    public static final String methordLoginToken = "DFGG16E4C7F2C4F694A52D20ED2A520";
 
     public static final String getDepartmentsViaRoles ="DepartmentsListByRole";
     public static final String getDepartmentsViaRolesToken ="ccaa314e7421e7e12f5cf7171081a0ddd";
-
 
     public static final String methordMenuList ="GetMenuList";
     public static final String methordMenuListToken ="KKdd33444444444frrrr1081a0";
