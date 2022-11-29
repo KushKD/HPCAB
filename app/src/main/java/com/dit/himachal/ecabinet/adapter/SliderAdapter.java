@@ -28,19 +28,19 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.SliderAdapter
 
     @Override
     public void onBindViewHolder(SliderAdapter.SliderAdapterVH viewHolder, int position) {
-        viewHolder.textViewDescription.setText("eCabinet V4.0");
+        viewHolder.textViewDescription.setText("Revenue Monitoring System V1.0");
         viewHolder.textViewDescription.setVisibility(View.VISIBLE);
 
         switch (position) {
             case 0:
                 Glide.with(viewHolder.itemView)
-                        .load(R.drawable.image1)
+                        .load(R.drawable.slider1)
                         .into(viewHolder.imageViewBackground);
                 break;
 
             case 1:
                 Glide.with(viewHolder.itemView)
-                        .load(R.drawable.image2)
+                        .load(R.drawable.slider2)
                         .into(viewHolder.imageViewBackground);
                 break;
 //

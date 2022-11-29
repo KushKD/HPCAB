@@ -44,7 +44,7 @@
         android:layout_width="fill_parent"
         android:layout_height="0dip"
         android:layout_weight="2.4"
-        android:background="#e6e6e6"
+        android:background="#FFFFFF"
         android:gravity="center_vertical|center_horizontal|center"
         android:orientation="vertical">
         <!-- Logo -->
@@ -53,7 +53,7 @@
             android:layout_width="170dp"
             android:layout_height="170dp"
             android:gravity="center"
-            android:src="@drawable/ic_launcher">
+            android:src="@drawable/hp_n">
 
         </ImageView>
 
@@ -64,7 +64,7 @@
             android:layout_marginTop="10dp"
             android:fontFamily="@font/poppins_semibold"
             android:gravity="bottom"
-            android:text="eCabinet"
+            android:text="Revenue Monitoring System"
             android:textColor="@color/color_dark_rd"
             android:textSize="20sp"
             android:textStyle="bold" />

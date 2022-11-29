@@ -27,7 +27,7 @@
                 android:ellipsize="end"
                 android:padding="5dp"
                 android:singleLine="true"
-                android:text="eCabinet"
+                android:text="Revenue Monitoring System"
                 android:textColor="@color/color_red_maroon"
                 android:textSize="18sp"
                 android:textStyle="bold" />

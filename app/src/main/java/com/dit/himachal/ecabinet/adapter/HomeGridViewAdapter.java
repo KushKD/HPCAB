@@ -170,11 +170,11 @@ public class HomeGridViewAdapter extends BaseAdapter {
                     Preferences.getInstance().role_id = "";
                     Preferences.getInstance().user_id = "";
                     Preferences.getInstance().user_name = "";
-                    Preferences.getInstance().role_name = "";
-                    Preferences.getInstance().mapped_departments = "";
-                    Preferences.getInstance().branched_mapped = "";
-                    Preferences.getInstance().photo = "";
-                    Preferences.getInstance().is_cabinet_minister = false;
+//                    Preferences.getInstance().role_name = "";
+//                    Preferences.getInstance().mapped_departments = "";
+//                    Preferences.getInstance().branched_mapped = "";
+//                    Preferences.getInstance().photo = "";
+//                    Preferences.getInstance().is_cabinet_minister = false;
                     Preferences.getInstance().isLoggedIn = false;
 
 

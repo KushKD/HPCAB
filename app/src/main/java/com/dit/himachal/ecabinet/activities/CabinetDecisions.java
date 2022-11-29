@@ -78,15 +78,13 @@ public class CabinetDecisions extends AppCompatActivity implements AsyncTaskList
                 object.setTimeStamp(CommonUtils.getTimeStamp());
                 List<String> parameters = new ArrayList<>();
                 parameters.add(Preferences.getInstance().user_id);
-                parameters.add(Preferences.getInstance().mapped_departments);
-                parameters.add(Preferences.getInstance().branched_mapped);
+
                 parameters.add(Preferences.getInstance().role_id);
 
 
 
                 object.setParameters(parameters);
 
-                Log.e("Departments", Preferences.getInstance().mapped_departments);
 
                 new Generic_Async_Get(
                         CabinetDecisions.this,

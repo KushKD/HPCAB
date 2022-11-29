@@ -31,13 +31,13 @@ public class Econstants {
 
 
     public static final String methordLogin = "GetLogin";
-    public static final String methordLoginToken = "DFGG16E4C7F2C4F694A52D20ED2A520";
+    public static final String methordLoginToken = "dff89999a314e7421e7e12f5cf7171081f0";
 
     public static final String getDepartmentsViaRoles ="DepartmentsListByRole";
     public static final String getDepartmentsViaRolesToken ="ccaa314e7421e7e12f5cf7171081a0ddd";
 
-    public static final String methordMenuList ="GetMenuList";
-    public static final String methordMenuListToken ="KKdd33444444444frrrr1081a0";
+    public static final String methordMenuList ="GetAdvocateMenuList";
+    public static final String methordMenuListToken ="UFG776888a314e7421e7e12f5cfuhuu081f0";
 
     public static final String methordGetOnlineCabinetIDMeetingStatus ="ActiveCabinetMemoDuringMeeting";
     public static final String methordGetOnlineCabinetIDMeetingToken ="ddddaccssaa314e7421e7e12f5cf7171081arrr";

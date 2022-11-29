@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
 
         //pullToRefresh = findViewById(R.id.pullToRefresh);
         home_gv = findViewById(R.id.gv);
-        department = findViewById(R.id.department);
+       // department = findViewById(R.id.department);
         //LinearLayout layout_user_dashboard = findViewById(R.id.user_dashboard);
         // username = (TextView) layout_user_dashboard.findViewById(R.id.username);
         //designation = (TextView) layout_user_dashboard.findViewById(R.id.designation);
@@ -88,8 +88,8 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
         //      meetingStatus.setSelected(true);
         // imageuser = (ImageView) layout_user_dashboard.findViewById(R.id.imageuser);
 
-        department.setTitle(" Select Department");
-        department.setPrompt(" Select Department");
+//        department.setTitle(" Select Department");
+//        department.setPrompt(" Select Department");
         // mobile = (TextView) layout_user_dashboard.findViewById(R.id.mobile);
         //  is_cabinet = (TextView) layout_user_dashboard.findViewById(R.id.is_cabinet);
 
@@ -103,67 +103,67 @@ public class MainActivity extends AppCompatActivity implements AsyncTaskListener
         //}
 
 
-        department.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-
-
-                try {
-                    DepartmentsPojo roles = departmentsAdapter.getItem(position);
-
-                    Log.e("Dept Name", roles.getDeptName());
-                    Global_deptId = roles.getDeptId();
-
-                    if (AppStatus.getInstance(MainActivity.this).isOnline()) {
-                        GetDataPojo object = new GetDataPojo();
-                        object.setUrl(Econstants.url);
-                        object.setMethord(Econstants.methordMenuList);
-                        object.setMethordHash(Econstants.encodeBase64(Econstants.methordMenuListToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
-                        object.setTaskType(TaskType.GET_MENU_LIST);
-                        object.setDepartmentId(Global_deptId);
-                        object.setTimeStamp(CommonUtils.getTimeStamp());
-                        List<String> parameters = new ArrayList<>();
-                        parameters.add(Preferences.getInstance().role_id);
-                        object.setParameters(parameters);
-                        object.setBifurcation("Menu" + Global_deptId);
-
-                        new Generic_Async_Get(
-                                MainActivity.this,
-                                MainActivity.this,
-                                TaskType.GET_MENU_LIST).
-                                execute(object);
-
-                    } else {
-                        DatabaseHandler DB = new DatabaseHandler(MainActivity.this);
-                        Log.e("GET_MENU_LIST Start", Integer.toString(DB.GetAllOfflineDataViaFunction(TaskType.GET_MENU_LIST.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "Menu" + Global_deptId).size()));
-                        if (DB.GetAllOfflineDataViaFunction(TaskType.GET_MENU_LIST.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "Menu" + Global_deptId).size() > 0) {
-                            //Show Events
-                            try {
-
-                                showMenu(DB.GetAllOfflineDataViaFunction(TaskType.GET_MENU_LIST.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "Menu" + Global_deptId).get(0));
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
-                        } else {
-                            CD.showDialogCloseActivity(MainActivity.this, Econstants.NO_DATA);
-                        }
-                        Toast.makeText(getApplicationContext(),"Application running in Offline Mode.",Toast.LENGTH_LONG).show();
-                    }
-
-
-                } catch (Exception ex) {
-                    CD.showDialog(MainActivity.this, ex.getLocalizedMessage());
-                }
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapter) {
-            }
-
-        });
+//        department.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+//
+//
+//                try {
+//                    DepartmentsPojo roles = departmentsAdapter.getItem(position);
+//
+//                    Log.e("Dept Name", roles.getDeptName());
+//                    Global_deptId = roles.getDeptId();
+//
+//                    if (AppStatus.getInstance(MainActivity.this).isOnline()) {
+//                        GetDataPojo object = new GetDataPojo();
+//                        object.setUrl(Econstants.url);
+//                        object.setMethord(Econstants.methordMenuList);
+//                        object.setMethordHash(Econstants.encodeBase64(Econstants.methordMenuListToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
+//                        object.setTaskType(TaskType.GET_MENU_LIST);
+//                        object.setDepartmentId(Global_deptId);
+//                        object.setTimeStamp(CommonUtils.getTimeStamp());
+//                        List<String> parameters = new ArrayList<>();
+//                        parameters.add(Preferences.getInstance().role_id);
+//                        object.setParameters(parameters);
+//                        object.setBifurcation("Menu" + Global_deptId);
+//
+//                        new Generic_Async_Get(
+//                                MainActivity.this,
+//                                MainActivity.this,
+//                                TaskType.GET_MENU_LIST).
+//                                execute(object);
+//
+//                    } else {
+//                        DatabaseHandler DB = new DatabaseHandler(MainActivity.this);
+//                        Log.e("GET_MENU_LIST Start", Integer.toString(DB.GetAllOfflineDataViaFunction(TaskType.GET_MENU_LIST.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "Menu" + Global_deptId).size()));
+//                        if (DB.GetAllOfflineDataViaFunction(TaskType.GET_MENU_LIST.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "Menu" + Global_deptId).size() > 0) {
+//                            //Show Events
+//                            try {
+//
+//                                showMenu(DB.GetAllOfflineDataViaFunction(TaskType.GET_MENU_LIST.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "Menu" + Global_deptId).get(0));
+//                            } catch (JSONException e) {
+//                                e.printStackTrace();
+//                            }
+//
+//                        } else {
+//                            CD.showDialogCloseActivity(MainActivity.this, Econstants.NO_DATA);
+//                        }
+//                        Toast.makeText(getApplicationContext(),"Application running in Offline Mode.",Toast.LENGTH_LONG).show();
+//                    }
+//
+//
+//                } catch (Exception ex) {
+//                    CD.showDialog(MainActivity.this, ex.getLocalizedMessage());
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapter) {
+//            }
+//
+//        });
 
 
         if (AppStatus.getInstance(MainActivity.this).isOnline()) {

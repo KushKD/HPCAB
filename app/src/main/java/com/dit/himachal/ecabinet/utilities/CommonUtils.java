@@ -284,6 +284,7 @@ public class CommonUtils {
     public static String getTimeStamp(){
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
         String date = sdf.format(new Date());
+        System.out.println(date);
         return date;
     }
 

@@ -33,6 +33,7 @@ import com.dit.himachal.ecabinet.modal.DepartmentsUserPojo;
 import com.dit.himachal.ecabinet.modal.GetDataPojo;
 import com.dit.himachal.ecabinet.modal.OfflineDataModel;
 import com.dit.himachal.ecabinet.modal.RolesPojo;
+import com.dit.himachal.ecabinet.modal.UserAdvocate;
 import com.dit.himachal.ecabinet.modal.UserDataPojo;
 import com.dit.himachal.ecabinet.modal.UserPojo;
 import com.dit.himachal.ecabinet.presentation.CustomDialog;
@@ -50,12 +51,16 @@ import org.json.JSONTokener;
 import java.util.ArrayList;
 import java.util.List;
 
+import cmreliefdund.kushkumardhawan.com.instructions.MaterialTutorialActivity;
+import cmreliefdund.kushkumardhawan.com.instructions.TutorialItem;
+
 public class Login extends AppCompatActivity implements AsyncTaskListenerObjectGet {
 
     CustomDialog CD = new CustomDialog();
     EditText otp, mobile;
     SearchableSpinner role;
     Button login, reset, get_otp;
+    private static final int REQUEST_CODE = 1234;
 
 
     private String  Global_roleId;
@@ -95,7 +100,9 @@ public class Login extends AppCompatActivity implements AsyncTaskListenerObjectG
 
 
 
-
+        if(!Preferences.getInstance().loadTutorial){
+            loadTutorial();
+        }
 
 
         login.setOnClickListener(new View.OnClickListener() {
@@ -190,6 +197,37 @@ public class Login extends AppCompatActivity implements AsyncTaskListenerObjectG
         return super.dispatchTouchEvent(ev);
     }
 
+    public void loadTutorial() {
+
+        Intent mainAct = new Intent(this, MaterialTutorialActivity.class);
+        mainAct.putParcelableArrayListExtra(MaterialTutorialActivity.MATERIAL_TUTORIAL_ARG_TUTORIAL_ITEMS, getTutorialItems(this));
+        startActivityForResult(mainAct, REQUEST_CODE);
+    }
+
+    private ArrayList<TutorialItem> getTutorialItems(Context context) {
+        TutorialItem tutorialItem1 = new TutorialItem("Heading 1", " Text One ",
+                R.color.qr_code_white, R.drawable.slider1);
+
+        TutorialItem tutorialItem2 = new TutorialItem("Heading 2", "Text Two",
+                R.color.qr_code_white,  R.drawable.slider2);
+
+//        TutorialItem tutorialItem3 = new TutorialItem("Get Your Map Virtually", "Know your guide map virtually. In case you lost your way turn on Live locator.",
+//                R.color.white, R.drawable.slider3);
+//
+//        TutorialItem tutorialItem4 = new TutorialItem("Find Nearby Locations", "Know all important nearby locations such as taxi stands, hospitals or any other places",
+//                R.color.white, R.drawable.slide_four);
+
+
+
+        ArrayList<TutorialItem> tutorialItems = new ArrayList<>();
+        tutorialItems.add(tutorialItem1);
+        tutorialItems.add(tutorialItem2);
+//        tutorialItems.add(tutorialItem3);
+//        tutorialItems.add(tutorialItem4);
+
+        return tutorialItems;
+    }
+
     @Override
     public void onTaskCompleted(OfflineDataModel result, TaskType taskType) throws JSONException {
         Log.e("Result", result.toString());
@@ -212,17 +250,15 @@ public class Login extends AppCompatActivity implements AsyncTaskListenerObjectG
                         Log.e("RERERERE",Econstants.decodeBase64(object.getString("StatusMessage")));
                         if (Integer.parseInt(object.getString("StatusCode")) == 200) {
 
-                            UserDataPojo dataPojo = new UserDataPojo();
+                            UserAdvocate dataPojo = new UserAdvocate();
 
-                            dataPojo.setBranchmapped(Econstants.decodeBase64(object.getString("Branchmapped")));
-                            dataPojo.setDesgination(Econstants.decodeBase64(object.getString("Desgination")));
-                            dataPojo.setIsCabinetMinister(Econstants.decodeBase64(object.getString("IsCabinetMinister")));
-                            dataPojo.setMobileNumber(Econstants.decodeBase64(object.getString("MobileNumber")));
-                            dataPojo.setName(Econstants.decodeBase64(object.getString("Name")));
-                            dataPojo.setUserID(Econstants.decodeBase64(object.getString("UserID")));
+                            dataPojo.setAdvocateName(Econstants.decodeBase64(object.getString("AdvocateName")));
+                            dataPojo.setMobileNo(Econstants.decodeBase64(object.getString("MobileNo")));
+                            dataPojo.setUserid(Econstants.decodeBase64(object.getString("Userid")));
+                            dataPojo.setRoleId(Econstants.decodeBase64(object.getString("RoleId")));
+                            dataPojo.setLoginuserinfo(Econstants.decodeBase64(object.getString("Loginuserinfo")));
+                            dataPojo.setUsername(Econstants.decodeBase64(object.getString("Username")));
 
-
-                            dataPojo.setRoleId(Global_roleId);
 
                             Log.e("User Final Data", dataPojo.toString());
                             //Save Data to shared Prefrences
@@ -254,31 +290,19 @@ public class Login extends AppCompatActivity implements AsyncTaskListenerObjectG
         }
     }
 
-    private boolean saveDataSharedPrefrences(UserDataPojo dataPojo) {
+    private boolean saveDataSharedPrefrences(UserAdvocate dataPojo) {
         StringBuilder SB = new StringBuilder();
         try {
 
             Preferences.getInstance().loadPreferences(Login.this);
-            Preferences.getInstance().role_name = dataPojo.getDesgination();
             Preferences.getInstance().role_id = dataPojo.getRoleId();
-            Preferences.getInstance().user_name = dataPojo.getName();
-            Preferences.getInstance().user_id = dataPojo.getUserID();
-            Preferences.getInstance().photo = dataPojo.getPhoto();
-            Log.e("Mapped Departments", Preferences.getInstance().photo);
-
-            Preferences.getInstance().is_cabinet_minister = dataPojo.getIsCabinetMinister().equalsIgnoreCase("Y");
-
-
-            Preferences.getInstance().phone_number = dataPojo.getMobileNumber();
+            Preferences.getInstance().user_name = dataPojo.getUsername();
+            Preferences.getInstance().user_id = dataPojo.getUserid();
+            Preferences.getInstance().advocate_name = dataPojo.getAdvocateName();
+            Preferences.getInstance().phone_number = dataPojo.getMobileNo();
             Preferences.getInstance().isLoggedIn = true;
-            Preferences.getInstance().branched_mapped = dataPojo.getBranchmapped();
-
-            for (int i = 0; i < dataPojo.getDepartmentsUser().size(); i++) {
-                SB.append(dataPojo.getDepartmentsUser().get(i).getDepartmentID());
-                SB.append(",");
-            }
-            Log.e("Mapped Departments", SB.toString());
-            Preferences.getInstance().mapped_departments = SB.toString();
+            Preferences.getInstance().loadTutorial = true;
+            Preferences.getInstance().Loginuserinfo = dataPojo.getLoginuserinfo();
 
             Preferences.getInstance().savePreferences(Login.this);
             finish();

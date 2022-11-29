@@ -653,7 +653,7 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
                 object.setParameters(parameters);
                 object.setBifurcation("CABINET_MEMOS_DETAILS" +cabinetMemoPojo.getDeptid()+ cabinetMemoPojo.getCabinetMemoID());
 
-                Log.e("Departments", Preferences.getInstance().mapped_departments);
+              //  Log.e("Departments", Preferences.getInstance().mapped_departments);
 
                 new Generic_Async_Get(
                         CabinetMemoDetailsActivity.this,
@@ -692,7 +692,7 @@ public class CabinetMemoDetailsActivity extends AppCompatActivity implements Asy
                 object.setParameters(parameters);
                 object.setBifurcation("CABINET_MEMOS_DETAILS" +cabinetMemoPojo.getDeptid()+ cabinetMemoPojo.getCabinetMemoID());
 
-                Log.e("Departments", Preferences.getInstance().mapped_departments);
+              //  Log.e("Departments", Preferences.getInstance().mapped_departments);
 
                 new Generic_Async_Get(
                         CabinetMemoDetailsActivity.this,

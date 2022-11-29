@@ -72,42 +72,6 @@
         </LinearLayout>
 
 
-        <!-- Department -->
-        <LinearLayout
-            android:id="@+id/dept_lay"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="2dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:fontFamily="@font/poppins_semibold"
-                android:gravity="center|center_horizontal|center_vertical"
-                android:text="Select Department"
-                android:textColor="@color/color_dark_rd"
-                android:textSize="16sp" />
-
-
-            <com.doi.spinnersearchable.SearchableSpinner
-                android:id="@+id/department"
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:layout_centerVertical="true"
-                android:layout_weight="1"
-                android:background="@drawable/pink_bordor_rect"
-                android:fontFamily="@font/poppins_semibold"
-                android:hint=" Department"
-                android:textColor="@color/colcr_blue"
-                android:textColorHint="@color/colcr_blue"
-                android:textSize="18dip" />
-
-
-        </LinearLayout>
-
-
         <LinearLayout
             android:id="@+id/ll2"
             android:layout_width="match_parent"

@@ -133,9 +133,9 @@ public class MainActivity2 extends AppCompatActivity implements AsyncTaskListene
         TextView name = hView.findViewById(R.id.name);
         TextView mobile_number = hView.findViewById(R.id.mobilenumber);
         TextView designation = hView.findViewById(R.id.designation);
-        name.setText(Preferences.getInstance().user_name);
+        name.setText(Preferences.getInstance().advocate_name);
         mobile_number.setText(Preferences.getInstance().phone_number);
-        designation.setText(Preferences.getInstance().role_name);
+       // designation.setText(Preferences.getInstance().role_name);
 
         if (Preferences.getInstance().isLoggedIn) {
             navigationView.getMenu().clear();
@@ -150,51 +150,10 @@ public class MainActivity2 extends AppCompatActivity implements AsyncTaskListene
         // pullToRefresh = findViewById(R.id.pullToRefresh);
         sliderView = findViewById(R.id.imageSlider);
         home_gv = findViewById(R.id.gv);
-        department = findViewById(R.id.department);
         meetingStatus = findViewById(R.id.mstatus);
         //  meetingStatus.setDisableChildrenTouchEvents(true);
 
-        // LinearLayout layout_user_dashboard = findViewById(R.id.layout_user);
-        // username = (TextView) layout_user_dashboard.findViewById(R.id.username);
-        // designation = (TextView) layout_user_dashboard.findViewById(R.id.designation);
-        // meetingStatus =  meetingStatus.findViewById(R.id.user_dashboard);
-        //  meetingStatus.setSelected(true);
-        //  meetingStatus.setClickable(true);
-        // meetingStatus.setFocusable(true);
-//        imageuser = (ImageView) layout_user_dashboard.findViewById(R.id.imageuser);
 
-        department.setTitle(" Select Department");
-        department.setPrompt(" Select Department");
-        // meetingStatus.seton
-        // mobile = (TextView) layout_user_dashboard.findViewById(R.id.mobile);
-        //  is_cabinet = (TextView) layout_user_dashboard.findViewById(R.id.is_cabinet);
-
-//        username.setText(Preferences.getInstance().user_name);
-        //      designation.setText(Preferences.getInstance().role_name);
-
-//        Log.e("Photo==", Preferences.getInstance().photo);
-
-        //if (!Preferences.getInstance().photo.isEmpty()) {
-        //  imageLoader.DisplayCircleImage(Preferences.getInstance().photo, imageuser, null, null, false);
-        //}
-
-
-        /**
-         *  if (AppStatus.getInstance(MainActivity2.this).isOnline()) {
-         *                         GetDataPojo object = new GetDataPojo();
-         *                         object.setUrl(Econstants.url);
-         *                         object.setMethord(Econstants.methordGetOnlineCabinetIDMeetingStatus);
-         *                         object.setMethordHash(Econstants.encodeBase64(Econstants.methordGetOnlineCabinetIDMeetingToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
-         *                         object.setTaskType(TaskType.CABINET_MEETING_STATUS);
-         *                         object.setTimeStamp(CommonUtils.getTimeStamp());
-         *                         object.setBifurcation("CABINET_MEETING_STATUS");
-         *
-         *                         new Generic_Async_Get(
-         *                                 MainActivity2.this,
-         *                                 MainActivity2.this,
-         *                                 TaskType.CABINET_MEETING_STATUS).
-         *                                 execute(object);
-         */
 
         meetingStatus.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -204,86 +163,20 @@ public class MainActivity2 extends AppCompatActivity implements AsyncTaskListene
         });
 
 
-        department.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-
-
-                try {
-                    DepartmentsPojo roles = departmentsAdapter.getItem(position);
-
-                    Log.e("Dept Name", roles.getDeptName());
-                    Global_deptId = roles.getDeptId();
-
-                    if (AppStatus.getInstance(MainActivity2.this).isOnline()) {
-                        GetDataPojo object = new GetDataPojo();
-                        object.setUrl(Econstants.url);
-                        object.setMethord(Econstants.methordMenuList);
-                        object.setMethordHash(Econstants.encodeBase64(Econstants.methordMenuListToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
-                        object.setTaskType(TaskType.GET_MENU_LIST);
-                        object.setDepartmentId(Global_deptId);
-                        object.setTimeStamp(CommonUtils.getTimeStamp());
-                        List<String> parameters = new ArrayList<>();
-                        parameters.add(Preferences.getInstance().role_id);
-                        object.setParameters(parameters);
-                        object.setBifurcation("Menu" + Global_deptId);
-
-                        new Generic_Async_Get(
-                                MainActivity2.this,
-                                MainActivity2.this,
-                                TaskType.GET_MENU_LIST).
-                                execute(object);
-
-                    } else {
-                        DatabaseHandler DB = new DatabaseHandler(MainActivity2.this);
-                        Log.e("GET_MENU_LIST Start", Integer.toString(DB.GetAllOfflineDataViaFunction(TaskType.GET_MENU_LIST.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "Menu" + Global_deptId).size()));
-                        if (DB.GetAllOfflineDataViaFunction(TaskType.GET_MENU_LIST.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "Menu" + Global_deptId).size() > 0) {
-                            //Show Events
-                            try {
-
-                                showMenu(DB.GetAllOfflineDataViaFunction(TaskType.GET_MENU_LIST.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "Menu" + Global_deptId).get(0));
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
-                        } else {
-                            CD.showDialogCloseActivity(MainActivity2.this, Econstants.NO_DATA);
-                        }
-                        Toast.makeText(getApplicationContext(), "Application running in Offline Mode.", Toast.LENGTH_LONG).show();
-                    }
-
-
-                } catch (Exception ex) {
-                    CD.showDialog(MainActivity2.this, ex.getLocalizedMessage());
-                }
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapter) {
-            }
-
-        });
-
 
         if (AppStatus.getInstance(MainActivity2.this).isOnline()) {
             GetDataPojo object2 = new GetDataPojo();
             object2.setUrl(Econstants.url);
-            object2.setMethord(Econstants.getDepartmentsViaRoles);
-            object2.setMethordHash(Econstants.encodeBase64(Econstants.getDepartmentsViaRolesToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
-            object2.setTaskType(TaskType.GET_DEPARTMENTS_VIA_ROLES);
+            object2.setMethord(Econstants.methordMenuList);
+            object2.setMethordHash(Econstants.encodeBase64(Econstants.methordMenuListToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
+            object2.setTaskType(TaskType.GET_MENU_LIST);
             object2.setTimeStamp(CommonUtils.getTimeStamp());
-            List<String> parameters = new ArrayList<>();
-            parameters.add(Preferences.getInstance().user_id);
-            parameters.add(Preferences.getInstance().role_id);
-            object2.setParameters(parameters);
-            object2.setBifurcation("GET_DEPARTMENTS_VIA_ROLES");
+            object2.setBifurcation("GET_MENU_LIST");
 
             new Generic_Async_Get(
                     MainActivity2.this,
                     MainActivity2.this,
-                    TaskType.GET_DEPARTMENTS_VIA_ROLES).
+                    TaskType.GET_MENU_LIST).
                     execute(object2);
 
         } else {
@@ -292,12 +185,8 @@ public class MainActivity2 extends AppCompatActivity implements AsyncTaskListene
             Log.e("GET_DEPARTMENTS_VIA", Integer.toString(DB.GetAllOfflineDataViaFunction(TaskType.GET_DEPARTMENTS_VIA_ROLES.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "GET_DEPARTMENTS_VIA_ROLES").size()));
             if (DB.GetAllOfflineDataViaFunction(TaskType.GET_DEPARTMENTS_VIA_ROLES.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "GET_DEPARTMENTS_VIA_ROLES").size() > 0) {
                 //Show Events
-                try {
 
-                    showDepartments(DB.GetAllOfflineDataViaFunction(TaskType.GET_DEPARTMENTS_VIA_ROLES.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "GET_DEPARTMENTS_VIA_ROLES").get(0));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                // showDepartments(DB.GetAllOfflineDataViaFunction(TaskType.GET_DEPARTMENTS_VIA_ROLES.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "GET_DEPARTMENTS_VIA_ROLES").get(0));
 
             } else {
                 CD.showDialogCloseActivity(MainActivity2.this, Econstants.NO_DATA);
@@ -473,61 +362,7 @@ public class MainActivity2 extends AppCompatActivity implements AsyncTaskListene
     }
 
 
-    private void showDepartments(OfflineDataModel result) throws JSONException {
 
-        if (result.getFunctionName().equalsIgnoreCase(TaskType.GET_DEPARTMENTS_VIA_ROLES.toString())) {
-            Log.e("Result fd == ", result.getResponse());
-            // if (result.getHttpFlag().equalsIgnoreCase(Econstants.success)) {
-            Log.e("Result == ", result.getResponse());
-            Object json = new JSONTokener(result.getResponse()).nextValue();
-            if (json instanceof JSONObject) {
-                Log.e("Json Object", "Object");
-            } else if (json instanceof JSONArray) {
-                Log.e("Json Object", "Object");
-                JSONArray arrayReports = new JSONArray(result.getResponse());
-                Log.e("arrayReports", arrayReports.toString());
-
-                if (arrayReports.length() > 0) {
-                    departments = new ArrayList<>();
-                    //ReportsModelPojo
-
-                    DepartmentsPojo all = new DepartmentsPojo();
-                    all.setDeptName("All");
-                    all.setDeptId("0");
-
-
-                    for (int i = 0; i < arrayReports.length(); i++) {
-                        DepartmentsPojo departmentsPojo = new DepartmentsPojo();
-                        JSONObject object = arrayReports.getJSONObject(i);
-
-                        departmentsPojo.setDeptId(Econstants.decodeBase64(object.getString("DeptId")));
-                        departmentsPojo.setDeptName(Econstants.decodeBase64(object.getString("DeptName")));
-
-
-                        departments.add(departmentsPojo);
-                    }
-                    departments.add(0, all);
-                    Log.e("Departments Data", departments.toString());
-                    departmentsAdapter = new DepartmentsAdapter(MainActivity2.this, android.R.layout.simple_spinner_item, departments);
-                    department.setAdapter(departmentsAdapter);
-
-
-                } else {
-                    CD.showDialog(MainActivity2.this, "No Departments Found");
-
-                }
-            }
-
-
-            // }
-            else {
-                CD.showDialog(MainActivity2.this, result.getResponse());
-
-            }
-        }
-
-
-    }
 
     private void showCabinetAgenda(OfflineDataModel result) throws JSONException {
 
@@ -623,34 +458,7 @@ public class MainActivity2 extends AppCompatActivity implements AsyncTaskListene
     @Override
     public void onTaskCompleted(OfflineDataModel result, TaskType taskType) throws JSONException {
 
-        if (taskType == TaskType.GET_DEPARTMENTS_VIA_ROLES) {
-
-            if (result.getHttpFlag().equalsIgnoreCase(Econstants.success)) {
-                //Save the rsult to Database
-                DatabaseHandler DH = new DatabaseHandler(MainActivity2.this);
-                //Check weather the Hash is Present in the DB or not
-                Log.e("??Total Numner of Rows", Integer.toString(DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_DEPARTMENTS_VIA_ROLES.toString(), "GET_DEPARTMENTS_VIA_ROLES")));
-                if (DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_DEPARTMENTS_VIA_ROLES.toString(), "GET_DEPARTMENTS_VIA_ROLES") == 1) {
-                    //Update the Earlier Record
-                    DH.updateData(result);
-                    Log.e("Updated Row", Boolean.toString(DH.updateData(result)));
-                } else if (DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_DEPARTMENTS_VIA_ROLES.toString(), "GET_DEPARTMENTS_VIA_ROLES") == 0) {
-                    DH.addOfflineAccess(result);
-                    Log.e("Added Row", Boolean.toString(DH.addOfflineAccess(result)));
-                } else {
-                    //DELETE ALL THE RECORDS
-                    DH.deleteAllExistingOfflineData(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_DEPARTMENTS_VIA_ROLES.toString(), "GET_DEPARTMENTS_VIA_ROLES");
-                    Log.e("Total Records Deleted:-", Integer.toString(DH.deleteAllExistingOfflineData(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_DEPARTMENTS_VIA_ROLES.toString(), "GET_DEPARTMENTS_VIA_ROLES")));
-                    //Add the Latest Record
-                    DH.addOfflineAccess(result);
-                }
-
-                showDepartments(result);
-            } else {
-                CD.showDialogCloseActivity(MainActivity2.this, result.getResponse());
-            }
-
-        } else if (taskType == TaskType.GET_MENU_LIST) {
+       if (taskType == TaskType.GET_MENU_LIST) {
 
             if (result.getHttpFlag().equalsIgnoreCase(Econstants.success)) {
                 //Save the rsult to Database
@@ -731,11 +539,10 @@ public class MainActivity2 extends AppCompatActivity implements AsyncTaskListene
             Preferences.getInstance().role_id = "";
             Preferences.getInstance().user_id = "";
             Preferences.getInstance().user_name = "";
-            Preferences.getInstance().role_name = "";
-            Preferences.getInstance().mapped_departments = "";
-            Preferences.getInstance().branched_mapped = "";
-            Preferences.getInstance().photo = "";
-            Preferences.getInstance().is_cabinet_minister = false;
+            Preferences.getInstance().advocate_name = "";
+            Preferences.getInstance().Loginuserinfo = "";
+            Preferences.getInstance().phone_number = "";
+//            Preferences.getInstance().photo = "";
             Preferences.getInstance().isLoggedIn = false;
 
 

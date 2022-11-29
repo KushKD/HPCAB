@@ -22,7 +22,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 3;
 
     // Database Name
-    private static final String DATABASE_NAME = "eCabinetV3.db";
+    private static final String DATABASE_NAME = "RMSV1.db";
 
 
 
