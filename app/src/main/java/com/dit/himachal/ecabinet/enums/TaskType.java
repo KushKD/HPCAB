@@ -24,7 +24,9 @@ public enum TaskType {
     FINAL_MEETING_AGENDA_LIST(15),
     GET_CABINET_DECISIONS_COUNT(16),
     GET_ACTION(17),
-    GET_SENT_BACK_TO(18);
+    GET_SENT_BACK_TO(18),
+
+    Get_Registered_Advocates_List(19);
 
     int value;
 

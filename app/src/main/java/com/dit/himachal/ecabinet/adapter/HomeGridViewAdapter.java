@@ -12,18 +12,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.dit.himachal.ecabinet.R;
-import com.dit.himachal.ecabinet.activities.ApprovedMemo;
-import com.dit.himachal.ecabinet.activities.CabinetDecisions;
-import com.dit.himachal.ecabinet.activities.CabinetMemoListByRoleActivity;
-import com.dit.himachal.ecabinet.activities.FinalAgendaList;
-import com.dit.himachal.ecabinet.activities.Login;
+import com.dit.himachal.ecabinet.activities.AdvocateList;
 import com.dit.himachal.ecabinet.lazyloader.ImageLoader;
 import com.dit.himachal.ecabinet.modal.ModulesPojo;
 import com.dit.himachal.ecabinet.presentation.CustomDialog;
-import com.dit.himachal.ecabinet.utilities.Preferences;
 
 import java.util.ArrayList;
 
@@ -42,10 +36,9 @@ public class HomeGridViewAdapter extends BaseAdapter {
     String dept_id_ = null;
 
 
-    public HomeGridViewAdapter(Context c, ArrayList<ModulesPojo> spacecrafts, String dept_id) {
+    public HomeGridViewAdapter(Context c, ArrayList<ModulesPojo> spacecrafts) {
         this.c = c;
         this.gridHome = spacecrafts;
-        this.dept_id_ = dept_id;
     }
 
     @Override
@@ -96,96 +89,78 @@ public class HomeGridViewAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 Log.e("ID", s.getId());
-                Log.e("DeptID", dept_id_);
 
 
+                //Advocate List
                 if (s.getId().equalsIgnoreCase("1")) {
-                    Log.e("DIT", dept_id_);
-                    Intent i = new Intent(c.getApplicationContext(), CabinetMemoListByRoleActivity.class);
-                    i.putExtra("department_id", dept_id_);
-                    i.putExtra("param", "Current");
+                    Log.e("Advocate List", s.getId());
+                    Intent i = new Intent(c.getApplicationContext(), AdvocateList.class);
                     (c).startActivity(i);
 
                 }
+                //Archived Case List
                 if (s.getId().equalsIgnoreCase("2")) {
-                    Log.e("DIT", dept_id_);
-                    Intent i = new Intent(c.getApplicationContext(), CabinetMemoListByRoleActivity.class);
-                    i.putExtra("department_id", dept_id_);
-                    i.putExtra("param", "Forwarded");
-                    (c).startActivity(i);
+                    Log.e("Archived Case List", s.getId());
+//                    Intent i = new Intent(c.getApplicationContext(), CabinetMemoListByRoleActivity.class);
+//                    i.putExtra("department_id", dept_id_);
+//                    i.putExtra("param", "Forwarded");
+//                    (c).startActivity(i);
 
                 }
+                //Case List
                 if (s.getId().equalsIgnoreCase("3")) {
-                    Log.e("DIT", dept_id_);
-                    Intent i = new Intent(c.getApplicationContext(), CabinetMemoListByRoleActivity.class);
-                    i.putExtra("department_id", dept_id_);
-                    i.putExtra("param", "Backwarded");
-                    (c).startActivity(i);
+                    Log.e("Case List", s.getId());
+//                    Intent i = new Intent(c.getApplicationContext(), CabinetMemoListByRoleActivity.class);
+//                    i.putExtra("department_id", dept_id_);
+//                    i.putExtra("param", "Backwarded");
+//                    (c).startActivity(i);
 
                 }
-                if (s.getId().equalsIgnoreCase("5")) {
-                    CustomDialog CD = new CustomDialog();
-                    CD.showDialog((Activity) c, "Under Process.");
-
-                }
-                if (s.getId().equalsIgnoreCase("10")) {
-                    CustomDialog CD = new CustomDialog();
-                    CD.showDialog((Activity) c, "Under Process.");
-
-                }
+                //Notices
                 if (s.getId().equalsIgnoreCase("4")) {
-                    Intent intent = new Intent("getAgenda");
-                    intent.setPackage(c.getPackageName());
-                    (c).sendBroadcast(intent);
+                    Log.e("Notices", s.getId());
+                    CustomDialog CD = new CustomDialog();
+                    CD.showDialog((Activity) c, "Under Process.");
+
                 }
+                //Subscribed List
+                if (s.getId().equalsIgnoreCase("5")) {
+                    Log.e("Subscribed List", s.getId());
+                    CustomDialog CD = new CustomDialog();
+                    CD.showDialog((Activity) c, "Under Process.");
+
+                }
+                //Zimni Orders
                 if (s.getId().equalsIgnoreCase("6")) {
-                    Intent i = new Intent(c.getApplicationContext(), ApprovedMemo.class);
-                    i.putExtra("department_id", dept_id_);
-                    i.putExtra("param", "allowedCabinetMemos");
-                    (c).startActivity(i);
-                }
-                if (s.getId().equalsIgnoreCase("7")) {
-                    Intent i = new Intent(c.getApplicationContext(), FinalAgendaList.class);
-                    i.putExtra("department_id", dept_id_);
-                    i.putExtra("param", "finalagendalist");
-                    (c).startActivity(i);
-                }  //PlacedInCabinet
-                if (s.getId().equalsIgnoreCase("8")) {
-                    Intent i = new Intent(c.getApplicationContext(), CabinetMemoListByRoleActivity.class);
-                    i.putExtra("department_id", dept_id_);
-                    i.putExtra("param", "PlacedInCabinet");
-                    (c).startActivity(i);
-                }
-                if(s.getId().equalsIgnoreCase("9")){  //Cabinet_Decisions
-                    Intent i = new Intent(c.getApplicationContext(), CabinetDecisions.class);
-                    i.putExtra("department_id", dept_id_);
-                    i.putExtra("param","Cabinet_Decisions");
-                    (c).startActivity(i);
+                    Log.e("Zimni Orders", s.getId());
+//                    Intent i = new Intent(c.getApplicationContext(), ApprovedMemo.class);
+//                    i.putExtra("department_id", dept_id_);
+//                    i.putExtra("param", "allowedCabinetMemos");
+//                    (c).startActivity(i);
                 }
 
-                if (s.getId().equalsIgnoreCase("21")) {
-                    Preferences.getInstance().loadPreferences(c.getApplicationContext());
-
-
-                    Preferences.getInstance().role_id = "";
-                    Preferences.getInstance().user_id = "";
-                    Preferences.getInstance().user_name = "";
-//                    Preferences.getInstance().role_name = "";
-//                    Preferences.getInstance().mapped_departments = "";
-//                    Preferences.getInstance().branched_mapped = "";
-//                    Preferences.getInstance().photo = "";
-//                    Preferences.getInstance().is_cabinet_minister = false;
-                    Preferences.getInstance().isLoggedIn = false;
-
-
-                    Preferences.getInstance().savePreferences(c.getApplicationContext());
-                    Toast.makeText(c.getApplicationContext(), "Logout Successful", Toast.LENGTH_LONG).show();
-
-                    Intent mainIntent = new Intent(c.getApplicationContext(), Login.class);
-                    (c).startActivity(mainIntent);
-                    ((Activity) c).finish();
-
-                }
+//
+//                if (s.getId().equalsIgnoreCase("21")) {
+//                    Preferences.getInstance().loadPreferences(c.getApplicationContext());
+//
+//
+//                    Preferences.getInstance().role_id = "";
+//                    Preferences.getInstance().user_id = "";
+//                    Preferences.getInstance().user_name = "";
+//                    Preferences.getInstance().Loginuserinfo="";
+//                    Preferences.getInstance().phone_number="";
+//                    Preferences.getInstance().advocate_name="";
+//                    Preferences.getInstance().isLoggedIn = false;
+//
+//
+//                    Preferences.getInstance().savePreferences(c.getApplicationContext());
+//                    Toast.makeText(c.getApplicationContext(), "Logout Successful", Toast.LENGTH_LONG).show();
+//
+//                    Intent mainIntent = new Intent(c.getApplicationContext(), Login.class);
+//                    (c).startActivity(mainIntent);
+//                    ((Activity) c).finish();
+//
+//                }
 
 
 

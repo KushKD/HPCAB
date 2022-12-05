@@ -34,18 +34,6 @@
                 android:layout_height="fill_parent"
                 card_view:cardCornerRadius="6dp">
 
-                <com.dit.himachal.ecabinet.presentation.MeetingStatus
-                    android:layout_height="fill_parent"
-                    android:clickable="true"
-                    android:visibility="gone"
-                    android:id="@+id/mstatus"
-                    android:layout_width="match_parent">
-
-                </com.dit.himachal.ecabinet.presentation.MeetingStatus>
-
-                <!--                <include-->
-                <!--                    layout="@layout/user_dashboard"-->
-                <!--                    android:id="@+id/layout_user"/>-->
 
                 <com.smarteist.autoimageslider.SliderView
                     android:id="@+id/imageSlider"

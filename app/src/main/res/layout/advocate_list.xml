@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/pullToRefresh"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -37,7 +36,7 @@
                     android:fontFamily="@font/poppins_semibold"
                     android:padding="5dp"
                     android:singleLine="true"
-                    android:text="eCabinet"
+                    android:text="Revenue Monitoring System"
                     android:textColor="@color/color_dark_rd"
                     android:textSize="16sp" />
 

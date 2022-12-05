@@ -30,55 +30,7 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden"></activity>
         <activity
-            android:name=".activities.CabinetDecisions"
-            android:alwaysRetainTaskState="true"
-            android:focusableInTouchMode="true"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden" />
-        <activity
-            android:name=".activities.FinalAgendaList"
-            android:alwaysRetainTaskState="true"
-            android:focusableInTouchMode="true"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden" />
-        <activity
-            android:name=".activities.ApprovedMemo"
-            android:alwaysRetainTaskState="true"
-            android:focusableInTouchMode="true"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden" />
-        <activity
-            android:name=".activities.CabinetAnnexures"
-            android:alwaysRetainTaskState="true"
-            android:focusableInTouchMode="true"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden" />
-        <activity
-            android:name=".activities.CabinetMemoHistory"
-            android:alwaysRetainTaskState="true"
-            android:focusableInTouchMode="true"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden" />
-        <activity
-            android:name=".activities.CabinetMemoDetailsActivity"
-            android:alwaysRetainTaskState="true"
-            android:focusableInTouchMode="true"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden" />
-        <activity
-            android:name=".activities.CabinetMemoListByRoleActivity"
+            android:name=".activities.AdvocateList"
             android:alwaysRetainTaskState="true"
             android:focusableInTouchMode="true"
             android:launchMode="singleTop"
@@ -87,14 +39,6 @@
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activities.Login"
-            android:alwaysRetainTaskState="true"
-            android:focusableInTouchMode="true"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden" />
-        <activity
-            android:name=".activities.MainActivity"
             android:alwaysRetainTaskState="true"
             android:focusableInTouchMode="true"
             android:launchMode="singleTop"

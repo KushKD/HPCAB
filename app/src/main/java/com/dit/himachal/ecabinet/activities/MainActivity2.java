@@ -1,9 +1,7 @@
 package com.dit.himachal.ecabinet.activities;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -13,9 +11,8 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
+import android.widget.AbsListView;
 import android.widget.GridView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,9 +23,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.dit.himachal.ecabinet.R;
-import com.dit.himachal.ecabinet.adapter.DepartmentsAdapter;
 import com.dit.himachal.ecabinet.adapter.HomeGridViewAdapter;
 import com.dit.himachal.ecabinet.adapter.SliderAdapter;
 import com.dit.himachal.ecabinet.databases.DatabaseHandler;
@@ -36,19 +33,14 @@ import com.dit.himachal.ecabinet.enums.TaskType;
 import com.dit.himachal.ecabinet.generic.Generic_Async_Get;
 import com.dit.himachal.ecabinet.interfaces.AsyncTaskListenerObjectGet;
 import com.dit.himachal.ecabinet.interfaces.LengthAgenda;
-import com.dit.himachal.ecabinet.lazyloader.ImageLoader;
-import com.dit.himachal.ecabinet.modal.AgendaPojo;
-import com.dit.himachal.ecabinet.modal.DepartmentsPojo;
 import com.dit.himachal.ecabinet.modal.GetDataPojo;
 import com.dit.himachal.ecabinet.modal.ModulesPojo;
 import com.dit.himachal.ecabinet.modal.OfflineDataModel;
 import com.dit.himachal.ecabinet.presentation.CustomDialog;
-import com.dit.himachal.ecabinet.presentation.MeetingStatus;
 import com.dit.himachal.ecabinet.utilities.AppStatus;
 import com.dit.himachal.ecabinet.utilities.CommonUtils;
 import com.dit.himachal.ecabinet.utilities.Econstants;
 import com.dit.himachal.ecabinet.utilities.Preferences;
-import com.doi.spinnersearchable.SearchableSpinner;
 import com.google.android.material.navigation.NavigationView;
 import com.smarteist.autoimageslider.IndicatorAnimations;
 import com.smarteist.autoimageslider.IndicatorView.draw.controller.DrawController;
@@ -70,24 +62,14 @@ public class MainActivity2 extends AppCompatActivity implements AsyncTaskListene
     GridView home_gv;
     HomeGridViewAdapter adapter_modules;
     ActionBarDrawerToggle actionBarDrawerToggle = null;
-    List<DepartmentsPojo> departments = new ArrayList<>();
-    DepartmentsAdapter departmentsAdapter = null;
+
 
     CustomDialog CD = new CustomDialog();
-    SearchableSpinner department;
     List<ModulesPojo> modules = null;
-    LinearLayout layout_user_dashboard;
 
-    TextView username, designation, mobile, is_cabinet;
-    //ImageView imageuser;
+
+
     //SwipeRefreshLayout pullToRefresh;
-
-
-    ImageLoader imageLoader = new ImageLoader(MainActivity2.this);
-
-    MeetingStatus meetingStatus;
-    public String Global_deptId;
-    private BroadcastReceiver mReceiver;
 
 
     @Override
@@ -150,17 +132,10 @@ public class MainActivity2 extends AppCompatActivity implements AsyncTaskListene
         // pullToRefresh = findViewById(R.id.pullToRefresh);
         sliderView = findViewById(R.id.imageSlider);
         home_gv = findViewById(R.id.gv);
-        meetingStatus = findViewById(R.id.mstatus);
-        //  meetingStatus.setDisableChildrenTouchEvents(true);
 
 
 
-        meetingStatus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(MainActivity2.this, "Running", Toast.LENGTH_SHORT).show();
-            }
-        });
+
 
 
 
@@ -182,11 +157,13 @@ public class MainActivity2 extends AppCompatActivity implements AsyncTaskListene
         } else {
 
             DatabaseHandler DB = new DatabaseHandler(MainActivity2.this);
-            Log.e("GET_DEPARTMENTS_VIA", Integer.toString(DB.GetAllOfflineDataViaFunction(TaskType.GET_DEPARTMENTS_VIA_ROLES.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "GET_DEPARTMENTS_VIA_ROLES").size()));
-            if (DB.GetAllOfflineDataViaFunction(TaskType.GET_DEPARTMENTS_VIA_ROLES.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "GET_DEPARTMENTS_VIA_ROLES").size() > 0) {
-                //Show Events
-
-                // showDepartments(DB.GetAllOfflineDataViaFunction(TaskType.GET_DEPARTMENTS_VIA_ROLES.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "GET_DEPARTMENTS_VIA_ROLES").get(0));
+            Log.e("GET_MENU_LIST", Integer.toString(DB.GetAllOfflineDataViaFunction(TaskType.GET_MENU_LIST.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "Menu"+Preferences.getInstance().user_id).size()));
+            if (DB.GetAllOfflineDataViaFunction(TaskType.GET_MENU_LIST.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "Menu"+Preferences.getInstance().user_id).size() > 0) {
+                try {
+                    showMenu(DB.GetAllOfflineDataViaFunction(TaskType.GET_MENU_LIST.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "Menu"+Preferences.getInstance().user_id).get(0));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
             } else {
                 CD.showDialogCloseActivity(MainActivity2.this, Econstants.NO_DATA);
@@ -212,33 +189,29 @@ public class MainActivity2 extends AppCompatActivity implements AsyncTaskListene
 //            @Override
 //            public void onRefresh() {
 //
+//
 //                if (AppStatus.getInstance(MainActivity2.this).isOnline()) {
 //                    GetDataPojo object2 = new GetDataPojo();
 //                    object2.setUrl(Econstants.url);
-//                    object2.setMethord(Econstants.getDepartmentsViaRoles);
-//                    object2.setMethordHash(Econstants.encodeBase64(Econstants.getDepartmentsViaRolesToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
-//                    object2.setTaskType(TaskType.GET_DEPARTMENTS_VIA_ROLES);
+//                    object2.setMethord(Econstants.methordMenuList);
+//                    object2.setMethordHash(Econstants.encodeBase64(Econstants.methordMenuListToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
+//                    object2.setTaskType(TaskType.GET_MENU_LIST);
 //                    object2.setTimeStamp(CommonUtils.getTimeStamp());
-//                    List<String> parameters = new ArrayList<>();
-//                    parameters.add(Preferences.getInstance().user_id);
-//                    parameters.add(Preferences.getInstance().role_id);
-//                    object2.setParameters(parameters);
+//                    object2.setBifurcation("GET_MENU_LIST");
 //
 //                    new Generic_Async_Get(
 //                            MainActivity2.this,
 //                            MainActivity2.this,
-//                            TaskType.GET_DEPARTMENTS_VIA_ROLES).
+//                            TaskType.GET_MENU_LIST).
 //                            execute(object2);
 //
 //                } else {
 //
 //                    DatabaseHandler DB = new DatabaseHandler(MainActivity2.this);
-//                    Log.e("GET_DEPARTMENTS_VIA", Integer.toString(DB.GetAllOfflineDataViaFunction(TaskType.GET_DEPARTMENTS_VIA_ROLES.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "GET_DEPARTMENTS_VIA_ROLES").size()));
-//                    if (DB.GetAllOfflineDataViaFunction(TaskType.GET_DEPARTMENTS_VIA_ROLES.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "GET_DEPARTMENTS_VIA_ROLES").size() > 0) {
-//                        //Show Events
+//                    Log.e("GET_MENU_LIST", Integer.toString(DB.GetAllOfflineDataViaFunction(TaskType.GET_MENU_LIST.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "Menu"+Preferences.getInstance().user_id).size()));
+//                    if (DB.GetAllOfflineDataViaFunction(TaskType.GET_MENU_LIST.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "Menu"+Preferences.getInstance().user_id).size() > 0) {
 //                        try {
-//
-//                            showDepartments(DB.GetAllOfflineDataViaFunction(TaskType.GET_DEPARTMENTS_VIA_ROLES.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "GET_DEPARTMENTS_VIA_ROLES").get(0));
+//                            showMenu(DB.GetAllOfflineDataViaFunction(TaskType.GET_MENU_LIST.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "Menu"+Preferences.getInstance().user_id).get(0));
 //                        } catch (JSONException e) {
 //                            e.printStackTrace();
 //                        }
@@ -246,8 +219,8 @@ public class MainActivity2 extends AppCompatActivity implements AsyncTaskListene
 //                    } else {
 //                        CD.showDialogCloseActivity(MainActivity2.this, Econstants.NO_DATA);
 //                    }
-//                }
 //
+//                }
 //
 //                pullToRefresh.setRefreshing(false);
 //            }
@@ -274,51 +247,7 @@ public class MainActivity2 extends AppCompatActivity implements AsyncTaskListene
         });
 
 
-        mReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                Log.e("We are Here", intent.getAction());
-                if (intent.getAction() == "getAgenda") {
 
-
-                    if (AppStatus.getInstance(MainActivity2.this).isOnline()) {
-                        GetDataPojo object = new GetDataPojo();
-                        object.setUrl(Econstants.url);
-                        object.setMethord(Econstants.methordGetOnlineCabinetIDMeetingStatus);
-                        object.setMethordHash(Econstants.encodeBase64(Econstants.methordGetOnlineCabinetIDMeetingToken + Econstants.seperator + CommonUtils.getTimeStamp())); //Encode Base64 TODO
-                        object.setTaskType(TaskType.CABINET_MEETING_STATUS);
-                        object.setTimeStamp(CommonUtils.getTimeStamp());
-                        object.setBifurcation("CABINET_MEETING_STATUS");
-
-                        new Generic_Async_Get(
-                                MainActivity2.this,
-                                MainActivity2.this,
-                                TaskType.CABINET_MEETING_STATUS).
-                                execute(object);
-
-                    } else {
-                        DatabaseHandler DB = new DatabaseHandler(MainActivity2.this);
-                        Log.e("CABINET_MEETING_STATUS", Integer.toString(DB.GetAllOfflineDataViaFunction(TaskType.CABINET_MEETING_STATUS.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "CABINET_MEETING_STATUS").size()));
-                        if (DB.GetAllOfflineDataViaFunction(TaskType.CABINET_MEETING_STATUS.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "CABINET_MEETING_STATUS").size() > 0) {
-                            //Show Events
-                            try {
-
-                                showCabinetAgenda(DB.GetAllOfflineDataViaFunction(TaskType.CABINET_MEETING_STATUS.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "CABINET_MEETING_STATUS").get(0));
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
-                        } else {
-                            CD.showDialogCloseActivity(MainActivity2.this, Econstants.NO_DATA);
-                        }
-                    }
-
-
-                }
-
-
-            }
-        };
     }
 
     private void showMenu(OfflineDataModel menu) throws JSONException {
@@ -349,7 +278,7 @@ public class MainActivity2 extends AppCompatActivity implements AsyncTaskListene
                         modules.add(modulesPojo);
                     }
 
-                    adapter_modules = new HomeGridViewAdapter(this, (ArrayList<ModulesPojo>) modules, Global_deptId);
+                    adapter_modules = new HomeGridViewAdapter(this, (ArrayList<ModulesPojo>) modules);
                     home_gv.setAdapter(adapter_modules);
 
 
@@ -364,52 +293,7 @@ public class MainActivity2 extends AppCompatActivity implements AsyncTaskListene
 
 
 
-    private void showCabinetAgenda(OfflineDataModel result) throws JSONException {
 
-        if (result.getFunctionName().equalsIgnoreCase(TaskType.CABINET_MEETING_STATUS.toString())) {
-            AgendaPojo agendaPojo = null;
-
-            Log.e("Result == ", result.getResponse());
-            Object json = null;
-            try {
-                json = new JSONTokener(result.getResponse()).nextValue();
-            } catch (JSONException e) {
-                Log.e("==Error", e.getLocalizedMessage());
-            }
-            if (json instanceof JSONObject) {
-                try {
-                    Log.e("Json Object", "Object");
-                    JSONObject object = new JSONObject(result.getResponse());
-                    agendaPojo = new AgendaPojo();
-                    agendaPojo.setAgendaItemNo(Econstants.decodeBase64(object.optString("AgendaItemNo")));
-                    agendaPojo.setAgendaItemType(Econstants.decodeBase64(object.optString("AgendaItemType")));
-                    agendaPojo.setDeptName(Econstants.decodeBase64(object.optString("DeptName")));
-                    agendaPojo.setFileNo(Econstants.decodeBase64(object.optString("FileNo")));
-                    agendaPojo.setSubject(Econstants.decodeBase64(object.optString("Subject")));
-
-
-                    if (agendaPojo.getAgendaItemType().length() > 0) {
-                        Log.e("Agenda", agendaPojo.toString());
-                        CD.showDialogActiveAjenda(MainActivity2.this, agendaPojo);
-                        //TODO Agenda Pop Up
-                    } else {
-                        Log.e("Agenda", agendaPojo.toString());
-                        CD.showDialogSuccess(MainActivity2.this, "No Active Agenda Item Available.");
-                    }
-
-                } catch (Exception ex) {
-                    Log.e("arrayReports", ex.toString());
-                }
-
-
-            }
-
-
-        } else {
-            CD.showDialog(MainActivity2.this, result.getResponse());
-
-        }
-    }
 
 
     @Override
@@ -423,7 +307,7 @@ public class MainActivity2 extends AppCompatActivity implements AsyncTaskListene
     protected void onResume() {
         super.onResume();
         // PreventScreenshot.on(MainActivity2.this);
-        registerReceiver(mReceiver, new IntentFilter("getAgenda"));
+      //  registerReceiver(mReceiver, new IntentFilter("getAgenda"));
 
     }
 
@@ -443,7 +327,7 @@ public class MainActivity2 extends AppCompatActivity implements AsyncTaskListene
     @Override
     protected void onPause() {
         // PreventScreenshot.on(MainActivity2.this);
-        unregisterReceiver(mReceiver);
+        //unregisterReceiver(mReceiver);
         super.onPause();
 
     }
@@ -464,18 +348,18 @@ public class MainActivity2 extends AppCompatActivity implements AsyncTaskListene
                 //Save the rsult to Database
                 DatabaseHandler DH = new DatabaseHandler(MainActivity2.this);
                 //Check weather the Hash is Present in the DB or not
-                Log.e("??Total Numner of Rows", Integer.toString(DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_MENU_LIST.toString(), "Menu" + Global_deptId)));
-                if (DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_MENU_LIST.toString(), "Menu" + Global_deptId) == 1) {
+                Log.e("??Total Numner of Rows", Integer.toString(DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_MENU_LIST.toString(), "Menu"+Preferences.getInstance().user_id)));
+                if (DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_MENU_LIST.toString(), "Menu"+Preferences.getInstance().user_id) == 1) {
                     //Update the Earlier Record
                     DH.updateData(result);
                     Log.e("Updated Row", Boolean.toString(DH.updateData(result)));
-                } else if (DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_MENU_LIST.toString(), "Menu" + Global_deptId) == 0) {
+                } else if (DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_MENU_LIST.toString(), "Menu"+Preferences.getInstance().user_id) == 0) {
                     DH.addOfflineAccess(result);
                     Log.e("Added Row", Boolean.toString(DH.addOfflineAccess(result)));
                 } else {
                     //DELETE ALL THE RECORDS
-                    DH.deleteAllExistingOfflineData(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_MENU_LIST.toString(), "Menu" + Global_deptId);
-                    Log.e("Total Records Deleted:-", Integer.toString(DH.deleteAllExistingOfflineData(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_MENU_LIST.toString(), "Menu" + Global_deptId)));
+                    DH.deleteAllExistingOfflineData(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_MENU_LIST.toString(), "Menu"+Preferences.getInstance().user_id);
+                    Log.e("Total Records Deleted:-", Integer.toString(DH.deleteAllExistingOfflineData(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_MENU_LIST.toString(), "Menu"+Preferences.getInstance().user_id)));
                     //Add the Latest Record
                     DH.addOfflineAccess(result);
                 }
@@ -485,32 +369,6 @@ public class MainActivity2 extends AppCompatActivity implements AsyncTaskListene
                 CD.showDialogCloseActivity(MainActivity2.this, result.getResponse());
             }
 
-
-        } else if (taskType == TaskType.CABINET_MEETING_STATUS) {
-            if (result.getHttpFlag().equalsIgnoreCase(Econstants.success)) {
-                //Save the rsult to Database
-                DatabaseHandler DH = new DatabaseHandler(MainActivity2.this);
-                //Check weather the Hash is Present in the DB or not
-                Log.e("??Total Numner of Rows", Integer.toString(DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.CABINET_MEETING_STATUS.toString(), "CABINET_MEETING_STATUS")));
-                if (DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.CABINET_MEETING_STATUS.toString(), "CABINET_MEETING_STATUS") == 1) {
-                    //Update the Earlier Record
-                    DH.updateData(result);
-                    Log.e("Updated Row", Boolean.toString(DH.updateData(result)));
-                } else if (DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.CABINET_MEETING_STATUS.toString(), "CABINET_MEETING_STATUS") == 0) {
-                    DH.addOfflineAccess(result);
-                    Log.e("Added Row", Boolean.toString(DH.addOfflineAccess(result)));
-                } else {
-                    //DELETE ALL THE RECORDS
-                    DH.deleteAllExistingOfflineData(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.CABINET_MEETING_STATUS.toString(), "CABINET_MEETING_STATUS");
-                    Log.e("Total Records Deleted:-", Integer.toString(DH.deleteAllExistingOfflineData(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.CABINET_MEETING_STATUS.toString(), "CABINET_MEETING_STATUS")));
-                    //Add the Latest Record
-                    DH.addOfflineAccess(result);
-                }
-
-                showCabinetAgenda(result);
-            } else {
-                CD.showDialogCloseActivity(MainActivity2.this, result.getResponse());
-            }
 
         }
     }

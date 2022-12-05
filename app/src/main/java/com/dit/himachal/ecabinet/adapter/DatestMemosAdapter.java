@@ -13,11 +13,9 @@ import android.widget.TextView;
 
 import com.dit.himachal.ecabinet.R;
 import com.dit.himachal.ecabinet.lazyloader.ImageLoader;
-import com.dit.himachal.ecabinet.modal.CabinetMemoPojo;
 import com.dit.himachal.ecabinet.modal.Dates;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class DatestMemosAdapter extends BaseAdapter implements Filterable {

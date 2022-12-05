@@ -46,23 +46,7 @@ public class Generic_Async_Get extends AsyncTask<GetDataPojo,Void , OfflineDataM
         HttpManager http_manager = null;
         try {
             http_manager = new HttpManager();
-            if(getDataPojo[0].getTaskType().toString().equalsIgnoreCase(TaskType.GET_ROLES.toString())){
-                Log.e("We Here", getDataPojo[0].getMethord());
-                Data_From_Server = http_manager.GetData(getDataPojo[0]);
-                return Data_From_Server;
-            }else  if(getDataPojo[0].getTaskType().toString().equalsIgnoreCase(TaskType.GET_DEPARTMENTS_VIA_ROLES.toString())){
-                Log.e("We Here", getDataPojo[0].getMethord());
-                Data_From_Server = http_manager.GetData(getDataPojo[0]);
-                return Data_From_Server;
-            }else  if(getDataPojo[0].getTaskType().toString().equalsIgnoreCase(TaskType.GET_BRANCHES.toString())){
-                Log.e("We Here", getDataPojo[0].getMethord());
-                Data_From_Server = http_manager.GetData(getDataPojo[0]);
-                return Data_From_Server;
-            }else  if(getDataPojo[0].getTaskType().toString().equalsIgnoreCase(TaskType.GET_USERS.toString())){
-                Log.e("We Here", getDataPojo[0].getMethord());
-                Data_From_Server = http_manager.GetData(getDataPojo[0]);
-                return Data_From_Server;
-            }else  if(getDataPojo[0].getTaskType().toString().equalsIgnoreCase(TaskType.GET_OTP_VIA_MOBILE.toString())){
+              if(getDataPojo[0].getTaskType().toString().equalsIgnoreCase(TaskType.GET_OTP_VIA_MOBILE.toString())){
                 Log.e("We Here", getDataPojo[0].getMethord());
                 Data_From_Server = http_manager.GetData(getDataPojo[0]);
                 return Data_From_Server;
@@ -74,52 +58,12 @@ public class Generic_Async_Get extends AsyncTask<GetDataPojo,Void , OfflineDataM
                 Log.e("We Here", getDataPojo[0].getMethord());
                 Data_From_Server = http_manager.GetData(getDataPojo[0]);
                 return Data_From_Server;
-            }else  if(getDataPojo[0].getTaskType().toString().equalsIgnoreCase(TaskType.CABINET_MEETING_STATUS.toString())){
-                Log.e("We Here", getDataPojo[0].getMethord());
-                Data_From_Server = http_manager.GetData(getDataPojo[0]);
-                return Data_From_Server;
-            }else  if(getDataPojo[0].getTaskType().toString().equalsIgnoreCase(TaskType.GET_PENDING_MEMO_LIST_CABINET.toString())){
-                Log.e("We Here", getDataPojo[0].getMethord());
-                Data_From_Server = http_manager.GetData(getDataPojo[0]);
-                return Data_From_Server;
-            }else  if(getDataPojo[0].getTaskType().toString().equalsIgnoreCase(TaskType.CABINET_MEMOS_DETAILS.toString())){
-                Log.e("We Here", getDataPojo[0].getMethord());
-                Data_From_Server = http_manager.GetData(getDataPojo[0]);
-                return Data_From_Server;
-            }else  if(getDataPojo[0].getTaskType().toString().equalsIgnoreCase(TaskType.ALLOW.toString())){
-                Log.e("We Here", getDataPojo[0].getMethord());
-                Data_From_Server = http_manager.GetData(getDataPojo[0]);
-                return Data_From_Server;
-            }else  if(getDataPojo[0].getTaskType().toString().equalsIgnoreCase(TaskType.GET_ALLOWED_MEMO_LIST_CABINET.toString())){
-                Log.e("We Here", getDataPojo[0].getMethord());
-                Data_From_Server = http_manager.GetData(getDataPojo[0]);
-                return Data_From_Server;
-            }else  if(getDataPojo[0].getTaskType().toString().equalsIgnoreCase(TaskType.GET_PUBLISHED_MEETING_ID_BY_ROLE.toString())){
-                Log.e("We Here", getDataPojo[0].getMethord());
-                Data_From_Server = http_manager.GetData(getDataPojo[0]);
-                return Data_From_Server;
-            }else  if(getDataPojo[0].getTaskType().toString().equalsIgnoreCase(TaskType.FINAL_MEETING_AGENDA_LIST.toString())){
-                Log.e("We Here", getDataPojo[0].getMethord());
-                Data_From_Server = http_manager.GetData(getDataPojo[0]);
-                return Data_From_Server;
-            }else  if (getDataPojo[0].getTaskType().toString().equalsIgnoreCase(TaskType.GET_CABINET_DECISIONS_COUNT.toString())) {
-                Log.e("We Here", getDataPojo[0].getMethord());
-                Data_From_Server = http_manager.GetData(getDataPojo[0]);
-                return Data_From_Server;
-            } else if (getDataPojo[0].getTaskType().toString().equalsIgnoreCase(TaskType.GET_ACTION.toString())) {
-                Log.e("We Here", getDataPojo[0].getMethord());
-                Data_From_Server = http_manager.GetData(getDataPojo[0]);
-                return Data_From_Server;
-            } else if (getDataPojo[0].getTaskType().toString().equalsIgnoreCase(TaskType.GET_SENT_BACK_TO.toString())) {
+            }
+            else if (getDataPojo[0].getTaskType().toString().equalsIgnoreCase(TaskType.Get_Registered_Advocates_List.toString())) {
                 Log.e("We Here", getDataPojo[0].getMethord());
                 Data_From_Server = http_manager.GetData(getDataPojo[0]);
                 return Data_From_Server;
             }
-
-
-
-
-
 
 
         } catch (Exception e) {

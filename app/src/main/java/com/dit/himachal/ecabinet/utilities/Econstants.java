@@ -39,6 +39,9 @@ public class Econstants {
     public static final String methordMenuList ="GetAdvocateMenuList";
     public static final String methordMenuListToken ="UFG776888a314e7421e7e12f5cfuhuu081f0";
 
+    public static final String methordGetRegisteredAdvocatesList = "GetRegisteredAdvocatesList";
+    public static final String methordGetRegisteredAdvocatesListToken="7288c3c5f374ab7ca1c17e739f167f39";
+
     public static final String methordGetOnlineCabinetIDMeetingStatus ="ActiveCabinetMemoDuringMeeting";
     public static final String methordGetOnlineCabinetIDMeetingToken ="ddddaccssaa314e7421e7e12f5cf7171081arrr";
 

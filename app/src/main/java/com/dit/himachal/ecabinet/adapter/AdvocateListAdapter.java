@@ -13,18 +13,18 @@ import android.widget.TextView;
 
 import com.dit.himachal.ecabinet.R;
 import com.dit.himachal.ecabinet.lazyloader.ImageLoader;
-import com.dit.himachal.ecabinet.modal.CabinetMemoPojo;
+import com.dit.himachal.ecabinet.modal.AdvocateListPojo;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CabinetMemosAdapter extends BaseAdapter implements Filterable {
+public class AdvocateListAdapter extends BaseAdapter implements Filterable {
 
     private Context context;
-    private List<CabinetMemoPojo> news;
+    private List<AdvocateListPojo> news;
 
     private Filter planetFilter;
-    private List<CabinetMemoPojo> origUserList;
+    private List<AdvocateListPojo> origUserList;
 
     ImageLoader il = new ImageLoader(context);
     String param_ = null;
@@ -34,12 +34,11 @@ public class CabinetMemosAdapter extends BaseAdapter implements Filterable {
      * @param context
      * @param objects
      */
-    public CabinetMemosAdapter(Context context, List<CabinetMemoPojo> objects, String param) {
+    public AdvocateListAdapter(Context context, List<AdvocateListPojo> objects) {
 
         this.context = context;
         this.news = objects;
         this.origUserList = objects;
-        this.param_ =param;
     }
 
 
@@ -57,7 +56,7 @@ public class CabinetMemosAdapter extends BaseAdapter implements Filterable {
      * @return
      */
     @Override
-    public CabinetMemoPojo getItem(int position) {
+    public AdvocateListPojo getItem(int position) {
         return news.get(position);
     }
 
@@ -81,7 +80,7 @@ public class CabinetMemosAdapter extends BaseAdapter implements Filterable {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.cabinet_memo_list, parent, false);
 
-        CabinetMemoPojo u = news.get(position);
+        AdvocateListPojo u = news.get(position);
         TextView name = view.findViewById(R.id.name);
         TextView state_dept = view.findViewById(R.id.state_dept);
         TextView central_dept = view.findViewById(R.id.central_dept);
@@ -89,53 +88,15 @@ public class CabinetMemosAdapter extends BaseAdapter implements Filterable {
         TextView number = view.findViewById(R.id.number);
         TextView details = view.findViewById(R.id.details);
 
-        if (param_.equalsIgnoreCase("Forwarded")) {
+
             imageView1.setImageDrawable(context.getResources().getDrawable(R.drawable.forward_memos));
             state_dept.setVisibility(View.GONE);
             number.setVisibility(View.GONE);
 
-            name.setText(u.getSubject());
-            state_dept.setText("Agenda Item No:- " + u.getAgendaItemType());
-            central_dept.setText(u.getDeptName());
-        } else if (param_.equalsIgnoreCase("Backwarded")) {
-            imageView1.setImageDrawable(context.getResources().getDrawable(R.drawable.sent_back_memos));
-            state_dept.setVisibility(View.GONE);
-            number.setVisibility(View.GONE);
+            name.setText(u.getAdvocateName());
+            state_dept.setText( u.getBarCouncilName());
+            central_dept.setText(u.getDateofRegistration());
 
-            name.setText(u.getSubject());
-            state_dept.setText("Agenda Item No:- " + u.getAgendaItemType());
-            central_dept.setText(u.getDeptName());
-        }else if (param_.equalsIgnoreCase("PlacedInCabinet")) {
-            imageView1.setImageDrawable(context.getResources().getDrawable(R.drawable.sent_back_memos));
-            state_dept.setVisibility(View.VISIBLE);
-            number.setVisibility(View.GONE);
-            name.setText(u.getSubject());
-            state_dept.setText("Date:- " + u.getMeetingdate() + ", Item No:- " + u.getAgendaItemType());
-            //  state_dept.setText("Item No:- "+u.getAgendaItemType());
-            central_dept.setText(u.getDeptName());
-        } else if (param_.equalsIgnoreCase("final")) {
-            imageView1.setImageDrawable(context.getResources().getDrawable(R.drawable.cabinet_memos));
-            state_dept.setVisibility(View.VISIBLE);
-            number.setVisibility(View.VISIBLE);
-            details.setVisibility(View.GONE);
-            number.setText("Item Number:- " + u.getAgendaItemNo());
-            name.setText(u.getSubject());
-            state_dept.setText("Date:- " + u.getMeetingdate() + "\n" + "Item Type:- " + u.getAgendaItemType());
-            //  state_dept.setText("Item No:- "+u.getAgendaItemType());
-            central_dept.setText(u.getDeptName());
-        } else {
-            imageView1.setImageDrawable(context.getResources().getDrawable(R.drawable.cabinet_memos));
-            state_dept.setVisibility(View.VISIBLE);
-            name.setText(u.getSubject());
-            number.setVisibility(View.GONE);
-            number.setText("Item Number:- " + u.getAgendaItemNo());
-            state_dept.setText("Item Type :- " + u.getAgendaItemType());
-            state_dept.setVisibility(View.GONE);
-            central_dept.setText(u.getDeptName());
-        }
-
-
-          //  PlacedInCabinet
 
 
 
@@ -155,7 +116,7 @@ public class CabinetMemosAdapter extends BaseAdapter implements Filterable {
     @Override
     public Filter getFilter() {
         if (planetFilter == null)
-            planetFilter = new CabinetMemosAdapter.PlanetFilter();
+            planetFilter = new AdvocateListAdapter.PlanetFilter();
 
         return planetFilter;
     }
@@ -178,10 +139,10 @@ public class CabinetMemosAdapter extends BaseAdapter implements Filterable {
             }
             else {
                 // We perform filtering operation
-                List<CabinetMemoPojo> nPlanetList = new ArrayList<>();
+                List<AdvocateListPojo> nPlanetList = new ArrayList<>();
 
-                for (CabinetMemoPojo p : news) {
-                    if (p.getSubject().toUpperCase().contains(constraint.toString().toUpperCase())){
+                for (AdvocateListPojo p : news) {
+                    if (p.getAdvocateName().toUpperCase().contains(constraint.toString().toUpperCase())){
                         nPlanetList.add(p);
                     }//else{
 //                        nPlanetList.remove(p);
@@ -209,7 +170,7 @@ public class CabinetMemosAdapter extends BaseAdapter implements Filterable {
             if (results.count == 0)
                 notifyDataSetInvalidated();
             else {
-                news = (List<CabinetMemoPojo>) results.values;
+                news = (List<AdvocateListPojo>) results.values;
                 notifyDataSetChanged();
             }
 
