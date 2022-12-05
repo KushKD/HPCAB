@@ -80,6 +80,7 @@ public class ArchiveCaseActivity extends AppCompatActivity implements AsyncTaskL
             parameters.add(Preferences.getInstance().role_id);
             parameters.add(Preferences.getInstance().user_id);
             object.setParameters(parameters);
+            object.setBifurcation("Get_Archive_Cases"+Preferences.getInstance().user_id);
 
             new Generic_Async_Get(
                     ArchiveCaseActivity.this,
@@ -315,16 +316,16 @@ public class ArchiveCaseActivity extends AppCompatActivity implements AsyncTaskL
                 DatabaseHandler DH = new DatabaseHandler(ArchiveCaseActivity.this);
                 //Check weather the Hash is Present in the DB or not
                 Log.e("??Total Numner of Rows", Integer.toString(DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), "Get_Archive_Cases"+Preferences.getInstance().user_id)));
-                if (DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), "Get_Archive_Cases"+Preferences.getInstance().user_id) == 1) {
+                if (DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.Get_Archive_Cases.toString(), "Get_Archive_Cases"+Preferences.getInstance().user_id) == 1) {
                     //Update the Earlier Record
                     DH.updateData(result);
                     Log.e("Updated Row", Boolean.toString(DH.updateData(result)));
-                } else if (DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), "Get_Archive_Cases"+Preferences.getInstance().user_id) == 0) {
+                } else if (DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.Get_Archive_Cases.toString(), "Get_Archive_Cases"+Preferences.getInstance().user_id) == 0) {
                     DH.addOfflineAccess(result);
                     Log.e("Added Row", Boolean.toString(DH.addOfflineAccess(result)));
                 } else {
                     //DELETE ALL THE RECORDS
-                    DH.deleteAllExistingOfflineData(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), "Get_Archive_Cases"+Preferences.getInstance().user_id);
+                    DH.deleteAllExistingOfflineData(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.Get_Archive_Cases.toString(), "Get_Archive_Cases"+Preferences.getInstance().user_id);
                     Log.e("Total Records Deleted:-", Integer.toString(DH.deleteAllExistingOfflineData(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_PENDING_MEMO_LIST_CABINET.toString(), "Get_Archive_Cases"+Preferences.getInstance().user_id)));
                     //Add the Latest Record
                     DH.addOfflineAccess(result);
