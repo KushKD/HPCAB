@@ -157,10 +157,10 @@ public class MainActivity2 extends AppCompatActivity implements AsyncTaskListene
         } else {
 
             DatabaseHandler DB = new DatabaseHandler(MainActivity2.this);
-            Log.e("GET_MENU_LIST", Integer.toString(DB.GetAllOfflineDataViaFunction(TaskType.GET_MENU_LIST.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "Menu"+Preferences.getInstance().user_id).size()));
-            if (DB.GetAllOfflineDataViaFunction(TaskType.GET_MENU_LIST.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "Menu"+Preferences.getInstance().user_id).size() > 0) {
+            Log.e("GET_MENU_LIST", Integer.toString(DB.GetAllOfflineDataViaFunction(TaskType.GET_MENU_LIST.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "GET_MENU_LIST").size()));
+            if (DB.GetAllOfflineDataViaFunction(TaskType.GET_MENU_LIST.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "GET_MENU_LIST").size() > 0) {
                 try {
-                    showMenu(DB.GetAllOfflineDataViaFunction(TaskType.GET_MENU_LIST.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "Menu"+Preferences.getInstance().user_id).get(0));
+                    showMenu(DB.GetAllOfflineDataViaFunction(TaskType.GET_MENU_LIST.toString(), Preferences.getInstance().user_id, Preferences.getInstance().role_id, "GET_MENU_LIST").get(0));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -348,18 +348,18 @@ public class MainActivity2 extends AppCompatActivity implements AsyncTaskListene
                 //Save the rsult to Database
                 DatabaseHandler DH = new DatabaseHandler(MainActivity2.this);
                 //Check weather the Hash is Present in the DB or not
-                Log.e("??Total Numner of Rows", Integer.toString(DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_MENU_LIST.toString(), "Menu"+Preferences.getInstance().user_id)));
+                Log.e("??Total Numner of Rows", Integer.toString(DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_MENU_LIST.toString(), "GET_MENU_LIST")));
                 if (DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_MENU_LIST.toString(), "Menu"+Preferences.getInstance().user_id) == 1) {
                     //Update the Earlier Record
                     DH.updateData(result);
                     Log.e("Updated Row", Boolean.toString(DH.updateData(result)));
-                } else if (DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_MENU_LIST.toString(), "Menu"+Preferences.getInstance().user_id) == 0) {
+                } else if (DH.getNoOfRowsBeforeOfflineSave(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_MENU_LIST.toString(), "GET_MENU_LIST") == 0) {
                     DH.addOfflineAccess(result);
                     Log.e("Added Row", Boolean.toString(DH.addOfflineAccess(result)));
                 } else {
                     //DELETE ALL THE RECORDS
-                    DH.deleteAllExistingOfflineData(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_MENU_LIST.toString(), "Menu"+Preferences.getInstance().user_id);
-                    Log.e("Total Records Deleted:-", Integer.toString(DH.deleteAllExistingOfflineData(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_MENU_LIST.toString(), "Menu"+Preferences.getInstance().user_id)));
+                    DH.deleteAllExistingOfflineData(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_MENU_LIST.toString(), "GET_MENU_LIST");
+                    Log.e("Total Records Deleted:-", Integer.toString(DH.deleteAllExistingOfflineData(Preferences.getInstance().user_id, Preferences.getInstance().role_id, TaskType.GET_MENU_LIST.toString(), "GET_MENU_LIST")));
                     //Add the Latest Record
                     DH.addOfflineAccess(result);
                 }

@@ -77,6 +77,7 @@ public class AdvocateList extends AppCompatActivity implements AsyncTaskListener
                 List<String> parameters = new ArrayList<>();
                 parameters.add(Preferences.getInstance().user_id);
                 object.setParameters(parameters);
+               // object.setBifurcation("Get_Registered_Advocates_List");
 
                 new Generic_Async_Get(
                         AdvocateList.this,

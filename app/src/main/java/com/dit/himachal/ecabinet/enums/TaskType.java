@@ -26,7 +26,8 @@ public enum TaskType {
     GET_ACTION(17),
     GET_SENT_BACK_TO(18),
 
-    Get_Registered_Advocates_List(19);
+    Get_Registered_Advocates_List(19),
+    Get_Archive_Cases(20);
 
     int value;
 

@@ -197,6 +197,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public int getNoOfRowsBeforeOfflineSave(String userId, String roleID, String function , String bifurcation) {
         String countQuery = "SELECT  * FROM " + TABLE_OFFLINE_STORAGE + " WHERE  userId = '"+ userId +"' AND rollId = '"+ roleID +"' AND function = '"+ function + "' AND bifurcation = '"+ bifurcation +"' " ;
+        Log.e("Query",countQuery);
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
         int count = cursor.getCount();

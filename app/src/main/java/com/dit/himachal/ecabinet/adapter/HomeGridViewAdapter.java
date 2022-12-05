@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.dit.himachal.ecabinet.R;
 import com.dit.himachal.ecabinet.activities.AdvocateList;
+import com.dit.himachal.ecabinet.activities.ArchiveCaseActivity;
 import com.dit.himachal.ecabinet.lazyloader.ImageLoader;
 import com.dit.himachal.ecabinet.modal.ModulesPojo;
 import com.dit.himachal.ecabinet.presentation.CustomDialog;
@@ -101,11 +102,8 @@ public class HomeGridViewAdapter extends BaseAdapter {
                 //Archived Case List
                 if (s.getId().equalsIgnoreCase("2")) {
                     Log.e("Archived Case List", s.getId());
-//                    Intent i = new Intent(c.getApplicationContext(), CabinetMemoListByRoleActivity.class);
-//                    i.putExtra("department_id", dept_id_);
-//                    i.putExtra("param", "Forwarded");
-//                    (c).startActivity(i);
-
+                    Intent i = new Intent(c.getApplicationContext(), ArchiveCaseActivity.class);
+                    (c).startActivity(i);
                 }
                 //Case List
                 if (s.getId().equalsIgnoreCase("3")) {
