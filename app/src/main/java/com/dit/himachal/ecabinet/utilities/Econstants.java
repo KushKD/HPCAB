@@ -33,8 +33,6 @@ public class Econstants {
     public static final String methordLogin = "GetLogin";
     public static final String methordLoginToken = "dff89999a314e7421e7e12f5cf7171081f0";
 
-    public static final String getDepartmentsViaRoles ="DepartmentsListByRole";
-    public static final String getDepartmentsViaRolesToken ="ccaa314e7421e7e12f5cf7171081a0ddd";
 
     public static final String methordMenuList ="GetAdvocateMenuList";
     public static final String methordMenuListToken ="UFG776888a314e7421e7e12f5cfuhuu081f0";
@@ -45,6 +43,9 @@ public class Econstants {
 
     public static final String methordGetArchiveCases = "GetArchiveCases";
     public static final String methordGetArchiveCasesToken="03862fc4d69f68edd7ecd58eaae97c4f";
+
+    public static final String methordGetAdvocateSubscribedCauseList = "GetAdvocateSubscribedCauseList";
+    public static final String methordGetAdvocateSubscribedCauseListToken="92b2a5c6cfd41f96594002161a2fcf8e";
 
     public static final String NO_DATA = "No Data Available. Please Connect to Internet and try again !";
 
