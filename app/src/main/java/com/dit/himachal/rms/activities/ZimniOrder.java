@@ -203,7 +203,8 @@ public class ZimniOrder extends AppCompatActivity implements AsyncTaskListenerOb
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                CD.showDialog(ZimniOrder.this,"Under Process");
+                ZimniOrderPojo zimni = (ZimniOrderPojo)parent.getItemAtPosition(position);
+                CD.showDialog_moredetails_zimni(ZimniOrder.this,zimni);
 
             }
         });

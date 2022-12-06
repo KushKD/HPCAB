@@ -24,6 +24,7 @@ import com.dit.himachal.rms.databases.DatabaseHandler;
 import com.dit.himachal.rms.enums.TaskType;
 import com.dit.himachal.rms.generic.Generic_Async_Get;
 import com.dit.himachal.rms.interfaces.AsyncTaskListenerObjectGet;
+import com.dit.himachal.rms.modal.AdvocateListPojo;
 import com.dit.himachal.rms.modal.ArchivedCasePojo;
 import com.dit.himachal.rms.modal.GetDataPojo;
 import com.dit.himachal.rms.modal.OfflineDataModel;
@@ -207,8 +208,8 @@ public class ArchiveCaseActivity extends AppCompatActivity implements AsyncTaskL
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                CD.showDialog(ArchiveCaseActivity.this,"Under Process");
+                ArchivedCasePojo archiveCase = (ArchivedCasePojo) parent.getItemAtPosition(position);
+               CD.showDialog_moredetails_causeList(ArchiveCaseActivity.this,archiveCase);
 
             }
         });

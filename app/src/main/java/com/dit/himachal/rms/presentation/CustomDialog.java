@@ -22,9 +22,12 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.dit.himachal.rms.R;
+import com.dit.himachal.rms.activities.ArchiveCaseActivity;
 import com.dit.himachal.rms.lazyloader.ImageLoader;
 import com.dit.himachal.rms.modal.AdvocateListPojo;
 import com.dit.himachal.rms.modal.AgendaPojo;
+import com.dit.himachal.rms.modal.ArchivedCasePojo;
+import com.dit.himachal.rms.modal.ZimniOrderPojo;
 import com.dit.himachal.rms.utilities.HardwareDetails;
 import com.downloader.Error;
 import com.downloader.OnCancelListener;
@@ -149,6 +152,99 @@ public class CustomDialog {
         bar.setText(pojo.getBarCouncilName());
         registrationdate.setText(pojo.getDateofRegistration());
         reg_num.setText(pojo.getRegistrationNo());
+
+
+
+        dialog_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+
+    }
+
+    public void showDialog_moredetails_causeList(final Activity activity, final ArchivedCasePojo pojo) {
+        ImageLoader il = new ImageLoader(activity.getApplicationContext());
+        final Dialog dialog = new Dialog(activity);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.dialog_custom_moredetails_cause);
+
+        int width = (int) (activity.getResources().getDisplayMetrics().widthPixels * 1);
+        int height = (int) (activity.getResources().getDisplayMetrics().heightPixels * 1);
+        dialog.getWindow().setLayout(width, height);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        TextView caseno = dialog.findViewById(R.id.caseno);
+        TextView casesubtype = dialog.findViewById(R.id.casesubtype);
+        TextView casetitle = dialog.findViewById(R.id.casetitle);
+        TextView casetype = dialog.findViewById(R.id.casetype);
+        TextView caseyear = dialog.findViewById(R.id.caseyear);
+        TextView institutiondate = dialog.findViewById(R.id.institutiondate);
+
+
+
+        Button dialog_ok = dialog.findViewById(R.id.dialog_ok);
+
+
+
+        caseno.setText(pojo.getCaseNo());
+        casesubtype.setText(pojo.getCaseSubType());
+        casetitle.setText(pojo.getCaseTitle());
+        casetype.setText(pojo.getCaseType());
+        caseyear.setText(pojo.getCaseYear());
+        institutiondate.setText(pojo.getInstitutionDate());
+
+
+
+        dialog_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+
+    }
+
+
+
+
+    public void showDialog_moredetails_zimni(final Activity activity, final ZimniOrderPojo pojo) {
+        ImageLoader il = new ImageLoader(activity.getApplicationContext());
+        final Dialog dialog = new Dialog(activity);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.dialog_custom_moredetails_zimni);
+
+        int width = (int) (activity.getResources().getDisplayMetrics().widthPixels * 1);
+        int height = (int) (activity.getResources().getDisplayMetrics().heightPixels * 1);
+        dialog.getWindow().setLayout(width, height);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        TextView caseno = dialog.findViewById(R.id.caseno);
+        TextView casetitle = dialog.findViewById(R.id.casetitle);
+        TextView caseyear = dialog.findViewById(R.id.caseyear);
+        TextView hearingdate = dialog.findViewById(R.id.hearingdate);
+        TextView publisheddate = dialog.findViewById(R.id.publisheddate);
+
+
+
+        Button dialog_ok = dialog.findViewById(R.id.dialog_ok);
+
+
+
+        caseno.setText(pojo.getCaseNo());
+        casetitle.setText(pojo.getCaseTitle());
+        caseyear.setText(pojo.getCaseYear());
+        hearingdate.setText(pojo.getHearingDate());
+        publisheddate.setText(pojo.getPublishedDate());
 
 
 

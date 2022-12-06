@@ -88,8 +88,9 @@ public class AdvocateListAdapter extends BaseAdapter implements Filterable {
         TextView number = view.findViewById(R.id.number);
         TextView details = view.findViewById(R.id.details);
 
+            il.DisplaySquareImage(u.getPassportPhoto(),imageView1,null,null,false);
 
-            imageView1.setImageDrawable(context.getResources().getDrawable(R.drawable.forward_memos));
+           // imageView1.setImageDrawable(context.getResources().getDrawable(R.drawable.judge));
             state_dept.setVisibility(View.GONE);
             number.setVisibility(View.GONE);
 

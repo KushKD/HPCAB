@@ -89,7 +89,7 @@ public class ArchivedCaseListAdapter extends BaseAdapter implements Filterable {
         TextView details = view.findViewById(R.id.details);
 
 
-            imageView1.setImageDrawable(context.getResources().getDrawable(R.drawable.forward_memos));
+            imageView1.setImageDrawable(context.getResources().getDrawable(R.drawable.archive));
             state_dept.setVisibility(View.GONE);
             number.setVisibility(View.GONE);
 

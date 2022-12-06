@@ -209,7 +209,8 @@ public class SubscribedCases extends AppCompatActivity implements AsyncTaskListe
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                CD.showDialog(SubscribedCases.this,"Under Process");
+                ArchivedCasePojo archiveCase = (ArchivedCasePojo) parent.getItemAtPosition(position);
+                CD.showDialog_moredetails_causeList(SubscribedCases.this,archiveCase);
 
             }
         });
