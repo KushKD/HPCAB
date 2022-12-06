@@ -202,8 +202,8 @@ public class AdvocateList extends AppCompatActivity implements AsyncTaskListener
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-            CD.showDialog(AdvocateList.this,"Under Process");
+                AdvocateListPojo advocate = (AdvocateListPojo) parent.getItemAtPosition(position);
+            CD.showDialog_moredetails(AdvocateList.this,advocate);
 
             }
         });

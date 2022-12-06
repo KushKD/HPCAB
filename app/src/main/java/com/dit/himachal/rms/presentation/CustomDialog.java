@@ -13,12 +13,17 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.dit.himachal.rms.R;
+import com.dit.himachal.rms.lazyloader.ImageLoader;
+import com.dit.himachal.rms.modal.AdvocateListPojo;
 import com.dit.himachal.rms.modal.AgendaPojo;
 import com.dit.himachal.rms.utilities.HardwareDetails;
 import com.downloader.Error;
@@ -41,6 +46,7 @@ import java.io.File;
  */
 public class CustomDialog {
     int downloadIdOne;
+
 
 
     public void showDialog(final Activity activity, String msg) {
@@ -99,41 +105,57 @@ public class CustomDialog {
 
     }
 
-    public void showDialogActiveAjenda(final Activity activity, AgendaPojo object) {
+    /**
+     * @param activity
+     * @param pojo
+     */
+    public void showDialog_moredetails(final Activity activity, final AdvocateListPojo pojo) {
+        ImageLoader il = new ImageLoader(activity.getApplicationContext());
         final Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setCancelable(true);
-        dialog.setContentView(R.layout.agenda_description);
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.dialog_custom_moredetails_advocate);
 
-        int width = (int) (activity.getResources().getDisplayMetrics().widthPixels );
-        int height = (int) (activity.getResources().getDisplayMetrics().heightPixels );
+        int width = (int) (activity.getResources().getDisplayMetrics().widthPixels * 1);
+        int height = (int) (activity.getResources().getDisplayMetrics().heightPixels * 1);
         dialog.getWindow().setLayout(width, height);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        TextView department_name = (TextView) dialog.findViewById(R.id.department_name);
-        TextView file_number = (TextView) dialog.findViewById(R.id.file_number);
-        TextView title = (TextView) dialog.findViewById(R.id.title);
-        TextView agenda_number = (TextView) dialog.findViewById(R.id.agenda_number);
-        TextView agenda_type = (TextView) dialog.findViewById(R.id.agenda_type);
-        TextView subject = (TextView) dialog.findViewById(R.id.subject);
-
-        department_name.setText(object.getDeptName());
-        file_number.setText(object.getFileNo());
-        title.setText(object.getFileNo());
-        agenda_number.setText(object.getAgendaItemNo());
-        agenda_type.setText(object.getAgendaItemType());
-        subject.setText(object.getSubject());
+        TextView details = dialog.findViewById(R.id.details);
+        TextView name = dialog.findViewById(R.id.name);
+        TextView bar = dialog.findViewById(R.id.bar);
+        TextView registrationdate = dialog.findViewById(R.id.registrationdate);
+        TextView reg_num = dialog.findViewById(R.id.reg_num);
+        ImageView a = dialog.findViewById(R.id.a);
 
 
+       // Log.e("Image", pojo.getPassportPhoto());
+        il.DisplayCircleImage(pojo.getPassportPhoto(), a, null, null, false);
+
+//        Glide.with(activity)
+//                .load(pojo.getPassportPhoto()) // image url
+//                .placeholder(R.drawable.judge) // any placeholder to load at start
+//                .error(R.drawable.judge)  // any image in case of error
+//                .override(200, 200) // resizing
+//                .centerCrop()
+//                .into(a);  // imageview object
+
+        Button dialog_ok = dialog.findViewById(R.id.dialog_ok);
 
 
 
-        Button dialog_ok = (Button) dialog.findViewById(R.id.dialog_ok);
+        details.setText("Registration Number:- "+pojo.getRegistrationNo());
+        name.setText(pojo.getAdvocateName());
+        bar.setText(pojo.getBarCouncilName());
+        registrationdate.setText(pojo.getDateofRegistration());
+        reg_num.setText(pojo.getRegistrationNo());
+
+
 
         dialog_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // activity.finish();
+
                 dialog.dismiss();
             }
         });
@@ -141,6 +163,7 @@ public class CustomDialog {
         dialog.show();
 
     }
+
 
     public void showDialogCloseActivity(final Activity activity, String msg) {
         final Dialog dialog = new Dialog(activity);
