@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.dit.himachal.ecabinet">
+    package="com.dit.himachal.rms">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -22,7 +22,7 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
         <activity
-            android:name=".activities.ZimniOrder"
+            android:name="com.dit.himachal.rms.activities.ZimniOrder"
             android:alwaysRetainTaskState="true"
             android:focusableInTouchMode="true"
             android:launchMode="singleTop"
@@ -30,7 +30,7 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".activities.SubscribedCases"
+            android:name="com.dit.himachal.rms.activities.SubscribedCases"
             android:alwaysRetainTaskState="true"
             android:focusableInTouchMode="true"
             android:launchMode="singleTop"
@@ -38,7 +38,7 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".activities.NoticeAdvocates"
+            android:name="com.dit.himachal.rms.activities.NoticeAdvocates"
             android:alwaysRetainTaskState="true"
             android:focusableInTouchMode="true"
             android:launchMode="singleTop"
@@ -46,7 +46,7 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".activities.CauseList"
+            android:name="com.dit.himachal.rms.activities.CauseList"
             android:alwaysRetainTaskState="true"
             android:focusableInTouchMode="true"
             android:launchMode="singleTop"
@@ -54,7 +54,7 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".activities.ArchiveCaseActivity"
+            android:name="com.dit.himachal.rms.activities.ArchiveCaseActivity"
             android:alwaysRetainTaskState="true"
             android:focusableInTouchMode="true"
             android:launchMode="singleTop"
@@ -62,7 +62,7 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".activities.MainActivity2"
+            android:name="com.dit.himachal.rms.activities.MainActivity2"
             android:alwaysRetainTaskState="true"
             android:focusableInTouchMode="true"
             android:launchMode="singleTop"
@@ -70,7 +70,7 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".activities.AdvocateList"
+            android:name="com.dit.himachal.rms.activities.AdvocateList"
             android:alwaysRetainTaskState="true"
             android:focusableInTouchMode="true"
             android:launchMode="singleTop"
@@ -78,7 +78,7 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".activities.Login"
+            android:name="com.dit.himachal.rms.activities.Login"
             android:alwaysRetainTaskState="true"
             android:focusableInTouchMode="true"
             android:launchMode="singleTop"
@@ -86,7 +86,7 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".activities.SplashScreen"
+            android:name="com.dit.himachal.rms.activities.SplashScreen"
             android:focusableInTouchMode="true"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
