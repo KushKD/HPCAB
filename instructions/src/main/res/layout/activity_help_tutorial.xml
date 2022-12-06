@@ -39,13 +39,13 @@
             android:layout_alignParentBottom="true"
             android:layout_centerInParent="true"
             android:layout_weight="0.25"
-            android:background="#FFFFFF"
-            android:textStyle="bold"
+            android:background="#8F3C81"
             android:fontFamily="sans-serif"
             android:gravity="center"
             android:text="Skip"
-            android:textColor="#FF1661BB"
-            android:textSize="18sp" />
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <cmreliefdund.kushkumardhawan.com.instructions.CirclePageIndicator
             android:id="@+id/activity_help_view_page_indicator"
@@ -55,10 +55,10 @@
             android:layout_gravity="center_vertical"
             android:layout_weight="0.5"
             android:minHeight="24dp"
-            app:fillColor="#FF1661BB"
-            app:pageColor="#14000000"
+            app:fillColor="#FFFFFF"
+            app:pageColor="#8F3C81"
             app:radius="6dp"
-            app:strokeColor="#E0E0E0"
+            app:strokeColor="#8F3C81"
             app:strokeWidth="0dp" />
 
         <LinearLayout
@@ -72,11 +72,11 @@
                 style="@android:style/Widget.Holo.Button.Borderless"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:layout_gravity="center|center_horizontal|center_vertical"
                 android:layout_margin="8dp"
                 android:padding="16dp"
-                android:layout_gravity="center|center_horizontal|center_vertical"
-                android:src="@drawable/forward"
-                android:textColor="#FF1661BB"
+                android:src="@drawable/ic_navigate_next"
+                android:textColor="#FFFFFF"
                 android:visibility="visible" />
 
             <Button
@@ -87,9 +87,9 @@
                 android:fontFamily="sans-serif"
                 android:gravity="center"
                 android:text="Done"
-                android:textStyle="bold"
-                android:textColor="#FF1661BB"
+                android:textColor="#FFFFFF"
                 android:textSize="18sp"
+                android:textStyle="bold"
                 android:visibility="gone" />
         </LinearLayout>
 

@@ -137,28 +137,6 @@ public class HomeGridViewAdapter extends BaseAdapter {
                     (c).startActivity(i);
                 }
 
-//
-//                if (s.getId().equalsIgnoreCase("21")) {
-//                    Preferences.getInstance().loadPreferences(c.getApplicationContext());
-//
-//
-//                    Preferences.getInstance().role_id = "";
-//                    Preferences.getInstance().user_id = "";
-//                    Preferences.getInstance().user_name = "";
-//                    Preferences.getInstance().Loginuserinfo="";
-//                    Preferences.getInstance().phone_number="";
-//                    Preferences.getInstance().advocate_name="";
-//                    Preferences.getInstance().isLoggedIn = false;
-//
-//
-//                    Preferences.getInstance().savePreferences(c.getApplicationContext());
-//                    Toast.makeText(c.getApplicationContext(), "Logout Successful", Toast.LENGTH_LONG).show();
-//
-//                    Intent mainIntent = new Intent(c.getApplicationContext(), Login.class);
-//                    (c).startActivity(mainIntent);
-//                    ((Activity) c).finish();
-//
-//                }
 
 
 

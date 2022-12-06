@@ -8,6 +8,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/KushDhawan/StudioProjects/HPCAB/app/src/main/res/drawable/solid_line.xml" value="0.108" />
         <entry key="..\:/Users/KushDhawan/StudioProjects/HPCAB/app/src/main/res/layout/activity_archive_case.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/KushDhawan/StudioProjects/HPCAB/app/src/main/res/layout/activity_cause_list.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/KushDhawan/StudioProjects/HPCAB/app/src/main/res/layout/activity_login.xml" value="0.17074275362318841" />
@@ -20,6 +21,7 @@
         <entry key="..\:/Users/KushDhawan/StudioProjects/HPCAB/app/src/main/res/layout/advocate_list.xml" value="0.18" />
         <entry key="..\:/Users/KushDhawan/StudioProjects/HPCAB/app/src/main/res/layout/app_bar_main.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/KushDhawan/StudioProjects/HPCAB/app/src/main/res/layout/custom_home_actionbar_layout.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/KushDhawan/StudioProjects/HPCAB/app/src/main/res/layout/home_gridview_model.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/KushDhawan/StudioProjects/HPCAB/app/src/main/res/layout/login_form.xml" value="0.1" />
         <entry key="..\:/Users/KushDhawan/StudioProjects/HPCAB/instructions/src/main/res/layout/activity_help_tutorial.xml" value="0.17074275362318841" />
       </map>

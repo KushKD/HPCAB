@@ -402,6 +402,7 @@ public class MainActivity2 extends AppCompatActivity implements AsyncTaskListene
             Preferences.getInstance().phone_number = "";
 //            Preferences.getInstance().photo = "";
             Preferences.getInstance().isLoggedIn = false;
+            Preferences.getInstance().loadTutorial = false;
 
 
             Preferences.getInstance().savePreferences(MainActivity2.this);

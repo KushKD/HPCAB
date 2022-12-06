@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="tutorial_buttonTextColor">#ffffff</color>
-    <color name="tutorial_subtitleTextColor">#FF6016</color>
-    <color name="tutorial_titleTextColor">#FF1661BB</color>
+    <color name="tutorial_subtitleTextColor">#FFFFFF</color>
+    <color name="tutorial_titleTextColor">#FFFFFF</color>
 </resources>

@@ -205,11 +205,11 @@ public class Login extends AppCompatActivity implements AsyncTaskListenerObjectG
     }
 
     private ArrayList<TutorialItem> getTutorialItems(Context context) {
-        TutorialItem tutorialItem1 = new TutorialItem("Heading 1", " Text One ",
-                R.color.qr_code_white, R.drawable.slider1);
+        TutorialItem tutorialItem1 = new TutorialItem("Instant Updates", "Get Instant Updates of Cases, Notices, Orders ",
+                R.color.colr_maroon, R.drawable.settings);
 
-        TutorialItem tutorialItem2 = new TutorialItem("Heading 2", "Text Two",
-                R.color.qr_code_white,  R.drawable.slider2);
+        TutorialItem tutorialItem2 = new TutorialItem("Advocates", "Get Registered Advocates Lists",
+                R.color.color_red_maroon,  R.drawable.judge);
 
 //        TutorialItem tutorialItem3 = new TutorialItem("Get Your Map Virtually", "Know your guide map virtually. In case you lost your way turn on Live locator.",
 //                R.color.white, R.drawable.slider3);

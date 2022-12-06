@@ -93,8 +93,8 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_semibold"
             android:gravity="center"
-            android:text="\u00A9 2020 Department Of Information Technology"
-            android:textColor="@color/color_dark_rd"
+            android:text="\u00A9 2022 Department Of Information Technology"
+            android:textColor="@color/colcr_blue"
             android:textSize="16sp" />
 
     </LinearLayout><!--</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
