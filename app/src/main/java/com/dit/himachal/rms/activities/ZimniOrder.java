@@ -239,6 +239,7 @@ public class ZimniOrder extends AppCompatActivity implements AsyncTaskListenerOb
                         memoPojo.setCaseYear(Econstants.decodeBase64(objectx.optString("CaseYear")));
                         memoPojo.setHearingDate(Econstants.decodeBase64(objectx.optString("HearingDate")));
                         memoPojo.setPublishedDate(Econstants.decodeBase64(objectx.optString("PublishedDate")));
+                        memoPojo.setZimniPdf(Econstants.decodeBase64(objectx.optString("ZimniPdf")));
                         memoPojo.setStatusMessage(Econstants.decodeBase64(objectx.optString("StatusMessage")));
 
                         if (!memoPojo.getStatusMessage().equalsIgnoreCase("No Record Found")) {

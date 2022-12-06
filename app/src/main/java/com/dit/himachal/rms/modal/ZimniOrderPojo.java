@@ -10,6 +10,15 @@ public class ZimniOrderPojo implements Serializable {
     private String HearingDate;
     private String PublishedDate;
     private String StatusMessage;
+    private String ZimniPdf;
+
+    public String getZimniPdf() {
+        return ZimniPdf;
+    }
+
+    public void setZimniPdf(String zimniPdf) {
+        ZimniPdf = zimniPdf;
+    }
 
     public String getCaseNo() {
         return CaseNo;
@@ -68,6 +77,7 @@ public class ZimniOrderPojo implements Serializable {
                 ", HearingDate='" + HearingDate + '\'' +
                 ", PublishedDate='" + PublishedDate + '\'' +
                 ", StatusMessage='" + StatusMessage + '\'' +
+                ", ZimniPdf='" + ZimniPdf + '\'' +
                 '}';
     }
 }

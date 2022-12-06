@@ -13,7 +13,7 @@
         android:gravity="center"
         android:padding="10dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/act" />
+        android:src="@drawable/notice" />
 
 
     <LinearLayout
@@ -93,9 +93,7 @@
 
                 </LinearLayout>
 
-
-
-                <!-- Date of Registration -->
+                <!-- To Date -->
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -125,8 +123,7 @@
 
                 </LinearLayout>
 
-
-
+                <!-- Date of Registration -->
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -155,6 +152,8 @@
                         android:textColor="@color/colcr_blue" />
 
                 </LinearLayout>
+
+
 
                 <LinearLayout
                     android:layout_width="fill_parent"
@@ -200,11 +199,11 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/poppins_semibold"
                         android:padding="5dp"
-                        android:text="Published Date"
+                        android:text="Issued Date"
                         android:textColor="@color/color_red_maroon" />
 
                     <TextView
-                        android:id="@+id/publisheddate"
+                        android:id="@+id/isseddate"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -214,8 +213,38 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="#fff"
+                    android:clickable="true"
+                    android:elevation="4dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:padding="5dp"
+                        android:text="Notice"
+                        android:textColor="@color/color_red_maroon" />
+
+                    <TextView
+                        android:id="@+id/notice"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:padding="5dp"
+                        android:textColor="@color/colcr_blue" />
+
+                </LinearLayout>
+
+
                 <Button
-                    android:id="@+id/dowmload"
+                    android:id="@+id/download"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/lay"
@@ -225,9 +254,10 @@
                     android:layout_marginBottom="5dp"
                     android:background="@color/color_maroon_top"
                     android:padding="10dp"
-                    android:text="Download Zimni PDF"
+                    android:text="Download Notice"
                     android:textColor="#FFFFFF"
                     android:textSize="14sp" />
+
 
                 <Button
                     android:id="@+id/dialog_ok"

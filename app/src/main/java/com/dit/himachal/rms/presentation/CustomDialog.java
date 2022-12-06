@@ -27,7 +27,10 @@ import com.dit.himachal.rms.lazyloader.ImageLoader;
 import com.dit.himachal.rms.modal.AdvocateListPojo;
 import com.dit.himachal.rms.modal.AgendaPojo;
 import com.dit.himachal.rms.modal.ArchivedCasePojo;
+import com.dit.himachal.rms.modal.CaseNoticesByAdvocatePojo;
+import com.dit.himachal.rms.modal.CauseListPojo;
 import com.dit.himachal.rms.modal.ZimniOrderPojo;
+import com.dit.himachal.rms.utilities.Econstants;
 import com.dit.himachal.rms.utilities.HardwareDetails;
 import com.downloader.Error;
 import com.downloader.OnCancelListener;
@@ -237,6 +240,7 @@ public class CustomDialog {
 
 
         Button dialog_ok = dialog.findViewById(R.id.dialog_ok);
+        Button dowmload = dialog.findViewById(R.id.dowmload);
 
 
 
@@ -245,6 +249,15 @@ public class CustomDialog {
         caseyear.setText(pojo.getCaseYear());
         hearingdate.setText(pojo.getHearingDate());
         publisheddate.setText(pojo.getPublishedDate());
+
+        dowmload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println(pojo.getZimniPdf());
+                showDialogDownloadPDFWithName(activity,pojo.getZimniPdf(),"zimni.pdf", "zimni.pdf");
+
+            }
+        });
 
 
 
@@ -259,6 +272,243 @@ public class CustomDialog {
         dialog.show();
 
     }
+
+    public void showDialog_moredetails_causelist(final Activity activity, final CauseListPojo pojo) {
+        ImageLoader il = new ImageLoader(activity.getApplicationContext());
+        final Dialog dialog = new Dialog(activity);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.dialog_custom_moredetails_causelist);
+
+        int width = (int) (activity.getResources().getDisplayMetrics().widthPixels * 1);
+        int height = (int) (activity.getResources().getDisplayMetrics().heightPixels * 1);
+        dialog.getWindow().setLayout(width, height);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        TextView casefixedfor = dialog.findViewById(R.id.casefixedfor);
+        TextView caseno = dialog.findViewById(R.id.caseno);
+        TextView casetitle = dialog.findViewById(R.id.casetitle);
+        TextView caseyear = dialog.findViewById(R.id.caseyear);
+        TextView court = dialog.findViewById(R.id.court);
+        TextView hearingaddress = dialog.findViewById(R.id.hearingaddress);
+        TextView hearingdate = dialog.findViewById(R.id.hearingdate);
+
+
+
+        Button dialog_ok = dialog.findViewById(R.id.dialog_ok);
+
+
+
+        caseno.setText(pojo.getCaseNo());
+        casetitle.setText(pojo.getCaseTitle());
+        caseyear.setText(pojo.getCaseYear());
+        hearingdate.setText(pojo.getHearingDate());
+        hearingaddress.setText(pojo.getHearingAddress());
+        hearingdate.setText(pojo.getHearingDate());
+        court.setText(pojo.getCourt());
+        casefixedfor.setText(pojo.getCaseFixedFor());
+
+
+
+        dialog_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+
+    }
+
+
+    public void showDialog_moredetails_notice(final Activity activity, final CaseNoticesByAdvocatePojo pojo) {
+        ImageLoader il = new ImageLoader(activity.getApplicationContext());
+        final Dialog dialog = new Dialog(activity);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.dialog_custom_moredetails_notice);
+
+        int width = (int) (activity.getResources().getDisplayMetrics().widthPixels * 1);
+        int height = (int) (activity.getResources().getDisplayMetrics().heightPixels * 1);
+        dialog.getWindow().setLayout(width, height);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        TextView caseno = dialog.findViewById(R.id.caseno);
+        TextView casetitle = dialog.findViewById(R.id.casetitle);
+        TextView caseyear = dialog.findViewById(R.id.caseyear);
+        TextView hearingdate = dialog.findViewById(R.id.hearingdate);
+        TextView isseddate = dialog.findViewById(R.id.isseddate);
+        TextView notice = dialog.findViewById(R.id.notice);
+
+
+
+
+        Button dialog_ok = dialog.findViewById(R.id.dialog_ok);
+        Button download = dialog.findViewById(R.id.download);
+
+
+
+        caseno.setText(pojo.getCaseNo());
+        casetitle.setText(pojo.getCaseTitle());
+        caseyear.setText(pojo.getCaseYear());
+        hearingdate.setText(pojo.getHearingDate());
+        isseddate.setText(pojo.getIssuedDate());
+        notice.setText(pojo.getNotice());
+
+
+
+        dialog_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                dialog.dismiss();
+            }
+        });
+
+        download.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                System.out.println(pojo.getNoticeCopy());
+                showDialogDownloadPDFWithName(activity,pojo.getNoticeCopy(),"notice.pdf", "notice.pdf");
+            }
+        });
+
+        dialog.show();
+
+    }
+
+
+    /**
+     * @param activity
+     * @param pdf_url
+     * @param pdf_name
+     * @param name
+     */
+    @SuppressLint("NewApi")
+    public void showDialogDownloadPDFWithName(final Activity activity, String pdf_url, final String pdf_name, final String name) {
+
+
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
+        builder.detectFileUriExposure();
+
+
+        final Dialog dialog = new Dialog(activity);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.dialog_custom_download_pdf);
+        TextView text = dialog.findViewById(R.id.name_file);
+        Button dialog_ok = dialog.findViewById(R.id.dialog_ok);
+        final ProgressBar progressBar = dialog.findViewById(R.id.progressBar);
+        final TextView textViewProgress = dialog.findViewById(R.id.textViewProgress);
+
+        PRDownloaderConfig config = PRDownloaderConfig.newBuilder()
+                .setReadTimeout(Econstants.pdfConnectionTimeOut)
+                .setConnectTimeout(Econstants.pdfConnectionTimeOut)
+                .build();
+        PRDownloader.initialize(activity, config);
+
+        text.setText(name);
+
+
+        if (Status.RUNNING == PRDownloader.getStatus(downloadIdOne)) {
+            PRDownloader.pause(downloadIdOne);
+            return;
+        }
+
+
+        progressBar.setIndeterminate(true);
+        progressBar.getIndeterminateDrawable().setColorFilter(Color.RED, android.graphics.PorterDuff.Mode.SRC_IN);
+
+        if (Status.PAUSED == PRDownloader.getStatus(downloadIdOne)) {
+            PRDownloader.resume(downloadIdOne);
+            return;
+        }
+
+        downloadIdOne = PRDownloader.download(pdf_url, HardwareDetails.getRootDirPath(activity), pdf_name)
+                .build()
+                .setOnStartOrResumeListener(new OnStartOrResumeListener() {
+                    @Override
+                    public void onStartOrResume() {
+
+                    }
+                })
+                .setOnPauseListener(new OnPauseListener() {
+                    @Override
+                    public void onPause() {
+
+                    }
+                })
+                .setOnCancelListener(new OnCancelListener() {
+                    @Override
+                    public void onCancel() {
+
+                        downloadIdOne = 0;
+
+                    }
+                })
+                .setOnProgressListener(new OnProgressListener() {
+                    @Override
+                    public void onProgress(Progress progress) {
+                        long progressPercent = progress.currentBytes * 100 / progress.totalBytes;
+
+                        progressBar.setProgress((int) progressPercent);
+                        textViewProgress.setText(HardwareDetails.getProgressDisplayLine(progress.currentBytes, progress.totalBytes));
+                        progressBar.setIndeterminate(false);
+                    }
+                })
+                .start(new OnDownloadListener() {
+                    @Override
+                    public void onDownloadComplete() {
+
+                        Toast.makeText(activity, pdf_name + Econstants.successfulDownload, Toast.LENGTH_SHORT).show();
+                        File file = new File(HardwareDetails.getRootDirPath(activity) + Econstants.slash + pdf_name);
+                        if (file.exists()) {
+                            Intent target = new Intent(Intent.ACTION_VIEW);
+                            target.setDataAndType(Uri.fromFile(file), Econstants.applicationPdf);
+                            target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                            target.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+                            Intent intent = Intent.createChooser(target, Econstants.intentMessageOpen);
+                            try {
+
+                                activity.startActivity(intent);
+                                dialog.dismiss();
+                            } catch (ActivityNotFoundException e) {
+
+                                Toast.makeText(activity, Econstants.downloadPdfViewer, Toast.LENGTH_SHORT).show();
+
+
+                            }
+                        } else
+                            Toast.makeText(activity, "File path is incorrect.", Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onError(Error error) {
+                        Toast.makeText(activity, Econstants.somethingBadHappend, Toast.LENGTH_SHORT).show();
+                        textViewProgress.setText(Econstants.emptyMessage);
+                    }
+
+
+                });
+
+
+        dialog_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                PRDownloader.cancelAll();
+            }
+        });
+
+        dialog.show();
+
+    }
+
 
 
     public void showDialogCloseActivity(final Activity activity, String msg) {

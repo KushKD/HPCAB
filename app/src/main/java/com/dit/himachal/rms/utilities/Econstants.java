@@ -64,6 +64,20 @@ public class Econstants {
     public static final String failure = "FAILURE";
 
 
+    public static final int pdfConnectionTimeOut= 300000;
+    public static final String successfulDownload= "Download successfully";
+    public static final String slash= "/";
+    public static final String extentionPdf =".pdf";
+    public static final String extentionJpg =".jpg";
+    public static final String extentionJpeg =".jpeg";
+    public static final String extentionPng =".png";
+    public static final String applicationPdf ="application/pdf";
+    public static final String intentMessageOpen = "Open File";
+    public static final String downloadPdfViewer = " Download PDF Viewer";
+    public static final String emptyMessage = "";
+    public static final String somethingBadHappend = "Something Bad Happened. Please try again Later.";
+
+
 
     public String successFailure;
     public Integer responseCode;

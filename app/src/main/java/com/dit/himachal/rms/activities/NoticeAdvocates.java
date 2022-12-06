@@ -66,7 +66,7 @@ public class NoticeAdvocates extends AppCompatActivity implements AsyncTaskListe
         header = findViewById(R.id.heading);
 
 
-        header.setText("Advocate List");
+        header.setText("Notice");
         if (AppStatus.getInstance(NoticeAdvocates.this).isOnline()) {
             GetDataPojo object = new GetDataPojo();
             object.setUrl(Econstants.url);
@@ -204,7 +204,8 @@ public class NoticeAdvocates extends AppCompatActivity implements AsyncTaskListe
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                CD.showDialog(NoticeAdvocates.this,"Under Process");
+               CaseNoticesByAdvocatePojo notice  = (CaseNoticesByAdvocatePojo) parent.getItemAtPosition(position);
+               CD.showDialog_moredetails_notice(NoticeAdvocates.this,notice);
 
             }
         });

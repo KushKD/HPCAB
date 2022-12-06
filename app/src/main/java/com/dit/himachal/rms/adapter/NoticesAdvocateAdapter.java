@@ -89,11 +89,11 @@ public class NoticesAdvocateAdapter extends BaseAdapter implements Filterable {
         TextView details = view.findViewById(R.id.details);
 
 
-            imageView1.setImageDrawable(context.getResources().getDrawable(R.drawable.forward_memos));
+            imageView1.setImageDrawable(context.getResources().getDrawable(R.drawable.notice));
             state_dept.setVisibility(View.GONE);
             number.setVisibility(View.GONE);
 
-            name.setText(u.getNotice());
+            name.setText(u.getCaseTitle());
             state_dept.setText( u.getCaseYear());
             central_dept.setText(u.getCaseNo());
 

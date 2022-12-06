@@ -66,7 +66,7 @@ public class CauseList extends AppCompatActivity implements AsyncTaskListenerObj
         header = findViewById(R.id.heading);
 
 
-        header.setText("Advocate List");
+        header.setText("Cause List");
         if (AppStatus.getInstance(CauseList.this).isOnline()) {
             GetDataPojo object = new GetDataPojo();
             object.setUrl(Econstants.url);
@@ -202,7 +202,8 @@ public class CauseList extends AppCompatActivity implements AsyncTaskListenerObj
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                CD.showDialog(CauseList.this,"Under Process");
+                CauseListPojo causeList = (CauseListPojo) parent.getItemAtPosition(position);
+                CD.showDialog_moredetails_causelist(CauseList.this,causeList);
 
             }
         });
@@ -232,14 +233,14 @@ public class CauseList extends AppCompatActivity implements AsyncTaskListenerObj
                         JSONObject objectx = arrayReports.getJSONObject(i);
 
 
-                        memoPojo.setCaseFixedFor(Econstants.decodeBase64(objectx.optString("AdvocateName")));
-                        memoPojo.setCaseNo(Econstants.decodeBase64(objectx.optString("BarCouncilName")));
-                        memoPojo.setCaseTitle(Econstants.decodeBase64(objectx.optString("DateofRegistration")));
-                        memoPojo.setCaseYear(Econstants.decodeBase64(objectx.optString("PassportPhoto")));
-                        memoPojo.setCauseList(Econstants.decodeBase64(objectx.optString("RegistrationNo")));
-                        memoPojo.setCourt(Econstants.decodeBase64(objectx.optString("RegistrationNo")));
-                        memoPojo.setHearingAddress(Econstants.decodeBase64(objectx.optString("RegistrationNo")));
-                        memoPojo.setHearingDate(Econstants.decodeBase64(objectx.optString("RegistrationNo")));
+                        memoPojo.setCaseFixedFor(Econstants.decodeBase64(objectx.optString("CaseFixedFor")));
+                        memoPojo.setCaseNo(Econstants.decodeBase64(objectx.optString("CaseNo")));
+                        memoPojo.setCaseTitle(Econstants.decodeBase64(objectx.optString("CaseTitle")));
+                        memoPojo.setCaseYear(Econstants.decodeBase64(objectx.optString("CaseYear")));
+                        memoPojo.setCauseList(Econstants.decodeBase64(objectx.optString("CauseList")));
+                        memoPojo.setCourt(Econstants.decodeBase64(objectx.optString("Court")));
+                        memoPojo.setHearingAddress(Econstants.decodeBase64(objectx.optString("HearingAddress")));
+                        memoPojo.setHearingDate(Econstants.decodeBase64(objectx.optString("HearingDate")));
                         memoPojo.setStatusMessage(Econstants.decodeBase64(objectx.optString("StatusMessage")));
 
                         if (!memoPojo.getStatusMessage().equalsIgnoreCase("No Record Found")) {
