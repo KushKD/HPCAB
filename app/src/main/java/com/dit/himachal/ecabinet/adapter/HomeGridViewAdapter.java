@@ -16,6 +16,10 @@ import android.widget.TextView;
 import com.dit.himachal.ecabinet.R;
 import com.dit.himachal.ecabinet.activities.AdvocateList;
 import com.dit.himachal.ecabinet.activities.ArchiveCaseActivity;
+import com.dit.himachal.ecabinet.activities.CauseList;
+import com.dit.himachal.ecabinet.activities.NoticeAdvocates;
+import com.dit.himachal.ecabinet.activities.SubscribedCases;
+import com.dit.himachal.ecabinet.activities.ZimniOrder;
 import com.dit.himachal.ecabinet.lazyloader.ImageLoader;
 import com.dit.himachal.ecabinet.modal.ModulesPojo;
 import com.dit.himachal.ecabinet.presentation.CustomDialog;
@@ -108,33 +112,29 @@ public class HomeGridViewAdapter extends BaseAdapter {
                 //Case List
                 if (s.getId().equalsIgnoreCase("3")) {
                     Log.e("Case List", s.getId());
-//                    Intent i = new Intent(c.getApplicationContext(), CabinetMemoListByRoleActivity.class);
-//                    i.putExtra("department_id", dept_id_);
-//                    i.putExtra("param", "Backwarded");
-//                    (c).startActivity(i);
+                    Intent i = new Intent(c.getApplicationContext(), CauseList.class);
+                    (c).startActivity(i);
 
                 }
                 //Notices
                 if (s.getId().equalsIgnoreCase("4")) {
                     Log.e("Notices", s.getId());
-                    CustomDialog CD = new CustomDialog();
-                    CD.showDialog((Activity) c, "Under Process.");
+                    Intent i = new Intent(c.getApplicationContext(), NoticeAdvocates.class);
+                    (c).startActivity(i);
 
                 }
                 //Subscribed List
                 if (s.getId().equalsIgnoreCase("5")) {
                     Log.e("Subscribed List", s.getId());
-                    CustomDialog CD = new CustomDialog();
-                    CD.showDialog((Activity) c, "Under Process.");
+                    Intent i = new Intent(c.getApplicationContext(), SubscribedCases.class);
+                    (c).startActivity(i);
 
                 }
                 //Zimni Orders
                 if (s.getId().equalsIgnoreCase("6")) {
                     Log.e("Zimni Orders", s.getId());
-//                    Intent i = new Intent(c.getApplicationContext(), ApprovedMemo.class);
-//                    i.putExtra("department_id", dept_id_);
-//                    i.putExtra("param", "allowedCabinetMemos");
-//                    (c).startActivity(i);
+                    Intent i = new Intent(c.getApplicationContext(), ZimniOrder.class);
+                    (c).startActivity(i);
                 }
 
 //

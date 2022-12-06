@@ -27,7 +27,11 @@ public enum TaskType {
     GET_SENT_BACK_TO(18),
 
     Get_Registered_Advocates_List(19),
-    Get_Archive_Cases(20);
+    Get_Archive_Cases(20),
+    Get_Advocate_Subscribed_Cause_List(21),
+    Get_Case_Notices_By_Advocate(22),
+    Get_Subscribed_Cases(23),
+    Get_Zimni_Orders_Advocate(24);
 
     int value;
 

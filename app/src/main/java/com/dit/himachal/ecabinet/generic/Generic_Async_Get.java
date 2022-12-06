@@ -67,7 +67,27 @@ public class Generic_Async_Get extends AsyncTask<GetDataPojo,Void , OfflineDataM
                   Log.e("We Here", getDataPojo[0].getMethord());
                   Data_From_Server = http_manager.GetData(getDataPojo[0]);
                   return Data_From_Server;
+              }else if (getDataPojo[0].getTaskType().toString().equalsIgnoreCase(TaskType.Get_Advocate_Subscribed_Cause_List.toString())) {
+                  Log.e("We Here", getDataPojo[0].getMethord());
+                  Data_From_Server = http_manager.GetData(getDataPojo[0]);
+                  return Data_From_Server;
+              }else if (getDataPojo[0].getTaskType().toString().equalsIgnoreCase(TaskType.Get_Case_Notices_By_Advocate.toString())) {
+                  Log.e("We Here", getDataPojo[0].getMethord());
+                  Data_From_Server = http_manager.GetData(getDataPojo[0]);
+                  return Data_From_Server;
               }
+              else if (getDataPojo[0].getTaskType().toString().equalsIgnoreCase(TaskType.Get_Subscribed_Cases.toString())) {
+                  Log.e("We Here", getDataPojo[0].getMethord());
+                  Data_From_Server = http_manager.GetData(getDataPojo[0]);
+                  return Data_From_Server;
+              } else if (getDataPojo[0].getTaskType().toString().equalsIgnoreCase(TaskType.Get_Zimni_Orders_Advocate.toString())) {
+                  Log.e("We Here", getDataPojo[0].getMethord());
+                  Data_From_Server = http_manager.GetData(getDataPojo[0]);
+                  return Data_From_Server;
+              }
+
+
+
 
 
 

@@ -47,6 +47,16 @@ public class Econstants {
     public static final String methordGetAdvocateSubscribedCauseList = "GetAdvocateSubscribedCauseList";
     public static final String methordGetAdvocateSubscribedCauseListToken="92b2a5c6cfd41f96594002161a2fcf8e";
 
+    public static final String methordGetCaseNoticesByAdvocate = "GetCaseNoticesByAdvocate";
+    public static final String methordGetCaseNoticesByAdvocateToken="b98dc73c2a4c8bf6d867cafe1e3a290c";
+
+    public static final String methordGetSubscribedCases = "GetSubscribedCases";
+    public static final String methordGetSubscribedCasesToken="3d26f36651aa463d40536f7e695b08ee";
+
+    public static final String methordGetZimniOrdersAdvocate = "GetZimniOrdersAdvocate";
+    public static final String methordGetZimniOrdersAdvocateToken="885277ad69e673d91867f028f1d63e6e";
+
+
     public static final String NO_DATA = "No Data Available. Please Connect to Internet and try again !";
 
 
